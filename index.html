@@ -14,129 +14,304 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#0d0d0d;
-color:white;
+background:#050505;
+color:#fff;
 padding:15px;
 }
 
+.header{
+background:#0d0d0d;
+border:1px solid #ffcc00;
+border-radius:20px;
+padding:15px;
+margin-bottom:15px;
+}
+
 .logo{
-text-align:center;
-font-size:30px;
+font-size:32px;
 font-weight:bold;
-color:#FFD700;
-margin-top:20px;
+color:#ffcc00;
+text-align:center;
 }
 
 .slogan{
 text-align:center;
-color:#aaa;
-margin-bottom:20px;
+color:#ccc;
+margin-top:5px;
 }
 
 .banner{
-background:linear-gradient(135deg,#FFD700,#ff9800);
-padding:25px;
-border-radius:15px;
-text-align:center;
-font-size:22px;
+margin-top:15px;
+height:180px;
+border-radius:20px;
+background:linear-gradient(135deg,#ffcc00,#8a5a00);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:34px;
 font-weight:bold;
-color:black;
-margin-bottom:20px;
-}
-
-.card{
-background:#1a1a1a;
-padding:15px;
-border-radius:15px;
-margin-bottom:15px;
+color:#000;
 }
 
 .balance{
-font-size:22px;
-color:#FFD700;
-font-weight:bold;
-}
-
-.btn{
-display:block;
-width:100%;
-padding:15px;
-border:none;
-border-radius:12px;
-background:#FFD700;
-color:black;
-font-size:16px;
-font-weight:bold;
-margin-top:10px;
-cursor:pointer;
-}
-
-.category{
-background:#1a1a1a;
-padding:15px;
+background:#101010;
+border:1px solid #ffcc00;
 border-radius:15px;
+padding:15px;
 margin-top:15px;
 }
 
-.category h2{
-color:#FFD700;
+.balance h2{
+color:#ffcc00;
+}
+
+.btn{
+width:100%;
+padding:15px;
+margin-top:10px;
+border:none;
+border-radius:12px;
+background:#ffcc00;
+color:#000;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.menu{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+margin-top:15px;
+}
+
+.menu button{
+background:#101010;
+border:1px solid #ffcc00;
+color:#fff;
+padding:15px;
+border-radius:15px;
+font-size:16px;
+}
+
+.section{
+margin-top:20px;
+}
+
+.title{
+font-size:26px;
+color:#ffcc00;
+margin-bottom:15px;
+}
+
+.products{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.card{
+background:#111;
+border:1px solid #333;
+border-radius:15px;
+padding:15px;
+text-align:center;
+}
+
+.card img{
+width:100%;
+border-radius:10px;
 margin-bottom:10px;
 }
 
-.item{
-background:#262626;
-padding:12px;
-border-radius:10px;
-margin-top:8px;
+.card h3{
+color:#ffcc00;
+}
+
+.price{
+font-size:22px;
+margin:10px 0;
+}
+
+.rating{
+color:gold;
+font-size:18px;
+margin-top:5px;
+}
+
+.payment{
+background:#111;
+padding:15px;
+border-radius:15px;
+margin-top:20px;
+}
+
+.upload{
+border:2px dashed #ffcc00;
+padding:25px;
+border-radius:15px;
+text-align:center;
+margin-top:15px;
+}
+
+.footer{
+margin-top:25px;
+text-align:center;
+color:#888;
 }
 </style>
 </head>
 
 <body>
 
-<div class="logo">VELOX UC SHOP</div>
+<div class="header">
+<div class="logo">👑 VELOX UC SHOP</div>
 <div class="slogan">⚡ FAST • SAFE • CHEAP ⚡</div>
 
 <div class="banner">
-PUBG MOBILE UC STORE
+PUBG MOBILE UC
+</div>
+
+<div class="balance">
+<h2>Баланс: 0 ₽</h2>
+<p>ID Telegram: 123456789</p>
+
+<button class="btn">
+Пополнить баланс
+</button>
+</div>
+
+<div class="menu">
+<button>📦 Заказы</button>
+<button>⭐ Отзывы</button>
+<button>🎧 Поддержка</button>
+</div>
+</div>
+
+<div class="section">
+<div class="title">UC PUBG Mobile</div>
+
+<div class="products">
+
+<div class="card">
+<h3>60 UC</h3>
+<div class="price">99 ₽</div>
+<button class="btn">Купить</button>
 </div>
 
 <div class="card">
-<div class="balance">Баланс: 0 ₽</div>
-<p>ID Telegram: 123456789</p>
-
-<button class="btn">Пополнить баланс</button>
-<button class="btn">Мои заказы</button>
-<button class="btn">Отзывы</button>
-<button class="btn">Поддержка</button>
+<h3>325 UC</h3>
+<div class="price">449 ₽</div>
+<button class="btn">Купить</button>
 </div>
 
-<div class="category">
-<h2>UC PUBG Mobile</h2>
-
-<div class="item">60 UC</div>
-<div class="item">325 UC</div>
-<div class="item">660 UC</div>
-<div class="item">1800 UC</div>
-<div class="item">3850 UC</div>
-<div class="item">8100 UC</div>
-<div class="item">Custom UC</div>
+<div class="card">
+<h3>660 UC</h3>
+<div class="price">899 ₽</div>
+<button class="btn">Купить</button>
 </div>
 
-<div class="category">
-<h2>Prime</h2>
-<div class="item">Prime</div>
+<div class="card">
+<h3>1800 UC</h3>
+<div class="price">2499 ₽</div>
+<button class="btn">Купить</button>
 </div>
 
-<div class="category">
-<h2>Prime Plus</h2>
-<div class="item">Prime Plus</div>
+<div class="card">
+<h3>3850 UC</h3>
+<div class="price">4999 ₽</div>
+<button class="btn">Купить</button>
 </div>
 
-<div class="category">
-<h2>Подарок</h2>
-<div class="item">10 000 UC - 1 000 000 UC</div>
+<div class="card">
+<h3>8100 UC</h3>
+<div class="price">9999 ₽</div>
+<button class="btn">Купить</button>
 </div>
+
+</div>
+</div>
+
+<div class="section">
+<div class="title">Prime</div>
+
+<div class="card">
+<h3>Prime</h3>
+<div class="price">299 ₽</div>
+<button class="btn">Купить</button>
+</div>
+</div>
+
+<div class="section">
+<div class="title">Prime Plus</div>
+
+<div class="card">
+<h3>Prime Plus</h3>
+<div class="price">699 ₽</div>
+<button class="btn">Купить</button>
+</div>
+</div>
+
+<div class="section">
+<div class="title">Подарок</div>
+
+<div class="card">
+<h3>10 000 - 1 000 000 UC</h3>
+<button class="btn">Выбрать</button>
+</div>
+</div>
+
+<div class="payment">
+<h2 style="color:#ffcc00;">Способ оплаты</h2>
+
+<p>Имя: Шарифмох.М.Д</p>
+<p>Номер: 919664644</p>
+<p>Душанбе Сити</p>
+<p>Spitamen Pay</p>
+
+<button class="btn" onclick="copyCard()">
+📋 Копировать номер
+</button>
+</div>
+
+<div class="payment">
+<h2 style="color:#ffcc00;">Отправка чека</h2>
+
+<div class="upload">
+<input type="file">
+</div>
+
+<button class="btn">
+Отправить чек
+</button>
+</div>
+
+<div class="section">
+<div class="title">Отзывы</div>
+
+<div class="card">
+<h3>Akram</h3>
+<div class="rating">★★★★★</div>
+<p>Быстро и надежно</p>
+</div>
+
+<div class="card">
+<h3>Ali</h3>
+<div class="rating">★★★★★</div>
+<p>UC пришел за 2 минуты</p>
+</div>
+</div>
+
+<div class="footer">
+VELOX UC SHOP © 2026
+</div>
+
+<script>
+function copyCard(){
+navigator.clipboard.writeText("919664644");
+alert("Номер скопирован");
+}
+</script>
 
 </body>
 </html>
