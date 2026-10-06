@@ -1,95 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELOX UC SHOP</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
-    background: #050505;
-    color: #fff;
-    padding: 15px;
-    background-image:
-    radial-gradient(circle at top left,#ffcc00 0%,transparent 25%),
-    radial-gradient(circle at bottom right,#ff9900 0%,transparent 20%);
+background:#050505;
+color:white;
+padding:15px;
 }
 
-.header{
-    background: linear-gradient(135deg,#111,#000);
-    border: 1px solid #ffcc00;
-    border-radius: 20px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 0 20px rgba(255,204,0,.3);
+.banner{
+height:180px;
+border-radius:25px;
+background:url('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200') center/cover;
+border:2px solid #ffcc00;
+box-shadow:0 0 25px #ffcc00;
+margin-bottom:15px;
 }
 
-.logo{
-    font-size: 32px;
-    font-weight: bold;
-    color: #ffcc00;
-    text-shadow: 0 0 10px #ffcc00;
+.profile{
+background:#111;
+border:1px solid #ffcc00;
+border-radius:20px;
+padding:15px;
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:15px;
 }
 
-.card{
-    background:#0d0d0d;
-    border:1px solid #222;
-    border-radius:15px;
-    padding:15px;
-    margin-bottom:15px;
-    transition:.3s;
+.avatar{
+width:70px;
+height:70px;
+border-radius:50%;
+background:#ffcc00;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:bold;
+color:black;
 }
 
-.card:hover{
-    border-color:#ffcc00;
-    box-shadow:0 0 15px rgba(255,204,0,.4);
+.name{
+font-size:22px;
+font-weight:bold;
+color:#ffcc00;
 }
 
-.btn{
-    background:linear-gradient(135deg,#ffcc00,#ff9900);
-    color:#000;
-    border:none;
-    padding:12px 20px;
-    border-radius:10px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.btn:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 15px #ffcc00;
+.username{
+opacity:.8;
 }
 
 .balance{
-    color:#ffcc00;
-    font-size:24px;
-    font-weight:bold;
+background:linear-gradient(135deg,#ffcc00,#ff9900);
+color:black;
+padding:20px;
+border-radius:20px;
+font-size:24px;
+font-weight:bold;
+text-align:center;
+margin-bottom:15px;
+box-shadow:0 0 20px #ffcc00;
+}
+
+.btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+font-size:16px;
+font-weight:bold;
+background:#ffcc00;
+color:black;
+margin-bottom:10px;
+cursor:pointer;
+transition:.3s;
+}
+
+.btn:hover{
+transform:scale(1.03);
+}
+
+.section-title{
+font-size:22px;
+font-weight:bold;
+margin:20px 0 15px;
+color:#ffcc00;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.card{
+background:#111;
+border:1px solid #222;
+border-radius:20px;
+padding:15px;
+text-align:center;
+transition:.3s;
+}
+
+.card:hover{
+border-color:#ffcc00;
+transform:translateY(-5px);
+}
+
+.card h3{
+color:#ffcc00;
+margin-bottom:10px;
+}
+
+.price{
+font-size:18px;
+font-weight:bold;
+margin-top:10px;
 }
 
 .menu{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-top:15px;
 }
 
-.menu a{
-    text-decoration:none;
-    color:#fff;
-    background:#111;
-    padding:10px 15px;
-    border-radius:10px;
-    border:1px solid #222;
+.menu button{
+background:#111;
+border:1px solid #ffcc00;
+color:white;
+padding:15px;
+border-radius:15px;
+font-weight:bold;
 }
 
-.menu a:hover{
-    border-color:#ffcc00;
-    color:#ffcc00;
-}<div class="header">
-    <div class="logo">👑 VELOX UC SHOP</div>
-    <br>
+.footer{
+margin-top:25px;
+padding:20px;
+background:#111;
+border-radius:20px;
+text-align:center;
+border:1px solid #ffcc00;
+}
 
-    <div class="menu">
-        <a href="#">🏠 Главная</a>
-        <a href="#">💰 UC</a>
-        <a href="#">👕 X-Suit</a>
-        <a href="#">🚗 Car Tokens</a>
-        <a href="#">🛒 Account Market</a>
-    </div>
+.footer a{
+color:#ffcc00;
+text-decoration:none;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="banner"></div>
+
+<div class="profile">
+<div class="avatar">V</div>
+<div>
+<div class="name">VELOX UC SHOP</div>
+<div class="username">@VELOX_UC</div>
+<div>ID: 123456789</div>
+</div>
+</div>
+
+<div class="balance">
+Баланс: 0 ₽
+</div>
+
+<button class="btn">💳 Пополнить баланс</button>
+
+<div class="menu">
+<button>📦 Мои заказы</button>
+<button>⭐ Отзывы</button>
+<button>👤 Профиль</button>
+<button>🎁 Бонусы</button>
+</div>
+
+<div class="section-title">🔥 PUBG UC</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>60 UC</h3>
+<div class="price">79 ₽</div>
 </div>
 
 <div class="card">
-    <img src="https://i.imgur.com/J7K6P4x.jpeg"
-    style="width:100%;border-radius:15px;">
+<h3>325 UC</h3>
+<div class="price">379 ₽</div>
 </div>
+
+<div class="card">
+<h3>660 UC</h3>
+<div class="price">699 ₽</div>
+</div>
+
+<div class="card">
+<h3>1800 UC</h3>
+<div class="price">1899 ₽</div>
+</div>
+
+<div class="card">
+<h3>3850 UC</h3>
+<div class="price">3699 ₽</div>
+</div>
+
+<div class="card">
+<h3>8100 UC</h3>
+<div class="price">7299 ₽</div>
+</div>
+
+</div>
+
+<div class="section-title">👑 X-Suit Store</div>
+
+<div class="grid">
+<div class="card">
+<h3>Golden Pharaoh</h3>
+<div class="price">В наличии</div>
+</div>
+
+<div class="card">
+<h3>Poseidon X-Suit</h3>
+<div class="price">В наличии</div>
+</div>
+</div>
+
+<div class="section-title">🏎 Car Token</div>
+
+<div class="grid">
+<div class="card">
+<h3>1 Token</h3>
+<div class="price">25 ₽</div>
+</div>
+
+<div class="card">
+<h3>10 Tokens</h3>
+<div class="price">240 ₽</div>
+</div>
+</div>
+
+<div class="section-title">🛒 Account Market</div>
+
+<div class="grid">
+<div class="card">
+<h3>Account #001</h3>
+<div class="price">4500 ₽</div>
+</div>
+
+<div class="card">
+<h3>Account #002</h3>
+<div class="price">7900 ₽</div>
+</div>
+</div>
+
+<div class="footer">
+Telegram:
+<br><br>
+<a href="https://t.me/VELOX_UC">@VELOX_UC</a>
+</div>
+
+</body>
+</html>
