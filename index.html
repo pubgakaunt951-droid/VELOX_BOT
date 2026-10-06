@@ -1,74 +1,95 @@
-<div class="categories">
+body{
+    background: #050505;
+    color: #fff;
+    padding: 15px;
+    background-image:
+    radial-gradient(circle at top left,#ffcc00 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#ff9900 0%,transparent 20%);
+}
 
-  <div class="card">
-    <img src="https://i.imgur.com/0lK9K0W.png">
-    <h3>UC PUBG Mobile</h3>
-    <p>60 UC • 325 UC • 660 UC • 1800 UC</p>
-    <button>Купить</button>
-  </div>
+.header{
+    background: linear-gradient(135deg,#111,#000);
+    border: 1px solid #ffcc00;
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 20px rgba(255,204,0,.3);
+}
 
-  <div class="card">
-    <img src="https://i.imgur.com/9F6JY9k.png">
-    <h3>X-Costume</h3>
-    <p>Продажа X-Suit</p>
-    <button>Купить</button>
-  </div>
-
-  <div class="card">
-    <img src="https://i.imgur.com/tJ1m3L2.png">
-    <h3>Car Token</h3>
-    <p>Bugatti • Ferrari • McLaren</p>
-    <button>Купить</button>
-  </div>
-
-  <div class="card">
-    <img src="https://i.imgur.com/PQ3V7Yv.png">
-    <h3>Account Market</h3>
-    <p>Продажа аккаунтов PUBG</p>
-    <button>Открыть</button>
-  </div>
-
-</div>
-.categories{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-margin-top:20px;
+.logo{
+    font-size: 32px;
+    font-weight: bold;
+    color: #ffcc00;
+    text-shadow: 0 0 10px #ffcc00;
 }
 
 .card{
-background:#111;
-border:1px solid #ffcc00;
-border-radius:20px;
-padding:15px;
-text-align:center;
-box-shadow:0 0 15px rgba(255,204,0,.2);
+    background:#0d0d0d;
+    border:1px solid #222;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:15px;
+    transition:.3s;
 }
 
-.card img{
-width:100%;
-height:120px;
-object-fit:cover;
-border-radius:12px;
+.card:hover{
+    border-color:#ffcc00;
+    box-shadow:0 0 15px rgba(255,204,0,.4);
 }
 
-.card h3{
-color:#ffcc00;
-margin:10px 0;
+.btn{
+    background:linear-gradient(135deg,#ffcc00,#ff9900);
+    color:#000;
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.card p{
-color:#ccc;
-font-size:14px;
+.btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 15px #ffcc00;
 }
 
-.card button{
-width:100%;
-background:#ffcc00;
-color:#000;
-border:none;
-padding:12px;
-border-radius:10px;
-font-weight:bold;
-margin-top:10px;
+.balance{
+    color:#ffcc00;
+    font-size:24px;
+    font-weight:bold;
 }
+
+.menu{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.menu a{
+    text-decoration:none;
+    color:#fff;
+    background:#111;
+    padding:10px 15px;
+    border-radius:10px;
+    border:1px solid #222;
+}
+
+.menu a:hover{
+    border-color:#ffcc00;
+    color:#ffcc00;
+}<div class="header">
+    <div class="logo">👑 VELOX UC SHOP</div>
+    <br>
+
+    <div class="menu">
+        <a href="#">🏠 Главная</a>
+        <a href="#">💰 UC</a>
+        <a href="#">👕 X-Suit</a>
+        <a href="#">🚗 Car Tokens</a>
+        <a href="#">🛒 Account Market</a>
+    </div>
+</div>
+
+<div class="card">
+    <img src="https://i.imgur.com/J7K6P4x.jpeg"
+    style="width:100%;border-radius:15px;">
+</div>
