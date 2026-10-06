@@ -3,69 +3,544 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>VELOX UC SHOP</title>
 
-<style>
-body{
-background:#050505;
-color:white;
-font-family:Arial,sans-serif;
-margin:0;
-padding:15px;
-}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-.header{
-background:#111;
-border:1px solid #ffcc00;
-border-radius:20px;
-padding:15px;
-margin-bottom:15px;
-}
-
-.logo{
-font-size:28px;
-font-weight:bold;
-color:#ffcc00;
-}
-
-.menu{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin-top:15px;
-}
-
-.btn{
-background:#111;
-border:1px solid #ffcc00;
-color:#fff;
-padding:15px;
-border-radius:15px;
-text-align:center;
-text-decoration:none;
-font-weight:bold;
-}
-
-.btn:hover{
-background:#ffcc00;
-color:#000;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 
 </head>
 <body>
 
-<div class="header">
-<div class="logo">🔥 VELOX UC SHOP</div>
-<p>@VELOX_UC</p>
+<div class="banner">
+
+<div class="overlay">
+
+<div class="shop-name">
+VELOX UC SHOP
 </div>
 
-<div class="menu">
-<a href="#" class="btn">💎 UC</a>
-<a href="#" class="btn">🏎 Car Tokens</a>
-<a href="#" class="btn">👑 X-Suit</a>
-<a href="#" class="btn">🛒 Account Market</a>
+<div class="shop-sub">
+PUBG MOBILE MARKET
 </div>
+
+</div>
+
+</div>
+
+<div class="profile-card">
+
+<div class="user-info">
+
+<div class="avatar">
+V
+</div>
+
+<div>
+
+<h3>@VELOX_UC</h3>
+
+<p>ID: 8919163416</p>
+
+</div>
+
+</div>
+
+<div class="balance-box">
+
+<div>
+Баланс
+</div>
+
+<h2>0 ₽</h2>
+
+</div>
+
+<button class="topup-btn">
+Пополнить баланс
+</button>
+
+</div>
+
+<div class="categories">
+
+<div class="cat-card" onclick="openPage('uc')">
+
+<div class="icon">
+💎
+</div>
+
+<h3>UC</h3>
+
+<p>Покупка UC</p>
+
+</div>
+
+<div class="cat-card" onclick="openPage('token')">
+
+<div class="icon">
+🏎
+</div>
+
+<h3>Car Token</h3>
+
+<p>Маркет</p>
+
+</div>
+
+<div class="cat-card" onclick="openPage('xsuit')">
+
+<div class="icon">
+👑
+</div>
+
+<h3>X-Suit</h3>
+
+<p>Маркет</p>
+
+</div>
+
+<div class="cat-card" onclick="openPage('account')">
+
+<div class="icon">
+🛒
+</div>
+
+<h3>Account</h3>
+
+<p>Маркет</p>
+
+</div>
+
+</div>
+
+<div id="content"></div>
+
+<div class="bottom-nav">
+
+<button>🏠</button>
+
+<button>📦</button>
+
+<button>⭐</button>
+
+<button>👤</button>
+
+</div>
+
+<script src="script.js"></script>
 
 </body>
-</html>
+</html>*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0a0a0a;
+color:#fff;
+padding-bottom:90px;
+}
+
+.banner{
+height:220px;
+background:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.7)),
+url('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200');
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:end;
+padding:20px;
+}
+
+.shop-name{
+font-size:28px;
+font-weight:700;
+color:#FFD700;
+}
+
+.shop-sub{
+font-size:14px;
+opacity:.8;
+}
+
+.profile-card{
+background:#141414;
+margin:15px;
+padding:15px;
+border-radius:20px;
+border:1px solid #2b2b2b;
+}
+
+.user-info{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.avatar{
+width:60px;
+height:60px;
+border-radius:50%;
+background:#FFD700;
+color:#000;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:25px;
+font-weight:700;
+}
+
+.balance-box{
+margin-top:15px;
+background:linear-gradient(135deg,#FFD700,#ffae00);
+padding:15px;
+border-radius:15px;
+color:#000;
+font-weight:700;
+}
+
+.balance-box h2{
+margin-top:5px;
+}
+
+.topup-btn{
+width:100%;
+margin-top:12px;
+padding:14px;
+border:none;
+border-radius:15px;
+background:#FFD700;
+font-weight:700;
+cursor:pointer;
+}
+
+.categories{
+padding:15px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.cat-card{
+background:#141414;
+padding:18px;
+border-radius:18px;
+text-align:center;
+border:1px solid #222;
+cursor:pointer;
+transition:.3s;
+}
+
+.cat-card:hover{
+transform:translateY(-4px);
+border-color:#FFD700;
+}
+
+.icon{
+font-size:32px;
+margin-bottom:10px;
+}
+
+.page-title{
+font-size:22px;
+font-weight:700;
+color:#FFD700;
+margin:15px;
+}
+
+.products{
+padding:15px;
+display:grid;
+gap:12px;
+}
+
+.product{
+background:#141414;
+border-radius:18px;
+padding:15px;
+border:1px solid #222;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.buy-btn{
+background:#FFD700;
+color:#000;
+border:none;
+padding:10px 15px;
+border-radius:10px;
+font-weight:700;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:#111;
+display:flex;
+justify-content:space-around;
+padding:15px;
+border-top:1px solid #222;
+}
+
+.bottom-nav button{
+background:none;
+border:none;
+color:white;
+font-size:22px;
+}const content = document.getElementById("content");
+
+function openPage(page){
+
+if(page==="uc"){
+
+content.innerHTML=`
+
+<div class="page-title">💎 PUBG UC</div>
+
+<div class="products">
+
+<div class="product">
+<span>60 UC</span>
+<button class="buy-btn">79 ₽</button>
+</div>
+
+<div class="product">
+<span>325 UC</span>
+<button class="buy-btn">379 ₽</button>
+</div>
+
+<div class="product">
+<span>660 UC</span>
+<button class="buy-btn">699 ₽</button>
+</div>
+
+<div class="product">
+<span>1800 UC</span>
+<button class="buy-btn">1899 ₽</button>
+</div>
+
+<div class="product">
+<span>3850 UC</span>
+<button class="buy-btn">3699 ₽</button>
+</div>
+
+<div class="product">
+<span>8100 UC</span>
+<button class="buy-btn">7299 ₽</button>
+</div>
+
+</div>
+`;
+
+}
+
+if(page==="token"){
+
+content.innerHTML=`
+
+<div class="page-title">🏎 Car Token Market</div>
+
+<div class="products">
+
+<div class="product">
+<span>Фурӯшанда метавонад Token гузорад</span>
+<button class="buy-btn">Харидан</button>
+</div>
+
+</div>
+`;
+
+}
+
+if(page==="xsuit"){
+
+content.innerHTML=`
+
+<div class="page-title">👑 X-Suit Market</div>
+
+<div class="products">
+
+<div class="product">
+<span>Golden Pharaoh X-Suit</span>
+<button class="buy-btn">Харидан</button>
+</div>
+
+<div class="product">
+<span>Poseidon X-Suit</span>
+<button class="buy-btn">Харидан</button>
+</div>
+
+</div>
+`;
+
+}
+
+if(page==="account"){
+
+content.innerHTML=`
+
+<div class="page-title">🛒 Account Market</div>
+
+<div class="products">
+
+<div class="product">
+<span>Аккаунт PUBG</span>
+<button class="buy-btn">Харидан</button>
+</div>
+
+</div>
+`;
+
+}
+
+}function buyProduct(name,price){
+
+document.body.insertAdjacentHTML("beforeend",`
+
+<div id="buyModal" class="modal">
+
+<div class="modal-box">
+
+<h2>${name}</h2>
+
+<p>Нарх: ${price}</p>
+
+<h3>Интихоби пардохт</h3>
+
+<button class="pay-btn">
+🏦 Душанбе City
+</button>
+
+<button class="pay-btn">
+💳 Spitamen Pay
+</button>
+
+<div class="card-box">
+
+Номер карта:
+
+<br><br>
+
+<b>9196 6464 4</b>
+
+</div>
+
+<input
+type="text"
+placeholder="PUBG ID"
+class="input"
+/>
+
+<input
+type="text"
+placeholder="Telegram Username"
+class="input"
+/>
+
+<input
+type="file"
+class="input"
+/>
+
+<button class="confirm-btn">
+
+Подтвердить оплату
+
+</button>
+
+<button
+class="close-btn"
+onclick="closeModal()">
+
+Закрыть
+
+</button>
+
+</div>
+
+</div>
+
+`);
+
+}
+
+function closeModal(){
+document.getElementById("buyModal").remove();
+}.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.85);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.modal-box{
+width:90%;
+max-width:400px;
+background:#111;
+padding:20px;
+border-radius:20px;
+border:1px solid #FFD700;
+}
+
+.pay-btn{
+width:100%;
+padding:14px;
+margin-top:10px;
+background:#FFD700;
+border:none;
+border-radius:12px;
+font-weight:700;
+}
+
+.card-box{
+margin-top:15px;
+padding:15px;
+background:#1a1a1a;
+border-radius:12px;
+}
+
+.input{
+width:100%;
+margin-top:10px;
+padding:12px;
+background:#1a1a1a;
+border:1px solid #333;
+color:white;
+border-radius:12px;
+}
+
+.confirm-btn{
+width:100%;
+margin-top:15px;
+padding:14px;
+background:#FFD700;
+border:none;
+border-radius:12px;
+font-weight:700;
+}
+
+.close-btn{
+width:100%;
+margin-top:10px;
+padding:14px;
+background:#222;
+color:white;
+border:none;
+border-radius:12px;
+}<button class="buy-btn">79 ₽</button><button class="buy-btn"
+onclick="buyProduct('60 UC','79 ₽')">
+79 ₽
+</button>
