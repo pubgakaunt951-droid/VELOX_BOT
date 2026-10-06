@@ -6,271 +6,65 @@
 <title>VELOX UC SHOP</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
 body{
 background:#050505;
 color:white;
+font-family:Arial,sans-serif;
+margin:0;
 padding:15px;
 }
 
-.banner{
-height:180px;
-border-radius:25px;
-background:url('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200') center/cover;
-border:2px solid #ffcc00;
-box-shadow:0 0 25px #ffcc00;
-margin-bottom:15px;
-}
-
-.profile{
+.header{
 background:#111;
 border:1px solid #ffcc00;
 border-radius:20px;
 padding:15px;
-display:flex;
-align-items:center;
-gap:15px;
 margin-bottom:15px;
 }
 
-.avatar{
-width:70px;
-height:70px;
-border-radius:50%;
-background:#ffcc00;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-font-weight:bold;
-color:black;
-}
-
-.name{
-font-size:22px;
+.logo{
+font-size:28px;
 font-weight:bold;
 color:#ffcc00;
-}
-
-.username{
-opacity:.8;
-}
-
-.balance{
-background:linear-gradient(135deg,#ffcc00,#ff9900);
-color:black;
-padding:20px;
-border-radius:20px;
-font-size:24px;
-font-weight:bold;
-text-align:center;
-margin-bottom:15px;
-box-shadow:0 0 20px #ffcc00;
-}
-
-.btn{
-width:100%;
-padding:15px;
-border:none;
-border-radius:15px;
-font-size:16px;
-font-weight:bold;
-background:#ffcc00;
-color:black;
-margin-bottom:10px;
-cursor:pointer;
-transition:.3s;
-}
-
-.btn:hover{
-transform:scale(1.03);
-}
-
-.section-title{
-font-size:22px;
-font-weight:bold;
-margin:20px 0 15px;
-color:#ffcc00;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.card{
-background:#111;
-border:1px solid #222;
-border-radius:20px;
-padding:15px;
-text-align:center;
-transition:.3s;
-}
-
-.card:hover{
-border-color:#ffcc00;
-transform:translateY(-5px);
-}
-
-.card h3{
-color:#ffcc00;
-margin-bottom:10px;
-}
-
-.price{
-font-size:18px;
-font-weight:bold;
-margin-top:10px;
 }
 
 .menu{
 display:grid;
-grid-template-columns:repeat(2,1fr);
+grid-template-columns:1fr 1fr;
 gap:10px;
 margin-top:15px;
 }
 
-.menu button{
+.btn{
 background:#111;
 border:1px solid #ffcc00;
-color:white;
+color:#fff;
 padding:15px;
 border-radius:15px;
-font-weight:bold;
-}
-
-.footer{
-margin-top:25px;
-padding:20px;
-background:#111;
-border-radius:20px;
 text-align:center;
-border:1px solid #ffcc00;
-}
-
-.footer a{
-color:#ffcc00;
 text-decoration:none;
 font-weight:bold;
 }
-</style>
-</head>
 
+.btn:hover{
+background:#ffcc00;
+color:#000;
+}
+</style>
+
+</head>
 <body>
 
-<div class="banner"></div>
-
-<div class="profile">
-<div class="avatar">V</div>
-<div>
-<div class="name">VELOX UC SHOP</div>
-<div class="username">@VELOX_UC</div>
-<div>ID: 123456789</div>
+<div class="header">
+<div class="logo">🔥 VELOX UC SHOP</div>
+<p>@VELOX_UC</p>
 </div>
-</div>
-
-<div class="balance">
-Баланс: 0 ₽
-</div>
-
-<button class="btn">💳 Пополнить баланс</button>
 
 <div class="menu">
-<button>📦 Мои заказы</button>
-<button>⭐ Отзывы</button>
-<button>👤 Профиль</button>
-<button>🎁 Бонусы</button>
-</div>
-
-<div class="section-title">🔥 PUBG UC</div>
-
-<div class="grid">
-
-<div class="card">
-<h3>60 UC</h3>
-<div class="price">79 ₽</div>
-</div>
-
-<div class="card">
-<h3>325 UC</h3>
-<div class="price">379 ₽</div>
-</div>
-
-<div class="card">
-<h3>660 UC</h3>
-<div class="price">699 ₽</div>
-</div>
-
-<div class="card">
-<h3>1800 UC</h3>
-<div class="price">1899 ₽</div>
-</div>
-
-<div class="card">
-<h3>3850 UC</h3>
-<div class="price">3699 ₽</div>
-</div>
-
-<div class="card">
-<h3>8100 UC</h3>
-<div class="price">7299 ₽</div>
-</div>
-
-</div>
-
-<div class="section-title">👑 X-Suit Store</div>
-
-<div class="grid">
-<div class="card">
-<h3>Golden Pharaoh</h3>
-<div class="price">В наличии</div>
-</div>
-
-<div class="card">
-<h3>Poseidon X-Suit</h3>
-<div class="price">В наличии</div>
-</div>
-</div>
-
-<div class="section-title">🏎 Car Token</div>
-
-<div class="grid">
-<div class="card">
-<h3>1 Token</h3>
-<div class="price">25 ₽</div>
-</div>
-
-<div class="card">
-<h3>10 Tokens</h3>
-<div class="price">240 ₽</div>
-</div>
-</div>
-
-<div class="section-title">🛒 Account Market</div>
-
-<div class="grid">
-<div class="card">
-<h3>Account #001</h3>
-<div class="price">4500 ₽</div>
-</div>
-
-<div class="card">
-<h3>Account #002</h3>
-<div class="price">7900 ₽</div>
-</div>
-</div>
-
-<div class="footer">
-Telegram:
-<br><br>
-<a href="https://t.me/VELOX_UC">@VELOX_UC</a>
+<a href="#" class="btn">💎 UC</a>
+<a href="#" class="btn">🏎 Car Tokens</a>
+<a href="#" class="btn">👑 X-Suit</a>
+<a href="#" class="btn">🛒 Account Market</a>
 </div>
 
 </body>
