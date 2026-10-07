@@ -1,1365 +1,603 @@
-<!-- ============================= -->
-<!-- VELOX UC SHOP — PART 4 -->
-<!-- FUNCTIONAL SHOP SYSTEM -->
-<!-- ============================= -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VELOX UC SHOP</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
-.velox-toast {
-    position: fixed;
-    left: 50%;
-    bottom: 25px;
-    transform: translateX(-50%);
-    background: #151515;
-    color: white;
-    border: 1px solid #d6a62c;
-    padding: 13px 20px;
-    border-radius: 14px;
-    font-size: 14px;
-    z-index: 99999;
-    box-shadow: 0 8px 30px rgba(0,0,0,.5);
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
-.velox-page {
-    display: none;
-    animation: veloxShow .25s ease;
+body{
+background:#050505;
+color:white;
+padding:15px;
+padding-bottom:100px;
 }
 
-.velox-page.active {
-    display: block;
+.container{
+max-width:650px;
+margin:auto;
 }
 
-@keyframes veloxShow {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#0b0b0b;
+border:1px solid #d4a62a;
+padding:15px;
+border-radius:20px;
+margin-bottom:15px;
+box-shadow:0 0 20px rgba(212,166,42,.2);
 }
 
-.velox-product {
-    background: linear-gradient(
-        145deg,
-        #181818,
-        #0d0d0d
-    );
-    border: 1px solid #292929;
-    border-radius: 18px;
-    padding: 18px;
-    margin-bottom: 12px;
+.logo{
+font-size:30px;
+font-weight:800;
+color:#d4a62a;
 }
 
-.velox-product h3 {
-    margin: 0 0 7px;
-    color: #fff;
+.logo span{
+color:white;
+font-size:14px;
+display:block;
+font-weight:500;
 }
 
-.velox-product p {
-    color: #999;
-    margin: 0 0 14px;
+.user-box{
+text-align:right;
 }
 
-.velox-price {
-    color: #e8bd45;
-    font-size: 19px;
-    font-weight: 800;
+.user-id{
+font-size:13px;
+color:#bbb;
 }
 
-.velox-buy {
-    width: 100%;
-    margin-top: 13px;
-    border: 0;
-    border-radius: 13px;
-    padding: 13px;
-    background: linear-gradient(
-        135deg,
-        #f0c94f,
-        #a97912
-    );
-    color: #111;
-    font-weight: 800;
-    cursor: pointer;
+.username{
+color:#d4a62a;
+font-weight:600;
 }
 
-.velox-buy:active {
-    transform: scale(.97);
+.hero{
+position:relative;
+height:260px;
+border-radius:25px;
+overflow:hidden;
+border:1px solid #d4a62a;
+margin-bottom:20px;
 }
 
-.velox-balance {
-    background: linear-gradient(
-        135deg,
-        #1d1d1d,
-        #101010
-    );
-    border: 1px solid #353535;
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 18px;
+.hero img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
-.velox-balance small {
-    color: #888;
+.hero-overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(to top,
+rgba(0,0,0,.95),
+rgba(0,0,0,.25));
 }
 
-.velox-balance strong {
-    display: block;
-    color: #e9bd46;
-    font-size: 30px;
-    margin-top: 5px;
+.hero-content{
+position:absolute;
+left:25px;
+bottom:25px;
 }
 
-.velox-deposit {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 8px;
-    margin-top: 15px;
+.hero-title{
+font-size:42px;
+font-weight:800;
+line-height:1;
 }
 
-.velox-deposit button {
-    border: 1px solid #383838;
-    background: #191919;
-    color: white;
-    padding: 10px 5px;
-    border-radius: 11px;
-    cursor: pointer;
+.gold{
+color:#d4a62a;
 }
 
-.velox-orders {
-    margin-top: 15px;
+.hero-sub{
+margin-top:8px;
+color:#ddd;
+font-size:14px;
 }
 
-.velox-order {
-    background: #151515;
-    border: 1px solid #292929;
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 10px;
+.balance-card{
+background:#0d0d0d;
+border:1px solid #d4a62a;
+border-radius:20px;
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
 }
 
-.velox-order-top {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+.balance-text{
+font-size:15px;
+color:#aaa;
 }
 
-.velox-order-name {
-    color: white;
-    font-weight: 700;
+.balance{
+font-size:28px;
+font-weight:700;
+color:#d4a62a;
 }
 
-.velox-order-price {
-    color: #e8bd45;
-    font-weight: 800;
+.top-buttons{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-bottom:25px;
 }
 
-.velox-order-info {
-    color: #777;
-    font-size: 12px;
-    margin-top: 8px;
+.top-btn{
+background:#0d0d0d;
+border:1px solid #d4a62a;
+border-radius:16px;
+padding:15px 10px;
+text-align:center;
+font-size:12px;
+cursor:pointer;
 }
 
-.velox-status {
-    display: inline-block;
-    margin-top: 9px;
-    padding: 5px 9px;
-    border-radius: 8px;
-    background: #252015;
-    color: #e5b83f;
-    font-size: 11px;
+.top-btn:hover{
+background:#d4a62a;
+color:black;
 }
 
-.velox-empty {
-    text-align: center;
-    padding: 40px 15px;
-    color: #777;
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<div class="logo">
+VELOX
+<span>UC SHOP</span>
+</div>
+
+<div class="user-box">
+<div class="user-id">
+ID: 8919163416
+</div>
+
+<div class="username">
+@Akram
+</div>
+</div>
+
+</div>
+
+<div class="hero">
+
+<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200" alt="">
+
+<div class="hero-overlay"></div>
+
+<div class="hero-content">
+
+<div class="hero-title">
+<span class="gold">VELOX</span><br>
+SHOP
+</div>
+
+<div class="hero-sub">
+PUBG MOBILE • UC • АККАУНТ • X-COSTUME
+</div>
+
+</div>
+
+</div>
+
+<div class="balance-card">
+
+<div>
+<div class="balance-text">
+Баланс
+</div>
+
+<div class="balance">
+250 Сомони
+</div>
+</div>
+
+<button style="
+background:#d4a62a;
+color:black;
+border:none;
+padding:12px 18px;
+border-radius:14px;
+font-weight:700;">
++
+</button>
+
+</div>
+
+<div class="top-buttons">
+
+<div class="top-btn">
+Пополнить
+</div>
+
+<div class="top-btn">
+Заказы
+</div>
+
+<div class="top-btn">
+Отзывы
+</div>
+
+<div class="top-btn">
+Поддержка
+</div>
+
+</div>
+<div style="
+font-size:22px;
+font-weight:700;
+margin-bottom:15px;
+color:#d4a62a;">
+Категорияҳо
+</div>
+
+<div style="
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-bottom:20px;">
+
+<div class="category-card">
+
+<img src="https://i.imgur.com/Y2a8F5P.png">
+
+<div class="category-info">
+
+<h3>UC</h3>
+
+<p>
+Пополнение PUBG Mobile UC
+</p>
+
+<button>
+Перейти
+</button>
+
+</div>
+
+</div>
+
+<div class="category-card">
+
+<img src="https://i.imgur.com/F5zD4yI.png">
+
+<div class="category-info">
+
+<h3>ACCOUNT MARKET</h3>
+
+<p>
+Продажа PUBG аккаунтов
+</p>
+
+<button>
+Перейти
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+.category-card{
+background:#0b0b0b;
+border:1px solid #d4a62a;
+border-radius:22px;
+overflow:hidden;
+box-shadow:0 0 20px rgba(212,166,42,.15);
 }
 
-.velox-empty div {
-    font-size: 42px;
-    margin-bottom: 10px;
+.category-card img{
+width:100%;
+height:170px;
+object-fit:cover;
+display:block;
+}
+
+.category-info{
+padding:15px;
+}
+
+.category-info h3{
+font-size:24px;
+font-weight:700;
+margin-bottom:8px;
+}
+
+.category-info p{
+color:#aaa;
+font-size:13px;
+margin-bottom:15px;
+}
+
+.category-info button{
+width:100%;
+background:#d4a62a;
+color:black;
+border:none;
+padding:12px;
+border-radius:12px;
+font-weight:700;
+cursor:pointer;
+}
+
+.category-info button:hover{
+opacity:.9;
+}
+
+</style>
+<div style="
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-bottom:25px;">
+
+<div class="category-card">
+
+<img src="https://i.imgur.com/t9uX0tM.png">
+
+<div class="category-info">
+
+<h3>X-COSTUME</h3>
+
+<p>
+Редкие костюмы и наборы PUBG Mobile
+</p>
+
+<button>
+Перейти
+</button>
+
+</div>
+
+</div>
+
+<div class="category-card">
+
+<img src="https://i.imgur.com/T4m0M3z.png">
+
+<div class="category-info">
+
+<h3>CAR TOKEN</h3>
+
+<p>
+Токены для машин и обмена
+</p>
+
+<button>
+Перейти
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="features">
+
+<div class="feature-box">
+🏆
+<h4>Гарантия</h4>
+<span>100% безопасная сделка</span>
+</div>
+
+<div class="feature-box">
+⚡
+<h4>Быстрая доставка</h4>
+<span>Мгновенная выдача</span>
+</div>
+
+<div class="feature-box">
+🎁
+<h4>Бонусы</h4>
+<span>Подарки постоянным клиентам</span>
+</div>
+
+<div class="feature-box">
+📞
+<h4>Поддержка</h4>
+<span>@VELOX_UC</span>
+</div>
+
+</div>
+
+<style>
+
+.features{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:25px;
+}
+
+.feature-box{
+background:#0b0b0b;
+border:1px solid #d4a62a;
+border-radius:18px;
+padding:18px;
+text-align:center;
+font-size:22px;
+}
+
+.feature-box h4{
+font-size:16px;
+margin-top:10px;
+margin-bottom:5px;
+color:#fff;
+}
+
+.feature-box span{
+font-size:12px;
+color:#aaa;
+display:block;
+}
+
+</style>
+<div class="footer-support">
+
+<div class="support-card">
+<div class="support-left">
+
+<div class="telegram-icon">
+✈
+</div>
+
+<div>
+<h3>@VELOX_UC</h3>
+<p>Написать в Telegram</p>
+</div>
+
+</div>
+
+<div class="arrow">
+➜
+</div>
+</div>
+
+</div>
+
+<nav class="bottom-nav">
+
+<div class="nav-item active">
+<div class="nav-icon">🏠</div>
+<div class="nav-text">Главная</div>
+</div>
+
+<div class="nav-item">
+<div class="nav-icon">🛒</div>
+<div class="nav-text">Каталог</div>
+</div>
+
+<div class="nav-item">
+<div class="nav-icon">💰</div>
+<div class="nav-text">Баланс</div>
+</div>
+
+<div class="nav-item">
+<div class="nav-icon">👤</div>
+<div class="nav-text">Профиль</div>
+</div>
+
+</nav>
+
+<style>
+
+.footer-support{
+margin-bottom:100px;
+}
+
+.support-card{
+background:#0b0b0b;
+border:1px solid #d4a62a;
+border-radius:20px;
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 0 20px rgba(212,166,42,.15);
+}
+
+.support-left{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.telegram-icon{
+width:55px;
+height:55px;
+border-radius:50%;
+background:#229ED9;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+color:white;
+}
+
+.support-card h3{
+color:#fff;
+font-size:18px;
+margin-bottom:4px;
+}
+
+.support-card p{
+color:#aaa;
+font-size:13px;
+}
+
+.arrow{
+font-size:22px;
+color:#d4a62a;
+}
+
+.bottom-nav{
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+height:75px;
+background:#080808;
+border-top:1px solid #d4a62a;
+display:flex;
+justify-content:space-around;
+align-items:center;
+z-index:999;
+}
+
+.nav-item{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+color:#888;
+font-size:12px;
+cursor:pointer;
+}
+
+.nav-icon{
+font-size:22px;
+margin-bottom:4px;
+}
+
+.nav-item.active{
+color:#d4a62a;
+}
+
+.nav-item.active .nav-icon{
+transform:scale(1.1);
 }
 
 </style>
 
+</div>
 
-<!-- ============================= -->
-<!-- HOME -->
-<!-- ============================= -->
-
-<section
-    id="velox-home"
-    class="velox-page active"
->
-
-    <div class="velox-balance">
-
-        <small>💰 Ваш баланс</small>
-
-        <strong id="veloxBalance">
-            0.00 ₽
-        </strong>
-
-        <div class="velox-deposit">
-
-            <button
-                onclick="veloxDeposit(100)"
-            >
-                +100 ₽
-            </button>
-
-            <button
-                onclick="veloxDeposit(500)"
-            >
-                +500 ₽
-            </button>
-
-            <button
-                onclick="veloxDeposit(1000)"
-            >
-                +1000 ₽
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div class="velox-product">
-
-        <h3>🎮 60 UC</h3>
-
-        <p>
-            UC барои PUBG Mobile
-        </p>
-
-        <div class="velox-price">
-            55 ₽
-        </div>
-
-        <button
-            class="velox-buy"
-            onclick="veloxBuy('60 UC',55)"
-        >
-            Купить
-        </button>
-
-    </div>
-
-
-    <div class="velox-product">
-
-        <h3>🎮 325 UC</h3>
-
-        <p>
-            UC барои PUBG Mobile
-        </p>
-
-        <div class="velox-price">
-            280 ₽
-        </div>
-
-        <button
-            class="velox-buy"
-            onclick="veloxBuy('325 UC',280)"
-        >
-            Купить
-        </button>
-
-    </div>
-
-
-    <div class="velox-product">
-
-        <h3>🎮 660 UC</h3>
-
-        <p>
-            UC барои PUBG Mobile
-        </p>
-
-        <div class="velox-price">
-            520 ₽
-        </div>
-
-        <button
-            class="velox-buy"
-            onclick="veloxBuy('660 UC',520)"
-        >
-            Купить
-        </button>
-
-    </div>
-
-
-    <div class="velox-product">
-
-        <h3>🎁 X-Costume</h3>
-
-        <p>
-            X-Costume
-        </p>
-
-        <div class="velox-price">
-            500 ₽
-        </div>
-
-        <button
-            class="velox-buy"
-            onclick="veloxBuy('X-Costume',500)"
-        >
-            Купить
-        </button>
-
-    </div>
-
-
-    <div class="velox-product">
-
-        <h3>🚗 Car Token</h3>
-
-        <p>
-            Car Token
-        </p>
-
-        <div class="velox-price">
-            300 ₽
-        </div>
-
-        <button
-            class="velox-buy"
-            onclick="veloxBuy('Car Token',300)"
-        >
-            Купить
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- ============================= -->
-<!-- ORDERS -->
-<!-- ============================= -->
-
-<section
-    id="velox-orders"
-    class="velox-page"
->
-
-    <h2>
-        📦 Мои заказы
-    </h2>
-
-    <div
-        id="veloxOrders"
-        class="velox-orders"
-    ></div>
-
-</section>
-
-
-<!-- ============================= -->
-<!-- JAVASCRIPT -->
-<!-- ============================= -->
-
-<script>
-
-let veloxBalance =
-    Number(
-        localStorage.getItem(
-            "VELOX_BALANCE"
-        )
-    ) || 0;
-
-
-let veloxOrders =
-    JSON.parse(
-        localStorage.getItem(
-            "VELOX_ORDERS"
-        ) || "[]"
-    );
-
-
-// -----------------------------
-// BALANCE
-// -----------------------------
-
-function veloxUpdateBalance() {
-
-    const element =
-        document.getElementById(
-            "veloxBalance"
-        );
-
-    if (!element) return;
-
-    element.textContent =
-        veloxBalance.toFixed(2) + " ₽";
-
-}
-
-
-// -----------------------------
-// SAVE
-// -----------------------------
-
-function veloxSave() {
-
-    localStorage.setItem(
-        "VELOX_BALANCE",
-        veloxBalance
-    );
-
-    localStorage.setItem(
-        "VELOX_ORDERS",
-        JSON.stringify(
-            veloxOrders
-        )
-    );
-
-}
-
-
-// -----------------------------
-// DEPOSIT
-// -----------------------------
-
-function veloxDeposit(amount) {
-
-    veloxBalance += amount;
-
-    veloxSave();
-
-    veloxUpdateBalance();
-
-    veloxToast(
-        "✅ Баланс +"
-        + amount
-        + " ₽"
-    );
-
-}
-
-
-// -----------------------------
-// BUY
-// -----------------------------
-
-function veloxBuy(
-    product,
-    price
-) {
-
-    if (veloxBalance < price) {
-
-        veloxToast(
-            "❌ Баланс нокифоя аст"
-        );
-
-        return;
-
-    }
-
-
-    veloxBalance -= price;
-
-
-    const order = {
-
-        id:
-            "VX"
-            + Date.now(),
-
-        product:
-            product,
-
-        price:
-            price,
-
-        date:
-            new Date()
-            .toLocaleString(),
-
-        status:
-            "В обработке"
-
-    };
-
-
-    veloxOrders.unshift(
-        order
-    );
-
-
-    veloxSave();
-
-    veloxUpdateBalance();
-
-    veloxRenderOrders();
-
-
-    veloxToast(
-        "✅ Заказ қабул шуд!"
-    );
-
-}
-
-
-// -----------------------------
-// ORDERS
-// -----------------------------
-
-function veloxRenderOrders() {
-
-    const box =
-        document.getElementById(
-            "veloxOrders"
-        );
-
-    if (!box) return;
-
-
-    if (
-        veloxOrders.length === 0
-    ) {
-
-        box.innerHTML = `
-
-            <div class="velox-empty">
-
-                <div>📦</div>
-
-                Ҳоло заказ надоред
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    box.innerHTML =
-        veloxOrders.map(
-            order => `
-
-        <div class="velox-order">
-
-            <div class="velox-order-top">
-
-                <span
-                    class="velox-order-name"
-                >
-                    ${order.product}
-                </span>
-
-                <span
-                    class="velox-order-price"
-                >
-                    ${order.price} ₽
-                </span>
-
-            </div>
-
-            <div
-                class="velox-order-info"
-            >
-                ID: ${order.id}
-                <br>
-                ${order.date}
-            </div>
-
-            <span
-                class="velox-status"
-            >
-                ${order.status}
-            </span>
-
-        </div>
-
-    `
-        ).join("");
-
-}
-
-
-// -----------------------------
-// PAGE
-// -----------------------------
-
-function veloxPage(page) {
-
-    document
-        .querySelectorAll(
-            ".velox-page"
-        )
-        .forEach(
-            item =>
-                item.classList
-                    .remove("active")
-        );
-
-
-    const target =
-        document.getElementById(
-            "velox-" + page
-        );
-
-
-    if (target) {
-
-        target.classList.add(
-            "active"
-        );
-
-        window.scrollTo(
-            0,
-            0
-        );
-
-    }
-
-}
-
-
-// -----------------------------
-// TOAST
-// -----------------------------
-
-function veloxToast(message) {
-
-    const old =
-        document.querySelector(
-            ".velox-toast"
-        );
-
-    if (old)
-        old.remove();
-
-
-    const toast =
-        document.createElement(
-            "div"
-        );
-
-    toast.className =
-        "velox-toast";
-
-    toast.textContent =
-        message;
-
-
-    document.body.appendChild(
-        toast
-    );
-
-
-    setTimeout(
-        () => toast.remove(),
-        2500
-    );
-
-}
-
-
-// -----------------------------
-// START
-// -----------------------------
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        veloxUpdateBalance();
-
-        veloxRenderOrders();
-
-    }
-);
-
-</script><!-- ============================= -->
-<!-- VELOX UC SHOP — PART 4 -->
-<!-- FUNCTIONAL SHOP SYSTEM -->
-<!-- ============================= -->
-
-<style>
-
-.velox-toast {
-    position: fixed;
-    left: 50%;
-    bottom: 25px;
-    transform: translateX(-50%);
-    background: #151515;
-    color: white;
-    border: 1px solid #d6a62c;
-    padding: 13px 20px;
-    border-radius: 14px;
-    font-size: 14px;
-    z-index: 99999;
-    box-shadow: 0 8px 30px rgba(0,0,0,.5);
-}
-
-.velox-page {
-    display: none;
-    animation: veloxShow .25s ease;
-}
-
-.velox-page.active {
-    display: block;
-}
-
-@keyframes veloxShow {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.velox-product {
-    background: linear-gradient(
-        145deg,
-        #181818,
-        #0d0d0d
-    );
-    border: 1px solid #292929;
-    border-radius: 18px;
-    padding: 18px;
-    margin-bottom: 12px;
-}
-
-.velox-product h3 {
-    margin: 0 0 7px;
-    color: #fff;
-}
-
-.velox-product p {
-    color: #999;
-    margin: 0 0 14px;
-}
-
-.velox-price {
-    color: #e8bd45;
-    font-size: 19px;
-    font-weight: 800;
-}
-
-.velox-buy {
-    width: 100%;
-    margin-top: 13px;
-    border: 0;
-    border-radius: 13px;
-    padding: 13px;
-    background: linear-gradient(
-        135deg,
-        #f0c94f,
-        #a97912
-    );
-    color: #111;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-.velox-buy:active {
-    transform: scale(.97);
-}
-
-.velox-balance {
-    background: linear-gradient(
-        135deg,
-        #1d1d1d,
-        #101010
-    );
-    border: 1px solid #353535;
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 18px;
-}
-
-.velox-balance small {
-    color: #888;
-}
-
-.velox-balance strong {
-    display: block;
-    color: #e9bd46;
-    font-size: 30px;
-    margin-top: 5px;
-}
-
-.velox-deposit {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 8px;
-    margin-top: 15px;
-}
-
-.velox-deposit button {
-    border: 1px solid #383838;
-    background: #191919;
-    color: white;
-    padding: 10px 5px;
-    border-radius: 11px;
-    cursor: pointer;
-}
-
-.velox-orders {
-    margin-top: 15px;
-}
-
-.velox-order {
-    background: #151515;
-    border: 1px solid #292929;
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 10px;
-}
-
-.velox-order-top {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.velox-order-name {
-    color: white;
-    font-weight: 700;
-}
-
-.velox-order-price {
-    color: #e8bd45;
-    font-weight: 800;
-}
-
-.velox-order-info {
-    color: #777;
-    font-size: 12px;
-    margin-top: 8px;
-}
-
-.velox-status {
-    display: inline-block;
-    margin-top: 9px;
-    padding: 5px 9px;
-    border-radius: 8px;
-    background: #252015;
-    color: #e5b83f;
-    font-size: 11px;
-}
-
-.velox-empty {
-    text-align: center;
-    padding: 40px 15px;
-    color: #777;
-}
-
-.velox-empty div {
-    font-size: 42px;
-    margin-bottom: 10px;
-}
-
-</style>
-
-
-<!-- ============================= -->
-<!-- HOME -->
-<!-- ============================= -->
-
-<section
-    id="velox-home"
-    class="velox-page active"
->
-
-    <div class="velox-balance">
-
-        <small>💰 Ваш баланс</small>
-
-        <strong id="veloxBalance">
-            0.00 ₽
-        </strong>
-
-        <div class="velox-deposit">
-
-            <button
-                onclick="veloxDeposit(100)"
-            >
-                +100 ₽
-            </button>
-
-            <button
-                onclick="veloxDeposit(500)"
-            >
-                +500 ₽
-            </button>
-
-            <button
-                onclick="veloxDeposit(1000)"
-            >
-                +1000 ₽
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div class="velox-product">
-
-        <h3>🎮 60 UC</h3>
-
-        <p>
-            UC барои PUBG Mobile
-        </p>
-
-        <div class="velox-price">
-            55 ₽
-        </div>
-
-        <button
-            class="velox-buy"
-            onclick="veloxBuy('60 UC',55)"
-        >
-            Купить
-        </button>
-
-    </div>
-
-
-    <div class="velox-product">
-
-        <h3>🎮 325 UC</h3>
-
-        <p>
-            UC барои PUBG Mobile
-        </p>
-
-        <div class="velox-price">
-            280 ₽
-        </div>
-
-        <button
-            class="velox-buy"
-            onclick="veloxBuy('325 UC',280)"
-        >
-            Купить
-        </button>
-
-    </div>
-
-
-    <div class="velox-product">
-
-        <h3>🎮 660 UC</h3>
-
-        <p>
-            UC барои PUBG Mobile
-        </p>
-
-        <div class="velox-price">
-            520 ₽
-        </div>
-
-        <button
-            class="velox-buy"
-            onclick="veloxBuy('660 UC',520)"
-        >
-            Купить
-        </button>
-
-    </div>
-
-
-    <div class="velox-product">
-
-        <h3>🎁 X-Costume</h3>
-
-        <p>
-            X-Costume
-        </p>
-
-        <div class="velox-price">
-            500 ₽
-        </div>
-
-        <button
-            class="velox-buy"
-            onclick="veloxBuy('X-Costume',500)"
-        >
-            Купить
-        </button>
-
-    </div>
-
-
-    <div class="velox-product">
-
-        <h3>🚗 Car Token</h3>
-
-        <p>
-            Car Token
-        </p>
-
-        <div class="velox-price">
-            300 ₽
-        </div>
-
-        <button
-            class="velox-buy"
-            onclick="veloxBuy('Car Token',300)"
-        >
-            Купить
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- ============================= -->
-<!-- ORDERS -->
-<!-- ============================= -->
-
-<section
-    id="velox-orders"
-    class="velox-page"
->
-
-    <h2>
-        📦 Мои заказы
-    </h2>
-
-    <div
-        id="veloxOrders"
-        class="velox-orders"
-    ></div>
-
-</section>
-
-
-<!-- ============================= -->
-<!-- JAVASCRIPT -->
-<!-- ============================= -->
-
-<script>
-
-let veloxBalance =
-    Number(
-        localStorage.getItem(
-            "VELOX_BALANCE"
-        )
-    ) || 0;
-
-
-let veloxOrders =
-    JSON.parse(
-        localStorage.getItem(
-            "VELOX_ORDERS"
-        ) || "[]"
-    );
-
-
-// -----------------------------
-// BALANCE
-// -----------------------------
-
-function veloxUpdateBalance() {
-
-    const element =
-        document.getElementById(
-            "veloxBalance"
-        );
-
-    if (!element) return;
-
-    element.textContent =
-        veloxBalance.toFixed(2) + " ₽";
-
-}
-
-
-// -----------------------------
-// SAVE
-// -----------------------------
-
-function veloxSave() {
-
-    localStorage.setItem(
-        "VELOX_BALANCE",
-        veloxBalance
-    );
-
-    localStorage.setItem(
-        "VELOX_ORDERS",
-        JSON.stringify(
-            veloxOrders
-        )
-    );
-
-}
-
-
-// -----------------------------
-// DEPOSIT
-// -----------------------------
-
-function veloxDeposit(amount) {
-
-    veloxBalance += amount;
-
-    veloxSave();
-
-    veloxUpdateBalance();
-
-    veloxToast(
-        "✅ Баланс +"
-        + amount
-        + " ₽"
-    );
-
-}
-
-
-// -----------------------------
-// BUY
-// -----------------------------
-
-function veloxBuy(
-    product,
-    price
-) {
-
-    if (veloxBalance < price) {
-
-        veloxToast(
-            "❌ Баланс нокифоя аст"
-        );
-
-        return;
-
-    }
-
-
-    veloxBalance -= price;
-
-
-    const order = {
-
-        id:
-            "VX"
-            + Date.now(),
-
-        product:
-            product,
-
-        price:
-            price,
-
-        date:
-            new Date()
-            .toLocaleString(),
-
-        status:
-            "В обработке"
-
-    };
-
-
-    veloxOrders.unshift(
-        order
-    );
-
-
-    veloxSave();
-
-    veloxUpdateBalance();
-
-    veloxRenderOrders();
-
-
-    veloxToast(
-        "✅ Заказ қабул шуд!"
-    );
-
-}
-
-
-// -----------------------------
-// ORDERS
-// -----------------------------
-
-function veloxRenderOrders() {
-
-    const box =
-        document.getElementById(
-            "veloxOrders"
-        );
-
-    if (!box) return;
-
-
-    if (
-        veloxOrders.length === 0
-    ) {
-
-        box.innerHTML = `
-
-            <div class="velox-empty">
-
-                <div>📦</div>
-
-                Ҳоло заказ надоред
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    box.innerHTML =
-        veloxOrders.map(
-            order => `
-
-        <div class="velox-order">
-
-            <div class="velox-order-top">
-
-                <span
-                    class="velox-order-name"
-                >
-                    ${order.product}
-                </span>
-
-                <span
-                    class="velox-order-price"
-                >
-                    ${order.price} ₽
-                </span>
-
-            </div>
-
-            <div
-                class="velox-order-info"
-            >
-                ID: ${order.id}
-                <br>
-                ${order.date}
-            </div>
-
-            <span
-                class="velox-status"
-            >
-                ${order.status}
-            </span>
-
-        </div>
-
-    `
-        ).join("");
-
-}
-
-
-// -----------------------------
-// PAGE
-// -----------------------------
-
-function veloxPage(page) {
-
-    document
-        .querySelectorAll(
-            ".velox-page"
-        )
-        .forEach(
-            item =>
-                item.classList
-                    .remove("active")
-        );
-
-
-    const target =
-        document.getElementById(
-            "velox-" + page
-        );
-
-
-    if (target) {
-
-        target.classList.add(
-            "active"
-        );
-
-        window.scrollTo(
-            0,
-            0
-        );
-
-    }
-
-}
-
-
-// -----------------------------
-// TOAST
-// -----------------------------
-
-function veloxToast(message) {
-
-    const old =
-        document.querySelector(
-            ".velox-toast"
-        );
-
-    if (old)
-        old.remove();
-
-
-    const toast =
-        document.createElement(
-            "div"
-        );
-
-    toast.className =
-        "velox-toast";
-
-    toast.textContent =
-        message;
-
-
-    document.body.appendChild(
-        toast
-    );
-
-
-    setTimeout(
-        () => toast.remove(),
-        2500
-    );
-
-}
-
-
-// -----------------------------
-// START
-// -----------------------------
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        veloxUpdateBalance();
-
-        veloxRenderOrders();
-
-    }
-);
-
-    </script>
+</body>
+</html>
