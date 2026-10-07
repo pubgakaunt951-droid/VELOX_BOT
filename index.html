@@ -119,7 +119,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: #0d0d0d;
+            background: #101010;
         }
 
         .card-img-box img {
@@ -140,6 +140,57 @@
 
         .card-footer h3 { font-size: 12px; font-style: italic; color: #fff; }
         .card-footer i { border: 1px solid #d4af37; border-radius: 50%; padding: 4px; color: #ffd700; font-size: 9px; }
+
+        /* UC Price Lists */
+        .back-btn {
+            background: #141414;
+            border: 1px solid #d4af37;
+            color: #ffd700;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .uc-section-title {
+            color: #ffd700;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 15px 0 10px 0;
+            border-left: 3px solid #d4af37;
+            padding-left: 8px;
+            text-transform: uppercase;
+        }
+
+        .uc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .uc-item {
+            background: #121212;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .uc-item:active {
+            background: #222;
+            border-color: #ffd700;
+        }
+
+        .uc-amount { font-weight: bold; color: #fff; font-size: 13px; }
+        .uc-price { color: #ffd700; font-weight: bold; font-size: 12px; }
 
         /* Sections */
         .section-title { font-size: 16px; color: #ffd700; margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 6px; }
@@ -211,42 +262,87 @@
         </div>
     </div>
 
-    <!-- 1. Главный -->
+    <!-- 1. Главный (Категорияҳо) -->
     <main class="page active" id="page-main">
         <div class="main-content">
-            <!-- 1. UC SHOP (Сурати тангаҳои тиллоии UC) -->
-            <div class="card" onclick="selectCategory('UC SHOP')">
+            <!-- UC SHOP -->
+            <div class="card" onclick="openUcShop()">
                 <div class="card-img-box">
-                    <img src="https://images.wallpapersden.com/image/download/pubg-mobile-uc-cash_bWllZmmUmZqaraWkpJRmbmdlrWZlbWU.jpg" alt="UC SHOP">
+                    <img src="https://m.media-amazon.com/images/I/71X8k49+mVL._AC_UF1000,1000_QL80_.jpg" alt="UC SHOP">
                 </div>
                 <div class="card-footer"><h3>UC SHOP</h3><i class="fa-solid fa-chevron-right"></i></div>
             </div>
 
-            <!-- 2. AKAKUNT (Сурати аккаунти PUBG) -->
+            <!-- AKAKUNT -->
             <div class="card" onclick="selectCategory('AKAKUNT')">
                 <div class="card-img-box">
-                    <img src="https://wallpapers.com/images/hd/pubg-character-in-black-outfit-y7q2vh6548n6y2p7.jpg" alt="AKAKUNT">
+                    <img src="https://i.pinimg.com/736x/8f/30/ff/8f30ff61dc9ec802062534571d49f0ec.jpg" alt="AKAKUNT">
                 </div>
                 <div class="card-footer"><h3>AKAKUNT</h3><i class="fa-solid fa-chevron-right"></i></div>
             </div>
 
-            <!-- 3. X-SUIT (Сурати Blood Raven ва Golden Pharaoh) -->
+            <!-- X-SUIT -->
             <div class="card" onclick="selectCategory('X-SUIT')">
                 <div class="card-img-box">
-                    <img src="https://wallpaperaccess.com/full/6231924.jpg" alt="X-SUIT">
+                    <img src="https://p325.p3.n0.cdn.getcloudapp.com/items/4guO0L7n/ce726353-832d-4bfb-936c-dfc52e6f43e3.png" alt="X-SUIT">
                 </div>
                 <div class="card-footer"><h3>X-SUIT</h3><i class="fa-solid fa-chevron-right"></i></div>
             </div>
 
-            <!-- 4. SUPERCAR (Сурати мошинҳои Bugatti ва Lamborghini) -->
+            <!-- SUPERCAR -->
             <div class="card" onclick="selectCategory('SUPERCAR')">
                 <div class="card-img-box">
-                    <img src="https://images.squarespace-cdn.com/content/v1/5a0c30a8a803bb4b87cf074c/1616086701726-X80D9X49XJ16P3Y63W0I/Bugatti_PUBG_Mobile.jpg" alt="SUPERCAR">
+                    <img src="https://i.ytimg.com/vi/qP_E01zS9e4/maxresdefault.jpg" alt="SUPERCAR">
                 </div>
                 <div class="card-footer"><h3>SUPERCAR</h3><i class="fa-solid fa-chevron-right"></i></div>
             </div>
         </div>
     </main>
+
+    <!-- Саҳифаи Нархномаи UC SHOP -->
+    <section class="page" id="page-uc-list">
+        <button class="back-btn" onclick="backToMain()"><i class="fa-solid fa-arrow-left"></i> Назад</button>
+        
+        <div class="uc-section-title">АКЦИЯ UC КАМТАРАК</div>
+        <div class="uc-grid">
+            <div class="uc-item" onclick="buyUC('30 UC', '5 с.')"><span class="uc-amount">30 UC</span><span class="uc-price">5 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('60 UC', '10 с.')"><span class="uc-amount">60 UC</span><span class="uc-price">10 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('90 UC', '14 с.')"><span class="uc-amount">90 UC</span><span class="uc-price">14 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('120 UC', '19 с.')"><span class="uc-amount">120 UC</span><span class="uc-price">19 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('150 UC', '24 с.')"><span class="uc-amount">150 UC</span><span class="uc-price">24 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('180 UC', '29 с.')"><span class="uc-amount">180 UC</span><span class="uc-price">29 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('210 UC', '34 с.')"><span class="uc-amount">210 UC</span><span class="uc-price">34 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('240 UC', '38 с.')"><span class="uc-amount">240 UC</span><span class="uc-price">38 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('270 UC', '44 с.')"><span class="uc-amount">270 UC</span><span class="uc-price">44 сомони</span></div>
+        </div>
+
+        <div class="uc-section-title">АКЦИЯ UC БИСЁР</div>
+        <div class="uc-grid">
+            <div class="uc-item" onclick="buyUC('325 UC', '46 с.')"><span class="uc-amount">325 UC</span><span class="uc-price">46 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('355 UC', '51 с.')"><span class="uc-amount">355 UC</span><span class="uc-price">51 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('385 UC', '56 с.')"><span class="uc-amount">385 UC</span><span class="uc-price">56 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('445 UC', '66 с.')"><span class="uc-amount">445 UC</span><span class="uc-price">66 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('660 UC', '95 с.')"><span class="uc-amount">660 UC</span><span class="uc-price">95 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('720 UC', '104 с.')"><span class="uc-amount">720 UC</span><span class="uc-price">104 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('985 UC', '141 с.')"><span class="uc-amount">985 UC</span><span class="uc-price">141 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('1075 UC', '153 с.')"><span class="uc-amount">1075 UC</span><span class="uc-price">153 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('1380 UC', '196 с.')"><span class="uc-amount">1380 UC</span><span class="uc-price">196 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('1440 UC', '200 с.')"><span class="uc-amount">1440 UC</span><span class="uc-price">200 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('1800 UC', '235 с.')"><span class="uc-amount">1800 UC</span><span class="uc-price">235 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('1980 UC', '265 с.')"><span class="uc-amount">1980 UC</span><span class="uc-price">265 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('2460 UC', '330 с.')"><span class="uc-amount">2460 UC</span><span class="uc-price">330 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('2670 UC', '365 с.')"><span class="uc-amount">2670 UC</span><span class="uc-price">365 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('3850 UC', '499 с.')"><span class="uc-amount">3850 UC</span><span class="uc-price">499 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('4835 UC', '640 с.')"><span class="uc-amount">4835 UC</span><span class="uc-price">640 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('5075 UC', '678 с.')"><span class="uc-amount">5075 UC</span><span class="uc-price">678 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('5400 UC', '724 с.')"><span class="uc-amount">5400 UC</span><span class="uc-price">724 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('5950 UC', '780 с.')"><span class="uc-amount">5950 UC</span><span class="uc-price">780 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('8100 UC', '900 с.')"><span class="uc-amount">8100 UC</span><span class="uc-price">900 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('8400 UC', '938 с.')"><span class="uc-amount">8400 UC</span><span class="uc-price">938 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('9900 UC', '1148 с.')"><span class="uc-amount">9900 UC</span><span class="uc-price">1148 сомони</span></div>
+            <div class="uc-item" onclick="buyUC('16200 UC', '1800 с.')"><span class="uc-amount">16200 UC</span><span class="uc-price">1800 сомони</span></div>
+        </div>
+    </section>
 
     <!-- 2. Отзывы -->
     <section class="page" id="page-reviews">
@@ -303,7 +399,22 @@
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             document.getElementById('page-' + pageName).classList.add('active');
-            element.classList.add('active');
+            if(element) element.classList.add('active');
+        }
+
+        function openUcShop() {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-uc-list').classList.add('active');
+        }
+
+        function backToMain() {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-main').classList.add('active');
+        }
+
+        function buyUC(amount, price) {
+            if (tg) tg.showAlert(`Шумо ${amount}-ро барои ${price} интихоб кардед.`);
+            else alert(`Шумо ${amount}-ро барои ${price} интихоб кардед.`);
         }
 
         function selectCategory(categoryName) {
@@ -317,5 +428,5 @@
         }
     </script>
 </body>
-                        </html>
-                                                                               
+                                                                                                                                                 </html>
+                                                                                                                                                 
