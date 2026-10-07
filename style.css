@@ -1,0 +1,199 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #080808;
+    color: #ffffff;
+    padding-bottom: 80px;
+}
+
+/* Шапка */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #0d0d0d;
+    border-bottom: 1px solid #d4af37;
+}
+
+.menu-btn {
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.logo {
+    text-align: center;
+}
+
+.logo-crown {
+    color: #ffd700;
+    font-size: 20px;
+}
+
+.logo h1 {
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: #fff;
+    font-weight: 900;
+}
+
+.logo span {
+    font-size: 11px;
+    color: #d4af37;
+    letter-spacing: 3px;
+    display: block;
+}
+
+.balance-box {
+    display: flex;
+    align-items: center;
+    background: #141414;
+    border: 1px solid #d4af37;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+.balance-info {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.balance-info .title {
+    font-size: 10px;
+    color: #aaa;
+}
+
+.balance-info .amount {
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.add-btn {
+    background: transparent;
+    border: 1px solid #d4af37;
+    color: #ffd700;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Баннер */
+.banner {
+    margin: 15px;
+    height: 120px;
+    background: linear-gradient(135deg, #111, #222);
+    border: 1px solid #d4af37;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+.banner-content h2 {
+    color: #ffd700;
+    font-size: 18px;
+    text-align: right;
+}
+
+.banner-content h3 {
+    color: #fff;
+    font-size: 14px;
+    text-align: right;
+}
+
+/* Карточкаҳо */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 0 15px;
+}
+
+.card {
+    background: #121212;
+    border: 1px solid #d4af37;
+    border-radius: 15px;
+    overflow: hidden;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.card-bg {
+    height: 75%;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Рангҳо/Суратҳо барои карточкаҳо */
+.uc-bg { background-color: #2a2000; }
+.account-bg { background-color: #1a1a2e; }
+.xsuit-bg { background-color: #3a0000; }
+.supercar-bg { background-color: #002a2a; }
+
+.card-footer {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.card-footer h3 {
+    font-size: 14px;
+    font-style: italic;
+    color: #fff;
+}
+
+.card-footer i {
+    border: 1px solid #d4af37;
+    border-radius: 50%;
+    padding: 5px;
+    color: #ffd700;
+    font-size: 10px;
+}
+
+/* Навигатсияи поёнӣ */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 65px;
+    background: #0a0a0a;
+    border-top: 1px solid #d4af37;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #888;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+}
+
+.nav-item i {
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+.nav-item.active {
+    color: #ffd700;
+}
