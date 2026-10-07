@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>VELOX UC SHOP</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -17,982 +20,1918 @@ box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 background:#050505;
 color:white;
 overflow-x:hidden;
+padding-bottom:120px;
 }
+
+/* ========================= */
+/* GOLD VARIABLES */
+/* ========================= */
 
 :root{
---gold:#d4a62a;
---gold2:#ffcf4a;
---card:#0f0f0f;
---border:#2a2a2a;
+
+--gold:#f4c15d;
+--gold2:#ffdd8c;
+--gold3:#c89125;
+
+--bg:#050505;
+--card:#0b0b0b;
+--card2:#111111;
+
+--border:rgba(244,193,93,.45);
+
+--shadow:
+0 0 10px rgba(244,193,93,.15),
+0 0 20px rgba(244,193,93,.10);
+
 }
+
+/* ========================= */
+/* BACKGROUND */
+/* ========================= */
+
+.bg-lines{
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:-1;
+background:
+linear-gradient(
+135deg,
+transparent 0%,
+rgba(244,193,93,.03) 30%,
+transparent 60%
+);
+}
+
+.container{
+width:100%;
+max-width:480px;
+margin:auto;
+padding:12px;
+}
+
+/* ========================= */
+/* PAGE SYSTEM */
+/* ========================= */
+
+.page{
+display:none;
+animation:fade .25s ease;
+}
+
+.page.active{
+display:block;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* ========================= */
+/* CARD */
+/* ========================= */
+
+.card{
+background:linear-gradient(
+180deg,
+#0f0f0f,
+#090909
+);
+
+border:1px solid var(--border);
+
+border-radius:22px;
+
+box-shadow:var(--shadow);
+}
+
+/* ========================= */
+/* BUTTON */
+/* ========================= */
+
+.btn-gold{
+
+background:linear-gradient(
+135deg,
+#ffd98f,
+#f4c15d,
+#c89125
+);
+
+color:#111;
+
+font-weight:700;
+
+border:none;
+
+cursor:pointer;
+
+transition:.25s;
+}
+
+.btn-gold:active{
+transform:scale(.96);
+}
+
+/* ========================= */
+/* IMAGE */
+/* ========================= */
+
+img{
+max-width:100%;
+display:block;
+}
+
+/* ========================= */
+/* SCROLL */
+/* ========================= */
+
+::-webkit-scrollbar{
+width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+background:var(--gold);
+border-radius:20px;
+}
+
+    </style>/* ========================= */
+/* HEADER */
+/* ========================= */
 
 .header{
-padding:15px;
-}
-
-.topbar{
 display:flex;
-justify-content:space-between;
 align-items:center;
-margin-bottom:15px;
+justify-content:space-between;
+gap:10px;
+margin-top:10px;
+margin-bottom:14px;
 }
 
 .menu-btn{
-width:50px;
-height:50px;
-border-radius:15px;
-background:#111;
-border:1px solid #333;
+width:56px;
+height:56px;
+border-radius:18px;
+border:1px solid rgba(244,193,93,.35);
+background:#0d0d0d;
 display:flex;
-justify-content:center;
 align-items:center;
-font-size:24px;
+justify-content:center;
+font-size:28px;
+color:var(--gold);
+box-shadow:var(--shadow);
 cursor:pointer;
 }
 
 .lang-box{
+flex:1;
+height:56px;
+border-radius:18px;
+border:1px solid rgba(244,193,93,.35);
+background:#0d0d0d;
 display:flex;
-gap:8px;
-background:#111;
-padding:8px 12px;
-border-radius:15px;
-border:1px solid #333;
+align-items:center;
+justify-content:center;
+gap:12px;
+box-shadow:var(--shadow);
 }
 
-.lang{
-font-size:22px;
+.lang-box img{
+width:30px;
+height:30px;
+border-radius:50%;
+object-fit:cover;
 cursor:pointer;
 }
 
 .balance-box{
+width:170px;
+height:56px;
+border-radius:18px;
+background:#0d0d0d;
+border:1px solid rgba(244,193,93,.35);
 display:flex;
 align-items:center;
-gap:10px;
-padding:10px 15px;
-background:#111;
-border:1px solid var(--gold);
-border-radius:15px;
+justify-content:space-between;
+padding:0 12px;
+box-shadow:var(--shadow);
+}
+
+.balance-left{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.balance-icon{
+font-size:22px;
+color:var(--gold);
 }
 
 .balance-text{
-font-size:14px;
+font-size:12px;
+color:#d8d8d8;
 }
 
-.balance-amount{
+.balance-money{
+font-size:16px;
 font-weight:700;
-color:var(--gold2);
+color:white;
 }
 
-.logo{
-text-align:center;
-margin-bottom:20px;
-}
-
-.logo h1{
-font-size:42px;
-font-weight:800;
-color:var(--gold2);
-}
-
-.logo p{
-font-size:18px;
-color:#fff;
-}
-
-.main-banner{
-width:100%;
-height:180px;
-border-radius:22px;
-overflow:hidden;
-position:relative;
-border:1px solid #2d2d2d;
-}
-
-.main-banner img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.banner-overlay{
-position:absolute;
-inset:0;
+.plus-btn{
+width:34px;
+height:34px;
+border-radius:10px;
 background:linear-gradient(
-to right,
-rgba(0,0,0,.5),
-rgba(0,0,0,.1)
+135deg,
+#ffd98f,
+#f4c15d
 );
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+font-weight:700;
+color:black;
+cursor:pointer;
 }
 
-.banner-text{
-position:absolute;
-right:15px;
-top:50%;
-transform:translateY(-50%);
-text-align:right;
+/* ========================= */
+/* LOGO */
+/* ========================= */
+
+.logo-wrap{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+margin-top:6px;
+margin-bottom:14px;
 }
 
-.banner-text h2{
-font-size:24px;
-color:var(--gold2);
+.logo-icon{
+font-size:58px;
+font-weight:900;
+color:var(--gold);
+text-shadow:
+0 0 15px rgba(244,193,93,.45),
+0 0 35px rgba(244,193,93,.25);
 }
 
-.banner-text p{
-font-size:13px;
+.logo-title{
+font-size:44px;
+font-weight:900;
+line-height:1;
+background:linear-gradient(
+180deg,
+#fff2c4,
+#f4c15d,
+#b77d17
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
-.section{
-padding:15px;
+.logo-sub{
+font-size:18px;
+font-weight:700;
+letter-spacing:2px;
+color:white;
+margin-top:3px;
 }
 
-.cards{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-}
+/* ========================= */
+/* HTML HEADER */
+/* ========================= */
 
-</style>
-</head>
+<div class="bg-lines"></div>
 
-<body>
+<div class="container">
 
 <div class="header">
-
-<div class="topbar">
 
 <div class="menu-btn">
 ☰
 </div>
 
 <div class="lang-box">
-<div class="lang">🇹🇯</div>
-<div class="lang">🇷🇺</div>
-<div class="lang">🇬🇧</div>
+
+<img src="tajik.png">
+
+<img src="russia.png">
+
+<img src="uk.png">
+
 </div>
 
 <div class="balance-box">
+
+<div class="balance-left">
+
+<div class="balance-icon">
+💳
+</div>
+
 <div>
+
 <div class="balance-text">
 Баланс
 </div>
-<div class="balance-amount">
+
+<div class="balance-money">
 0.00 сомони
 </div>
+
 </div>
+
+</div>
+
+<div class="plus-btn">
++
 </div>
 
 </div>
 
-<div class="logo">
-<h1>VELOX</h1>
-<p>UC SHOP</p>
 </div>
 
-<div class="main-banner">
+<div class="logo-wrap">
 
-<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e">
+<div class="logo-icon">
+V
+</div>
+
+<div class="logo-title">
+VELOX
+</div>
+
+<div class="logo-sub">
+UC SHOP
+</div>
+
+</div>/* ========================= */
+/* PUBG BANNER */
+/* ========================= */
+
+.banner{
+
+position:relative;
+
+height:220px;
+
+border-radius:28px;
+
+overflow:hidden;
+
+margin-bottom:18px;
+
+border:1px solid rgba(244,193,93,.35);
+
+box-shadow:
+0 0 25px rgba(244,193,93,.15);
+
+}
+
+.banner img{
+
+width:100%;
+height:100%;
+object-fit:cover;
+
+}
+
+.banner-overlay{
+
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+90deg,
+rgba(0,0,0,.75),
+rgba(0,0,0,.20)
+);
+
+}
+
+.banner-content{
+
+position:absolute;
+
+left:20px;
+top:50%;
+
+transform:translateY(-50%);
+
+}
+
+.banner-content h2{
+
+font-size:34px;
+
+font-weight:900;
+
+line-height:1;
+
+color:white;
+
+}
+
+.banner-content span{
+
+display:block;
+
+font-size:18px;
+
+color:var(--gold);
+
+margin-top:5px;
+
+font-weight:700;
+
+}
+
+.banner-content p{
+
+margin-top:10px;
+
+font-size:13px;
+
+color:#ddd;
+
+max-width:220px;
+
+}
+
+.banner-btn{
+
+margin-top:15px;
+
+width:130px;
+height:42px;
+
+border-radius:12px;
+
+font-size:14px;
+
+}
+
+/* ========================= */
+/* HTML */
+/* ========================= */
+
+<div class="banner card">
+
+<img src="images/banner.jpg">
 
 <div class="banner-overlay"></div>
 
-<div class="banner-text">
-<h2>PUBG MOBILE</h2>
-<p>PLAY BIGGER • BE A LEGEND</p>
-</div>
+<div class="banner-content">
+
+<h2>PUBG<br>MOBILE</h2>
+
+<span>VELOX UC SHOP</span>
+
+<p>
+Лучшие цены на UC,
+аккаунты, X-Suit
+и Supercar.
+</p>
+
+<button class="btn-gold banner-btn">
+Купить UC
+</button>
 
 </div>
 
-</div>
-
-<div class="section">
-<div class="cards"><!-- ========================= -->
-<!-- PART 2 -->
-<!-- BANNER + CATEGORY CARDS -->
-<!-- ========================= -->
-
-<section class="hero-banner">
-
-    <img src="banner.jpg">
-
-</section>
-
-<section class="category-grid">
-
-    <div class="cat-card">
-        <img src="ucshop.jpg">
-
-        <div class="cat-bottom">
-            <span>UC SHOP</span>
-            <button>›</button>
-        </div>
-    </div>
-
-    <div class="cat-card">
-        <img src="account.jpg">
-
-        <div class="cat-bottom">
-            <span>AKAKUNT</span>
-            <button>›</button>
-        </div>
-    </div>
-
-    <div class="cat-card">
-        <img src="xsuit.jpg">
-
-        <div class="cat-bottom">
-            <span>X-SUIT</span>
-            <button>›</button>
-        </div>
-    </div>
-
-    <div class="cat-card">
-        <img src="supercar.jpg">
-
-        <div class="cat-bottom">
-            <span>SUPERCAR</span>
-            <button>›</button>
-        </div>
-    </div>
-
-</section>
-
-<style>
-
-.hero-banner{
-    width:100%;
-    margin-top:15px;
-    border-radius:22px;
-    overflow:hidden;
-    border:1px solid #c9971a;
-    box-shadow:0 0 20px rgba(255,170,0,.25);
-}
-
-.hero-banner img{
-    width:100%;
-    display:block;
-}
+</div>/* ========================= */
+/* CATEGORY GRID */
+/* ========================= */
 
 .category-grid{
-    margin-top:18px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:14px;
+
+margin-bottom:20px;
+
 }
 
-.cat-card{
-    background:#0d0d0d;
-    border:1px solid #c9971a;
-    border-radius:22px;
-    overflow:hidden;
-    box-shadow:0 0 18px rgba(255,170,0,.15);
+.category-card{
+
+position:relative;
+
+height:185px;
+
+overflow:hidden;
+
+border-radius:24px;
+
+background:#0b0b0b;
+
+border:1px solid rgba(244,193,93,.35);
+
+box-shadow:
+0 0 20px rgba(244,193,93,.12);
+
+cursor:pointer;
+
+transition:.25s;
+
 }
 
-.cat-card img{
-    width:100%;
-    height:190px;
-    object-fit:cover;
-    display:block;
+.category-card:hover{
+
+transform:translateY(-4px);
+
 }
 
-.cat-bottom{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:14px;
+.category-card img{
+
+width:100%;
+height:100%;
+object-fit:cover;
+
 }
 
-.cat-bottom span{
-    color:#fff;
-    font-size:22px;
-    font-weight:800;
-    letter-spacing:.5px;
+.category-overlay{
+
+position:absolute;
+
+inset:0;
+
+background:
+linear-gradient(
+180deg,
+rgba(0,0,0,.10),
+rgba(0,0,0,.75)
+);
+
 }
 
-.cat-bottom button{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    border:1px solid #d6a62c;
-    background:#111;
-    color:#d6a62c;
-    font-size:24px;
-    cursor:pointer;
+.category-title{
+
+position:absolute;
+
+left:14px;
+bottom:14px;
+
+font-size:22px;
+
+font-weight:800;
+
+color:white;
+
+text-shadow:
+0 0 10px rgba(0,0,0,.5);
+
 }
 
-</style><!-- ========================= -->
-<!-- PART 3 -->
-<!-- UC SHOP PAGE -->
-<!-- ========================= -->
+.category-arrow{
 
-<section id="uc-shop-page">
+position:absolute;
 
-<div class="page-title">
-    <h2>UC SHOP</h2>
-    <p>Выберите количество UC</p>
+right:12px;
+bottom:12px;
+
+width:42px;
+height:42px;
+
+border-radius:50%;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+background:rgba(244,193,93,.95);
+
+color:black;
+
+font-size:22px;
+
+font-weight:700;
+
+}
+
+/* ========================= */
+/* HTML */
+/* ========================= */
+
+<div class="category-grid">
+
+<!-- UC SHOP -->
+
+<div class="category-card">
+
+<img src="images/ucshop.jpg">
+
+<div class="category-overlay"></div>
+
+<div class="category-title">
+UC SHOP
+</div>
+
+<div class="category-arrow">
+›
+</div>
+
+</div>
+
+<!-- AKAKUNT -->
+
+<div class="category-card">
+
+<img src="images/akakunt.jpg">
+
+<div class="category-overlay"></div>
+
+<div class="category-title">
+AKAKUNT
+</div>
+
+<div class="category-arrow">
+›
+</div>
+
+</div>
+
+<!-- X-SUIT -->
+
+<div class="category-card">
+
+<img src="images/xsuit.jpg">
+
+<div class="category-overlay"></div>
+
+<div class="category-title">
+X-SUIT
+</div>
+
+<div class="category-arrow">
+›
+</div>
+
+</div>
+
+<!-- SUPERCAR -->
+
+<div class="category-card">
+
+<img src="images/supercar.jpg">
+
+<div class="category-overlay"></div>
+
+<div class="category-title">
+SUPERCAR
+</div>
+
+<div class="category-arrow">
+›
+</div>
+
+</div>
+
+</div>/* ========================= */
+/* UC SHOP PAGE */
+/* ========================= */
+
+.uc-page{
+display:none;
+}
+
+.uc-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:15px;
+
+}
+
+.uc-header h2{
+
+font-size:30px;
+font-weight:900;
+color:var(--gold);
+
+}
+
+.uc-header p{
+
+font-size:13px;
+color:#aaa;
+
+}
+
+.uc-grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:14px;
+
+}
+
+/* ========================= */
+/* UC CARD */
+/* ========================= */
+
+.uc-card{
+
+background:linear-gradient(
+180deg,
+#101010,
+#070707
+);
+
+border-radius:22px;
+
+overflow:hidden;
+
+border:1px solid rgba(244,193,93,.35);
+
+box-shadow:
+0 0 20px rgba(244,193,93,.12);
+
+}
+
+.uc-image{
+
+height:140px;
+
+overflow:hidden;
+
+}
+
+.uc-image img{
+
+width:100%;
+height:100%;
+object-fit:cover;
+
+}
+
+.uc-info{
+
+padding:12px;
+
+}
+
+.uc-title{
+
+font-size:24px;
+
+font-weight:800;
+
+color:white;
+
+margin-bottom:5px;
+
+}
+
+.uc-price{
+
+font-size:20px;
+
+font-weight:900;
+
+color:var(--gold);
+
+margin-bottom:10px;
+
+}
+
+.uc-btn{
+
+width:100%;
+
+height:46px;
+
+border:none;
+
+border-radius:12px;
+
+font-weight:800;
+
+}
+
+/* ========================= */
+/* HTML */
+/* ========================= */
+
+<div class="uc-page page">
+
+<div class="uc-header">
+
+<div>
+
+<h2>UC SHOP</h2>
+
+<p>Выберите пакет UC</p>
+
+</div>
+
 </div>
 
 <div class="uc-grid">
 
-    <div class="uc-card">
-        <img src="uc60.jpg">
-        <h3>60 UC</h3>
-        <div class="price">12 сомони</div>
-        <button>Купить</button>
-    </div>
+<!-- 60 UC -->
 
-    <div class="uc-card">
-        <img src="uc325.jpg">
-        <h3>325 UC</h3>
-        <div class="price">55 сомони</div>
-        <button>Купить</button>
-    </div>
+<div class="uc-card">
 
-    <div class="uc-card">
-        <img src="uc660.jpg">
-        <h3>660 UC</h3>
-        <div class="price">105 сомони</div>
-        <button>Купить</button>
-    </div>
-
-    <div class="uc-card">
-        <img src="uc1800.jpg">
-        <h3>1800 UC</h3>
-        <div class="price">255 сомони</div>
-        <button>Купить</button>
-    </div>
-
-    <div class="uc-card">
-        <img src="uc3850.jpg">
-        <h3>3850 UC</h3>
-        <div class="price">520 сомони</div>
-        <button>Купить</button>
-    </div>
-
-    <div class="uc-card">
-        <img src="uc8100.jpg">
-        <h3>8100 UC</h3>
-        <div class="price">1030 сомони</div>
-        <button>Купить</button>
-    </div>
-
+<div class="uc-image">
+<img src="images/60uc.jpg">
 </div>
 
-</section>
+<div class="uc-info">
 
-<style>
-
-#uc-shop-page{
-    padding-top:20px;
-}
-
-.page-title{
-    text-align:center;
-    margin-bottom:20px;
-}
-
-.page-title h2{
-    color:#d6a62c;
-    font-size:32px;
-    margin:0;
-}
-
-.page-title p{
-    color:#aaa;
-    margin-top:6px;
-}
-
-.uc-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-}
-
-.uc-card{
-    background:#0d0d0d;
-    border:1px solid #d6a62c;
-    border-radius:20px;
-    overflow:hidden;
-    text-align:center;
-    box-shadow:0 0 20px rgba(214,166,44,.15);
-}
-
-.uc-card img{
-    width:100%;
-    height:170px;
-    object-fit:cover;
-}
-
-.uc-card h3{
-    color:#fff;
-    margin:12px 0 6px;
-}
-
-.price{
-    color:#d6a62c;
-    font-size:22px;
-    font-weight:700;
-    margin-bottom:12px;
-}
-
-.uc-card button{
-    width:85%;
-    height:45px;
-    border:none;
-    border-radius:12px;
-    background:linear-gradient(90deg,#d6a62c,#ffcf52);
-    color:#000;
-    font-weight:700;
-    margin-bottom:15px;
-    cursor:pointer;
-}
-
-</style><!-- ========================= -->
-<!-- PART 4 -->
-<!-- BUY PAGE -->
-<!-- ========================= -->
-
-<section id="buy-page">
-
-<div class="buy-box">
-
-<h2>Оформление заказа</h2>
-
-<label>PUBG ID</label>
-<input type="number" placeholder="Введите PUBG ID">
-
-<label>Количество</label>
-<input type="number" value="1">
-
-<label>Способ оплаты</label>
-
-<div class="payment-grid">
-
-<div class="pay-card active">
-    Душанбе Сити
+<div class="uc-title">
+60 UC
 </div>
 
-<div class="pay-card">
-    Spitamen Pay
+<div class="uc-price">
+12 сомони
 </div>
 
-</div>
-
-<label>Получатель</label>
-
-<div class="receiver-box">
-
-<span>Шарифмох.М.Д</span>
-
-<button onclick="copyCard()">
-Копировать
+<button class="btn-gold uc-btn">
+КУПИТЬ
 </button>
 
 </div>
 
-<label>Чек оплаты</label>
+</div>
 
-<input type="file">
+<!-- 325 UC -->
 
-<button class="buy-btn">
-Отправить заказ
+<div class="uc-card">
+
+<div class="uc-image">
+<img src="images/325uc.jpg">
+</div>
+
+<div class="uc-info">
+
+<div class="uc-title">
+325 UC
+</div>
+
+<div class="uc-price">
+55 сомони
+</div>
+
+<button class="btn-gold uc-btn">
+КУПИТЬ
 </button>
 
 </div>
 
-</section>
+</div>
 
-<style>
+<!-- 660 UC -->
 
-#buy-page{
-margin-top:25px;
+<div class="uc-card">
+
+<div class="uc-image">
+<img src="images/660uc.jpg">
+</div>
+
+<div class="uc-info">
+
+<div class="uc-title">
+660 UC
+</div>
+
+<div class="uc-price">
+105 сомони
+</div>
+
+<button class="btn-gold uc-btn">
+КУПИТЬ
+</button>
+
+</div>
+
+</div>
+
+<!-- 1800 UC -->
+
+<div class="uc-card">
+
+<div class="uc-image">
+<img src="images/1800uc.jpg">
+</div>
+
+<div class="uc-info">
+
+<div class="uc-title">
+1800 UC
+</div>
+
+<div class="uc-price">
+255 сомони
+</div>
+
+<button class="btn-gold uc-btn">
+КУПИТЬ
+</button>
+
+</div>
+
+</div>
+
+<!-- 3850 UC -->
+
+<div class="uc-card">
+
+<div class="uc-image">
+<img src="images/3850uc.jpg">
+</div>
+
+<div class="uc-info">
+
+<div class="uc-title">
+3850 UC
+</div>
+
+<div class="uc-price">
+520 сомони
+</div>
+
+<button class="btn-gold uc-btn">
+КУПИТЬ
+</button>
+
+</div>
+
+</div>
+
+<!-- 8100 UC -->
+
+<div class="uc-card">
+
+<div class="uc-image">
+<img src="images/8100uc.jpg">
+</div>
+
+<div class="uc-info">
+
+<div class="uc-title">
+8100 UC
+</div>
+
+<div class="uc-price">
+1030 сомони
+</div>
+
+<button class="btn-gold uc-btn">
+КУПИТЬ
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>/* ========================= */
+/* REVIEWS PAGE */
+/* ========================= */
+
+.reviews-page{
+display:none;
 }
 
-.buy-box{
-background:#0d0d0d;
-border:1px solid #d6a62c;
-border-radius:22px;
-padding:18px;
+.review-header{
+margin-bottom:18px;
 }
 
-.buy-box h2{
-color:#d6a62c;
-text-align:center;
-margin-bottom:20px;
+.review-header h2{
+font-size:30px;
+font-weight:900;
+color:var(--gold);
 }
 
-.buy-box label{
-display:block;
-color:white;
-margin-top:12px;
-margin-bottom:8px;
-font-size:14px;
+.review-header p{
+color:#999;
+font-size:13px;
+margin-top:4px;
 }
 
-.buy-box input{
-width:100%;
-height:52px;
-background:#111;
-border:1px solid #333;
-border-radius:12px;
-padding:0 15px;
-color:white;
+.review-list{
+display:flex;
+flex-direction:column;
+gap:14px;
 }
 
-.payment-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
+/* ========================= */
+/* REVIEW CARD */
+/* ========================= */
+
+.review-card{
+
+background:linear-gradient(
+180deg,
+#101010,
+#080808
+);
+
+border:1px solid rgba(244,193,93,.35);
+
+border-radius:20px;
+
+padding:15px;
+
+box-shadow:
+0 0 18px rgba(244,193,93,.10);
+
+}
+
+.review-top{
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+margin-bottom:10px;
+
+}
+
+.review-user{
+
+display:flex;
+align-items:center;
 gap:10px;
-margin-top:10px;
+
 }
 
-.pay-card{
-height:55px;
+.review-avatar{
+
+width:48px;
+height:48px;
+
+border-radius:50%;
+
+background:#1a1a1a;
+
 display:flex;
 align-items:center;
 justify-content:center;
-background:#111;
-border:1px solid #333;
-border-radius:12px;
-color:white;
+
+font-size:20px;
+
+border:1px solid rgba(244,193,93,.30);
+
+}
+
+.review-name{
+
+font-size:16px;
 font-weight:700;
-cursor:pointer;
-}
 
-.pay-card.active{
-border-color:#d6a62c;
-color:#d6a62c;
-}
-
-.receiver-box{
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:#111;
-border:1px solid #333;
-border-radius:12px;
-padding:14px;
 color:white;
-}
-
-.receiver-box button{
-background:#d6a62c;
-border:none;
-padding:10px 15px;
-border-radius:10px;
-font-weight:700;
-}
-
-.buy-btn{
-width:100%;
-height:55px;
-margin-top:18px;
-border:none;
-border-radius:14px;
-background:linear-gradient(90deg,#d6a62c,#ffcf52);
-font-size:17px;
-font-weight:800;
-color:black;
-cursor:pointer;
-}
-
-</style>
-
-<script>
-
-function copyCard(){
-
-navigator.clipboard.writeText("Шарифмох.М.Д");
-
-alert("Скопировано");
 
 }
 
-</script><!-- ========================= -->
-<!-- PART 5 -->
-<!-- AKAKUNT MARKET -->
-<!-- ========================= -->
+.review-date{
 
-<section id="account-page">
+font-size:12px;
+color:#999;
 
-<div class="page-title">
-    <h2>AKAKUNT</h2>
-    <p>Продажа PUBG Mobile аккаунтов</p>
-</div>
+}
 
-<div class="account-list">
+.review-stars{
 
-    <div class="account-card">
+color:#ffd54a;
+font-size:18px;
 
-        <img src="account1.jpg">
+}
 
-        <div class="account-info">
+.review-text{
 
-            <h3>AKAKUNT #001</h3>
+color:#ddd;
 
-            <div class="acc-item">
-                Коллекция: 120
-            </div>
+line-height:1.5;
 
-            <div class="acc-item">
-                X-SUIT: 3
-            </div>
+font-size:14px;
 
-            <div class="acc-item">
-                Мифик: 12
-            </div>
+}
 
-            <div class="acc-item">
-                Связка: Gmail
-            </div>
+/* ========================= */
+/* HTML */
+/* ========================= */
 
-            <div class="acc-price">
-                1200 сомони
-            </div>
+<div class="reviews-page page">
 
-            <button class="account-btn">
-                Купить
-            </button>
+<div class="review-header">
 
-        </div>
+<h2>Отзывы</h2>
 
-    </div>
+<p>Отзывы покупателей VELOX UC SHOP</p>
 
 </div>
 
-</section>
+<div class="review-list">
 
-<style>
+<div class="review-card">
 
-#account-page{
-padding-top:20px;
+<div class="review-top">
+
+<div class="review-user">
+
+<div class="review-avatar">
+👤
+</div>
+
+<div>
+
+<div class="review-name">
+Akram
+</div>
+
+<div class="review-date">
+07.10.2026
+</div>
+
+</div>
+
+</div>
+
+<div class="review-stars">
+★★★★★
+</div>
+
+</div>
+
+<div class="review-text">
+660 UC получил быстро.
+Спасибо за честную работу.
+</div>
+
+</div>
+
+<div class="review-card">
+
+<div class="review-top">
+
+<div class="review-user">
+
+<div class="review-avatar">
+👤
+</div>
+
+<div>
+
+<div class="review-name">
+Rustam
+</div>
+
+<div class="review-date">
+06.10.2026
+</div>
+
+</div>
+
+</div>
+
+<div class="review-stars">
+★★★★★
+</div>
+
+</div>
+
+<div class="review-text">
+Пополнил UC.
+Всё пришло без проблем.
+</div>
+
+</div>
+
+<div class="review-card">
+
+<div class="review-top">
+
+<div class="review-user">
+
+<div class="review-avatar">
+👤
+</div>
+
+<div>
+
+<div class="review-name">
+Muhammad
+</div>
+
+<div class="review-date">
+05.10.2026
+</div>
+
+</div>
+
+</div>
+
+<div class="review-stars">
+★★★★★
+</div>
+
+</div>
+
+<div class="review-text">
+Отличный магазин.
+Буду покупать ещё.
+</div>
+
+</div>
+
+</div>
+
+    </div>/* ========================= */
+/* ORDERS PAGE */
+/* ========================= */
+
+.orders-page{
+display:none;
 }
 
-.account-list{
+.orders-header{
+margin-bottom:18px;
+}
+
+.orders-header h2{
+font-size:30px;
+font-weight:900;
+color:var(--gold);
+}
+
+.orders-header p{
+font-size:13px;
+color:#999;
+margin-top:4px;
+}
+
+.orders-list{
 display:flex;
 flex-direction:column;
-gap:18px;
+gap:14px;
 }
 
-.account-card{
-background:#0d0d0d;
-border:1px solid #d6a62c;
-border-radius:22px;
-overflow:hidden;
-box-shadow:0 0 20px rgba(214,166,44,.15);
-}
+/* ========================= */
+/* ORDER CARD */
+/* ========================= */
 
-.account-card img{
-width:100%;
-height:220px;
-object-fit:cover;
-}
+.order-card{
 
-.account-info{
-padding:15px;
-}
-
-.account-info h3{
-color:#fff;
-margin-bottom:12px;
-}
-
-.acc-item{
-background:#141414;
-border:1px solid #252525;
-padding:12px;
-border-radius:10px;
-margin-bottom:8px;
-color:#ddd;
-}
-
-.acc-price{
-font-size:28px;
-font-weight:800;
-color:#d6a62c;
-margin-top:12px;
-margin-bottom:12px;
-}
-
-.account-btn{
-width:100%;
-height:50px;
-border:none;
-border-radius:12px;
 background:linear-gradient(
-90deg,
-#d6a62c,
-#ffcf52
+180deg,
+#101010,
+#080808
 );
-font-size:17px;
-font-weight:800;
-color:black;
-cursor:pointer;
+
+border:1px solid rgba(244,193,93,.35);
+
+border-radius:22px;
+
+padding:14px;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+box-shadow:
+0 0 18px rgba(244,193,93,.10);
+
 }
 
-</style><!-- ========================= -->
-<!-- PART 6 -->
-<!-- REVIEWS / ORDERS / PROFILE -->
-<!-- ========================= -->
+.order-image{
 
-<section id="reviews-page">
+width:80px;
+height:80px;
 
-<div class="page-title">
-<h2>Отзывы</h2>
-<p>Отзывы покупателей</p>
-</div>
+border-radius:14px;
 
-<div class="review-card">
-<div class="review-name">Akram</div>
-<div class="review-text">
-660 UC получил быстро. Спасибо.
-</div>
-<div class="review-stars">★★★★★</div>
-</div>
+overflow:hidden;
 
-<div class="review-card">
-<div class="review-name">Rustam</div>
-<div class="review-text">
-Аккаунт хороший. Всё работает.
-</div>
-<div class="review-stars">★★★★★</div>
-</div>
+flex-shrink:0;
 
-</section>
+}
 
-<section id="orders-page" style="display:none;">
+.order-image img{
 
-<div class="page-title">
+width:100%;
+height:100%;
+object-fit:cover;
+
+}
+
+.order-info{
+
+flex:1;
+
+}
+
+.order-title{
+
+font-size:20px;
+font-weight:800;
+color:white;
+
+margin-bottom:4px;
+
+}
+
+.order-date{
+
+font-size:12px;
+color:#999;
+
+margin-bottom:8px;
+
+}
+
+.order-status{
+
+display:inline-flex;
+
+padding:6px 12px;
+
+border-radius:999px;
+
+background:rgba(0,255,120,.12);
+
+border:1px solid rgba(0,255,120,.25);
+
+color:#37ff8b;
+
+font-size:12px;
+
+font-weight:700;
+
+}
+
+/* ========================= */
+/* HTML */
+/* ========================= */
+
+<div class="orders-page page">
+
+<div class="orders-header">
+
 <h2>Заказы</h2>
-<p>История покупок</p>
+
+<p>История ваших покупок</p>
+
 </div>
 
+<div class="orders-list">
+
+<!-- ORDER 1 -->
+
 <div class="order-card">
-<div>1800 UC</div>
+
+<div class="order-image">
+<img src="images/1800uc.jpg">
+</div>
+
+<div class="order-info">
+
+<div class="order-title">
+1800 UC
+</div>
+
+<div class="order-date">
+07.10.2026
+</div>
+
 <div class="order-status">
 Выполнено
 </div>
+
 </div>
 
+</div>
+
+<!-- ORDER 2 -->
+
 <div class="order-card">
-<div>660 UC</div>
+
+<div class="order-image">
+<img src="images/660uc.jpg">
+</div>
+
+<div class="order-info">
+
+<div class="order-title">
+660 UC
+</div>
+
+<div class="order-date">
+05.10.2026
+</div>
+
 <div class="order-status">
 Выполнено
 </div>
+
 </div>
 
-</section>
+</div>
 
-<section id="profile-page" style="display:none;">
+<!-- ORDER 3 -->
 
-<div class="page-title">
+<div class="order-card">
+
+<div class="order-image">
+<img src="images/325uc.jpg">
+</div>
+
+<div class="order-info">
+
+<div class="order-title">
+325 UC
+</div>
+
+<div class="order-date">
+02.10.2026
+</div>
+
+<div class="order-status">
+Выполнено
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>/* ========================= */
+/* PROFILE PAGE */
+/* ========================= */
+
+.profile-page{
+display:none;
+}
+
+.profile-header{
+margin-bottom:18px;
+}
+
+.profile-header h2{
+font-size:30px;
+font-weight:900;
+color:var(--gold);
+}
+
+.profile-header p{
+font-size:13px;
+color:#999;
+margin-top:4px;
+}
+
+.profile-card{
+
+background:linear-gradient(
+180deg,
+#101010,
+#080808
+);
+
+border:1px solid rgba(244,193,93,.35);
+
+border-radius:24px;
+
+padding:20px;
+
+box-shadow:
+0 0 20px rgba(244,193,93,.12);
+
+}
+
+.profile-avatar{
+
+width:110px;
+height:110px;
+
+margin:auto;
+
+border-radius:50%;
+
+background:linear-gradient(
+135deg,
+#f4c15d,
+#c89125
+);
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:48px;
+
+color:black;
+
+font-weight:900;
+
+margin-bottom:15px;
+
+}
+
+.profile-name{
+
+text-align:center;
+
+font-size:24px;
+
+font-weight:800;
+
+color:white;
+
+margin-bottom:5px;
+
+}
+
+.profile-id{
+
+text-align:center;
+
+color:#aaa;
+
+font-size:13px;
+
+margin-bottom:20px;
+
+}
+
+.profile-info{
+
+display:flex;
+flex-direction:column;
+gap:12px;
+
+}
+
+.profile-box{
+
+background:#141414;
+
+border:1px solid rgba(244,193,93,.20);
+
+border-radius:14px;
+
+padding:14px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.profile-label{
+
+color:#bbb;
+
+font-size:14px;
+
+}
+
+.profile-value{
+
+color:white;
+
+font-weight:700;
+
+}
+
+.profile-buttons{
+
+margin-top:18px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+
+}
+
+.profile-btn{
+
+height:52px;
+
+border:none;
+
+border-radius:14px;
+
+font-size:15px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+/* ========================= */
+/* HTML */
+/* ========================= */
+
+<div class="profile-page page">
+
+<div class="profile-header">
+
 <h2>Профиль</h2>
+
+<p>Личный кабинет пользователя</p>
+
 </div>
 
 <div class="profile-card">
 
-<div class="avatar">
-👤
+<div class="profile-avatar">
+A
 </div>
 
-<h3>Akram</h3>
+<div class="profile-name">
+Akram
+</div>
 
-<div class="profile-item">
+<div class="profile-id">
 ID: 123456789
 </div>
 
-<div class="profile-item">
-Баланс: 0 сомони
+<div class="profile-info">
+
+<div class="profile-box">
+
+<div class="profile-label">
+Баланс
 </div>
 
-<div class="profile-item">
-Заказы: 2
+<div class="profile-value">
+0 сомони
 </div>
 
-<button class="profile-btn">
-Поддержка
+</div>
+
+<div class="profile-box">
+
+<div class="profile-label">
+Заказы
+</div>
+
+<div class="profile-value">
+3
+</div>
+
+</div>
+
+<div class="profile-box">
+
+<div class="profile-label">
+Статус
+</div>
+
+<div class="profile-value">
+VIP
+</div>
+
+</div>
+
+</div>
+
+<div class="profile-buttons">
+
+<button class="btn-gold profile-btn">
+Пополнить баланс
 </button>
 
-<button class="profile-btn">
+<button class="btn-gold profile-btn">
 История покупок
 </button>
 
+<button class="btn-gold profile-btn">
+Поддержка
+</button>
+
+<button class="btn-gold profile-btn">
+Настройки
+</button>
+
 </div>
 
-</section>
+</div>
 
-<!-- BOTTOM MENU -->
+</div>/* ========================= */
+/* BOTTOM NAVIGATION */
+/* ========================= */
+
+.bottom-nav{
+
+position:fixed;
+
+bottom:0;
+left:0;
+
+width:100%;
+
+height:82px;
+
+background:rgba(10,10,10,.98);
+
+backdrop-filter:blur(20px);
+
+border-top:1px solid rgba(244,193,93,.25);
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+z-index:9999;
+
+}
+
+.nav-item{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+gap:4px;
+
+cursor:pointer;
+
+color:#888;
+
+transition:.25s;
+
+}
+
+.nav-item.active{
+
+color:var(--gold);
+
+}
+
+.nav-icon{
+
+font-size:24px;
+
+}
+
+.nav-text{
+
+font-size:12px;
+
+font-weight:700;
+
+}
+
+/* ACTIVE EFFECT */
+
+.nav-item.active .nav-icon{
+
+text-shadow:
+0 0 12px rgba(244,193,93,.7);
+
+}
+
+/* ========================= */
+/* HTML */
+/* ========================= */
 
 <div class="bottom-nav">
 
-<button onclick="showHome()">
+<!-- HOME -->
+
+<div class="nav-item active"
+onclick="openPage('home')">
+
+<div class="nav-icon">
+🏠
+</div>
+
+<div class="nav-text">
 Главный
-</button>
-
-<button onclick="showReviews()">
-Отзывы
-</button>
-
-<button onclick="showOrders()">
-Заказы
-</button>
-
-<button onclick="showProfile()">
-Профиль
-</button>
+</div>
 
 </div>
 
-<style>
+<!-- REVIEWS -->
 
-.review-card,
-.order-card,
-.profile-card{
-background:#0f0f0f;
-border:1px solid #d6a62c;
-border-radius:18px;
-padding:15px;
-margin-bottom:12px;
-}
+<div class="nav-item"
+onclick="openPage('reviews')">
 
-.review-name{
-font-weight:700;
-color:#d6a62c;
-margin-bottom:5px;
-}
+<div class="nav-icon">
+⭐
+</div>
 
-.review-stars{
-color:#ffd700;
-margin-top:8px;
-}
+<div class="nav-text">
+Отзывы
+</div>
 
-.order-status{
-color:#43d854;
-font-weight:700;
-margin-top:6px;
-}
+</div>
 
-.avatar{
-width:90px;
-height:90px;
-margin:auto;
-border-radius:50%;
-background:#181818;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:40px;
-margin-bottom:15px;
-}
+<!-- ORDERS -->
 
-.profile-card{
-text-align:center;
-}
+<div class="nav-item"
+onclick="openPage('orders')">
 
-.profile-item{
-background:#161616;
-padding:12px;
-border-radius:10px;
-margin-bottom:10px;
-}
+<div class="nav-icon">
+📦
+</div>
 
-.profile-btn{
-width:100%;
-height:50px;
-border:none;
-border-radius:12px;
-margin-top:10px;
-background:#d6a62c;
-font-weight:700;
-}
+<div class="nav-text">
+Заказы
+</div>
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-height:70px;
-background:#0b0b0b;
-border-top:1px solid #333;
-display:flex;
-justify-content:space-around;
-align-items:center;
-}
+</div>
 
-.bottom-nav button{
-background:none;
-border:none;
-color:white;
-font-size:14px;
-font-weight:600;
-}
+<!-- PROFILE -->
 
-</style>
+<div class="nav-item"
+onclick="openPage('profile')">
 
-<script>
+<div class="nav-icon">
+👤
+</div>
 
-function showHome(){
+<div class="nav-text">
+Профиль
+</div>
 
-document.getElementById('reviews-page').style.display='none';
-document.getElementById('orders-page').style.display='none';
-document.getElementById('profile-page').style.display='none';
+</div>
 
-}
-
-function showReviews(){
-
-document.getElementById('reviews-page').style.display='block';
-document.getElementById('orders-page').style.display='none';
-document.getElementById('profile-page').style.display='none';
-
-}
-
-function showOrders(){
-
-document.getElementById('reviews-page').style.display='none';
-document.getElementById('orders-page').style.display='block';
-document.getElementById('profile-page').style.display='none';
-
-}
-
-function showProfile(){
-
-document.getElementById('reviews-page').style.display='none';
-document.getElementById('orders-page').style.display='none';
-document.getElementById('profile-page').style.display='block';
-
-}
-
-  </script><!-- ========================= -->
-<!-- PART 7 -->
-<!-- FINAL JS -->
+</div><!-- ========================= -->
+<!-- FINAL JAVASCRIPT -->
 <!-- ========================= -->
 
-<div id="toast" class="toast">
-Успешно
-</div>
+<div id="toast"></div>
 
 <style>
 
-.toast{
+#toast{
+
 position:fixed;
+
 left:50%;
-bottom:90px;
+
+bottom:100px;
+
 transform:translateX(-50%);
+
 background:#111;
-border:1px solid #d6a62c;
+
 color:white;
-padding:14px 22px;
+
+padding:14px 20px;
+
 border-radius:14px;
+
+border:1px solid rgba(244,193,93,.35);
+
 opacity:0;
+
 pointer-events:none;
+
 transition:.3s;
-z-index:9999;
+
+z-index:99999;
+
 }
 
-.toast.show{
+#toast.show{
 opacity:1;
 }
 
@@ -1000,9 +1939,21 @@ opacity:1;
 
 <script>
 
-/* ===================== */
+/* ========================= */
+/* TELEGRAM WEB APP */
+/* ========================= */
+
+if(window.Telegram){
+
+Telegram.WebApp.ready();
+
+Telegram.WebApp.expand();
+
+}
+
+/* ========================= */
 /* TOAST */
-/* ===================== */
+/* ========================= */
 
 function showToast(text){
 
@@ -1021,62 +1972,117 @@ toast.classList.remove("show");
 
 }
 
-/* ===================== */
-/* BUY BUTTONS */
-/* ===================== */
+/* ========================= */
+/* PAGES */
+/* ========================= */
 
-document.querySelectorAll(".buy-btn")
-.forEach(btn=>{
+const pages = {
 
-btn.addEventListener("click",()=>{
+home:
+document.querySelector(".home-page"),
 
-showToast("Заказ отправлен");
+reviews:
+document.querySelector(".reviews-page"),
+
+orders:
+document.querySelector(".orders-page"),
+
+profile:
+document.querySelector(".profile-page")
+
+};
+
+function openPage(page){
+
+for(let key in pages){
+
+if(pages[key]){
+
+pages[key].style.display="none";
+
+}
+
+}
+
+if(pages[page]){
+
+pages[page].style.display="block";
+
+}
+
+/* ACTIVE NAV */
+
+document
+.querySelectorAll(".nav-item")
+.forEach(item=>{
+
+item.classList.remove("active");
 
 });
 
-});
+}
 
-/* ===================== */
+/* ========================= */
+/* START PAGE */
+/* ========================= */
+
+window.onload = ()=>{
+
+if(pages.home){
+
+pages.home.style.display="block";
+
+}
+
+showToast("VELOX UC SHOP");
+
+};
+
+/* ========================= */
 /* LANGUAGE */
-/* ===================== */
+/* ========================= */
 
-let currentLang = "ru";
+let currentLanguage = "ru";
 
 function setLanguage(lang){
 
-currentLang = lang;
+currentLanguage = lang;
 
-showToast("Язык изменён");
+if(lang==="tj"){
 
-}
-
-/* ===================== */
-/* TELEGRAM WEB APP */
-/* ===================== */
-
-if(window.Telegram){
-
-Telegram.WebApp.ready();
-
-Telegram.WebApp.expand();
+showToast("Забони тоҷикӣ фаъол шуд");
 
 }
 
-/* ===================== */
+if(lang==="ru"){
+
+showToast("Русский язык включён");
+
+}
+
+if(lang==="en"){
+
+showToast("English enabled");
+
+}
+
+}
+
+/* ========================= */
 /* BALANCE */
-/* ===================== */
+/* ========================= */
 
-let balance = 0;
+let userBalance = 0;
 
 function updateBalance(){
 
-const balanceBox =
-document.querySelector(".balance-amount");
+const balance =
+document.querySelector(".balance-money");
 
-if(balanceBox){
+if(balance){
 
-balanceBox.innerHTML =
-balance + " сомони";
+balance.innerHTML =
+userBalance + " сомони";
 
 }
 
@@ -1084,80 +2090,85 @@ balance + " сомони";
 
 updateBalance();
 
-/* ===================== */
-/* PROFILE DATA */
-/* ===================== */
+/* ========================= */
+/* UC BUY */
+/* ========================= */
 
-let profile = {
+document
+.querySelectorAll(".uc-btn")
+.forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+showToast("Переход к оплате");
+
+});
+
+});
+
+/* ========================= */
+/* SUPPORT */
+/* ========================= */
+
+function openSupport(){
+
+showToast("Поддержка VELOX");
+
+}
+
+/* ========================= */
+/* PROFILE */
+/* ========================= */
+
+const profile = {
 
 name:"Akram",
-id:"123456789"
+
+id:"123456789",
+
+balance:0
 
 };
 
-/* ===================== */
+/* ========================= */
 /* DEMO ORDERS */
-/* ===================== */
+/* ========================= */
 
-let orders = [
+const orders = [
 
 {
 product:"1800 UC",
-status:"Выполнено"
+status:"done"
 },
 
 {
 product:"660 UC",
-status:"Выполнено"
+status:"done"
 }
 
 ];
 
-/* ===================== */
+/* ========================= */
 /* DEMO REVIEWS */
-/* ===================== */
+/* ========================= */
 
-let reviews = [
+const reviews = [
 
 {
 name:"Rustam",
-text:"Спасибо за UC"
+stars:5
 },
 
 {
 name:"Muhammad",
-text:"Быстро получил"
+stars:5
 }
 
 ];
 
-/* ===================== */
-/* OPEN PAGE */
-/* ===================== */
-
-function openPage(page){
-
-document
-.querySelectorAll("section")
-.forEach(sec=>{
-
-sec.style.display="none";
-
-});
-
-document
-.getElementById(page)
-.style.display="block";
-
-}
-
-/* ===================== */
-/* START */
-/* ===================== */
-
-showToast("VELOX UC SHOP");
-
 </script>
+
+</div>
 
 </body>
 </html>
