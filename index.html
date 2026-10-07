@@ -6,7 +6,6 @@
     <title>VELOX UC SHOP</title>
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <!-- Иконаҳо -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -74,7 +73,7 @@
         /* Banner */
         .banner {
             margin: 12px;
-            height: 100px;
+            height: 90px;
             background: linear-gradient(135deg, #181818, #050505);
             border: 1px solid #d4af37;
             border-radius: 12px;
@@ -92,7 +91,7 @@
         .page { display: none; padding: 0 12px; }
         .page.active { display: block; }
 
-        /* Grid Cards */
+        /* Grid Cards Main */
         .main-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -104,7 +103,7 @@
             border: 1px solid #d4af37;
             border-radius: 12px;
             overflow: hidden;
-            height: 160px;
+            height: 150px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -141,7 +140,7 @@
         .card-footer h3 { font-size: 12px; font-style: italic; color: #fff; }
         .card-footer i { border: 1px solid #d4af37; border-radius: 50%; padding: 4px; color: #ffd700; font-size: 9px; }
 
-        /* UC Price Lists */
+        /* Buttons & Titles */
         .back-btn {
             background: #141414;
             border: 1px solid #d4af37;
@@ -181,16 +180,129 @@
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            transition: 0.2s;
         }
 
-        .uc-item:active {
-            background: #222;
-            border-color: #ffd700;
-        }
-
+        .uc-item:active { background: #222; border-color: #ffd700; }
         .uc-amount { font-weight: bold; color: #fff; font-size: 13px; }
         .uc-price { color: #ffd700; font-weight: bold; font-size: 12px; }
+
+        /* Modal Payment Window */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: #141414;
+            border: 1px solid #d4af37;
+            border-radius: 12px;
+            padding: 20px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .modal-title { font-size: 16px; color: #ffd700; font-weight: bold; margin-bottom: 12px; }
+        .card-details { background: #080808; border: 1px solid #333; padding: 12px; border-radius: 8px; margin: 12px 0; text-align: left; }
+        .card-details p { font-size: 12px; color: #ccc; margin-bottom: 4px; }
+        .card-number-box { display: flex; justify-content: space-between; align-items: center; background: #202020; padding: 8px; border-radius: 6px; margin-top: 6px; }
+        .card-num { color: #ffd700; font-weight: bold; font-size: 14px; letter-spacing: 1px; }
+
+        .copy-btn {
+            background: #d4af37;
+            border: none;
+            color: #000;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .pay-btn {
+            background: #00ff7f;
+            border: none;
+            color: #000;
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: 1px solid #666;
+            color: #ccc;
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+
+        /* Accounts 2x2 Grid */
+        .acc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .add-acc-card {
+            background: #141414;
+            border: 2px dashed #d4af37;
+            border-radius: 10px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #ffd700;
+        }
+
+        .add-acc-card i { font-size: 30px; margin-bottom: 6px; }
+        .add-acc-card span { font-size: 11px; font-weight: bold; }
+
+        .acc-card {
+            background: #141414;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 10px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .acc-title { font-size: 12px; font-weight: bold; color: #ffd700; margin-bottom: 4px; }
+        .acc-desc { font-size: 10px; color: #aaa; height: 32px; overflow: hidden; margin-bottom: 6px; }
+        .acc-price-box { display: flex; justify-content: space-between; align-items: center; }
+        .acc-price { color: #00ff7f; font-weight: bold; font-size: 12px; }
+        .buy-acc-btn { background: #d4af37; border: none; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; cursor: pointer; }
+
+        /* Forms */
+        .form-input {
+            width: 100%;
+            background: #080808;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
 
         /* Sections */
         .section-title { font-size: 16px; color: #ffd700; margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 6px; }
@@ -203,6 +315,7 @@
         }
         .review-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
         .status-done { color: #00ff7f; font-size: 12px; font-weight: bold; }
+        .status-pending { color: #ffd700; font-size: 12px; font-weight: bold; }
 
         /* Navigation */
         .bottom-nav {
@@ -274,7 +387,7 @@
             </div>
 
             <!-- AKAKUNT -->
-            <div class="card" onclick="selectCategory('AKAKUNT')">
+            <div class="card" onclick="openAccShop()">
                 <div class="card-img-box">
                     <img src="https://i.pinimg.com/736x/8f/30/ff/8f30ff61dc9ec802062534571d49f0ec.jpg" alt="AKAKUNT">
                 </div>
@@ -299,134 +412,67 @@
         </div>
     </main>
 
-    <!-- Саҳифаи Нархномаи UC SHOP -->
+    <!-- Нархномаи UC SHOP -->
     <section class="page" id="page-uc-list">
         <button class="back-btn" onclick="backToMain()"><i class="fa-solid fa-arrow-left"></i> Назад</button>
         
         <div class="uc-section-title">АКЦИЯ UC КАМТАРАК</div>
         <div class="uc-grid">
-            <div class="uc-item" onclick="buyUC('30 UC', '5 с.')"><span class="uc-amount">30 UC</span><span class="uc-price">5 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('60 UC', '10 с.')"><span class="uc-amount">60 UC</span><span class="uc-price">10 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('90 UC', '14 с.')"><span class="uc-amount">90 UC</span><span class="uc-price">14 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('120 UC', '19 с.')"><span class="uc-amount">120 UC</span><span class="uc-price">19 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('150 UC', '24 с.')"><span class="uc-amount">150 UC</span><span class="uc-price">24 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('180 UC', '29 с.')"><span class="uc-amount">180 UC</span><span class="uc-price">29 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('210 UC', '34 с.')"><span class="uc-amount">210 UC</span><span class="uc-price">34 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('240 UC', '38 с.')"><span class="uc-amount">240 UC</span><span class="uc-price">38 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('270 UC', '44 с.')"><span class="uc-amount">270 UC</span><span class="uc-price">44 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('30 UC', '5')"><span class="uc-amount">30 UC</span><span class="uc-price">5 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('60 UC', '10')"><span class="uc-amount">60 UC</span><span class="uc-price">10 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('90 UC', '14')"><span class="uc-amount">90 UC</span><span class="uc-price">14 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('120 UC', '19')"><span class="uc-amount">120 UC</span><span class="uc-price">19 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('150 UC', '24')"><span class="uc-amount">150 UC</span><span class="uc-price">24 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('180 UC', '29')"><span class="uc-amount">180 UC</span><span class="uc-price">29 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('210 UC', '34')"><span class="uc-amount">210 UC</span><span class="uc-price">34 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('240 UC', '38')"><span class="uc-amount">240 UC</span><span class="uc-price">38 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('270 UC', '44')"><span class="uc-amount">270 UC</span><span class="uc-price">44 сомони</span></div>
         </div>
 
         <div class="uc-section-title">АКЦИЯ UC БИСЁР</div>
         <div class="uc-grid">
-            <div class="uc-item" onclick="buyUC('325 UC', '46 с.')"><span class="uc-amount">325 UC</span><span class="uc-price">46 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('355 UC', '51 с.')"><span class="uc-amount">355 UC</span><span class="uc-price">51 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('385 UC', '56 с.')"><span class="uc-amount">385 UC</span><span class="uc-price">56 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('445 UC', '66 с.')"><span class="uc-amount">445 UC</span><span class="uc-price">66 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('660 UC', '95 с.')"><span class="uc-amount">660 UC</span><span class="uc-price">95 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('720 UC', '104 с.')"><span class="uc-amount">720 UC</span><span class="uc-price">104 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('985 UC', '141 с.')"><span class="uc-amount">985 UC</span><span class="uc-price">141 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('1075 UC', '153 с.')"><span class="uc-amount">1075 UC</span><span class="uc-price">153 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('1380 UC', '196 с.')"><span class="uc-amount">1380 UC</span><span class="uc-price">196 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('1440 UC', '200 с.')"><span class="uc-amount">1440 UC</span><span class="uc-price">200 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('1800 UC', '235 с.')"><span class="uc-amount">1800 UC</span><span class="uc-price">235 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('1980 UC', '265 с.')"><span class="uc-amount">1980 UC</span><span class="uc-price">265 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('2460 UC', '330 с.')"><span class="uc-amount">2460 UC</span><span class="uc-price">330 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('2670 UC', '365 с.')"><span class="uc-amount">2670 UC</span><span class="uc-price">365 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('3850 UC', '499 с.')"><span class="uc-amount">3850 UC</span><span class="uc-price">499 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('4835 UC', '640 с.')"><span class="uc-amount">4835 UC</span><span class="uc-price">640 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('5075 UC', '678 с.')"><span class="uc-amount">5075 UC</span><span class="uc-price">678 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('5400 UC', '724 с.')"><span class="uc-amount">5400 UC</span><span class="uc-price">724 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('5950 UC', '780 с.')"><span class="uc-amount">5950 UC</span><span class="uc-price">780 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('8100 UC', '900 с.')"><span class="uc-amount">8100 UC</span><span class="uc-price">900 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('8400 UC', '938 с.')"><span class="uc-amount">8400 UC</span><span class="uc-price">938 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('9900 UC', '1148 с.')"><span class="uc-amount">9900 UC</span><span class="uc-price">1148 сомони</span></div>
-            <div class="uc-item" onclick="buyUC('16200 UC', '1800 с.')"><span class="uc-amount">16200 UC</span><span class="uc-price">1800 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('325 UC', '46')"><span class="uc-amount">325 UC</span><span class="uc-price">46 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('355 UC', '51')"><span class="uc-amount">355 UC</span><span class="uc-price">51 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('385 UC', '56')"><span class="uc-amount">385 UC</span><span class="uc-price">56 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('445 UC', '66')"><span class="uc-amount">445 UC</span><span class="uc-price">66 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('660 UC', '95')"><span class="uc-amount">660 UC</span><span class="uc-price">95 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('720 UC', '104')"><span class="uc-amount">720 UC</span><span class="uc-price">104 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('985 UC', '141')"><span class="uc-amount">985 UC</span><span class="uc-price">141 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('1075 UC', '153')"><span class="uc-amount">1075 UC</span><span class="uc-price">153 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('1380 UC', '196')"><span class="uc-amount">1380 UC</span><span class="uc-price">196 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('1440 UC', '200')"><span class="uc-amount">1440 UC</span><span class="uc-price">200 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('1800 UC', '235')"><span class="uc-amount">1800 UC</span><span class="uc-price">235 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('1980 UC', '265')"><span class="uc-amount">1980 UC</span><span class="uc-price">265 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('2460 UC', '330')"><span class="uc-amount">2460 UC</span><span class="uc-price">330 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('2670 UC', '365')"><span class="uc-amount">2670 UC</span><span class="uc-price">365 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('3850 UC', '499')"><span class="uc-amount">3850 UC</span><span class="uc-price">499 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('4835 UC', '640')"><span class="uc-amount">4835 UC</span><span class="uc-price">640 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('5075 UC', '678')"><span class="uc-amount">5075 UC</span><span class="uc-price">678 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('5400 UC', '724')"><span class="uc-amount">5400 UC</span><span class="uc-price">724 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('5950 UC', '780')"><span class="uc-amount">5950 UC</span><span class="uc-price">780 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('8100 UC', '900')"><span class="uc-amount">8100 UC</span><span class="uc-price">900 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('8400 UC', '938')"><span class="uc-amount">8400 UC</span><span class="uc-price">938 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('9900 UC', '1148')"><span class="uc-amount">9900 UC</span><span class="uc-price">1148 сомони</span></div>
+            <div class="uc-item" onclick="openPayment('16200 UC', '1800')"><span class="uc-amount">16200 UC</span><span class="uc-price">1800 сомони</span></div>
         </div>
     </section>
 
-    <!-- 2. Отзывы -->
-    <section class="page" id="page-reviews">
-        <div class="section-title">Отзывы клиентов</div>
-        <div class="review-item">
-            <div class="review-header"><strong>Akmal_777</strong><span>⭐⭐⭐⭐⭐</span></div>
-            <p>660 UC гирифтам, зуд омад. Хизматрасонӣ хеле хуб! Раҳмат!</p>
-        </div>
-        <div class="review-item">
-            <div class="review-header"><strong>Sardor_TJ</strong><span>⭐⭐⭐⭐⭐</span></div>
-            <p>X-Suit расид, сифаташ супер! Боз ҳам харид мекунам!</p>
-        </div>
-    </section>
+    <!-- Бахши Аккаунтҳо (2x2) -->
+    <section class="page" id="page-acc-list">
+        <button class="back-btn" onclick="backToMain()"><i class="fa-solid fa-arrow-left"></i> Назад</button>
+        <div class="uc-section-title">АККАУНТҲОИ ФУРУШӢ</div>
 
-    <!-- 3. Заказы -->
-    <section class="page" id="page-orders">
-        <div class="section-title">История ваших покупок</div>
-        <div class="order-item">
-            <div><strong>1800 UC</strong><p style="font-size:12px; color:#aaa;">ID: 523456789</p></div>
-            <span class="status-done">Выполнено</span>
-        </div>
-    </section>
+        <div class="acc-grid" id="acc-container">
+            <!-- Кнопкаи мондани аккаунт -->
+            <div class="add-acc-card" onclick="openAddAccModal()">
+                <i class="fa-solid fa-circle-plus"></i>
+                <span>МОНИДАНИ АККАУНТ</span>
+            </div>
 
-    <!-- 4. Профиль -->
-    <section class="page" id="page-profile">
-        <div style="text-align:center; padding:30px 0;">
-            <i class="fa-solid fa-circle-user" style="font-size:60px; color:#d4af37; margin-bottom:10px;"></i>
-            <h3 id="user-name">Корбар</h3>
-            <p id="user-id" style="color:#888; font-size:12px;">ID: ---</p>
-        </div>
-    </section>
-
-    <!-- Bottom Nav -->
-    <nav class="bottom-nav">
-        <button class="nav-item active" onclick="switchPage('main', this)"><i class="fa-solid fa-house"></i><span>Главный</span></button>
-        <button class="nav-item" onclick="switchPage('reviews', this)"><i class="fa-solid fa-star"></i><span>Отзывы</span></button>
-        <button class="nav-item" onclick="switchPage('orders', this)"><i class="fa-solid fa-cart-shopping"></i><span>Заказы</span></button>
-        <button class="nav-item" onclick="switchPage('profile', this)"><i class="fa-solid fa-user"></i><span>Профиль</span></button>
-    </nav>
-
-    <script>
-        const tg = window.Telegram ? window.Telegram.WebApp : null;
-        if (tg) {
-            tg.expand();
-            tg.ready();
-            if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-                const user = tg.initDataUnsafe.user;
-                document.getElementById('user-name').innerText = user.first_name + (user.last_name ? ' ' + user.last_name : '');
-                document.getElementById('user-id').innerText = 'ID: ' + user.id;
-            }
-        }
-
-        function switchPage(pageName, element) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            document.getElementById('page-' + pageName).classList.add('active');
-            if(element) element.classList.add('active');
-        }
-
-        function openUcShop() {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('page-uc-list').classList.add('active');
-        }
-
-        function backToMain() {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('page-main').classList.add('active');
-        }
-
-        function buyUC(amount, price) {
-            if (tg) tg.showAlert(`Шумо ${amount}-ро барои ${price} интихоб кардед.`);
-            else alert(`Шумо ${amount}-ро барои ${price} интихоб кардед.`);
-        }
-
-        function selectCategory(categoryName) {
-            if (tg) tg.showAlert(`Категория: ${categoryName}`);
-            else alert(`Категория: ${categoryName}`);
-        }
-
-        function addBalance() {
-            if (tg) tg.showAlert('Барои пур кардани баланс ба бот муроҷиат кунед.');
-            else alert('Баланс');
-        }
-    </script>
-</body>
-                                                                                                                                                 </html>
-                                                                                                                                                 
+            <!-- Мисол Аккаунт 1 -->
+            <div class="acc-card">
+                <div class="acc-title">M416 Glacier Lvl 4</div>
+                <div class="acc-desc">Коллекция: 55, RP: 10-22, Скинҳои редкий.</div>
+                <div class="acc-price-box">
+                    <span class="acc-price">350 с.</span>
+            
