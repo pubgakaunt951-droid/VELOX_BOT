@@ -19,85 +19,76 @@ font-family:'Poppins',sans-serif;
 
 body{
 background:#050505;
-color:white;
-padding:15px;
+color:#fff;
+max-width:700px;
+margin:auto;
+padding:12px;
 padding-bottom:100px;
 }
 
-.container{
-max-width:650px;
-margin:auto;
-}
-
 .header{
+background:#0b0b0b;
+border:1px solid #d4a62a;
+border-radius:20px;
+padding:15px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-background:#0b0b0b;
-border:1px solid #d4a62a;
-padding:15px;
-border-radius:20px;
 margin-bottom:15px;
-box-shadow:0 0 20px rgba(212,166,42,.2);
 }
 
 .logo{
-font-size:30px;
+font-size:34px;
 font-weight:800;
 color:#d4a62a;
 }
 
-.logo span{
-color:white;
-font-size:14px;
+.logo small{
 display:block;
-font-weight:500;
+font-size:13px;
+color:white;
 }
 
-.user-box{
+.user{
 text-align:right;
 }
 
 .user-id{
-font-size:13px;
-color:#bbb;
+font-size:12px;
+color:#aaa;
 }
 
-.username{
-color:#d4a62a;
+.user-name{
+font-size:15px;
 font-weight:600;
+color:#d4a62a;
 }
 
-.hero{
-position:relative;
+.banner{
 height:260px;
-border-radius:25px;
+border-radius:24px;
 overflow:hidden;
+position:relative;
 border:1px solid #d4a62a;
-margin-bottom:20px;
+margin-bottom:15px;
+background:url('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200') center/cover;
 }
 
-.hero img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.hero-overlay{
+.banner::before{
+content:'';
 position:absolute;
 inset:0;
-background:linear-gradient(to top,
-rgba(0,0,0,.95),
-rgba(0,0,0,.25));
+background:linear-gradient(to top,rgba(0,0,0,.95),rgba(0,0,0,.2));
 }
 
-.hero-content{
+.banner-content{
 position:absolute;
-left:25px;
-bottom:25px;
+left:20px;
+bottom:20px;
+z-index:2;
 }
 
-.hero-title{
+.banner-title{
 font-size:42px;
 font-weight:800;
 line-height:1;
@@ -107,43 +98,55 @@ line-height:1;
 color:#d4a62a;
 }
 
-.hero-sub{
+.banner-text{
 margin-top:8px;
-color:#ddd;
 font-size:14px;
+color:#ddd;
 }
 
-.balance-card{
-background:#0d0d0d;
+.balance-box{
+background:#0b0b0b;
 border:1px solid #d4a62a;
 border-radius:20px;
 padding:18px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:20px;
+margin-bottom:15px;
 }
 
-.balance-text{
-font-size:15px;
+.balance-title{
 color:#aaa;
+font-size:13px;
 }
 
-.balance{
+.balance-money{
 font-size:28px;
 font-weight:700;
 color:#d4a62a;
+}
+
+.plus-btn{
+width:55px;
+height:55px;
+border:none;
+border-radius:16px;
+background:#d4a62a;
+color:black;
+font-size:30px;
+font-weight:700;
+cursor:pointer;
 }
 
 .top-buttons{
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:10px;
-margin-bottom:25px;
+margin-bottom:20px;
 }
 
 .top-btn{
-background:#0d0d0d;
+background:#0b0b0b;
 border:1px solid #d4a62a;
 border-radius:16px;
 padding:15px 10px;
@@ -162,41 +165,30 @@ color:black;
 
 <body>
 
-<div class="container">
-
 <div class="header">
 
 <div class="logo">
 VELOX
-<span>UC SHOP</span>
+<small>UC SHOP</small>
 </div>
 
-<div class="user-box">
-<div class="user-id">
-ID: 8919163416
-</div>
-
-<div class="username">
-@Akram
-</div>
+<div class="user">
+<div class="user-id">ID: 8919163416</div>
+<div class="user-name">@Akram</div>
 </div>
 
 </div>
 
-<div class="hero">
+<div class="banner">
 
-<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200" alt="">
+<div class="banner-content">
 
-<div class="hero-overlay"></div>
-
-<div class="hero-content">
-
-<div class="hero-title">
+<div class="banner-title">
 <span class="gold">VELOX</span><br>
 SHOP
 </div>
 
-<div class="hero-sub">
+<div class="banner-text">
 PUBG MOBILE • UC • АККАУНТ • X-COSTUME
 </div>
 
@@ -204,316 +196,136 @@ PUBG MOBILE • UC • АККАУНТ • X-COSTUME
 
 </div>
 
-<div class="balance-card">
+<div class="balance-box">
 
 <div>
-<div class="balance-text">
-Баланс
+<div class="balance-title">Баланс</div>
+<div class="balance-money">250 сомони</div>
 </div>
 
-<div class="balance">
-250 Сомони
-</div>
-</div>
-
-<button style="
-background:#d4a62a;
-color:black;
-border:none;
-padding:12px 18px;
-border-radius:14px;
-font-weight:700;">
-+
-</button>
+<button class="plus-btn">+</button>
 
 </div>
 
 <div class="top-buttons">
 
-<div class="top-btn">
-Пополнить
-</div>
-
-<div class="top-btn">
-Заказы
-</div>
-
-<div class="top-btn">
-Отзывы
-</div>
-
-<div class="top-btn">
-Поддержка
-</div>
+<div class="top-btn">Пополнить</div>
+<div class="top-btn">Заказы</div>
+<div class="top-btn">Отзывы</div>
+<div class="top-btn">Поддержка</div>
 
 </div>
+<div class="categories">
+
+<div class="card">
+
+<div class="card-image">
+👕
+</div>
+
+<div class="card-content">
+
+<div class="card-title">
+X-COSTUME
+</div>
+
+<div class="card-text">
+Редкие костюмы PUBG Mobile
+</div>
+
+<button class="card-btn">
+Перейти
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="card-image">
+🚗
+</div>
+
+<div class="card-content">
+
+<div class="card-title">
+CAR TOKEN
+</div>
+
+<div class="card-text">
+Токены для машин PUBG
+</div>
+
+<button class="card-btn">
+Перейти
+</button>
+
+</div>
+
+</div>
+
+</div>
+
 <div style="
-font-size:22px;
-font-weight:700;
-margin-bottom:15px;
-color:#d4a62a;">
-Категорияҳо
-</div>
-
-<div style="
+margin-top:15px;
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:15px;
-margin-bottom:20px;">
+gap:12px;">
 
-<div class="category-card">
-
-<img src="https://i.imgur.com/Y2a8F5P.png">
-
-<div class="category-info">
-
-<h3>UC</h3>
-
-<p>
-Пополнение PUBG Mobile UC
-</p>
-
-<button>
-Перейти
-</button>
-
-</div>
-
-</div>
-
-<div class="category-card">
-
-<img src="https://i.imgur.com/F5zD4yI.png">
-
-<div class="category-info">
-
-<h3>ACCOUNT MARKET</h3>
-
-<p>
-Продажа PUBG аккаунтов
-</p>
-
-<button>
-Перейти
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<style>
-
-.category-card{
+<div style="
 background:#0b0b0b;
 border:1px solid #d4a62a;
-border-radius:22px;
-overflow:hidden;
-box-shadow:0 0 20px rgba(212,166,42,.15);
-}
-
-.category-card img{
-width:100%;
-height:170px;
-object-fit:cover;
-display:block;
-}
-
-.category-info{
 padding:15px;
-}
-
-.category-info h3{
-font-size:24px;
-font-weight:700;
-margin-bottom:8px;
-}
-
-.category-info p{
-color:#aaa;
-font-size:13px;
-margin-bottom:15px;
-}
-
-.category-info button{
-width:100%;
-background:#d4a62a;
-color:black;
-border:none;
-padding:12px;
-border-radius:12px;
-font-weight:700;
-cursor:pointer;
-}
-
-.category-info button:hover{
-opacity:.9;
-}
-
-</style>
-<div style="
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-margin-bottom:25px;">
-
-<div class="category-card">
-
-<img src="https://i.imgur.com/t9uX0tM.png">
-
-<div class="category-info">
-
-<h3>X-COSTUME</h3>
-
-<p>
-Редкие костюмы и наборы PUBG Mobile
-</p>
-
-<button>
-Перейти
-</button>
-
-</div>
-
-</div>
-
-<div class="category-card">
-
-<img src="https://i.imgur.com/T4m0M3z.png">
-
-<div class="category-info">
-
-<h3>CAR TOKEN</h3>
-
-<p>
-Токены для машин и обмена
-</p>
-
-<button>
-Перейти
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="features">
-
-<div class="feature-box">
-🏆
-<h4>Гарантия</h4>
-<span>100% безопасная сделка</span>
-</div>
-
-<div class="feature-box">
-⚡
-<h4>Быстрая доставка</h4>
-<span>Мгновенная выдача</span>
-</div>
-
-<div class="feature-box">
-🎁
-<h4>Бонусы</h4>
-<span>Подарки постоянным клиентам</span>
-</div>
-
-<div class="feature-box">
-📞
-<h4>Поддержка</h4>
-<span>@VELOX_UC</span>
-</div>
-
-</div>
-
-<style>
-
-.features{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-bottom:25px;
-}
-
-.feature-box{
-background:#0b0b0b;
-border:1px solid #d4a62a;
 border-radius:18px;
-padding:18px;
-text-align:center;
-font-size:22px;
-}
+text-align:center;">
 
-.feature-box h4{
-font-size:16px;
-margin-top:10px;
-margin-bottom:5px;
-color:#fff;
-}
+<div style="font-size:30px;">🛡️</div>
 
-.feature-box span{
+<div style="
+margin-top:8px;
+font-weight:700;">
+Гарантия
+</div>
+
+<div style="
 font-size:12px;
 color:#aaa;
-display:block;
-}
-
-</style>
-<div class="footer-support">
-
-<div class="support-card">
-<div class="support-left">
-
-<div class="telegram-icon">
-✈
-</div>
-
-<div>
-<h3>@VELOX_UC</h3>
-<p>Написать в Telegram</p>
+margin-top:5px;">
+100% Безопасная сделка
 </div>
 
 </div>
 
-<div class="arrow">
-➜
-</div>
-</div>
+<div style="
+background:#0b0b0b;
+border:1px solid #d4a62a;
+padding:15px;
+border-radius:18px;
+text-align:center;">
 
-</div>
+<div style="font-size:30px;">⚡</div>
 
-<nav class="bottom-nav">
-
-<div class="nav-item active">
-<div class="nav-icon">🏠</div>
-<div class="nav-text">Главная</div>
-</div>
-
-<div class="nav-item">
-<div class="nav-icon">🛒</div>
-<div class="nav-text">Каталог</div>
+<div style="
+margin-top:8px;
+font-weight:700;">
+Быстро
 </div>
 
-<div class="nav-item">
-<div class="nav-icon">💰</div>
-<div class="nav-text">Баланс</div>
+<div style="
+font-size:12px;
+color:#aaa;
+margin-top:5px;">
+Мгновенная выдача
 </div>
 
-<div class="nav-item">
-<div class="nav-icon">👤</div>
-<div class="nav-text">Профиль</div>
 </div>
 
-</nav>
-
+</div>
 <style>
 
-.footer-support{
-margin-bottom:100px;
-}
-
-.support-card{
+.support-box{
+margin-top:20px;
 background:#0b0b0b;
 border:1px solid #d4a62a;
 border-radius:20px;
@@ -521,7 +333,6 @@ padding:18px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-box-shadow:0 0 20px rgba(212,166,42,.15);
 }
 
 .support-left{
@@ -530,7 +341,7 @@ align-items:center;
 gap:12px;
 }
 
-.telegram-icon{
+.support-icon{
 width:55px;
 height:55px;
 border-radius:50%;
@@ -539,47 +350,42 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-size:24px;
-color:white;
 }
 
-.support-card h3{
-color:#fff;
+.support-title{
 font-size:18px;
-margin-bottom:4px;
+font-weight:700;
 }
 
-.support-card p{
+.support-sub{
+font-size:12px;
 color:#aaa;
-font-size:13px;
-}
-
-.arrow{
-font-size:22px;
-color:#d4a62a;
 }
 
 .bottom-nav{
 position:fixed;
+bottom:0;
 left:0;
 right:0;
-bottom:0;
 height:75px;
 background:#080808;
 border-top:1px solid #d4a62a;
 display:flex;
 justify-content:space-around;
 align-items:center;
-z-index:999;
+z-index:9999;
 }
 
-.nav-item{
+.nav-btn{
 display:flex;
 flex-direction:column;
 align-items:center;
-justify-content:center;
 color:#888;
-font-size:12px;
-cursor:pointer;
+font-size:11px;
+}
+
+.nav-btn.active{
+color:#d4a62a;
 }
 
 .nav-icon{
@@ -587,17 +393,59 @@ font-size:22px;
 margin-bottom:4px;
 }
 
-.nav-item.active{
-color:#d4a62a;
-}
-
-.nav-item.active .nav-icon{
-transform:scale(1.1);
-}
-
 </style>
 
+<div class="support-box">
+
+<div class="support-left">
+
+<div class="support-icon">
+✈️
 </div>
+
+<div>
+<div class="support-title">
+@VELOX_UC
+</div>
+
+<div class="support-sub">
+Telegram Support
+</div>
+</div>
+
+</div>
+
+<div style="
+font-size:22px;
+color:#d4a62a;">
+➜
+</div>
+
+</div>
+
+<nav class="bottom-nav">
+
+<div class="nav-btn active">
+<div class="nav-icon">🏠</div>
+<div>Главная</div>
+</div>
+
+<div class="nav-btn">
+<div class="nav-icon">🛒</div>
+<div>Каталог</div>
+</div>
+
+<div class="nav-btn">
+<div class="nav-icon">💰</div>
+<div>Баланс</div>
+</div>
+
+<div class="nav-btn">
+<div class="nav-icon">👤</div>
+<div>Профиль</div>
+</div>
+
+</nav>
 
 </body>
 </html>
