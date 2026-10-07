@@ -3,34 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VELOX UC SHOP</title>
+  <title>VELOX UC SHOP — Premium Game Store</title>
   <style>
     :root {
-      --bg-color: #08080a;
-      --card-bg: rgba(20, 20, 25, 0.8);
-      --gold: #f3c649;
-      --gold-glow: rgba(243, 198, 73, 0.4);
-      --border-gold: rgba(243, 198, 73, 0.35);
+      --bg-main: #050507;
+      --card-bg: rgba(18, 18, 24, 0.75);
+      --gold-primary: #f3c649;
+      --gold-light: #ffd978;
+      --gold-glow: rgba(243, 198, 73, 0.35);
+      --border-gold: rgba(243, 198, 73, 0.3);
       --text-white: #ffffff;
       --text-gray: #a0a0a0;
+      --status-green: #28a745;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       user-select: none;
     }
 
     body {
-      background-color: var(--bg-color);
+      background-color: var(--bg-main);
       color: var(--text-white);
       max-width: 480px;
       margin: 0 auto;
       padding-bottom: 75px;
       min-height: 100vh;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.95);
+      position: relative;
     }
 
     /* HEADER */
@@ -39,8 +42,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 16px;
-      background: rgba(12, 12, 16, 0.95);
-      backdrop-filter: blur(10px);
+      background: rgba(10, 10, 14, 0.92);
+      backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -56,15 +59,15 @@
     .menu-btn {
       font-size: 22px;
       cursor: pointer;
-      color: var(--gold);
+      color: var(--gold-primary);
     }
 
     .lang-select {
-      background: #15151c;
+      background: #14141a;
       color: #fff;
       border: 1px solid var(--border-gold);
       border-radius: 6px;
-      padding: 3px 5px;
+      padding: 4px 6px;
       font-size: 12px;
     }
 
@@ -73,11 +76,15 @@
     }
 
     .logo-title {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 900;
-      color: var(--gold);
+      color: var(--gold-primary);
       letter-spacing: 1.5px;
       text-shadow: 0 0 10px var(--gold-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
     }
 
     .logo-sub {
@@ -90,7 +97,7 @@
     .balance-box {
       display: flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
       border: 1px solid var(--border-gold);
       border-radius: 10px;
       padding: 4px 8px;
@@ -108,12 +115,12 @@
     }
 
     .add-btn {
-      background: var(--gold);
+      background: var(--gold-primary);
       color: #000;
       border: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
       margin-left: 6px;
       font-weight: bold;
       cursor: pointer;
@@ -122,8 +129,8 @@
     /* BANNER */
     .banner {
       margin: 12px 16px;
-      height: 120px;
-      border-radius: 14px;
+      height: 125px;
+      border-radius: 16px;
       background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%), 
                   url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600') center/cover;
       border: 1px solid var(--border-gold);
@@ -135,7 +142,7 @@
     }
 
     .banner-title {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 900;
       color: #fff;
       font-style: italic;
@@ -143,12 +150,12 @@
 
     .banner-sub {
       font-size: 10px;
-      color: var(--gold);
+      color: var(--gold-primary);
       letter-spacing: 1px;
       font-weight: bold;
     }
 
-    /* PAGES CONTROL */
+    /* PAGE CONTROL */
     .page {
       display: none;
       padding: 0 16px 20px 16px;
@@ -158,7 +165,7 @@
       display: block;
     }
 
-    /* MAIN GRID (2x2 CARDS WITH REAL IMAGES) */
+    /* HOME GRID CARDS */
     .grid-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -174,8 +181,8 @@
       background-size: cover;
       background-position: center;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-      transition: transform 0.2s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .category-card:active {
@@ -202,43 +209,54 @@
     }
 
     .card-arrow {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      border: 1px solid var(--gold);
+      border: 1px solid var(--gold-primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--gold);
-      font-size: 11px;
+      color: var(--gold-primary);
+      font-size: 12px;
     }
 
-    /* BACK BUTTON & SECTION HEADER */
+    /* PAGE HEADERS */
     .page-header {
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
       margin-bottom: 15px;
     }
 
     .back-btn {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-gold);
-      color: var(--gold);
-      padding: 6px 12px;
+      color: var(--gold-primary);
+      padding: 6px 14px;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: bold;
       cursor: pointer;
     }
 
     .page-title-text {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 900;
-      color: var(--gold);
+      color: var(--gold-primary);
     }
 
-    /* UC ITEMS GRID */
+    .sell-btn {
+      background: linear-gradient(90deg, #d4af37, #f3e5ab);
+      color: #000;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    /* PRODUCT CARDS */
     .item-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -253,6 +271,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      backdrop-filter: blur(8px);
     }
 
     .product-img {
@@ -265,13 +284,14 @@
     }
 
     .product-name {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: bold;
       color: #fff;
+      text-align: center;
     }
 
     .product-price {
-      color: var(--gold);
+      color: var(--gold-primary);
       font-weight: bold;
       font-size: 13px;
       margin: 4px 0 8px 0;
@@ -289,6 +309,50 @@
       font-size: 12px;
     }
 
+    /* REVIEWS & ORDERS CARDS */
+    .review-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-gold);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--gold-primary);
+    }
+
+    .stars {
+      color: #ffd700;
+      font-size: 12px;
+    }
+
+    .status-badge {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(40, 167, 69, 0.2);
+      color: #28a745;
+      border: 1px solid rgba(40, 167, 69, 0.4);
+      font-weight: bold;
+    }
+
     /* BOTTOM NAV */
     .bottom-nav {
       position: fixed;
@@ -298,8 +362,8 @@
       max-width: 480px;
       margin: 0 auto;
       height: 60px;
-      background: rgba(12, 12, 15, 0.95);
-      backdrop-filter: blur(10px);
+      background: rgba(10, 10, 14, 0.95);
+      backdrop-filter: blur(12px);
       border-top: 1px solid var(--border-gold);
       display: flex;
       justify-content: space-around;
@@ -318,14 +382,43 @@
     }
 
     .nav-item.active {
-      color: var(--gold);
+      color: var(--gold-primary);
+      text-shadow: 0 0 8px var(--gold-glow);
     }
 
     .nav-icon {
       font-size: 18px;
     }
 
-    /* MODAL */
+    /* DRAWER MENU */
+    .drawer {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 260px;
+      height: 100%;
+      background: rgba(12, 12, 16, 0.98);
+      z-index: 300;
+      border-right: 1px solid var(--border-gold);
+      transition: left 0.3s ease;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .drawer.active {
+      left: 0;
+    }
+
+    .drawer-item {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      color: #fff;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* MODALS */
     .modal {
       display: none;
       position: fixed;
@@ -343,12 +436,26 @@
     }
 
     .modal-content {
-      background: #121216;
-      border: 1px solid var(--gold);
+      background: #101014;
+      border: 1px solid var(--gold-primary);
       border-radius: 16px;
       width: 100%;
-      max-width: 380px;
+      max-width: 400px;
       padding: 18px;
+      box-shadow: 0 0 25px var(--gold-glow);
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      color: var(--text-gray);
+      margin-bottom: 4px;
     }
 
     .form-control {
@@ -358,17 +465,50 @@
       border: 1px solid var(--border-gold);
       border-radius: 8px;
       color: #fff;
-      margin-top: 6px;
-      margin-bottom: 12px;
+      font-size: 13px;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold-primary);
+      color: #000;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 12px;
+      z-index: 400;
+      display: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
   </style>
 </head>
 <body>
 
+  <div class="toast" id="toast">Хабардорӣ</div>
+
+  <!-- DRAWER MENU -->
+  <div class="drawer" id="sideDrawer">
+    <h3 style="color:var(--gold-primary); margin-bottom:20px; letter-spacing:1px;">VELOX UC SHOP</h3>
+    <div class="drawer-item" onclick="nav('home')">Главный</div>
+    <div class="drawer-item" onclick="nav('uc')">UC SHOP</div>
+    <div class="drawer-item" onclick="nav('account')">АККАУНТЫ</div>
+    <div class="drawer-item" onclick="nav('xsuit')">X-SUIT</div>
+    <div class="drawer-item" onclick="nav('supercar')">SUPERCAR</div>
+    <div class="drawer-item" onclick="openDepositModal()">ПОПОЛНИТЬ БАЛАНС</div>
+    <div class="drawer-item" onclick="nav('orders')">МОИ ЗАКАЗЫ</div>
+    <div class="drawer-item" onclick="nav('reviews')">ОТЗЫВЫ</div>
+    <div class="drawer-item" onclick="nav('profile')">ПРОФИЛЬ</div>
+    <div class="drawer-item" onclick="openAdminModal()" style="margin-top:20px; color:var(--gold-primary);">⚙️ АДМИН ПАНЕЛЬ</div>
+  </div>
+
   <!-- HEADER -->
   <header>
     <div class="header-left">
-      <span class="menu-btn">☰</span>
+      <span class="menu-btn" onclick="toggleDrawer()">☰</span>
       <select class="lang-select">
         <option>🇹🇯</option>
         <option>🇷🇺</option>
@@ -376,7 +516,7 @@
       </select>
     </div>
     <div class="logo-container">
-      <div class="logo-title">VELOX</div>
+      <div class="logo-title">👑 VELOX</div>
       <div class="logo-sub">UC SHOP</div>
     </div>
     <div class="balance-box">
@@ -384,7 +524,7 @@
         <div class="balance-text">Баланс</div>
         <div class="balance-val" id="userBalance">0.00 сомони</div>
       </div>
-      <button class="add-btn">+</button>
+      <button class="add-btn" onclick="openDepositModal()">+</button>
     </div>
   </header>
 
@@ -394,36 +534,32 @@
     <div class="banner-sub">PLAY BIGGER BE A LEGEND</div>
   </div>
 
-  <!-- PAGE 1: HOME (САҲИФАИ АСОСӢ) -->
+  <!-- PAGE 1: HOME PAGE -->
   <div id="page-home" class="page active">
     <div class="grid-container">
       
-      <!-- UC SHOP CARD -->
-      <div class="category-card" onclick="openUcPage()" style="background-image: url('https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=400');">
+      <div class="category-card" onclick="nav('uc')" style="background-image: url('https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=400');">
         <div class="card-overlay">
           <span class="card-title">UC SHOP</span>
           <span class="card-arrow">&gt;</span>
         </div>
       </div>
 
-      <!-- AKAKUNT CARD -->
-      <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=400');">
+      <div class="category-card" onclick="nav('account')" style="background-image: url('https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=400');">
         <div class="card-overlay">
           <span class="card-title">AKAKUNT</span>
           <span class="card-arrow">&gt;</span>
         </div>
       </div>
 
-      <!-- X-SUIT CARD -->
-      <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=400');">
+      <div class="category-card" onclick="nav('xsuit')" style="background-image: url('https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=400');">
         <div class="card-overlay">
           <span class="card-title">X-SUIT</span>
           <span class="card-arrow">&gt;</span>
         </div>
       </div>
 
-      <!-- SUPERCAR CARD -->
-      <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=400');">
+      <div class="category-card" onclick="nav('supercar')" style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=400');">
         <div class="card-overlay">
           <span class="card-title">SUPERCAR</span>
           <span class="card-arrow">&gt;</span>
@@ -433,132 +569,143 @@
     </div>
   </div>
 
-  <!-- PAGE 2: UC SHOP PAGE (САҲИФАИ АЛОҲИДАИ НАРХОИ UC) -->
+  <!-- PAGE 2: UC SHOP PAGE -->
   <div id="page-uc" class="page">
     <div class="page-header">
-      <button class="back-btn" onclick="openHomePage()">← Назад</button>
+      <button class="back-btn" onclick="nav('home')">← Назад</button>
       <div class="page-title-text">UC SHOP</div>
+      <div></div>
     </div>
+    <div class="item-grid" id="uc-list"></div>
+  </div>
 
-    <!-- КАРТОЧКАҲОИ UC ДАР РӮИ САҲИФАИ АЛОҲИДА -->
-    <div class="item-grid">
-      
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=300" class="product-img">
-        <div class="product-name">60 UC</div>
-        <div class="product-price">13 сомони</div>
-        <button class="btn-buy" onclick="buyItem('60 UC', 13)">Купить</button>
+  <!-- PAGE 3: ACCOUNT MARKET PAGE -->
+  <div id="page-account" class="page">
+    <div class="page-header">
+      <button class="back-btn" onclick="nav('home')">← Назад</button>
+      <div class="page-title-text">АККАУНТҲО</div>
+      <button class="sell-btn" onclick="openSellModal('Account')">➕ Монидан</button>
+    </div>
+    <div class="item-grid" id="account-list"></div>
+  </div>
+
+  <!-- PAGE 4: X-SUIT PAGE -->
+  <div id="page-xsuit" class="page">
+    <div class="page-header">
+      <button class="back-btn" onclick="nav('home')">← Назад</button>
+      <div class="page-title-text">X-SUIT</div>
+      <button class="sell-btn" onclick="openSellModal('X-Suit')">➕ Монидан</button>
+    </div>
+    <div class="item-grid" id="xsuit-list"></div>
+  </div>
+
+  <!-- PAGE 5: SUPERCAR PAGE -->
+  <div id="page-supercar" class="page">
+    <div class="page-header">
+      <button class="back-btn" onclick="nav('home')">← Назад</button>
+      <div class="page-title-text">SUPERCAR</div>
+      <button class="sell-btn" onclick="openSellModal('Supercar')">➕ Монидан</button>
+    </div>
+    <div class="item-grid" id="supercar-list"></div>
+  </div>
+
+  <!-- PAGE 6: REVIEWS PAGE -->
+  <div id="page-reviews" class="page">
+    <div class="page-header">
+      <button class="back-btn" onclick="nav('home')">← Назад</button>
+      <div class="page-title-text">ОТЗЫВЫ</div>
+      <button class="sell-btn" id="writeReviewBtn" onclick="openReviewModal()">Оставить отзыв</button>
+    </div>
+    <div id="reviews-list"></div>
+  </div>
+
+  <!-- PAGE 7: ORDERS PAGE -->
+  <div id="page-orders" class="page">
+    <div class="page-header">
+      <button class="back-btn" onclick="nav('home')">← Назад</button>
+      <div class="page-title-text">МОИ ЗАКАЗЫ</div>
+      <div></div>
+    </div>
+    <div id="orders-list"></div>
+  </div>
+
+  <!-- PAGE 8: PROFILE PAGE -->
+  <div id="page-profile" class="page">
+    <div class="page-header">
+      <button class="back-btn" onclick="nav('home')">← Назад</button>
+      <div class="page-title-text">ПРОФИЛЬ</div>
+      <div></div>
+    </div>
+    <div class="product-card" style="width: 100%; text-align: left; align-items: flex-start; gap: 10px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100" class="avatar" style="width:50px; height:50px;">
+        <div>
+          <div style="font-weight:bold; font-size:16px;">@user_tj</div>
+          <div style="font-size:12px; color:var(--text-gray);">ID: 59382019</div>
+        </div>
       </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=300" class="product-img">
-        <div class="product-name">325 UC</div>
-        <div class="product-price">60 сомони</div>
-        <button class="btn-buy" onclick="buyItem('325 UC', 60)">Купить</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=300" class="product-img">
-        <div class="product-name">660 UC</div>
-        <div class="product-price">120 сомони</div>
-        <button class="btn-buy" onclick="buyItem('660 UC', 120)">Купить</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=300" class="product-img">
-        <div class="product-name">1800 UC</div>
-        <div class="product-price">300 сомони</div>
-        <button class="btn-buy" onclick="buyItem('1800 UC', 300)">Купить</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=300" class="product-img">
-        <div class="product-name">3850 UC</div>
-        <div class="product-price">600 сомони</div>
-        <button class="btn-buy" onclick="buyItem('3850 UC', 600)">Купить</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=300" class="product-img">
-        <div class="product-name">8100 UC</div>
-        <div class="product-price">1200 сомони</div>
-        <button class="btn-buy" onclick="buyItem('8100 UC', 1200)">Купить</button>
-      </div>
-
+      <hr style="width:100%; border-color:var(--border-gold); margin: 8px 0;">
+      <div>Баланс: <b style="color:var(--gold-primary);" id="profileBalance">0.00 сомони</b></div>
+      <div>Закази иҷрошуда: <b style="color:var(--status-green);" id="profileOrdersCount">0</b></div>
+      <button class="btn-buy" style="margin-top:10px;" onclick="openDepositModal()">ПОПОЛНИТЬ БАЛАНС</button>
+      <button class="btn-buy" style="margin-top:6px; background:#222; color:#fff;" onclick="window.open('https://t.me/VELOX_UC', '_blank')">ПОДДЕРЖКА (@VELOX_UC)</button>
     </div>
   </div>
 
-  <!-- MODAL FOR BUY -->
+  <!-- MODAL: BUY PRODUCT -->
   <div class="modal" id="buyModal">
     <div class="modal-content">
-      <h3 id="buyModalTitle" style="color:var(--gold); margin-bottom:10px;"></h3>
-      <label style="font-size:12px; color:var(--text-gray);">PUBG ID-ро ворид кунед:</label>
-      <input type="number" id="pubgId" class="form-control" placeholder="Масалан: 512345678">
+      <h3 id="buyModalTitle" style="color:var(--gold-primary); margin-bottom:12px;">Хариди маҳсулот</h3>
+      <div class="form-group">
+        <label>PUBG ID-и худро ворид кунед:</label>
+        <input type="number" id="pubgIdInput" class="form-control" placeholder="Масалан: 512345678">
+      </div>
+      <div id="buyDetails" style="font-size:13px; margin-bottom:12px; color:var(--text-gray);"></div>
       <div style="display:flex; gap:8px;">
-        <button class="btn-buy" onclick="confirmBuy()">Тасдиқ кардан</button>
-        <button class="btn-buy" style="background:#333; color:#fff;" onclick="closeModal()">Бекор кардан</button>
+        <button class="btn-buy" onclick="confirmPurchase()">ПОДТВЕРДИТЬ ЗАКАЗ</button>
+        <button class="btn-buy" style="background:#333; color:#fff;" onclick="closeModal('buyModal')">БЕКОР КАРДАН</button>
       </div>
     </div>
   </div>
 
-  <!-- BOTTOM NAVIGATION -->
-  <div class="bottom-nav">
-    <div class="nav-item active" onclick="openHomePage()">
-      <span class="nav-icon">🏠</span>
-      <span>Главный</span>
-    </div>
-    <div class="nav-item">
-      <span class="nav-icon">⭐</span>
-      <span>Отзывы</span>
-    </div>
-    <div class="nav-item">
-      <span class="nav-icon">🛒</span>
-      <span>Заказы</span>
-    </div>
-    <div class="nav-item">
-      <span class="nav-icon">👤</span>
-      <span>Профиль</span>
+  <!-- MODAL: DEPOSIT BALANCE -->
+  <div class="modal" id="depositModal">
+    <div class="modal-content">
+      <h3 style="color:var(--gold-primary); margin-bottom:10px;">Пополнение баланса</h3>
+      <div style="font-size:12px; margin-bottom:8px; color:var(--text-gray);">Реквизитҳо барои пардохт:</div>
+      
+      <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; font-size:12px; margin-bottom:10px; border:1px solid var(--border-gold);">
+        <div><b>Душанбе Сити / Spitamen Pay</b></div>
+        <div style="color:var(--gold-primary); font-size:15px; font-weight:bold; margin:4px 0;">938880000</div>
+        <div style="font-size:11px; color:var(--text-gray);">Получатель: Шарифмох.М.Д</div>
+        <button class="btn-buy" style="margin-top:6px; padding:4px 0;" onclick="copyText('938880000')">КОПИРОВАТЬ</button>
+      </div>
+
+      <div class="form-group">
+        <label>Миқдори пуркунӣ (сомони):</label>
+        <input type="number" id="depositAmount" class="form-control" placeholder="100">
+      </div>
+      <div class="form-group">
+        <label>Чеки пардохтро интихоб кунед:</label>
+        <input type="file" id="receiptFile" class="form-control">
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn-buy" onclick="sendReceipt()">ОТПРАВИТЬ ЧЕК</button>
+        <button class="btn-buy" style="background:#333; color:#fff;" onclick="closeModal('depositModal')">БЕКОР КАРДАН</button>
+      </div>
     </div>
   </div>
 
-  <script>
-    let currentItem = null;
-
-    // Гузариш ба саҳифаи алоҳидаи UC
-    function openUcPage() {
-      document.getElementById('page-home').classList.remove('active');
-      document.getElementById('page-uc').classList.add('active');
-      window.scrollTo(0, 0);
-    }
-
-    // Баргаштан ба саҳифаи асосӣ
-    function openHomePage() {
-      document.getElementById('page-uc').classList.remove('active');
-      document.getElementById('page-home').classList.add('active');
-      window.scrollTo(0, 0);
-    }
-
-    // Харид кардан
-    function buyItem(name, price) {
-      currentItem = { name, price };
-      document.getElementById('buyModalTitle').innerText = `Хариди ${name} (${price} с.)`;
-      document.getElementById('buyModal').classList.add('active');
-    }
-
-    function closeModal() {
-      document.getElementById('buyModal').classList.remove('active');
-    }
-
-    function confirmBuy() {
-      const id = document.getElementById('pubgId').value;
-      if(!id) {
-        alert('Лутфан PUBG ID-ро ворид кунед!');
-        return;
-      }
-      alert(`Закази шумо (${currentItem.name}) барои ID: ${id} қабул шуд ва ба @VELOX_UC фиристода шуд!`);
-      closeModal();
-    }
-  </script>
-</body>
-                                            </html>
-        
+  <!-- MODAL: SELL ITEM -->
+  <div class="modal" id="sellModal">
+    <div class="modal-content">
+      <h3 id="sellModalTitle" style="color:var(--gold-primary); margin-bottom:10px;">Монидан ба фурӯш</h3>
+      <div class="form-group">
+        <label>Номи маҳсулот:</label>
+        <input type="text" id="sellName" class="form-control" placeholder="Масалан: Account Lvl 75 / Bugatti">
+      </div>
+      <div class="form-group">
+        <label>Нархи фурӯш (сомони):</label>
+        <input type="number" id="sellPrice" class="form-control" placeholder="250">
+      </div>
+      
