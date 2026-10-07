@@ -4,32 +4,186 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VELOX UC SHOP</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Иконаҳо (FontAwesome) -->
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Иконаҳо -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #080808;
+            color: #ffffff;
+            padding-bottom: 80px;
+            user-select: none;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #0d0d0d;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .menu-btn { font-size: 20px; color: #fff; }
+        .logo { text-align: center; }
+        .logo-crown { color: #ffd700; font-size: 16px; }
+        .logo h1 { font-size: 18px; letter-spacing: 2px; color: #fff; font-weight: 800; }
+        .logo span { font-size: 10px; color: #d4af37; letter-spacing: 2px; display: block; }
+
+        .balance-box {
+            display: flex;
+            align-items: center;
+            background: #141414;
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            padding: 4px 8px;
+        }
+
+        .balance-info { display: flex; flex-direction: column; margin-right: 8px; }
+        .balance-info .title { font-size: 9px; color: #888; }
+        .balance-info .amount { font-size: 11px; font-weight: bold; color: #fff; }
+
+        .add-btn {
+            background: transparent;
+            border: 1px solid #d4af37;
+            color: #ffd700;
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Banner */
+        .banner {
+            margin: 12px;
+            height: 100px;
+            background: linear-gradient(135deg, #181818, #050505);
+            border: 1px solid #d4af37;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+        }
+
+        .banner-content h2 { color: #ffd700; font-size: 16px; }
+        .banner-content h3 { color: #ccc; font-size: 12px; }
+
+        /* Pages */
+        .page { display: none; padding: 0 12px; }
+        .page.active { display: block; }
+
+        /* Grid Cards */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .card {
+            background: #121212;
+            border: 1px solid #d4af37;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .card-bg { height: 75%; background-size: cover; background-position: center; }
+        .uc-bg { background-color: #2a2000; }
+        .account-bg { background-color: #1a1a2e; }
+        .xsuit-bg { background-color: #3a0000; }
+        .supercar-bg { background-color: #002a2a; }
+
+        .card-footer {
+            padding: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.85);
+        }
+
+        .card-footer h3 { font-size: 12px; font-style: italic; color: #fff; }
+        .card-footer i { border: 1px solid #d4af37; border-radius: 50%; padding: 4px; color: #ffd700; font-size: 9px; }
+
+        /* Reviews & Orders Section */
+        .section-title { font-size: 16px; color: #ffd700; margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 6px; }
+        .review-item, .order-item {
+            background: #141414;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .review-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .status-done { color: #00ff7f; font-size: 12px; }
+        .profile-info { text-align: center; padding: 30px 0; }
+        .profile-avatar { font-size: 60px; color: #d4af37; margin-bottom: 10px; }
+
+        /* Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #0a0a0a;
+            border-top: 1px solid #d4af37;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            background: none;
+            border: none;
+            color: #777;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+            cursor: pointer;
+            width: 25%;
+        }
+
+        .nav-item i { font-size: 16px; margin-bottom: 2px; }
+        .nav-item.active { color: #ffd700; }
+    </style>
 </head>
 <body>
 
-    <!-- Шапка (Header) -->
+    <!-- Header -->
     <header class="header">
         <div class="menu-btn"><i class="fa-solid fa-bars"></i></div>
-        
         <div class="logo">
             <i class="fa-solid fa-crown logo-crown"></i>
             <h1>VELOX</h1>
             <span>UC SHOP</span>
         </div>
-
         <div class="balance-box">
             <div class="balance-info">
                 <span class="title">Баланс</span>
-                <span class="amount">0.00 сомони</span>
+                <span class="amount" id="user-balance">0.00 сомони</span>
             </div>
-            <button class="add-btn">+</button>
+            <button class="add-btn" onclick="addBalance()">+</button>
         </div>
     </header>
 
-    <!-- Баннер (Banner) -->
+    <!-- Banner -->
     <div class="banner">
         <div class="banner-content">
             <h2>PLAY BIGGER</h2>
@@ -37,60 +191,96 @@
         </div>
     </div>
 
-    <!-- Секцияи Категорияҳо (Grid Cards) -->
-    <main class="main-content">
-        <div class="card">
-            <div class="card-bg uc-bg"></div>
-            <div class="card-footer">
-                <h3>UC SHOP</h3>
-                <i class="fa-solid fa-chevron-right"></i>
+    <!-- 1. Главный -->
+    <main class="page active" id="page-main">
+        <div class="main-content">
+            <div class="card" onclick="selectCategory('UC SHOP')">
+                <div class="card-bg uc-bg"></div>
+                <div class="card-footer"><h3>UC SHOP</h3><i class="fa-solid fa-chevron-right"></i></div>
             </div>
-        </div>
-
-        <div class="card">
-            <div class="card-bg account-bg"></div>
-            <div class="card-footer">
-                <h3>AKAKUNT</h3>
-                <i class="fa-solid fa-chevron-right"></i>
+            <div class="card" onclick="selectCategory('AKAKUNT')">
+                <div class="card-bg account-bg"></div>
+                <div class="card-footer"><h3>AKAKUNT</h3><i class="fa-solid fa-chevron-right"></i></div>
             </div>
-        </div>
-
-        <div class="card">
-            <div class="card-bg xsuit-bg"></div>
-            <div class="card-footer">
-                <h3>X-SUIT</h3>
-                <i class="fa-solid fa-chevron-right"></i>
+            <div class="card" onclick="selectCategory('X-SUIT')">
+                <div class="card-bg xsuit-bg"></div>
+                <div class="card-footer"><h3>X-SUIT</h3><i class="fa-solid fa-chevron-right"></i></div>
             </div>
-        </div>
-
-        <div class="card">
-            <div class="card-bg supercar-bg"></div>
-            <div class="card-footer">
-                <h3>SUPERCAR</h3>
-                <i class="fa-solid fa-chevron-right"></i>
+            <div class="card" onclick="selectCategory('SUPERCAR')">
+                <div class="card-bg supercar-bg"></div>
+                <div class="card-footer"><h3>SUPERCAR</h3><i class="fa-solid fa-chevron-right"></i></div>
             </div>
         </div>
     </main>
 
-    <!-- Менюи поёнӣ (Bottom Navigation) -->
+    <!-- 2. Отзывы -->
+    <section class="page" id="page-reviews">
+        <div class="section-title">Отзывы клиентов</div>
+        <div class="review-item">
+            <div class="review-header"><strong>Akmal_777</strong><span>⭐⭐⭐⭐⭐</span></div>
+            <p>660 UC гирифтам, зуд омад. Хизматрасонӣ хеле хуб! Раҳмат!</p>
+        </div>
+        <div class="review-item">
+            <div class="review-header"><strong>Sardor_TJ</strong><span>⭐⭐⭐⭐⭐</span></div>
+            <p>X-Suit расид, сифаташ супер! Боз ҳам харид мекунам!</p>
+        </div>
+    </section>
+
+    <!-- 3. Заказы -->
+    <section class="page" id="page-orders">
+        <div class="section-title">История ваших покупок</div>
+        <div class="order-item">
+            <div><strong>1800 UC</strong><p style="font-size:12px; color:#aaa;">ID: 523456789</p></div>
+            <span class="status-done">Выполнено</span>
+        </div>
+    </section>
+
+    <!-- 4. Профиль -->
+    <section class="page" id="page-profile">
+        <div class="profile-info">
+            <i class="fa-solid fa-circle-user profile-avatar"></i>
+            <h3 id="user-name">Корбар</h3>
+            <p id="user-id" style="color:#888; font-size:12px;">ID: ---</p>
+        </div>
+    </section>
+
+    <!-- Bottom Nav -->
     <nav class="bottom-nav">
-        <a href="#" class="nav-item active">
-            <i class="fa-solid fa-house"></i>
-            <span>Главный</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fa-solid fa-star"></i>
-            <span>Отзывы</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>Заказы</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fa-solid fa-user"></i>
-            <span>Профиль</span>
-        </a>
+        <button class="nav-item active" onclick="switchPage('main', this)"><i class="fa-solid fa-house"></i><span>Главный</span></button>
+        <button class="nav-item" onclick="switchPage('reviews', this)"><i class="fa-solid fa-star"></i><span>Отзывы</span></button>
+        <button class="nav-item" onclick="switchPage('orders', this)"><i class="fa-solid fa-cart-shopping"></i><span>Заказы</span></button>
+        <button class="nav-item" onclick="switchPage('profile', this)"><i class="fa-solid fa-user"></i><span>Профиль</span></button>
     </nav>
 
+    <script>
+        const tg = window.Telegram ? window.Telegram.WebApp : null;
+        if (tg) {
+            tg.expand();
+            tg.ready();
+            if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+                const user = tg.initDataUnsafe.user;
+                document.getElementById('user-name').innerText = user.first_name + (user.last_name ? ' ' + user.last_name : '');
+                document.getElementById('user-id').innerText = 'ID: ' + user.id;
+            }
+        }
+
+        function switchPage(pageName, element) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById('page-' + pageName).classList.add('active');
+            element.classList.add('active');
+        }
+
+        function selectCategory(categoryName) {
+            if (tg) tg.showAlert(`Категория: ${categoryName}`);
+            else alert(`Категория: ${categoryName}`);
+        }
+
+        function addBalance() {
+            if (tg) tg.showAlert('Барои пур кардани баланс ба бот муроҷиат кунед.');
+            else alert('Баланс');
+        }
+    </script>
 </body>
-</html>
+    </html>
+    
