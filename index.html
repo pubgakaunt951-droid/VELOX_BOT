@@ -22,6 +22,7 @@
             color: #ffffff;
             padding-bottom: 80px;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         /* Header */
@@ -32,13 +33,16 @@
             padding: 12px 16px;
             background: #0d0d0d;
             border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .menu-btn { font-size: 20px; color: #fff; }
+        .menu-btn { font-size: 20px; color: #fff; cursor: pointer; }
         .logo { text-align: center; }
         .logo-crown { color: #ffd700; font-size: 16px; }
-        .logo h1 { font-size: 18px; letter-spacing: 2px; color: #fff; font-weight: 800; }
-        .logo span { font-size: 10px; color: #d4af37; letter-spacing: 2px; display: block; }
+        .logo h1 { font-size: 18px; letter-spacing: 2px; color: #fff; font-weight: 800; line-height: 1; }
+        .logo span { font-size: 10px; color: #d4af37; letter-spacing: 2px; display: block; margin-top: 2px; }
 
         .balance-box {
             display: flex;
@@ -62,6 +66,9 @@
             border-radius: 4px;
             font-size: 14px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Banner */
@@ -75,10 +82,11 @@
             align-items: center;
             justify-content: flex-end;
             padding-right: 15px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
         }
 
-        .banner-content h2 { color: #ffd700; font-size: 16px; }
-        .banner-content h3 { color: #ccc; font-size: 12px; }
+        .banner-content h2 { color: #ffd700; font-size: 16px; font-weight: 900; text-align: right; }
+        .banner-content h3 { color: #ccc; font-size: 12px; letter-spacing: 1px; text-align: right; }
 
         /* Pages */
         .page { display: none; padding: 0 12px; }
@@ -101,26 +109,39 @@
             flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
+            position: relative;
         }
 
-        .card-bg { height: 75%; background-size: cover; background-position: center; }
-        .uc-bg { background-color: #2a2000; }
-        .account-bg { background-color: #1a1a2e; }
-        .xsuit-bg { background-color: #3a0000; }
-        .supercar-bg { background-color: #002a2a; }
+        .card-img-box {
+            height: 75%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #0d0d0d;
+        }
+
+        .card-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
         .card-footer {
             padding: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .card-footer h3 { font-size: 12px; font-style: italic; color: #fff; }
         .card-footer i { border: 1px solid #d4af37; border-radius: 50%; padding: 4px; color: #ffd700; font-size: 9px; }
 
-        /* Reviews & Orders Section */
+        /* Sections */
         .section-title { font-size: 16px; color: #ffd700; margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 6px; }
         .review-item, .order-item {
             background: #141414;
@@ -130,9 +151,7 @@
             margin-bottom: 10px;
         }
         .review-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
-        .status-done { color: #00ff7f; font-size: 12px; }
-        .profile-info { text-align: center; padding: 30px 0; }
-        .profile-avatar { font-size: 60px; color: #d4af37; margin-bottom: 10px; }
+        .status-done { color: #00ff7f; font-size: 12px; font-weight: bold; }
 
         /* Navigation */
         .bottom-nav {
@@ -146,6 +165,7 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
+            z-index: 1000;
         }
 
         .nav-item {
@@ -194,20 +214,35 @@
     <!-- 1. Главный -->
     <main class="page active" id="page-main">
         <div class="main-content">
+            <!-- 1. UC SHOP (Сурати тангаҳои тиллоии UC) -->
             <div class="card" onclick="selectCategory('UC SHOP')">
-                <div class="card-bg uc-bg"></div>
+                <div class="card-img-box">
+                    <img src="https://images.wallpapersden.com/image/download/pubg-mobile-uc-cash_bWllZmmUmZqaraWkpJRmbmdlrWZlbWU.jpg" alt="UC SHOP">
+                </div>
                 <div class="card-footer"><h3>UC SHOP</h3><i class="fa-solid fa-chevron-right"></i></div>
             </div>
+
+            <!-- 2. AKAKUNT (Сурати аккаунти PUBG) -->
             <div class="card" onclick="selectCategory('AKAKUNT')">
-                <div class="card-bg account-bg"></div>
+                <div class="card-img-box">
+                    <img src="https://wallpapers.com/images/hd/pubg-character-in-black-outfit-y7q2vh6548n6y2p7.jpg" alt="AKAKUNT">
+                </div>
                 <div class="card-footer"><h3>AKAKUNT</h3><i class="fa-solid fa-chevron-right"></i></div>
             </div>
+
+            <!-- 3. X-SUIT (Сурати Blood Raven ва Golden Pharaoh) -->
             <div class="card" onclick="selectCategory('X-SUIT')">
-                <div class="card-bg xsuit-bg"></div>
+                <div class="card-img-box">
+                    <img src="https://wallpaperaccess.com/full/6231924.jpg" alt="X-SUIT">
+                </div>
                 <div class="card-footer"><h3>X-SUIT</h3><i class="fa-solid fa-chevron-right"></i></div>
             </div>
+
+            <!-- 4. SUPERCAR (Сурати мошинҳои Bugatti ва Lamborghini) -->
             <div class="card" onclick="selectCategory('SUPERCAR')">
-                <div class="card-bg supercar-bg"></div>
+                <div class="card-img-box">
+                    <img src="https://images.squarespace-cdn.com/content/v1/5a0c30a8a803bb4b87cf074c/1616086701726-X80D9X49XJ16P3Y63W0I/Bugatti_PUBG_Mobile.jpg" alt="SUPERCAR">
+                </div>
                 <div class="card-footer"><h3>SUPERCAR</h3><i class="fa-solid fa-chevron-right"></i></div>
             </div>
         </div>
@@ -237,8 +272,8 @@
 
     <!-- 4. Профиль -->
     <section class="page" id="page-profile">
-        <div class="profile-info">
-            <i class="fa-solid fa-circle-user profile-avatar"></i>
+        <div style="text-align:center; padding:30px 0;">
+            <i class="fa-solid fa-circle-user" style="font-size:60px; color:#d4af37; margin-bottom:10px;"></i>
             <h3 id="user-name">Корбар</h3>
             <p id="user-id" style="color:#888; font-size:12px;">ID: ---</p>
         </div>
@@ -282,5 +317,5 @@
         }
     </script>
 </body>
-    </html>
-    
+                        </html>
+                                                                               
