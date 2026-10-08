@@ -5,320 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>VELOX UC SHOP</title>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background-color: #000000;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      padding-bottom: 90px;
-    }
-
-    /* Gold Border Box */
-    .gold-box {
-      border: 1px solid #d4af37;
-      border-radius: 12px;
-      background: rgba(15, 15, 15, 0.9);
-      position: relative;
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
-    }
-
-    /* HEADER */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px;
-      background: #000;
-      border-bottom: 1px solid #222;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .menu-btn {
-      background: none;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    .lang-box {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      border: 1px solid #444;
-      border-radius: 20px;
-      padding: 3px 8px;
-      background: #111;
-    }
-
-    .flag {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .logo-area {
-      text-align: center;
-    }
-
-    .logo-area .title {
-      font-size: 18px;
-      font-weight: 900;
-      color: #d4af37;
-      letter-spacing: 1px;
-    }
-
-    .logo-area .sub {
-      font-size: 8px;
-      color: #fff;
-      letter-spacing: 2px;
-    }
-
-    .balance-btn {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid #d4af37;
-      border-radius: 8px;
-      padding: 4px 8px;
-      background: #111;
-    }
-
-    .balance-text {
-      font-size: 10px;
-      color: #aaa;
-    }
-
-    .balance-val {
-      font-size: 12px;
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .plus-btn {
-      background: #d4af37;
-      color: #000;
-      border: none;
-      border-radius: 4px;
-      width: 18px;
-      height: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-
-    /* CONTAINER */
-    .container {
-      padding: 12px;
-    }
-
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    /* BANNER */
-    .banner {
-      width: 100%;
-      height: 120px;
-      border-radius: 12px;
-      border: 1px solid #d4af37;
-      background: linear-gradient(90deg, #000 30%, transparent), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80') center/cover;
-      display: flex;
-      align-items: center;
-      padding: 15px;
-      margin-bottom: 12px;
-    }
-
-    .banner-text {
-      font-weight: 900;
-      font-style: italic;
-      font-size: 18px;
-      color: #fff;
-    }
-
-    .banner-text span {
-      color: #d4af37;
-    }
-
-    /* GRID 2x2 */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .card {
-      height: 160px;
-      border: 1px solid #d4af37;
-      border-radius: 12px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 10px;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 70%);
-    }
-
-    .card-footer {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .card-title {
-      font-weight: 900;
-      font-style: italic;
-      font-size: 15px;
-    }
-
-    .arrow-circle {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 1px solid #d4af37;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #d4af37;
-    }
-
-    /* REVIEWS & ORDERS LIST */
-    .list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .list-item {
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid #d4af37;
-    }
-
-    .badge-completed {
-      background: rgba(0, 230, 118, 0.2);
-      color: #00e676;
-      border: 1px solid #00e676;
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 10px;
-    }
-
-    /* PROFILE */
-    .profile-top {
-      text-align: center;
-      padding: 15px;
-      margin-bottom: 12px;
-    }
-
-    .profile-img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 2px solid #d4af37;
-      margin: 0 auto 8px;
-    }
-
-    .menu-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px;
-      border-bottom: 1px solid #222;
-    }
-
-    .menu-row:last-child {
-      border-bottom: none;
-    }
-
-    /* BOTTOM NAV (4 BUTTONS) */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 65px;
-      background: #0a0a0a;
-      border-top: 1px solid #d4af37;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .nav-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      color: #888;
-      font-size: 11px;
-      cursor: pointer;
-      width: 25%;
-    }
-
-    .nav-btn.active {
-      color: #d4af37;
-    }
-
-    .nav-btn i {
-      width: 20px;
-      height: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <!-- HEADER -->
   <header>
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <button class="menu-btn"><i data-lucide="menu"></i></button>
+    <div class="header-left">
+      <button class="menu-btn" id="top-back-btn" style="display:none;" onclick="goHome()">
+        <i data-lucide="arrow-left"></i>
+      </button>
+      <button class="menu-btn" id="top-menu-btn"><i data-lucide="menu"></i></button>
       <div class="lang-box">
         <span class="flag">🇹🇯</span>
         <span class="flag">🇷🇺</span>
         <span class="flag">🇬🇧</span>
-        <i data-lucide="chevron-down" style="width:12px;"></i>
+        <i data-lucide="chevron-down" class="small-icon"></i>
       </div>
     </div>
 
-    <div class="logo-area">
+    <div class="logo-area" onclick="goHome()">
       <div class="title">VELOX</div>
       <div class="sub">UC SHOP</div>
     </div>
@@ -333,7 +39,8 @@
   </header>
 
   <div class="container">
-    <!-- 1. ГЛАВНЫЙ (HOME) -->
+    
+    <!-- 1. TAB: ГЛАВНЫЙ (HOME) -->
     <div id="tab-main" class="tab-content active">
       <div class="banner">
         <div class="banner-text">
@@ -344,125 +51,238 @@
       </div>
 
       <div class="grid-2">
-        <div class="card" style="background-image: url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=400');">
+        <div class="card" onclick="openPage('page-uc')" style="background-image: url('https://w.wallhaven.cc/full/8o/wallhaven-8o9mky.jpg');">
           <div class="card-footer">
             <span class="card-title">UC SHOP</span>
-            <div class="arrow-circle"><i data-lucide="chevron-right" style="width:14px;"></i></div>
+            <div class="arrow-circle"><i data-lucide="chevron-right"></i></div>
           </div>
         </div>
 
-        <div class="card" style="background-image: url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=400');">
+        <div class="card" onclick="openPage('page-account')" style="background-image: url('https://w.wallhaven.cc/full/1k/wallhaven-1k3539.jpg');">
           <div class="card-footer">
             <span class="card-title">AKAKUNT</span>
-            <div class="arrow-circle"><i data-lucide="chevron-right" style="width:14px;"></i></div>
+            <div class="arrow-circle"><i data-lucide="chevron-right"></i></div>
           </div>
         </div>
 
-        <div class="card" style="background-image: url('https://images.unsplash.com/photo-1563089145-599997674d42?w=400');">
+        <div class="card" onclick="openPage('page-xsuit')" style="background-image: url('https://w.wallhaven.cc/full/ex/wallhaven-ex8988.png');">
           <div class="card-footer">
             <span class="card-title">X-CUIT</span>
-            <div class="arrow-circle"><i data-lucide="chevron-right" style="width:14px;"></i></div>
+            <div class="arrow-circle"><i data-lucide="chevron-right"></i></div>
           </div>
         </div>
 
-        <div class="card" style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400');">
+        <div class="card" onclick="openPage('page-supercar')" style="background-image: url('https://w.wallhaven.cc/full/vg/wallhaven-vge388.jpg');">
           <div class="card-footer">
             <span class="card-title">SUPERCAR</span>
-            <div class="arrow-circle"><i data-lucide="chevron-right" style="width:14px;"></i></div>
+            <div class="arrow-circle"><i data-lucide="chevron-right"></i></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 2. ОТЗЫВЫ (REVIEWS) -->
+    <!-- PAGE: UC SHOP (САҲИФАИ ХАРИДИ UC) -->
+    <div id="page-uc" class="tab-content">
+      <div class="page-header">
+        <button class="back-btn" onclick="goHome()"><i data-lucide="arrow-left"></i> Назад</button>
+        <h2>Покупка UC</h2>
+      </div>
+
+      <!-- ИНТИХОБИ АППАРАТ ВА ҲЕСОБКУНАК -->
+      <div class="gold-box calc-summary">
+        <div class="calc-info">
+          <div>Выбрано: <span id="selected-uc-text" class="gold-txt">0 UC</span></div>
+          <div>Итого к оплате: <span id="selected-price-text" class="gold-txt">0.00 сомони</span></div>
+        </div>
+      </div>
+
+      <!-- НАРХНОМАИ UC (АЗ 5 СОМОНӢ) -->
+      <div class="uc-grid">
+        <div class="uc-card gold-box" onclick="selectUc(30, 5)">
+          <div class="uc-amount">30 UC</div>
+          <div class="uc-price">5.00 сомони</div>
+        </div>
+        <div class="uc-card gold-box" onclick="selectUc(60, 10)">
+          <div class="uc-amount">60 UC</div>
+          <div class="uc-price">10.00 сомони</div>
+        </div>
+        <div class="uc-card gold-box" onclick="selectUc(325, 50)">
+          <div class="uc-amount">325 UC</div>
+          <div class="uc-price">50.00 сомони</div>
+        </div>
+        <div class="uc-card gold-box" onclick="selectUc(660, 100)">
+          <div class="uc-amount">660 UC</div>
+          <div class="uc-price">100.00 сомони</div>
+        </div>
+        <div class="uc-card gold-box" onclick="selectUc(1800, 260)">
+          <div class="uc-amount">1800 UC</div>
+          <div class="uc-price">260.00 сомони</div>
+        </div>
+        <div class="uc-card gold-box" onclick="selectUc(3850, 520)">
+          <div class="uc-amount">3850 UC</div>
+          <div class="uc-price">520.00 сомони</div>
+        </div>
+      </div>
+
+      <!-- ФОРМАИ ХАРИД ВА ЧЕК -->
+      <div class="gold-box checkout-box">
+        <h3>Оформление заказа</h3>
+        <p class="card-info-text">Переведите сумму на карту: <strong class="gold-txt">5017 0000 1234 5678</strong> (Корти Миллӣ / Душанбе Сити)</p>
+
+        <div class="form-group">
+          <label>Игрок ID (PUBG ID):</label>
+          <input type="number" id="pubg-id-input" placeholder="Введите Ваш ID игрока">
+        </div>
+
+        <div class="form-group">
+          <label>Загрузите чек оплаты:</label>
+          <input type="file" id="check-file-input" accept="image/*">
+        </div>
+
+        <button class="buy-submit-btn" onclick="submitOrder('UC')">Купить / Отправить чек</button>
+      </div>
+    </div>
+
+    <!-- PAGE: AKAKUNT -->
+    <div id="page-account" class="tab-content">
+      <div class="page-header">
+        <button class="back-btn" onclick="goHome()"><i data-lucide="arrow-left"></i> Назад</button>
+        <h2>PUBG Аккаунты</h2>
+      </div>
+      <div class="gold-box list-item" style="margin-bottom:10px;">
+        <div>
+          <b>M416 Ледник Lvl 4 + 3 X-Suit</b>
+          <div class="sub-text">Привязка: Google / Twitter</div>
+          <div class="price">450.00 сомони</div>
+        </div>
+        <button class="buy-submit-btn-sm" onclick="quickBuy('Аккаунт PUBG', 450)">Купить</button>
+      </div>
+    </div>
+
+    <!-- PAGE: X-SUIT -->
+    <div id="page-xsuit" class="tab-content">
+      <div class="page-header">
+        <button class="back-btn" onclick="goHome()"><i data-lucide="arrow-left"></i> Назад</button>
+        <h2>X-Suit Костюмы</h2>
+      </div>
+      <div class="gold-box list-item" style="margin-bottom:10px;">
+        <div>
+          <b>X-Suit "Золотой Завет" (6 Звезд)</b>
+          <div class="sub-text">Мгновенная доставка на ID</div>
+          <div class="price">250.00 сомони</div>
+        </div>
+        <button class="buy-submit-btn-sm" onclick="quickBuy('X-Suit Золотой Завет', 250)">Купить</button>
+      </div>
+    </div>
+
+    <!-- PAGE: SUPERCAR -->
+    <div id="page-supercar" class="tab-content">
+      <div class="page-header">
+        <button class="back-btn" onclick="goHome()"><i data-lucide="arrow-left"></i> Назад</button>
+        <h2>Supercar Ключи</h2>
+      </div>
+      <div class="gold-box list-item" style="margin-bottom:10px;">
+        <div>
+          <b>Bugatti La Voiture Noire (Ключ)</b>
+          <div class="sub-text">Активация на Ваш PUBG ID</div>
+          <div class="price">320.00 сомони</div>
+        </div>
+        <button class="buy-submit-btn-sm" onclick="quickBuy('Bugatti Key', 320)">Купить</button>
+      </div>
+    </div>
+
+    <!-- 2. TAB: ОТЗЫВЫ -->
     <div id="tab-reviews" class="tab-content">
-      <div style="display:flex; justify-between; align-items:center; margin-bottom:10px;">
-        <h3>⭐ Отзывы</h3>
+      <div class="section-title">
+        <i data-lucide="star" class="gold-icon"></i>
+        <h3>Отзывы клиентов</h3>
       </div>
       <div class="list">
         <div class="gold-box list-item">
-          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" class="avatar">
-          <div style="flex:1; margin-left:10px;">
-            <b>Akmal_777 ✔</b>
-            <div style="font-size:10px; color:#aaa;">07.10.2025</div>
-            <div style="font-size:12px;">660 UC гирифтам, зуд омад. Раҳмат! 🔥</div>
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" class="avatar" alt="User">
+          <div class="item-content">
+            <b>Akmal_777 <i data-lucide="check-circle" class="verified"></i></b>
+            <div class="date">07.10.2025</div>
+            <div class="review-text">660 UC гирифтам, зуд омад. Раҳмат! 🔥</div>
+          </div>
+        </div>
+        <div class="gold-box list-item">
+          <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100" class="avatar" alt="User">
+          <div class="item-content">
+            <b>Rustam_01 <i data-lucide="check-circle" class="verified"></i></b>
+            <div class="date">06.10.2025</div>
+            <div class="review-text">Аккаунт гирифтам, ҳама чиз дуруст. Тавсия медиҳам! 👍</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 3. ЗАКАЗЫ (ORDERS) -->
+    <!-- 3. TAB: ЗАКАЗЫ -->
     <div id="tab-orders" class="tab-content">
-      <h3 style="margin-bottom:10px;">📦 Мои заказы</h3>
-      <div class="list">
+      <div class="section-title">
+        <i data-lucide="shopping-bag" class="gold-icon"></i>
+        <h3>Мои заказы</h3>
+      </div>
+      <div class="list" id="orders-list">
         <div class="gold-box list-item">
           <div>
             <b>1800 UC</b> <span class="badge-completed">Выполнено</span>
-            <div style="font-size:11px; color:#aaa;">ID: 5234567890</div>
-            <div style="color:#d4af37; font-weight:bold; margin-top:4px;">180.00 сомони</div>
+            <div class="sub-text">ID игрока: 5234567890</div>
+            <div class="price">180.00 сомони</div>
           </div>
-          <i data-lucide="eye" style="color:#aaa;"></i>
+          <i data-lucide="eye" class="icon-btn-style"></i>
         </div>
       </div>
     </div>
 
-    <!-- 4. ПРОФИЛЬ (PROFILE) -->
+    <!-- 4. TAB: ПРОФИЛЬ -->
     <div id="tab-profile" class="tab-content">
       <div class="gold-box profile-top">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" class="profile-img">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" class="profile-img" alt="Profile">
         <h2>Akram 👑</h2>
-        <div style="font-size:12px; color:#aaa;">@akram._.pubg</div>
-        <div style="font-size:12px; color:#aaa;">ID: 123456789</div>
-        <div style="color:#00e676; font-size:12px; margin-top:4px;">● Онлайн</div>
+        <div class="sub-text">@akram._.pubg</div>
+        <div class="sub-text">ID: 123456789</div>
+        <div class="online-status">● Онлайн</div>
       </div>
 
       <div class="gold-box">
-        <div class="menu-row">
-          <span>Мой профиль</span>
-          <i data-lucide="chevron-right"></i>
-        </div>
-        <div class="menu-row">
+        <div class="menu-row" onclick="openTab('tab-orders')">
           <span>Мои заказы</span>
           <i data-lucide="chevron-right"></i>
         </div>
         <div class="menu-row">
-          <span>Уведомления</span>
+          <span>Поддержка (@VELOX_UC)</span>
+          <i data-lucide="chevron-right"></i>
+        </div>
+        <div class="menu-row">
+          <span>Язык (Таджикский / Русский)</span>
           <i data-lucide="chevron-right"></i>
         </div>
       </div>
     </div>
+
   </div>
 
-  <!-- BOTTOM NAVIGATION (4 BUTTONS) -->
+  <!-- BOTTOM NAVIGATION -->
   <div class="bottom-nav">
-    <div class="nav-btn active" onclick="showTab('tab-main', this)">
+    <div class="nav-btn active" id="btn-nav-main" onclick="openTab('tab-main')">
       <i data-lucide="home"></i>
       <span>Главный</span>
     </div>
-    <div class="nav-btn" onclick="showTab('tab-reviews', this)">
+    <div class="nav-btn" id="btn-nav-reviews" onclick="openTab('tab-reviews')">
       <i data-lucide="star"></i>
       <span>Отзывы</span>
     </div>
-    <div class="nav-btn" onclick="showTab('tab-orders', this)">
+    <div class="nav-btn" id="btn-nav-orders" onclick="openTab('tab-orders')">
       <i data-lucide="shopping-cart"></i>
       <span>Заказы</span>
     </div>
-    <div class="nav-btn" onclick="showTab('tab-profile', this)">
+    <div class="nav-btn" id="btn-nav-profile" onclick="openTab('tab-profile')">
       <i data-lucide="user"></i>
       <span>Профиль</span>
     </div>
   </div>
 
-  <script>
-    lucide.createIcons();
-
-    function showTab(tabId, btn) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-
-      document.getElementById(tabId).classList.add('active');
-      btn.classList.add('active');
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
