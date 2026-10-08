@@ -4,599 +4,380 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>VELOX UC SHOP</title>
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome & Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            --bg-color: #0b0c10;
-            --card-bg: rgba(22, 27, 34, 0.7);
-            --gold-primary: #f39c12;
-            --gold-secondary: #d4ac0d;
-            --gold-glow: rgba(243, 156, 18, 0.4);
+            --bg-color: #030406;
+            --card-bg: rgba(15, 18, 24, 0.85);
+            --gold-primary: #f5b014;
+            --gold-glow: rgba(245, 176, 20, 0.35);
+            --gold-border: #d4a017;
+            --border-glass: rgba(212, 160, 23, 0.25);
             --text-main: #ffffff;
-            --text-muted: #a0a5b5;
-            --border-color: rgba(243, 156, 18, 0.2);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --radius: 16px;
+            --text-muted: #8d95a5;
+            --status-green: #00e676;
+            --radius-main: 14px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            background-image: radial-gradient(circle at 50% 0%, #1a1708 0%, #0b0c10 70%);
+            background-image: radial-gradient(circle at 50% 0%, #1c1708 0%, #030406 80%);
             min-height: 100vh;
-            padding-bottom: 90px;
+            padding-bottom: 95px;
             overflow-x: hidden;
         }
 
-        /* Header Styles */
+        /* HEADER */
         header {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(11, 12, 16, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header-left, .header-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .icon-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .icon-btn:active {
-            transform: scale(0.92);
-        }
-
-        .balance-badge {
-            background: linear-gradient(135deg, rgba(243, 156, 18, 0.15), rgba(0, 0, 0, 0.4));
-            border: 1px solid var(--border-color);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--gold-primary);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 0 10px var(--gold-glow);
-        }
-
-        .balance-add {
-            background: var(--gold-primary);
-            color: #000;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* Hero / Logo Section */
-        .brand-container {
-            text-align: center;
-            padding: 15px;
-        }
-
-        .brand-logo {
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            background: linear-gradient(135deg, #fff 0%, var(--gold-primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px var(--gold-glow);
-        }
-
-        /* Banner */
-        .banner {
-            width: calc(100% - 32px);
-            margin: 0 auto 20px auto;
-            height: 140px;
-            border-radius: var(--radius);
-            background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%), 
-                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80') center/cover;
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-        }
-
-        .banner h2 {
-            font-size: 20px;
-            color: #fff;
-            text-transform: uppercase;
-        }
-
-        .banner h3 {
-            font-size: 14px;
-            color: var(--gold-primary);
-            letter-spacing: 1px;
-        }
-
-        /* Category Grid */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 0 16px;
-        }
-
-        .cat-card {
-            background: var(--card-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius);
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-        }
-
-        .cat-card:hover, .cat-card:active {
-            border-color: var(--gold-primary);
-            box-shadow: 0 0 15px var(--gold-glow);
-            transform: translateY(-2px);
-        }
-
-        .cat-card i {
-            font-size: 26px;
-            color: var(--gold-primary);
-        }
-
-        .cat-card span {
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        /* Section Layouts */
-        .page-section {
-            display: none;
-            padding: 16px;
-            animation: fadeIn 0.3s forwards;
-        }
-
-        .page-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 16px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-left: 4px solid var(--gold-primary);
-            padding-left: 10px;
-        }
-
-        /* Products Grid */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .product-card {
-            background: var(--card-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius);
-            padding: 14px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 10px;
-            position: relative;
-        }
-
-        .product-img {
-            width: 100%;
-            height: 90px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .product-title {
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .product-price {
-            font-size: 13px;
-            color: var(--gold-primary);
-            font-weight: bold;
-        }
-
-        .btn-buy {
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
-            color: #000;
-            border: none;
-            padding: 8px 0;
-            border-radius: 8px;
-            font-weight: 800;
-            font-size: 12px;
-            cursor: pointer;
-            text-transform: uppercase;
-            width: 100%;
-            box-shadow: 0 4px 10px rgba(243, 156, 18, 0.2);
-        }
-
-        .btn-buy:active {
-            transform: scale(0.96);
-        }
-
-        /* Form elements */
-        .form-group {
-            margin-bottom: 14px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .form-control {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            color: #fff;
-            padding: 12px;
-            border-radius: 10px;
-            outline: none;
-            font-size: 14px;
-        }
-
-        .form-control:focus {
-            border-color: var(--gold-primary);
-        }
-
-        /* Order Cards */
-        .order-card {
-            background: var(--card-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius);
-            padding: 14px;
-            margin-bottom: 10px;
-        }
-
-        .status-badge {
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: bold;
-            display: inline-block;
-        }
-
-        .status-pending { background: rgba(241, 196, 15, 0.2); color: #f1c40f; }
-        .status-success { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
-        .status-rejected { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
-
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(11, 12, 16, 0.92);
+            background: rgba(3, 4, 6, 0.9);
             backdrop-filter: blur(15px);
-            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--border-glass);
+            padding: 10px 14px;
             display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            z-index: 1000;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            gap: 4px;
-            color: var(--text-muted);
-            font-size: 10px;
+        }
+
+        .header-left { display: flex; align-items: center; gap: 10px; }
+        .menu-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            color: #fff; width: 36px; height: 36px;
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
             cursor: pointer;
-            text-decoration: none;
-            width: 25%;
+        }
+        .lang-picker {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border-glass);
+            padding: 4px 8px; border-radius: 18px;
+            display: flex; align-items: center; gap: 5px; font-size: 12px; cursor: pointer;
+        }
+        .brand-logo-header { text-align: center; }
+        .brand-title {
+            font-size: 18px; font-weight: 900; letter-spacing: 1.5px;
+            background: linear-gradient(180deg, #fff 0%, var(--gold-primary) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .brand-sub { font-size: 9px; color: var(--gold-primary); letter-spacing: 2px; font-weight: 800; }
+        .balance-badge {
+            background: rgba(0, 0, 0, 0.6); border: 1px solid var(--border-glass);
+            padding: 4px 10px; border-radius: 10px; display: flex; align-items: center; gap: 8px;
+        }
+        .balance-title { font-size: 9px; color: var(--text-muted); }
+        .balance-val { font-size: 11px; font-weight: 800; color: #fff; }
+        .balance-add {
+            background: transparent; border: 1px solid var(--gold-primary);
+            color: var(--gold-primary); width: 20px; height: 20px;
+            border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: pointer;
         }
 
-        .nav-item i {
-            font-size: 18px;
+        /* BANNER */
+        .banner-container { padding: 12px 14px; }
+        .hero-banner {
+            width: 100%; height: 110px; border-radius: var(--radius-main);
+            border: 1px solid var(--gold-border);
+            box-shadow: 0 0 15px rgba(212, 160, 23, 0.2);
+            background: linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 100%), 
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80') center/cover;
+            display: flex; flex-direction: column; justify-content: center; padding: 0 20px;
+        }
+        .hero-banner h3 { font-size: 18px; color: var(--gold-primary); font-weight: 900; font-style: italic; }
+        .hero-banner p { font-size: 11px; color: #fff; letter-spacing: 1px; font-weight: 700; }
+
+        /* SECTIONS & PAGES */
+        .page-section { display: none; padding: 0 14px; animation: fadeIn 0.25s ease-in-out forwards; }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* GRID CATEGORIES */
+        .categories-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .card-item {
+            background: var(--card-bg); border: 1px solid var(--gold-border);
+            border-radius: var(--radius-main); overflow: hidden; position: relative;
+            box-shadow: 0 0 12px rgba(0,0,0,0.6); cursor: pointer; transition: transform 0.2s;
+        }
+        .card-item:active { transform: scale(0.97); }
+        .card-img-wrap { width: 100%; height: 130px; position: relative; }
+        .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+        .card-badge {
+            position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.8);
+            border: 1px solid var(--gold-border); padding: 2px 6px; border-radius: 4px;
+            font-size: 9px; font-weight: bold; color: #fff;
+        }
+        .card-footer {
+            background: linear-gradient(180deg, rgba(15,18,24,0.9) 0%, rgba(5,6,8,1) 100%);
+            padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid var(--border-glass);
+        }
+        .card-title { font-size: 14px; font-weight: 900; font-style: italic; color: #fff; }
+        .card-arrow {
+            width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--gold-primary);
+            color: var(--gold-primary); display: flex; align-items: center; justify-content: center; font-size: 10px;
         }
 
-        .nav-item.active {
-            color: var(--gold-primary);
+        /* REVIEWS */
+        .review-card {
+            background: var(--card-bg); border: 1px solid var(--border-glass);
+            border-radius: var(--radius-main); padding: 12px; margin-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: flex-start;
         }
+        .user-avatar { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--gold-border); object-fit: cover; }
+        .review-info { flex: 1; margin-left: 10px; }
+        .user-name { font-size: 13px; font-weight: bold; color: #fff; display: flex; align-items: center; gap: 4px; }
+        .stars { color: var(--gold-primary); font-size: 10px; margin: 2px 0 4px 0; }
+        .review-text { font-size: 11px; color: var(--text-muted); line-height: 1.3; }
 
-        /* Modal / Slide Menu */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 260px;
-            height: 100%;
-            background: rgba(15, 17, 23, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 2000;
-            padding: 20px;
-            transition: 0.3s ease;
-            border-right: 1px solid var(--border-color);
+        /* ORDERS */
+        .order-card {
+            background: var(--card-bg); border: 1px solid var(--border-glass);
+            border-radius: var(--radius-main); padding: 12px; margin-bottom: 12px;
         }
-
-        .sidebar.active {
-            left: 0;
+        .order-header { display: flex; align-items: center; gap: 12px; }
+        .order-img { width: 55px; height: 55px; border-radius: 8px; object-fit: cover; border: 1px solid var(--gold-border); }
+        .order-details { flex: 1; }
+        .order-title { font-size: 14px; font-weight: bold; color: #fff; }
+        .order-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        .status-pill {
+            display: inline-flex; align-items: center; gap: 4px;
+            background: rgba(0, 230, 118, 0.15); border: 1px solid var(--status-green);
+            color: var(--status-green); padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: bold;
         }
-
-        .sidebar-menu {
-            list-style: none;
-            margin-top: 20px;
+        .btn-action-gold {
+            width: 100%; margin-top: 10px; padding: 8px;
+            background: linear-gradient(180deg, var(--gold-primary), #b8820b);
+            border: none; border-radius: 8px; color: #000; font-weight: bold; font-size: 12px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
         }
+        .btn-action-gold:disabled { background: rgba(255,255,255,0.1); color: var(--text-muted); cursor: not-allowed; border: 1px solid var(--border-glass); }
 
-        .sidebar-menu li {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            font-size: 14px;
+        /* PROFILE STYLES */
+        .profile-card {
+            background: var(--card-bg); border: 1px solid var(--gold-border);
+            border-radius: var(--radius-main); padding: 16px; margin-bottom: 14px;
         }
+        .profile-header-box { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+        .profile-avatar-lg { width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--gold-primary); }
+        .section-title-sm { font-size: 12px; font-weight: bold; color: var(--gold-primary); letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase; }
+        .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; }
+        .stat-box { background: rgba(0,0,0,0.5); border: 1px solid var(--border-glass); padding: 8px 4px; border-radius: 8px; }
+        .stat-num { font-size: 14px; font-weight: bold; color: #fff; }
+        .stat-lbl { font-size: 9px; color: var(--text-muted); }
 
-        .sidebar-menu li i {
-            color: var(--gold-primary);
-            width: 20px;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1500;
-            display: none;
-        }
-
-        .overlay.active { display: block; }
-
-        /* Modal Dialog */
+        /* MODAL */
         .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            width: 90%;
-            max-width: 400px;
-            background: #151821;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            padding: 20px;
-            z-index: 2500;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.3s;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 2000;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-content {
+            background: var(--card-bg); border: 1px solid var(--gold-border);
+            border-radius: var(--radius-main); padding: 20px; width: 100%; max-width: 380px;
+        }
+        .modal-content textarea {
+            width: 100%; height: 80px; background: rgba(0,0,0,0.6); border: 1px solid var(--border-glass);
+            border-radius: 8px; padding: 8px; color: #fff; margin: 10px 0; resize: none;
         }
 
-        .modal.active {
-            opacity: 1;
-            pointer-events: all;
-            transform: translate(-50%, -50%) scale(1);
+        /* BOTTOM NAVBAR */
+        .bottom-nav-container {
+            position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);
+            width: calc(100% - 24px); max-width: 450px; z-index: 1000;
         }
-
-        /* Toast notification */
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: -100%;
-            background: var(--gold-primary);
-            color: #000;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 12px;
-            z-index: 3000;
-            transition: 0.4s ease;
-            box-shadow: 0 0 15px var(--gold-glow);
+        .bottom-nav {
+            background: rgba(10, 12, 16, 0.95); backdrop-filter: blur(20px);
+            border: 1px solid var(--gold-border); box-shadow: 0 0 20px rgba(0,0,0,0.9), 0 0 10px rgba(212, 160, 23, 0.2);
+            border-radius: 18px; display: flex; justify-content: space-around; align-items: center; padding: 4px;
         }
-
-        .toast.show {
-            right: 20px;
+        .nav-tab {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 8px 0; color: var(--text-muted); cursor: pointer; border-radius: 12px; transition: all 0.2s;
         }
+        .nav-tab i { font-size: 18px; margin-bottom: 2px; }
+        .nav-tab span { font-size: 10px; font-weight: bold; }
+        .nav-tab.active {
+            color: #fff; background: linear-gradient(180deg, rgba(245, 176, 20, 0.15) 0%, rgba(0, 0, 0, 0.4) 100%);
+            border: 1px solid var(--gold-primary); box-shadow: inset 0 0 8px rgba(245, 176, 20, 0.3);
+        }
+        .nav-tab.active i { color: var(--gold-primary); }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- HEADER -->
     <header>
         <div class="header-left">
-            <button class="icon-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
-            <button class="icon-btn" onclick="switchLanguage()"><span id="lang-btn">TJ</span></button>
-        </div>
-        <div class="header-right">
-            <div class="balance-badge">
-                <i class="fa-solid fa-wallet"></i>
-                <span id="user-balance">0.00</span> TJS
-                <div class="balance-add" onclick="showSection('topup')">+</div>
+            <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+            <div class="lang-picker">
+                <span>🇹🇯</span>
+                <i class="fa-solid fa-chevron-down" style="font-size: 9px; color: var(--text-muted);"></i>
             </div>
+        </div>
+        <div class="brand-logo-header">
+            <div class="brand-title">VELOX</div>
+            <div class="brand-sub">UC SHOP</div>
+        </div>
+        <div class="balance-badge">
+            <i class="fa-solid fa-wallet" style="color: var(--gold-primary); font-size: 12px;"></i>
+            <div>
+                <div class="balance-title">Баланс</div>
+                <div class="balance-val">0.00 сомони</div>
+            </div>
+            <button class="balance-add" onclick="switchPage('profile', document.querySelectorAll('.nav-tab')[3])">+</button>
         </div>
     </header>
 
-    <!-- Sidebar Menu -->
-    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
-    <div class="sidebar" id="sidebar">
-        <div class="brand-logo" style="text-align: left; margin-bottom: 20px;">VELOX SHOP</div>
-        <ul class="sidebar-menu">
-            <li onclick="navClick('home')"><i class="fa-solid fa-house"></i> Асосӣ</li>
-            <li onclick="navClick('uc-shop')"><i class="fa-solid fa-gem"></i> UC Shop</li>
-            <li onclick="navClick('acc-market')"><i class="fa-solid fa-store"></i> Аккаунт Market</li>
-            <li onclick="navClick('x-suit')"><i class="fa-solid fa-crown"></i> X-Suit</li>
-            <li onclick="navClick('supercar')"><i class="fa-solid fa-car"></i> Supercar</li>
-            <li onclick="navClick('gift-uc')"><i class="fa-solid fa-gift"></i> Gift UC</li>
-            <li onclick="navClick('orders')"><i class="fa-solid fa-box"></i> Заказҳо</li>
-            <li onclick="navClick('reviews')"><i class="fa-solid fa-star"></i> Отзывҳо</li>
-            <li onclick="navClick('profile')"><i class="fa-solid fa-user"></i> Профиль</li>
-            <li onclick="navClick('support')"><i class="fa-solid fa-headset"></i> Поддержка</li>
-            <li onclick="navClick('admin')" style="color: var(--gold-primary);"><i class="fa-solid fa-user-shield"></i> Админ Панель</li>
-        </ul>
-    </div>
-
-    <!-- MAIN PAGE -->
-    <div id="home" class="page-section active">
-        <div class="brand-container">
-            <div class="brand-logo">VELOX UC SHOP</div>
-        </div>
-
-        <div class="banner">
+    <!-- BANNER -->
+    <div class="banner-container">
+        <div class="hero-banner">
             <h3>PUBG MOBILE</h3>
-            <h2>PLAY BIGGER</h2>
-            <p style="font-size: 11px; color: var(--gold-primary);">BE A LEGEND</p>
+            <p>PLAY BIGGER<br>BE A LEGEND</p>
         </div>
+    </div>
 
+    <!-- 1. ГЛАВНАЯ PAGE -->
+    <div id="page-home" class="page-section active">
         <div class="categories-grid">
-            <div class="cat-card" onclick="showSection('uc-shop')">
-                <i class="fa-solid fa-gem"></i>
-                <span>💎 UC SHOP</span>
+            <div class="card-item">
+                <div class="card-img-wrap">
+                    <span class="card-badge">🔥 Популярно</span>
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80">
+                </div>
+                <div class="card-footer">
+                    <div class="card-title">UC SHOP</div>
+                    <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
             </div>
-            <div class="cat-card" onclick="showSection('acc-market')">
-                <i class="fa-solid fa-user-shield"></i>
-                <span>🛒 ACCOUNTS</span>
+            <div class="card-item">
+                <div class="card-img-wrap">
+                    <span class="card-badge">💎 Premium</span>
+                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=400&q=80">
+                </div>
+                <div class="card-footer">
+                    <div class="card-title">АККАУНТ</div>
+                    <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
             </div>
-            <div class="cat-card" onclick="showSection('x-suit')">
-                <i class="fa-solid fa-crown"></i>
-                <span>👑 X-SUIT</span>
+            <div class="card-item">
+                <div class="card-img-wrap">
+                    <span class="card-badge">👑 VIP</span>
+                    <img src="https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80">
+                </div>
+                <div class="card-footer">
+                    <div class="card-title">X-SUIT</div>
+                    <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
             </div>
-            <div class="cat-card" onclick="showSection('supercar')">
-                <i class="fa-solid fa-car-side"></i>
-                <span>🚗 SUPERCAR</span>
+            <div class="card-item">
+                <div class="card-img-wrap">
+                    <span class="card-badge">⚡ New</span>
+                    <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=400&q=80">
+                </div>
+                <div class="card-footer">
+                    <div class="card-title">SUPERCAR</div>
+                    <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
             </div>
-            <div class="cat-card" onclick="showSection('gift-uc')">
-                <i class="fa-solid fa-gift"></i>
-                <span>🎁 GIFT UC</span>
-            </div>
-            <div class="cat-card" onclick="showProductModal('PRIME Pass', 45)">
-                <i class="fa-solid fa-bolt"></i>
-                <span>⚡ PRIME</span>
-            </div>
-            <div class="cat-card" onclick="showProductModal('PRIME PLUS Pass', 120)">
-                <i class="fa-solid fa-fire"></i>
-                <span>🔥 PRIME PLUS</span>
-            </div>
-            <div class="cat-card" onclick="showProductModal('Car Token', 350)">
-                <i class="fa-solid fa-ticket"></i>
-                <span>🎫 CAR TOKEN</span>
+        </div>
+
+        <!-- Омор Block -->
+        <div class="profile-card" style="margin-top: 15px;">
+            <div class="section-title-sm">🏆 Омор</div>
+            <div class="stat-grid">
+                <div class="stat-box"><div class="stat-num">1800+</div><div class="stat-lbl">Муштариён</div></div>
+                <div class="stat-box"><div class="stat-num">5000+</div><div class="stat-lbl">Заказҳо</div></div>
+                <div class="stat-box"><div class="stat-num">1200+</div><div class="stat-lbl">Отзывы</div></div>
+                <div class="stat-box"><div class="stat-num">100%</div><div class="stat-lbl">Кафолат</div></div>
             </div>
         </div>
     </div>
 
-    <!-- UC SHOP -->
-    <div id="uc-shop" class="page-section">
-        <div class="section-title">💎 UC SHOP</div>
-        <div class="products-grid">
-            <div class="product-card">
-                <i class="fa-solid fa-gem" style="font-size: 30px; color: var(--gold-primary);"></i>
-                <div class="product-title">60 UC</div>
-                <div class="product-price">12 TJS</div>
-                <button class="btn-buy" onclick="openBuyModal('60 UC', 12)">Харид</button>
-            </div>
-            <div class="product-card">
-                <i class="fa-solid fa-gem" style="font-size: 30px; color: var(--gold-primary);"></i>
-                <div class="product-title">325 UC</div>
-                <div class="product-price">58 TJS</div>
-                <button class="btn-buy" onclick="openBuyModal('325 UC', 58)">Харид</button>
-            </div>
-            <div class="product-card">
-                <i class="fa-solid fa-gem" style="font-size: 30px; color: var(--gold-primary);"></i>
-                <div class="product-title">660 UC</div>
-                <div class="product-price">110 TJS</div>
-                <button class="btn-buy" onclick="openBuyModal('660 UC', 110)">Харид</button>
-            </div>
-            <div class="product-card">
-                <i class="fa-solid fa-gem" style="font-size: 30px; color: var(--gold-primary);"></i>
-                <div class="product-title">1800 UC</div>
-                <div class="product-price">270 TJS</div>
-                <button class="btn-buy" onclick="openBuyModal('1800 UC', 270)">Харид</button>
-            </div>
-            <div class="product-card">
-                <i class="fa-solid fa-gem" style="font-size: 30px; color: var(--gold-primary);"></i>
-                <div class="product-title">3850 UC</div>
-                <div class="product-price">540 TJS</div>
-                <button class="btn-buy" onclick="openBuyModal('3850 UC', 540)">Харид</button>
-            </div>
-            <div class="product-card">
-                <i class="fa-solid fa-gem" style="font-size: 30px; color: var(--gold-primary);"></i>
-                <div class="product-title">8100 UC</div>
-                <div class="product-price">1080 TJS</div>
-                <button class="btn-buy" onclick="openBuyModal('8100 UC', 1080)">Харид</button>
+    <!-- 2. ОТЗЫВЫ PAGE -->
+    <div id="page-reviews" class="page-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h2 style="font-size: 16px; font-weight: 800; font-style: italic;">⭐ Отзывы</h2>
+        </div>
+        <div id="reviews-container">
+            <div class="review-card">
+                <img src="https://i.pravatar.cc/100?img=33" class="user-avatar">
+                <div class="review-info">
+                    <div class="user-name">Akmal_777 <i class="fa-solid fa-circle-check" style="color: var(--gold-primary); font-size: 10px;"></i></div>
+                    <div class="stars">★★★★★</div>
+                    <div class="review-text">660 UC гирифтам, зуд омад. Хизматрасонӣ хеле хуб! Раҳмат! 🔥</div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- ACCOUNT MARKET -->
-    <div id="acc-market" class="page-section">
-        <div class="section-title">🛒 ACCOUNT MARKET</div>
-        <div style="display: flex; flex-direction: column; gap: 15px;">
-            <div class="product-card" style="text-align: left;">
-                <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=500&q=80" class="product-img">
-                <div class="product-title" style="margin-top: 5px;">Mythic Fashion Level 72</div>
-                <p style="font-size: 11px; color: var(--text-muted);">Коллексия: 55+ Mythic, Glacier M416 (Lvl 4)</p>
-                <div class="product-price" style="margin: 5px 0;">1500 TJS</div>
-                <button class="btn-buy" onclick="openBuyModal('Account #101', 1500)">Харид кардани аккаунт</button>
+    <!-- 3. ЗАКАЗЫ PAGE -->
+    <div id="page-orders" class="page-section">
+        <h2 style="font-size: 16px; font-weight: 800; font-style: italic; margin-bottom: 12px;">🛒 Мои заказы</h2>
+        
+        <!-- Order Card Example -->
+        <div class="order-card" id="order-100001">
+            <div class="order-header">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80" class="order-img">
+                <div class="order-details">
+                    <div class="order-title">1800 UC</div>
+                    <div class="order-sub">PUBG ID: 5234567890 | 180 сомони</div>
+                    <div style="margin-top: 4px;">
+                        <span class="status-pill">🟢 Выполнено</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Dynamic Review Button Slot -->
+            <div id="review-btn-slot-100001">
+                <button class="btn-action-gold" onclick="openReviewModal('100001')">⭐ Оставить отзыв</button>
             </div>
         </div>
     </div>
 
-    <!-- X-SUIT -->
-    <div id="x-suit" class="page-section">
-        <div class="section-title">👑 X-SUIT COLLECTION</div>
-        <div class="pr
+    <!-- 4. ПРОФИЛЬ PAGE -->
+    <div id="page-profile" class="page-section">
+        <div class="profile-card">
+            <div class="profile-header-box">
+                <img src="https://i.pravatar.cc/100?img=60" class="profile-avatar-lg">
+                <div>
+                    <h3 style="font-size: 16px; color: #fff;" id="profile-name">👤 Акрам</h3>
+                    <div style="font-size: 12px; color: var(--gold-primary);" id="profile-username">@username</div>
+                    <div style="font-size: 10px; color: var(--text-muted);">ID: 123456789</div>
+                </div>
+            </div>
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-glass); padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div style="font-size: 10px; color: var(--text-muted);">Баланс:</div>
+                    <div style="font-size: 14px; font-weight: bold; color: #fff;">💰 0.00 сомони</div>
+                </div>
+                <button style="background: var(--gold-primary); border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 11px; cursor: pointer;">➕ Пополнить</button>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <div class="section-title-sm">📊 ОМОР</div>
+            <div class="stat-grid">
+                <div class="stat-box"><div class="stat-num">15</div><div class="stat-lbl">Заказҳо</div></div>
+                <div class="stat-box"><div class="stat-num" style="color: var(--status-green);">12</div><div class="stat-lbl">Иҷро шуд</div></div>
+                <div class="stat-box"><div class="stat-num" style="color: var(--gold-primary);">2</div><div class="stat-lbl">Интизорӣ</div></div>
+                <div class="stat-box"><div class="stat-num" style="color: #ff5252;">1</div><div class="stat-lbl">Рад шуд</div></div>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <div class="section-title-sm">⚙️ ТАНЗИМОТ</div>
+            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px;">
+                <div style="padding: 8px; background: rgba(0,0,0,0.3); border-radius: 6px;"><i class="fa-solid fa-globe" style="color: var(--gold-primary);"></i> Иваз кардани забон</div>
+                <div style="padding: 8px; background: rgba(0,0,0,0.3); border-radius: 6px;"><i class="fa-solid fa-bell" style="color: var(--gold-primary);"></i> Огоҳиномаҳо</div>
+                <div style="padding: 8px; background: rgba(0,0,0,0.3); border-radi
