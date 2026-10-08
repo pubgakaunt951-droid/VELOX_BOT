@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>VELOX UC SHOP</title>
-  <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,15 +11,13 @@
   <!-- HEADER -->
   <header>
     <div class="header-left">
-      <button class="menu-btn" id="top-back-btn" style="display:none;" onclick="goHome()">
-        <i data-lucide="arrow-left"></i>
-      </button>
-      <button class="menu-btn" id="top-menu-btn"><i data-lucide="menu"></i></button>
+      <button class="icon-btn" id="top-back-btn" style="display:none;" onclick="goHome()">◄</button>
+      <button class="icon-btn" id="top-menu-btn">☰</button>
       <div class="lang-box">
         <span class="flag">🇹🇯</span>
         <span class="flag">🇷🇺</span>
         <span class="flag">🇬🇧</span>
-        <i data-lucide="chevron-down" class="small-icon"></i>
+        <small>▼</small>
       </div>
     </div>
 
@@ -29,10 +26,10 @@
       <div class="sub">UC SHOP</div>
     </div>
 
-    <div class="balance-btn">
+    <div class="balance-btn" onclick="openBalanceModal()">
       <div>
         <div class="balance-text">Баланс</div>
-        <div class="balance-val">0.00 сомони</div>
+        <div class="balance-val" id="user-balance">0.00 сомони</div>
       </div>
       <div class="plus-btn">+</div>
     </div>
@@ -40,7 +37,7 @@
 
   <div class="container">
     
-    <!-- 1. TAB: ГЛАВНЫЙ (HOME) -->
+    <!-- 1. TAB: ГЛАВНЫЙ -->
     <div id="tab-main" class="tab-content active">
       <div class="banner">
         <div class="banner-text">
@@ -51,167 +48,171 @@
       </div>
 
       <div class="grid-2">
-        <div class="card" onclick="openPage('page-uc')" style="background-image: url('https://w.wallhaven.cc/full/8o/wallhaven-8o9mky.jpg');">
+        <div class="card card-uc" onclick="openPage('page-uc')">
           <div class="card-footer">
             <span class="card-title">UC SHOP</span>
-            <div class="arrow-circle"><i data-lucide="chevron-right"></i></div>
+            <div class="arrow-circle">➔</div>
           </div>
         </div>
 
-        <div class="card" onclick="openPage('page-account')" style="background-image: url('https://w.wallhaven.cc/full/1k/wallhaven-1k3539.jpg');">
+        <div class="card card-acc" onclick="openPage('page-account')">
           <div class="card-footer">
             <span class="card-title">AKAKUNT</span>
-            <div class="arrow-circle"><i data-lucide="chevron-right"></i></div>
+            <div class="arrow-circle">➔</div>
           </div>
         </div>
 
-        <div class="card" onclick="openPage('page-xsuit')" style="background-image: url('https://w.wallhaven.cc/full/ex/wallhaven-ex8988.png');">
+        <div class="card card-xsuit" onclick="openPage('page-xsuit')">
           <div class="card-footer">
             <span class="card-title">X-CUIT</span>
-            <div class="arrow-circle"><i data-lucide="chevron-right"></i></div>
+            <div class="arrow-circle">➔</div>
           </div>
         </div>
 
-        <div class="card" onclick="openPage('page-supercar')" style="background-image: url('https://w.wallhaven.cc/full/vg/wallhaven-vge388.jpg');">
+        <div class="card card-car" onclick="openPage('page-supercar')">
           <div class="card-footer">
             <span class="card-title">SUPERCAR</span>
-            <div class="arrow-circle"><i data-lucide="chevron-right"></i></div>
+            <div class="arrow-circle">➔</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- PAGE: UC SHOP (САҲИФАИ ХАРИДИ UC) -->
+    <!-- PAGE: UC SHOP -->
     <div id="page-uc" class="tab-content">
       <div class="page-header">
-        <button class="back-btn" onclick="goHome()"><i data-lucide="arrow-left"></i> Назад</button>
+        <button class="back-btn" onclick="goHome()">◄ Назад</button>
         <h2>Покупка UC</h2>
       </div>
 
-      <!-- ИНТИХОБИ АППАРАТ ВА ҲЕСОБКУНАК -->
+      <!-- ҲАМАГИ UC ВА СУМ -->
       <div class="gold-box calc-summary">
-        <div class="calc-info">
-          <div>Выбрано: <span id="selected-uc-text" class="gold-txt">0 UC</span></div>
-          <div>Итого к оплате: <span id="selected-price-text" class="gold-txt">0.00 сомони</span></div>
-        </div>
+        <div>Выбрано: <strong id="total-uc" class="gold-txt">0 UC</strong></div>
+        <div>Итого: <strong id="total-price" class="gold-txt">0.00 сомони</strong></div>
+        <button class="reset-btn" onclick="resetUcCalc()">Сбросить ↺</button>
       </div>
 
-      <!-- НАРХНОМАИ UC (АЗ 5 СОМОНӢ) -->
       <div class="uc-grid">
-        <div class="uc-card gold-box" onclick="selectUc(30, 5)">
+        <div class="uc-card gold-box" onclick="addUc(30, 5)">
           <div class="uc-amount">30 UC</div>
           <div class="uc-price">5.00 сомони</div>
         </div>
-        <div class="uc-card gold-box" onclick="selectUc(60, 10)">
+        <div class="uc-card gold-box" onclick="addUc(60, 10)">
           <div class="uc-amount">60 UC</div>
           <div class="uc-price">10.00 сомони</div>
         </div>
-        <div class="uc-card gold-box" onclick="selectUc(325, 50)">
+        <div class="uc-card gold-box" onclick="addUc(325, 50)">
           <div class="uc-amount">325 UC</div>
           <div class="uc-price">50.00 сомони</div>
         </div>
-        <div class="uc-card gold-box" onclick="selectUc(660, 100)">
+        <div class="uc-card gold-box" onclick="addUc(660, 100)">
           <div class="uc-amount">660 UC</div>
           <div class="uc-price">100.00 сомони</div>
         </div>
-        <div class="uc-card gold-box" onclick="selectUc(1800, 260)">
+        <div class="uc-card gold-box" onclick="addUc(1800, 260)">
           <div class="uc-amount">1800 UC</div>
           <div class="uc-price">260.00 сомони</div>
         </div>
-        <div class="uc-card gold-box" onclick="selectUc(3850, 520)">
+        <div class="uc-card gold-box" onclick="addUc(3850, 520)">
           <div class="uc-amount">3850 UC</div>
           <div class="uc-price">520.00 сомони</div>
         </div>
       </div>
 
-      <!-- ФОРМАИ ХАРИД ВА ЧЕК -->
+      <!-- РЕКВИЗИТ ВА ОФОРМЛЕНИЕ -->
       <div class="gold-box checkout-box">
-        <h3>Оформление заказа</h3>
-        <p class="card-info-text">Переведите сумму на карту: <strong class="gold-txt">5017 0000 1234 5678</strong> (Корти Миллӣ / Душанбе Сити)</p>
+        <h3>Реквизиты для оплаты</h3>
+        <div class="card-details">
+          <p>Банки: <strong>Душанбе Сити / Spitamen Pay</strong></p>
+          <div class="copy-row">
+            <span>Номер карты: <strong id="card-num">919664644</strong></span>
+            <button class="copy-btn" onclick="copyCardNumber()">📋 Копировать</button>
+          </div>
+          <p>Имя владельца: <strong>Шарифмоҳ.М.Д</strong></p>
+        </div>
 
         <div class="form-group">
           <label>Игрок ID (PUBG ID):</label>
-          <input type="number" id="pubg-id-input" placeholder="Введите Ваш ID игрока">
+          <input type="number" id="uc-pubg-id" placeholder="Введите Ваш ID">
         </div>
 
         <div class="form-group">
-          <label>Загрузите чек оплаты:</label>
-          <input type="file" id="check-file-input" accept="image/*">
+          <label>Загрузить чек оплаты:</label>
+          <input type="file" id="uc-check-file" accept="image/*">
         </div>
 
-        <button class="buy-submit-btn" onclick="submitOrder('UC')">Купить / Отправить чек</button>
+        <button class="submit-gold-btn" onclick="submitUcOrder()">Купить / Отправить чек</button>
       </div>
     </div>
 
     <!-- PAGE: AKAKUNT -->
     <div id="page-account" class="tab-content">
-      <div class="page-header">
-        <button class="back-btn" onclick="goHome()"><i data-lucide="arrow-left"></i> Назад</button>
-        <h2>PUBG Аккаунты</h2>
-      </div>
-      <div class="gold-box list-item" style="margin-bottom:10px;">
-        <div>
-          <b>M416 Ледник Lvl 4 + 3 X-Suit</b>
-          <div class="sub-text">Привязка: Google / Twitter</div>
-          <div class="price">450.00 сомони</div>
+      <div class="page-header" style="justify-content: space-between;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="back-btn" onclick="goHome()">◄ Назад</button>
+          <h2>PUBG Аккаунты</h2>
         </div>
-        <button class="buy-submit-btn-sm" onclick="quickBuy('Аккаунт PUBG', 450)">Купить</button>
+        <!-- ТУГМАИ ПЛЮС БАРОИ ФУРӮШИ АККАУНТ -->
+        <button class="add-acc-btn" onclick="openSellAccModal()">+ Продать аккаунт</button>
+      </div>
+
+      <div class="list">
+        <div class="gold-box list-item-card">
+          <div class="acc-img-placeholder">📸 АККАУНТ PUBG</div>
+          <div class="acc-details">
+            <h3>M416 Ледник Lvl 4 + 3 X-Suit</h3>
+            <p><strong>Уровень:</strong> 72 lvl</p>
+            <p><strong>Коллекция:</strong> M416 Ледник, Костюм "Мумия", Внедорожник</p>
+            <p><strong>Описание:</strong> Привязка Google чистая. Аккаунт личный.</p>
+            <div class="price">450.00 сомони</div>
+            <button class="submit-gold-btn" onclick="openBuyModal('Аккаунт 72 Lvl', 450)">Купить</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- PAGE: X-SUIT -->
     <div id="page-xsuit" class="tab-content">
       <div class="page-header">
-        <button class="back-btn" onclick="goHome()"><i data-lucide="arrow-left"></i> Назад</button>
+        <button class="back-btn" onclick="goHome()">◄ Назад</button>
         <h2>X-Suit Костюмы</h2>
       </div>
-      <div class="gold-box list-item" style="margin-bottom:10px;">
-        <div>
-          <b>X-Suit "Золотой Завет" (6 Звезд)</b>
-          <div class="sub-text">Мгновенная доставка на ID</div>
+      <div class="gold-box list-item-card">
+        <div class="acc-img-placeholder">✨ X-SUIT "ЗОЛОТОЙ ЗАВЕТ"</div>
+        <div class="acc-details">
+          <h3>X-Suit "Золотой Завет" (6 Звезд)</h3>
+          <p><strong>Описание:</strong> Быстрая отправка подарком на Ваш PUBG ID.</p>
           <div class="price">250.00 сомони</div>
+          <button class="submit-gold-btn" onclick="openBuyModal('X-Suit Золотой Завет', 250)">Купить</button>
         </div>
-        <button class="buy-submit-btn-sm" onclick="quickBuy('X-Suit Золотой Завет', 250)">Купить</button>
       </div>
     </div>
 
     <!-- PAGE: SUPERCAR -->
     <div id="page-supercar" class="tab-content">
       <div class="page-header">
-        <button class="back-btn" onclick="goHome()"><i data-lucide="arrow-left"></i> Назад</button>
-        <h2>Supercar Ключи</h2>
+        <button class="back-btn" onclick="goHome()">◄ Назад</button>
+        <h2>Supercar</h2>
       </div>
-      <div class="gold-box list-item" style="margin-bottom:10px;">
-        <div>
-          <b>Bugatti La Voiture Noire (Ключ)</b>
-          <div class="sub-text">Активация на Ваш PUBG ID</div>
+      <div class="gold-box list-item-card">
+        <div class="acc-img-placeholder">🏎️ BUGATTI LA VOITURE NOIRE</div>
+        <div class="acc-details">
+          <h3>Bugatti La Voiture Noire (Ключ)</h3>
+          <p><strong>Описание:</strong> Ключ активации суперкара на Ваш аккаунт.</p>
           <div class="price">320.00 сомони</div>
+          <button class="submit-gold-btn" onclick="openBuyModal('Bugatti Supercar', 320)">Купить</button>
         </div>
-        <button class="buy-submit-btn-sm" onclick="quickBuy('Bugatti Key', 320)">Купить</button>
       </div>
     </div>
 
     <!-- 2. TAB: ОТЗЫВЫ -->
     <div id="tab-reviews" class="tab-content">
-      <div class="section-title">
-        <i data-lucide="star" class="gold-icon"></i>
-        <h3>Отзывы клиентов</h3>
-      </div>
+      <h2 style="margin-bottom:12px;">⭐ Отзывы</h2>
       <div class="list">
         <div class="gold-box list-item">
-          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" class="avatar" alt="User">
-          <div class="item-content">
-            <b>Akmal_777 <i data-lucide="check-circle" class="verified"></i></b>
-            <div class="date">07.10.2025</div>
-            <div class="review-text">660 UC гирифтам, зуд омад. Раҳмат! 🔥</div>
-          </div>
-        </div>
-        <div class="gold-box list-item">
-          <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100" class="avatar" alt="User">
-          <div class="item-content">
-            <b>Rustam_01 <i data-lucide="check-circle" class="verified"></i></b>
-            <div class="date">06.10.2025</div>
-            <div class="review-text">Аккаунт гирифтам, ҳама чиз дуруст. Тавсия медиҳам! 👍</div>
+          <div>
+            <b>Akmal_777 ✔</b>
+            <div class="sub-text">660 UC гирифтам, зуд омад. Раҳмат! 🔥</div>
           </div>
         </div>
       </div>
@@ -219,18 +220,14 @@
 
     <!-- 3. TAB: ЗАКАЗЫ -->
     <div id="tab-orders" class="tab-content">
-      <div class="section-title">
-        <i data-lucide="shopping-bag" class="gold-icon"></i>
-        <h3>Мои заказы</h3>
-      </div>
-      <div class="list" id="orders-list">
+      <h2 style="margin-bottom:12px;">📦 Мои заказы</h2>
+      <div class="list" id="orders-container">
         <div class="gold-box list-item">
           <div>
-            <b>1800 UC</b> <span class="badge-completed">Выполнено</span>
-            <div class="sub-text">ID игрока: 5234567890</div>
+            <b>1800 UC</b> <span class="badge-done">Выполнено</span>
+            <div class="sub-text">ID: 5234567890</div>
             <div class="price">180.00 сомони</div>
           </div>
-          <i data-lucide="eye" class="icon-btn-style"></i>
         </div>
       </div>
     </div>
@@ -238,51 +235,96 @@
     <!-- 4. TAB: ПРОФИЛЬ -->
     <div id="tab-profile" class="tab-content">
       <div class="gold-box profile-top">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" class="profile-img" alt="Profile">
         <h2>Akram 👑</h2>
-        <div class="sub-text">@akram._.pubg</div>
-        <div class="sub-text">ID: 123456789</div>
-        <div class="online-status">● Онлайн</div>
-      </div>
-
-      <div class="gold-box">
-        <div class="menu-row" onclick="openTab('tab-orders')">
-          <span>Мои заказы</span>
-          <i data-lucide="chevron-right"></i>
-        </div>
-        <div class="menu-row">
-          <span>Поддержка (@VELOX_UC)</span>
-          <i data-lucide="chevron-right"></i>
-        </div>
-        <div class="menu-row">
-          <span>Язык (Таджикский / Русский)</span>
-          <i data-lucide="chevron-right"></i>
-        </div>
+        <div class="sub-text">@akram._.pubg | ID: 123456789</div>
+        <div style="color:#00e676; font-size:12px; margin-top:4px;">● Онлайн</div>
       </div>
     </div>
 
   </div>
 
+  <!-- MODAL: ПОПОЛНИТЬ БАЛАНС -->
+  <div id="modal-balance" class="modal">
+    <div class="modal-content gold-box">
+      <span class="close-btn" onclick="closeModal('modal-balance')">✕</span>
+      <h3>Пополнить баланс</h3>
+      <div class="card-details" style="margin-top:10px;">
+        <p>Переведите деньги на карту:</p>
+        <p><strong>Душанбе Сити / Spitamen Pay</strong></p>
+        <div class="copy-row">
+          <span>Номер: <strong>919664644</strong></span>
+          <button class="copy-btn" onclick="copyCardNumber()">📋 Копировать</button>
+        </div>
+        <p>Имя: <strong>Шарифмоҳ.М.Д</strong></p>
+      </div>
+      <div class="form-group" style="margin-top:10px;">
+        <label>Сумма пополнения (сомони):</label>
+        <input type="number" id="balance-amount-input" placeholder="Например: 50">
+      </div>
+      <div class="form-group">
+        <label>Загрузите чек:</label>
+        <input type="file" id="balance-file-input" accept="image/*">
+      </div>
+      <button class="submit-gold-btn" onclick="submitBalance()">Отправить чек</button>
+    </div>
+  </div>
+
+  <!-- MODAL: ПРОДАТЬ АККАУНТ -->
+  <div id="modal-sell-acc" class="modal">
+    <div class="modal-content gold-box">
+      <span class="close-btn" onclick="closeModal('modal-sell-acc')">✕</span>
+      <h3>Выставить аккаунт на продажу</h3>
+
+      <div class="form-group" style="margin-top:10px;">
+        <label>Загрузите фото / видео аккаунта:</label>
+        <input type="file" id="acc-media-file" accept="image/*,video/*" multiple>
+      </div>
+
+      <div class="form-group">
+        <label>Уровень аккаунта (Lvl):</label>
+        <input type="text" id="acc-lvl" placeholder="Например: 68 lvl">
+      </div>
+
+      <div class="form-group">
+        <label>Коллекция (оружие, костюмы, машины):</label>
+        <textarea id="acc-collection" rows="2" placeholder="Ледник lvl 4, Мумия, Урус..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Дополнительное описание:</label>
+        <textarea id="acc-desc" rows="2" placeholder="Привязки, личный аккаунт и т.д."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Желаемая цена (сомони):</label>
+        <input type="number" id="acc-price" placeholder="Цена">
+      </div>
+
+      <button class="submit-gold-btn" onclick="submitAccountForSale()">Отправить на модерацию</button>
+    </div>
+  </div>
+
   <!-- BOTTOM NAVIGATION -->
   <div class="bottom-nav">
     <div class="nav-btn active" id="btn-nav-main" onclick="openTab('tab-main')">
-      <i data-lucide="home"></i>
+      <span>🏠</span>
       <span>Главный</span>
     </div>
     <div class="nav-btn" id="btn-nav-reviews" onclick="openTab('tab-reviews')">
-      <i data-lucide="star"></i>
+      <span>⭐</span>
       <span>Отзывы</span>
     </div>
     <div class="nav-btn" id="btn-nav-orders" onclick="openTab('tab-orders')">
-      <i data-lucide="shopping-cart"></i>
+      <span>🛒</span>
       <span>Заказы</span>
     </div>
     <div class="nav-btn" id="btn-nav-profile" onclick="openTab('tab-profile')">
-      <i data-lucide="user"></i>
+      <span>👤</span>
       <span>Профиль</span>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-</html>
+          </html>
+               
