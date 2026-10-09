@@ -1,28 +1,26 @@
-import os
-import asyncio
-from telegram import Update, WebAppInfo, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, ContextTypes
+import logging
+from aiogram import Bot, Dispatcher, types
+from aiogram.types import WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.utils import executor
 
-TOKEN = os.getenv("BOT_TOKEN")
-WEB_APP_URL = os.getenv("WEB_APP_URL", "https://pubgakaunt951-droid.github.io/VELOX_BOT/")
+API_TOKEN = 'YOUR_BOT_TOKEN_HERE'
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-        [InlineKeyboardButton(
-            "VELOX UC SHOP",
-            web_app=WebAppInfo(url=WEB_APP_URL)
-        )]
-    ]
+logging.basicConfig(level=logging.INFO)
 
-    await update.message.reply_text(
-        "VELOX UC SHOP\n\nБарои кушодани мағоза тугмаи зерро пахш кун.",
-        reply_markup=InlineKeyboardMarkup(keyboard)
+bot = Bot(token=API_TOKEN)
+dp = Dispatcher(bot)
+
+@dp.message_handler(commands=['start'])
+async def send_welcome(message: types.Message):
+    markup = InlineKeyboardMarkup()
+    web_app = WebAppInfo(url="https://YOUR_WEB_APP_URL/index.html")
+    markup.add(InlineKeyboardButton(text="VELOX UC SHOP", web_app=web_app))
+    
+    await message.reply(
+        "Хуш омадед ба VELOX UC SHOP! Барои кушодани мағоза тугмаи зеринро пахш кунед.",
+        reply_markup=markup
     )
 
-def main():
-    app = Application.builder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    app.run_polling()
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    executor.start_polling(dp, skip_updates=True)
+    
