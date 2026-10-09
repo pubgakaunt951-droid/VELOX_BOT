@@ -3,7 +3,7 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.types import WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils import executor
 
-API_TOKEN = 'YOUR_BOT_TOKEN_HERE'
+API_TOKEN = '8977662126:AAHSgApfZlmi4jJrBtuENoBzlYu9iScEtec'
 
 logging.basicConfig(level=logging.INFO)
 
