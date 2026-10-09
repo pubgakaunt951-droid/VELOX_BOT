@@ -1,356 +1,176 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="tg">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>VELOX UC SHOP</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUBG SHOP</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #050505;
+            color: #f3f4f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 15px;
+            padding-bottom: 90px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 15px;
+        }
+        .header h1 {
+            color: #d4af37;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+        .shop-title {
+            color: #f1c40f;
+            font-size: 18px;
+            margin: 15px 0 10px 0;
+            text-transform: uppercase;
+            border-left: 4px solid #f1c40f;
+            padding-left: 8px;
+        }
+        .price-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #14171f, #1e222d);
+            border: 1px solid #d4af37;
+            border-radius: 12px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .price-item:active {
+            transform: scale(0.98);
+            background: #252a38;
+        }
+        .uc-info {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .uc-price {
+            font-size: 16px;
+            color: #f1c40f;
+            font-weight: bold;
+        }
+        .payment-card {
+            background: linear-gradient(135deg, #1b1f2b, #11141c);
+            border: 2px solid #d4af37;
+            border-radius: 14px;
+            padding: 18px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        .payment-card h3 {
+            color: #d4af37;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        .payment-detail {
+            font-size: 15px;
+            margin: 6px 0;
+            color: #e5e7eb;
+        }
+        .payment-detail span {
+            color: #f1c40f;
+            font-weight: bold;
+        }
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #0d1117;
+            border-top: 1px solid #30363d;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+        }
+        .nav-item {
+            text-align: center;
+            color: #8b949e;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        .nav-item.active {
+            color: #f1c40f;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- HEADER (САРЛАВҲА) -->
-  <header>
-    <div class="header-left">
-      <button class="icon-btn" id="top-back-btn" style="display:none;" onclick="goHome()">◄</button>
-      <button class="icon-btn" id="top-menu-btn">☰</button>
-      <div class="lang-box">
-        <span class="flag">🇹🇯</span>
-        <span class="flag">🇷🇺</span>
-        <span class="flag">🇬🇧</span>
-        <small>▼</small>
-      </div>
+    <div class="header">
+        <h1>👑 PUBG SHOP 👑</h1>
     </div>
 
-    <div class="logo-area" onclick="goHome()">
-      <div class="crown-icon">👑</div>
-      <div class="title">VELOX</div>
-      <div class="sub">UC SHOP</div>
+    <div class="shop-title">💎 Интихоби ЮС (UC Shop)</div>
+    <div class="price-list">
+        <div class="price-item">
+            <span class="uc-info">👋 30 UC</span>
+            <span class="uc-price">6 с 🇹🇯</span>
+        </div>
+        <div class="price-item">
+            <span class="uc-info">👋 60 UC (120 UC)</span>
+            <span class="uc-price">10 с 🇹🇯</span>
+        </div>
+        <div class="price-item">
+            <span class="uc-info">👋 325 UC</span>
+            <span class="uc-price">48 с 🇹🇯</span>
+        </div>
+        <div class="price-item">
+            <span class="uc-info">👋 660 UC</span>
+            <span class="uc-price">92 с 🇹🇯</span>
+        </div>
+        <div class="price-item">
+            <span class="uc-info">🤝 1320 UC</span>
+            <span class="uc-price">184 с 🇹🇯</span>
+        </div>
+        <div class="price-item">
+            <span class="uc-info">🤝 1800 UC</span>
+            <span class="uc-price">240 с 🇹🇯</span>
+        </div>
+        <div class="price-item">
+            <span class="uc-info">🤝 3850 UC</span>
+            <span class="uc-price">450 с 🇹🇯</span>
+        </div>
+        <div class="price-item">
+            <span class="uc-info">📦 8100 UC</span>
+            <span class="uc-price">870 с 🇹🇯</span>
+        </div>
+        <div class="price-item">
+            <span class="uc-info">📦 16200 UC</span>
+            <span class="uc-price">1660 с 🇹🇯</span>
+        </div>
+        <div class="price-item">
+            <span class="uc-info">📦 24300 UC</span>
+            <span class="uc-price">2480 с 🇹🇯</span>
+        </div>
     </div>
 
-    <div class="balance-btn" onclick="openBalanceModal()">
-      <div class="wallet-icon">👛</div>
-      <div>
-        <div class="balance-text">Баланс</div>
-        <div class="balance-val" id="user-balance">0.00 сомони</div>
-      </div>
-      <div class="plus-btn">+</div>
-    </div>
-  </header>
-
-  <div class="container">
-    
-    <!-- 1. TAB: ГЛАВНЫЙ (ASOSI) -->
-    <div id="tab-main" class="tab-content active">
-      <div class="banner">
-        <div class="pubg-logo-badge">PUBG MOBILE</div>
-        <div class="banner-text">
-          PLAY 👑<br>
-          BIGGER<br>
-          <span>BE A LEGEND</span>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <!-- UC SHOP -->
-        <div class="card card-uc" onclick="openPage('page-uc')">
-          <div class="pubg-badge">PUBG MOBILE</div>
-          <div class="card-footer">
-            <span class="card-title">UC SHOP</span>
-            <div class="arrow-circle">❯</div>
-          </div>
-        </div>
-
-        <!-- AKAKUNT -->
-        <div class="card card-acc" onclick="openPage('page-account')">
-          <div class="pubg-badge">PUBG MOBILE</div>
-          <div class="card-footer">
-            <span class="card-title">👤 AKAKUNT</span>
-            <div class="arrow-circle">❯</div>
-          </div>
-        </div>
-
-        <!-- X-SUIT -->
-        <div class="card card-xsuit" onclick="openPage('page-xsuit')">
-          <div class="pubg-badge">PUBG MOBILE</div>
-          <div class="card-footer">
-            <span class="card-title">🛡️ X-CUIT</span>
-            <div class="arrow-circle">❯</div>
-          </div>
-        </div>
-
-        <!-- SUPERCAR -->
-        <div class="card card-car" onclick="openPage('page-supercar')">
-          <div class="pubg-badge">PUBG MOBILE</div>
-          <div class="card-footer">
-            <span class="card-title">🏎️ SUPERCAR</span>
-            <div class="arrow-circle">❯</div>
-          </div>
-        </div>
-      </div>
+    <div class="payment-card">
+        <h3>💳 Маълумот барои пардохт</h3>
+        <div class="payment-detail">Бонк: <span>Душанбе Сити / Spitamen Pay</span></div>
+        <div class="payment-detail">Ному насаб: <span>Шарифмоҳ.М.Д.</span></div>
+        <div class="payment-detail">Рақами карта: <span>919664644</span></div>
     </div>
 
-    <!-- PAGE: UC SHOP (САҲИФАИ НАВИ НАХҲОИ UC) -->
-    <div id="page-uc" class="tab-content">
-      <div class="page-header">
-        <button class="back-btn" onclick="goHome()">◄ Назад</button>
-        <h2>UC SHOP - Покупка UC</h2>
-      </div>
-
-      <!-- КАЛКУЛЯТОРИ ХУДКОР -->
-      <div class="gold-box calc-summary">
-        <div>
-          <div>Выбрано: <strong id="total-uc" class="gold-txt">0 UC</strong></div>
-          <div>Итого: <strong id="total-price" class="gold-txt">0.00 сомони</strong></div>
-        </div>
-        <button class="reset-btn" onclick="resetUcCalc()">Сбросить ↺</button>
-      </div>
-
-      <!-- РӮЙХАТИ НАРХҲОИ UC -->
-      <div class="uc-grid">
-        <div class="uc-card gold-box" onclick="addUc(30, 5)">
-          <div class="uc-amount">30 UC</div>
-          <div class="uc-price">5.00 сомони</div>
-        </div>
-        <div class="uc-card gold-box" onclick="addUc(60, 10)">
-          <div class="uc-amount">60 UC</div>
-          <div class="uc-price">10.00 сомони</div>
-        </div>
-        <div class="uc-card gold-box" onclick="addUc(325, 50)">
-          <div class="uc-amount">325 UC</div>
-          <div class="uc-price">50.00 сомони</div>
-        </div>
-        <div class="uc-card gold-box" onclick="addUc(660, 100)">
-          <div class="uc-amount">660 UC</div>
-          <div class="uc-price">100.00 сомони</div>
-        </div>
-        <div class="uc-card gold-box" onclick="addUc(1800, 260)">
-          <div class="uc-amount">1800 UC</div>
-          <div class="uc-price">260.00 сомони</div>
-        </div>
-        <div class="uc-card gold-box" onclick="addUc(3850, 520)">
-          <div class="uc-amount">3850 UC</div>
-          <div class="uc-price">520.00 сомони</div>
-        </div>
-      </div>
-
-      <!-- РЕКВИЗИТҲО ВА ОФОРМЛЕНИИ ЗАКАЗ -->
-      <div class="gold-box checkout-box">
-        <h3>Реквизиты для оплаты</h3>
-        <div class="card-details">
-          <p>Банки: <strong>Душанбе Сити / Spitamen Pay</strong></p>
-          <div class="copy-row">
-            <span>Номер карты: <strong id="card-num">919664644</strong></span>
-            <button class="copy-btn" onclick="copyCardNumber()">📋 Копировать</button>
-          </div>
-          <p>Имя владельца: <strong>Шарифмоҳ.М.Д</strong></p>
-        </div>
-
-        <div class="form-group">
-          <label>Игрок ID (PUBG ID):</label>
-          <input type="number" id="uc-pubg-id" placeholder="Введите Ваш ID">
-        </div>
-
-        <div class="form-group">
-          <label>Загрузить чек оплаты:</label>
-          <input type="file" id="uc-check-file" accept="image/*">
-        </div>
-
-        <button class="submit-gold-btn" onclick="submitUcOrder()">Купить / Отправить чек</button>
-      </div>
+    <div class="nav-bar">
+        <a href="#" class="nav-item active">🏠<br>Главный</a>
+        <a href="#" class="nav-item">⭐<br>Отзывы</a>
+        <a href="#" class="nav-item">🛒<br>Заказы</a>
+        <a href="#" class="nav-item">👤<br>Профиль</a>
     </div>
 
-    <!-- PAGE: AKAKUNT (ФУРӮШ ВА ХАРИДИ АККАУНТҲО) -->
-    <div id="page-account" class="tab-content">
-      <div class="page-header" style="justify-content: space-between;">
-        <div style="display:flex; align-items:center; gap:8px;">
-          <button class="back-btn" onclick="goHome()">◄ Назад</button>
-          <h2>PUBG Аккаунты</h2>
-        </div>
-        <button class="add-acc-btn" onclick="openSellAccModal()">+ Продать аккаунт</button>
-      </div>
-
-      <div class="list">
-        <div class="gold-box list-item-card">
-          <div class="acc-img-placeholder">📸 ФОТО / ВИДЕО АККАУНТА</div>
-          <div class="acc-details">
-            <h3>M416 Ледник Lvl 4 + Костюм Мумия</h3>
-            <div class="price">450.00 сомони</div>
-            <p><strong>Уровень:</strong> 72 lvl</p>
-            <p><strong>Коллекция:</strong> M416 Ледник Lvl 4, Костюм "Мумия", Внедорожник</p>
-            <p><strong>Привязка:</strong> Google / Facebook / Номер</p>
-            <p><strong>Описание:</strong> Аккаунт личный, чистый. Без бана и ограничений.</p>
-            <button class="submit-gold-btn" onclick="openBuyAccModal('M416 Ледник Lvl 4', 450)">Купить аккаунт</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PAGE: X-SUIT (Х КАСТЮМҲО) -->
-    <div id="page-xsuit" class="tab-content">
-      <div class="page-header">
-        <button class="back-btn" onclick="goHome()">◄ Назад</button>
-        <h2>X-Suit Костюмы</h2>
-      </div>
-      <div class="gold-box list-item-card">
-        <div class="acc-img-placeholder">✨ X-SUIT ЗОЛОТОЙ ЗАВЕТ</div>
-        <div class="acc-details">
-          <h3>X-Suit "Золотой Завет" (6 Звезд)</h3>
-          <div class="price">250.00 сомони</div>
-          <p><strong>Описание:</strong> Костюм отправляется подарком в игре на Ваш PUBG ID.</p>
-          <button class="submit-gold-btn" onclick="openBuyModal('X-Suit Золотой Завет', 250)">Купить X-Suit</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- PAGE: SUPERCAR (СУПЕРКАРҲО) -->
-    <div id="page-supercar" class="tab-content">
-      <div class="page-header">
-        <button class="back-btn" onclick="goHome()">◄ Назад</button>
-        <h2>Supercar</h2>
-      </div>
-      <div class="gold-box list-item-card">
-        <div class="acc-img-placeholder">🏎️ BUGATTI LA VOITURE NOIRE</div>
-        <div class="acc-details">
-          <h3>Bugatti La Voiture Noire (Ключ)</h3>
-          <div class="price">320.00 сомони</div>
-          <p><strong>Описание:</strong> Ключ активации суперкара отправляется сразу после оплаты.</p>
-          <button class="submit-gold-btn" onclick="openBuyModal('Bugatti Supercar', 320)">Купить Supercar</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. TAB: ОТЗЫВЫ (ОТЗЫВҲО) -->
-    <div id="tab-reviews" class="tab-content">
-      <div class="page-title-row">
-        <h2>⭐ Отзывы</h2>
-        <span class="sub-text">Реальные отзывы наших клиентов</span>
-      </div>
-      <div class="list">
-        <div class="gold-box list-item">
-          <div>
-            <b>Akmal_777 ✔</b>
-            <div class="sub-text">660 UC гирифтам, зуд омад. Хизматрасонӣ хеле хуб! Раҳмат! 🔥</div>
-          </div>
-          <span class="gold-txt">660 UC</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. TAB: ЗАКАЗЫ (ЗАКАЗҲО) -->
-    <div id="tab-orders" class="tab-content">
-      <h2>📦 Мои заказы</h2>
-      <div class="list" id="orders-container" style="margin-top:10px;">
-        <div class="gold-box list-item">
-          <div>
-            <b>1800 UC</b> <span class="badge-done">Выполнено</span>
-            <div class="sub-text">ID игрока: 5234567890</div>
-            <div class="price">180.00 сомони</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. TAB: ПРОФИЛЬ (ПРОФИЛИ КОРБАР) -->
-    <div id="tab-profile" class="tab-content">
-      <div class="gold-box profile-top">
-        <div class="avatar-box">👑</div>
-        <h2>Akram 👑</h2>
-        <div class="sub-text">@akram._.pubg | ID: 123456789</div>
-        <div style="color:#00e676; font-size:12px; margin-top:4px;">● Онлайн</div>
-      </div>
-      <div class="gold-box" style="margin-top:10px;">
-        <div class="copy-row" style="padding: 6px 0;">
-          <span>Баланс:</span>
-          <strong class="gold-txt">0.00 сомони</strong>
-        </div>
-        <button class="submit-gold-btn" onclick="openBalanceModal()">Пополнить баланс</button>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- MODAL: ПОПОЛНЕНИЕ БАЛАНСА -->
-  <div id="modal-balance" class="modal">
-    <div class="modal-content gold-box">
-      <span class="close-btn" onclick="closeModal('modal-balance')">✕</span>
-      <h3>Пополнить баланс</h3>
-      <div class="card-details" style="margin-top:10px;">
-        <p>Переведите деньги на карту:</p>
-        <p><strong>Душанбе Сити / Spitamen Pay</strong></p>
-        <div class="copy-row">
-          <span>Номер: <strong>919664644</strong></span>
-          <button class="copy-btn" onclick="copyCardNumber()">📋 Копировать</button>
-        </div>
-        <p>Имя владельца: <strong>Шарифмоҳ.М.Д</strong></p>
-      </div>
-      <div class="form-group" style="margin-top:10px;">
-        <label>Сумма пополнения (сомони):</label>
-        <input type="number" id="balance-amount-input" placeholder="Например: 50">
-      </div>
-      <div class="form-group">
-        <label>Загрузите чек:</label>
-        <input type="file" id="balance-file-input" accept="image/*">
-      </div>
-      <button class="submit-gold-btn" onclick="submitBalance()">Отправить чек</button>
-    </div>
-  </div>
-
-  <!-- MODAL: ФУРӮШИ АККАУНТ (+ ПРОДАТЬ АККАУНТ) -->
-  <div id="modal-sell-acc" class="modal">
-    <div class="modal-content gold-box">
-      <span class="close-btn" onclick="closeModal('modal-sell-acc')">✕</span>
-      <h3>Выставить аккаунт на продажу</h3>
-
-      <div class="form-group" style="margin-top:10px;">
-        <label>Фото ва видеои аккаунт:</label>
-        <input type="file" id="acc-media-file" accept="image/*,video/*" multiple>
-      </div>
-
-      <div class="form-group">
-        <label>Нархи аккаунт (сомони):</label>
-        <input type="number" id="acc-price" placeholder="Цена">
-      </div>
-
-      <div class="form-group">
-        <label>Калексияш / Урвини аккаунт:</label>
-        <input type="text" id="acc-lvl-col" placeholder="72 lvl, M416 Ледник Lvl 4 ва гайра">
-      </div>
-
-      <div class="form-group">
-        <label>Привязкаш бачияй (Гугл, Фейсбук, Номер ва гайра):</label>
-        <input type="text" id="acc-bind" placeholder="Гугл + Номер">
-      </div>
-
-      <div class="form-group">
-        <label>Описание:</label>
-        <textarea id="acc-desc" rows="3" placeholder="Маълумоти иловагӣ дар бораи аккаунт..."></textarea>
-      </div>
-
-      <button class="submit-gold-btn" onclick="submitAccountForSale()">Выставить на продажу</button>
-    </div>
-  </div>
-
-  <!-- BOTTOM NAVIGATION (МЕНЮИ ПОЁНӢ) -->
-  <div class="bottom-nav">
-    <div class="nav-btn active" id="btn-nav-main" onclick="openTab('tab-main')">
-      <div class="nav-icon">🏠</div>
-      <span>Главный</span>
-    </div>
-    <div class="nav-btn" id="btn-nav-reviews" onclick="openTab('tab-reviews')">
-      <div class="nav-icon">⭐</div>
-      <span>Отзывы</span>
-    </div>
-    <div class="nav-btn" id="btn-nav-orders" onclick="openTab('tab-orders')">
-      <div class="nav-icon">🛒</div>
-      <span>Заказы</span>
-    </div>
-    <div class="nav-btn" id="btn-nav-profile" onclick="openTab('tab-profile')">
-      <div class="nav-icon">👤</div>
-      <span>Профиль</span>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
 </body>
-        </html>
-        
+</html>
