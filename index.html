@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg-color: #050505;
-            --card-bg: rgba(20, 20, 20, 0.75);
+            --card-bg: rgba(18, 18, 18, 0.85);
             --gold-primary: #f3c653;
             --gold-gradient: linear-gradient(135deg, #f3c653 0%, #c19231 100%);
             --border-gold: rgba(243, 198, 83, 0.35);
@@ -32,7 +32,6 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 0;
         }
 
         .app-container {
@@ -41,7 +40,6 @@
             height: 100vh;
             max-height: 932px;
             background-color: var(--bg-color);
-            border-radius: 0;
             border: 1px solid var(--border-gold);
             overflow-y: auto;
             overflow-x: hidden;
@@ -58,7 +56,6 @@
             }
         }
 
-        /* Header */
         header {
             display: flex;
             justify-content: space-between;
@@ -75,11 +72,10 @@
             background: none;
             border: none;
             color: var(--text-main);
-            font-size: 22px;
+            font-size: 20px;
             cursor: pointer;
         }
 
-        /* Language Switcher Dropdown */
         .lang-wrapper {
             position: relative;
         }
@@ -106,7 +102,6 @@
             height: 12px;
             border-radius: 2px;
             object-fit: cover;
-            display: inline-block;
         }
 
         .lang-menu {
@@ -116,7 +111,6 @@
             background: #141414;
             border: 1px solid var(--border-gold);
             border-radius: 12px;
-            overflow: hidden;
             display: none;
             flex-direction: column;
             z-index: 101;
@@ -146,7 +140,6 @@
             background: rgba(243, 198, 83, 0.15);
         }
 
-        /* Logo Area */
         .brand-logo {
             text-align: center;
             padding: 8px 0;
@@ -169,62 +162,47 @@
             letter-spacing: 3px;
         }
 
-        /* Balance Button Header Right */
         .balance-header-btn {
             background: #141414;
             border: 1px solid var(--border-gold);
             border-radius: 12px;
-            padding: 6px 12px;
+            padding: 5px 10px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             cursor: pointer;
         }
 
-        .balance-header-btn .wallet-icon {
-            color: var(--gold-primary);
-            font-size: 14px;
-        }
-
-        .balance-header-btn .info div {
-            font-size: 9px;
-            color: var(--text-secondary);
-        }
-
-        .balance-header-btn .info b {
-            font-size: 12px;
+        .balance-header-btn b {
+            font-size: 11px;
             color: var(--gold-primary);
         }
 
         .balance-header-btn .plus-box {
             background: var(--gold-gradient);
             color: #000;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 11px;
         }
 
-        /* Banner */
         .promo-banner {
             margin: 12px 15px;
             border-radius: 14px;
-            overflow: hidden;
             border: 1px solid var(--border-gold);
-            height: 110px;
+            height: 100px;
             background: linear-gradient(45deg, #1a1a1a, #0a0a0a);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 15px;
-            position: relative;
         }
 
-        /* Grid Categories (4 cards) */
         .categories-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -248,14 +226,13 @@
 
         .category-img {
             width: 100%;
-            height: 95px;
+            height: 90px;
             background: #1c1c1c;
-            object-fit: cover;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--gold-primary);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
         }
 
@@ -264,12 +241,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             color: var(--gold-primary);
         }
 
-        /* Bottom Navigation */
         .bottom-nav {
             display: flex;
             justify-content: space-around;
@@ -299,12 +275,11 @@
         }
 
         .nav-item svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             fill: currentColor;
         }
 
-        /* Screens Management */
         .screen {
             display: none;
             flex-direction: column;
@@ -318,7 +293,7 @@
 
         .section-title {
             padding: 12px 15px 8px 15px;
-            font-size: 15px;
+            font-size: 14px;
             color: var(--gold-primary);
             font-weight: bold;
         }
@@ -349,9 +324,10 @@
             color: var(--danger);
             font-size: 11px;
             margin-top: 4px;
+            display: none;
         }
 
-        input, textarea, select {
+        input, textarea {
             width: 100%;
             padding: 10px;
             background: #000;
@@ -359,17 +335,33 @@
             color: #fff;
             border-radius: 8px;
             margin-top: 6px;
-            font-size: 13px;
+            font-size: 12px;
         }
 
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--gold-primary);
-        }
-
-        .flex-row {
+        .uc-row {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 12px;
+        }
+
+        .counter-box {
+            display: flex;
+            align-items: center;
             gap: 10px;
+        }
+
+        .counter-btn {
+            background: var(--gold-primary);
+            color: #000;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -377,13 +369,11 @@
 
 <div class="app-container">
 
-    <!-- HEADER -->
     <header>
         <button class="menu-btn" onclick="switchScreen('home')">&#9776;</button>
         
-        <!-- Language Switcher -->
         <div class="lang-wrapper">
-            <div class="lang-btn" id="langToggleBtn" onclick="toggleLangMenu()">
+            <div class="lang-btn" onclick="toggleLangMenu()">
                 <img id="activeFlagImg" src="https://flagcdn.com/w40/tj.png" class="flag-icon" alt="Flag">
                 <span id="activeLangCode">TJK</span>
                 <span style="font-size: 9px; color: var(--gold-primary);">&#9660;</span>
@@ -401,110 +391,93 @@
             </div>
         </div>
 
-        <!-- Balance Top Right -->
         <div class="balance-header-btn" onclick="switchScreen('profile')">
-            <span class="wallet-icon">&#128187;</span>
-            <div class="info">
-                <div data-translate="balanceTitle">Баланс</div>
+            <div>
+                <div style="font-size: 8px; color: var(--text-secondary);" data-translate="balanceTitle">Баланс</div>
                 <b>0.00 TJS</b>
             </div>
             <div class="plus-box">+</div>
         </div>
     </header>
 
-    <!-- BRAND LOGO -->
     <div class="brand-logo">
         <h1>VELOX</h1>
         <span>UC SHOP</span>
     </div>
 
-    <!-- ================= 1. ГЛАВНЫЙ (HOME SCREEN) ================= -->
+    <!-- 1. HOME SCREEN -->
     <div id="screen-home" class="screen active">
-        <!-- Banner -->
         <div class="promo-banner">
             <div>
-                <h3 style="color: var(--gold-primary); font-size: 15px;">PUBG MOBILE</h3>
-                <p style="font-size: 10px; color: #aaa; margin-top: 3px;">PLAY BIGGER BE A LEGEND</p>
+                <h3 style="color: var(--gold-primary); font-size: 14px;">PUBG MOBILE</h3>
+                <p style="font-size: 10px; color: #aaa; margin-top: 2px;">PLAY BIGGER BE A LEGEND</p>
             </div>
-            <div style="width: 70px; height: 50px; background: rgba(243,198,83,0.1); border-radius: 8px; border: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--gold-primary); font-weight: bold;">PUBG</div>
+            <div style="width: 60px; height: 45px; background: rgba(243,198,83,0.1); border-radius: 8px; border: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--gold-primary); font-weight: bold;">PUBG</div>
         </div>
 
-        <!-- 4 Grid Categories -->
         <div class="categories-grid">
             <div class="category-card" onclick="switchScreen('pubg-shop')">
-                <div class="category-img" style="background: linear-gradient(135deg, #251800, #0a0a0a);">UC SHOP</div>
-                <div class="category-title">
-                    <span data-translate="catUcShop">PUBG SHOP</span>
-                    <span>&gt;</span>
-                </div>
+                <div class="category-img" style="background: linear-gradient(135deg, #251800, #0a0a0a);">PUBG SHOP</div>
+                <div class="category-title"><span data-translate="catUcShop">PUBG SHOP</span><span>&gt;</span></div>
             </div>
             <div class="category-card" onclick="switchScreen('akakunt')">
-                <div class="category-img" style="background: linear-gradient(135deg, #001a25, #0a0a0a);">ACCOUNT</div>
-                <div class="category-title">
-                    <span data-translate="catAccount">ACCOUNT</span>
-                    <span>&gt;</span>
-                </div>
+                <div class="category-img" style="background: linear-gradient(135deg, #001a25, #0a0a0a);">AKAKUNT</div>
+                <div class="category-title"><span data-translate="catAccount">AKAKUNT</span><span>&gt;</span></div>
             </div>
             <div class="category-card" onclick="switchScreen('x-suit')">
-                <div class="category-img" style="background: linear-gradient(135deg, #250000, #0a0a0a);">X-COSTUME</div>
-                <div class="category-title">
-                    <span data-translate="catXCostume">X-COSTUME</span>
-                    <span>&gt;</span>
-                </div>
+                <div class="category-img" style="background: linear-gradient(135deg, #250000, #0a0a0a);">X-CUIT</div>
+                <div class="category-title"><span data-translate="catXCostume">X-CUIT</span><span>&gt;</span></div>
             </div>
             <div class="category-card" onclick="switchScreen('supercar')">
                 <div class="category-img" style="background: linear-gradient(135deg, #151515, #050505);">SUPERCAR</div>
-                <div class="category-title">
-                    <span data-translate="catSupercar">SUPERCAR</span>
-                    <span>&gt;</span>
-                </div>
+                <div class="category-title"><span data-translate="catSupercar">SUPERCAR</span><span>&gt;</span></div>
             </div>
         </div>
     </div>
 
-    <!-- ================= 2. PUBG SHOP SCREEN ================= -->
+    <!-- 2. PUBG SHOP -->
     <div id="screen-pubg-shop" class="screen">
         <div style="padding: 10px 15px; display: flex; align-items: center; gap: 10px;">
-            <button onclick="switchScreen('home')" style="background:none; border:none; color:var(--gold-primary); font-size:14px; cursor:pointer;">&larr; <span data-translate="backBtn">Акиб</span></button>
-            <h3 style="font-size: 13px; color: var(--gold-primary);" data-translate="catUcShop">PUBG SHOP</h3>
+            <button onclick="switchScreen('home')" style="background:none; border:none; color:var(--gold-primary); font-size:13px; cursor:pointer;">&larr; <span data-translate="backBtn">Акиб</span></button>
+            <h3 style="font-size: 13px; color: var(--gold-primary);">PUBG SHOP</h3>
         </div>
         
-        <div class="section-title" data-translate="boxesTitle">Ящики</div>
-        <div class="card-box" style="display: flex; flex-direction: column; gap: 10px;">
-            <div style="background: #fff; color: #000; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between;">
-                <span>900 G + 170 UC</span>
-                <span>15 TJS</span>
+        <div class="section-title">Ящики</div>
+        <div class="card-box" style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="background: #fff; color: #000; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between; cursor: pointer;" onclick="openPayment('900G + 170UC Ящик', 15)">
+                <span>900G + 170UC</span><span>15 TJS</span>
             </div>
-            <div style="background: #c5a059; color: #111; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between;">
-                <span>180 UC + 9 материал</span>
-                <span>35 TJS</span>
+            <div style="background: #c5a059; color: #111; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between; cursor: pointer;" onclick="openPayment('180UC + 9 материал Ящик', 35)">
+                <span>180UC + 9 материал</span><span>35 TJS</span>
             </div>
-            <div style="background: linear-gradient(90deg, #fff, #f3c653); color: #000; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between;">
-                <span>300 UC + 79 чем</span>
-                <span>50 TJS</span>
+            <div style="background: linear-gradient(90deg, #fff, #f3c653); color: #000; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between; cursor: pointer;" onclick="openPayment('300UC + 79 Чем Ящик', 50)">
+                <span>300UC + 79 Чем</span><span>50 TJS</span>
             </div>
-            <button class="btn-gold" style="margin-top:5px;" onclick="showPaymentScreen('Ящик PUBG', '50')"><span data-translate="buyBtn">Харидан</span></button>
         </div>
 
         <div class="section-title">PRIME</div>
         <div class="categories-grid">
-            <div class="card-box" style="margin:0; text-align:center; background:#111;"><span style="font-size:11px; color:#aaa;">1 месяц</span><br><b style="color:var(--gold-primary); font-size:13px;">11 TJS</b><button class="btn-gold" style="padding:6px; font-size:10px; margin-top:8px;" onclick="showPaymentScreen('Prime 1 месяц', '11')">Харидан</button></div>
-            <div class="card-box" style="margin:0; text-align:center; background:#111;"><span style="font-size:11px; color:#aaa;">3 месяца</span><br><b style="color:var(--gold-primary); font-size:13px;">30 TJS</b><button class="btn-gold" style="padding:6px; font-size:10px; margin-top:8px;" onclick="showPaymentScreen('Prime 3 месяца', '30')">Харидан</button></div>
-            <div class="card-box" style="margin:0; text-align:center; background:#111;"><span style="font-size:11px; color:#aaa;">6 месяцев</span><br><b style="color:var(--gold-primary); font-size:13px;">65 TJS</b><button class="btn-gold" style="padding:6px; font-size:10px; margin-top:8px;" onclick="showPaymentScreen('Prime 6 месяцев', '65')">Харидан</button></div>
-            <div class="card-box" style="margin:0; text-align:center; background:#111;"><span style="font-size:11px; color:#aaa;">12 месяцев</span><br><b style="color:var(--gold-primary); font-size:13px;">120 TJS</b><button class="btn-gold" style="padding:6px; font-size:10px; margin-top:8px;" onclick="showPaymentScreen('Prime 12 месяцев', '120')">Харидан</button></div>
+            <div class="card-box" style="margin:0; text-align:center; background:#111;"><span style="font-size:11px; color:#aaa;">1 месяц</span><br><b style="color:var(--gold-primary); font-size:12px;">11 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime 1 месяц', 11)">Харидан</button></div>
+            <div class="card-box" style="margin:0; text-align:center; background:#111;"><span style="font-size:11px; color:#aaa;">3 месяц</span><br><b style="color:var(--gold-primary); font-size:12px;">30 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime 3 месяц', 30)">Харидан</button></div>
+            <div class="card-box" style="margin:0; text-align:center; background:#111;"><span style="font-size:11px; color:#aaa;">6 месяц</span><br><b style="color:var(--gold-primary); font-size:12px;">65 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime 6 месяц', 65)">Харидан</button></div>
+            <div class="card-box" style="margin:0; text-align:center; background:#111;"><span style="font-size:11px; color:#aaa;">12 месяц</span><br><b style="color:var(--gold-primary); font-size:12px;">120 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime 12 месяц', 120)">Харидан</button></div>
         </div>
 
-        <div class="section-title" style="margin-top: 5px;">PRIME PLUS</div>
+        <div class="section-title">PRIME PLUS</div>
         <div class="categories-grid">
-            <div class="card-box" style="margin:0; text-align:center; background:linear-gradient(135deg, #2b1d3a, #111);"><span style="font-size:11px; color:#dda7ff;">1 месяц</span><br><b style="color:#e0b0ff; font-size:13px;">100 TJS</b><button class="btn-gold" style="padding:6px; font-size:10px; margin-top:8px;" onclick="showPaymentScreen('Prime Plus 1 месяц', '100')">Харидан</button></div>
-            <div class="card-box" style="margin:0; text-align:center; background:linear-gradient(135deg, #2b1d3a, #111);"><span style="font-size:11px; color:#dda7ff;">3 месяца</span><br><b style="color:#e0b0ff; font-size:13px;">280 TJS</b><button class="btn-gold" style="padding:6px; font-size:10px; margin-top:8px;" onclick="showPaymentScreen('Prime Plus 3 месяца', '280')">Харидан</button></div>
-            <div class="card-box" style="margin:0; text-align:center; background:linear-gradient(135deg, #2b1d3a, #111);"><span style="font-size:11px; color:#dda7ff;">6 месяцев</span><br><b style="color:#e0b0ff; font-size:13px;">550 TJS</b><button class="btn-gold" style="padding:6px; font-size:10px; margin-top:8px;" onclick="showPaymentScreen('Prime Plus 6 месяцев', '550')">Харидан</button></div>
-            <div class="card-box" style="margin:0; text-align:center; background:linear-gradient(135deg, #2b1d3a, #111);"><span style="font-size:11px; color:#dda7ff;">12 месяцев</span><br><b style="color:#e0b0ff; font-size:13px;">1055 TJS</b><button class="btn-gold" style="padding:6px; font-size:10px; margin-top:8px;" onclick="showPaymentScreen('Prime Plus 12 месяцев', '1055')">Харидан</button></div>
+            <div class="card-box" style="margin:0; text-align:center; background:linear-gradient(135deg, #2b1d3a, #111);"><span style="font-size:11px; color:#dda7ff;">1 месяц</span><br><b style="color:#e0b0ff; font-size:12px;">100 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime Plus 1 месяц', 100)">Харидан</button></div>
+            <div class="card-box" style="margin:0; text-align:center; background:linear-gradient(135deg, #2b1d3a, #111);"><span style="font-size:11px; color:#dda7ff;">3 месяц</span><br><b style="color:#e0b0ff; font-size:12px;">280 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime Plus 3 месяц', 280)">Харидан</button></div>
+            <div class="card-box" style="margin:0; text-align:center; background:linear-gradient(135deg, #2b1d3a, #111);"><span style="font-size:11px; color:#dda7ff;">6 месяц</span><br><b style="color:#e0b0ff; font-size:12px;">550 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime Plus 6 месяц', 550)">Харидан</button></div>
+            <div class="card-box" style="margin:0; text-align:center; background:linear-gradient(135deg, #2b1d3a, #111);"><span style="font-size:11px; color:#dda7ff;">12 месяц</span><br><b style="color:#e0b0ff; font-size:12px;">1055 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime Plus 12 месяц', 1055)">Харидан</button></div>
         </div>
 
-        <div class="section-title" style="margin-top: 10px;" data-translate="ucListTitle">Нархномаи UC</div>
-        <div class="card-box" style="display: flex; flex-direction: column; gap: 8px;">
-            <div style="display: flex; justify-content: space-between; font-size: 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.05);"><span>30 UC</span><b>6 TJS</b></div>
-            <div style="display: flex; justify-content: space-between; font-size: 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.05);"><span>60 UC</span><b>10 TJS</b></div>
-            <div style="display: flex; justify-content: space-between; font-size: 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.05);"><span>325 UC</span><b>48 TJS</b></div>
-            <div style="display: flex; justify-content: space-between; font-size: 12px; padding-bottom: 6px; border-b
+        <div class="section-title">Нархномаи UC</div>
+        <div class="card-box">
+            <!-- Dynamic UC Counter Items -->
+            <div class="uc-row"><span>30 UC - 6 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(30, 6, -1)">-</button><span id="qty_30">0</span><button class="counter-btn" onclick="updateUC(30, 6, 1)">+</button></div></div>
+            <div class="uc-row"><span>60 UC - 10 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(60, 10, -1)">-</button><span id="qty_60">0</span><button class="counter-btn" onclick="updateUC(60, 10, 1)">+</button></div></div>
+            <div class="uc-row"><span>325 UC - 48 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(325, 48, -1)">-</button><span id="qty_325">0</span><button class="counter-btn" onclick="updateUC(325, 48, 1)">+</button></div></div>
+            <div class="uc-row"><span>660 UC - 92 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(660, 92, -1)">-</button><span id="qty_660">0</span><button class="counter-btn" onclick="updateUC(660, 92, 1)">+</button></div></div>
+            <div class="uc-row"><span>1320 UC - 184 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(1320, 184, -1)">-</button><span id="qty_1320">0</span><button class="counter-btn" onclick="updateUC(1320, 184, 1)">+</button></div></div>
+            <div class="uc-row"><span>1800 UC - 240 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(1800, 240, -1)">-</button><span id="qty_1800">0</span><button class="counter-btn" onclick="updateUC(1800, 240, 1)">+</button></div></div>
+            <div class="uc-row"><span>3850 UC - 450 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(3850, 450, -1)">-</button><span
