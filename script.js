@@ -1,138 +1,168 @@
-let totalUcCount = 0;
-let totalPriceSum = 0;
-let userBalance = 0;
+const tg = window.Telegram.WebApp;
+tg.expand();
 
-// Гузариш байни табҳо
-function openTab(tabId) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+let currentLang = 'tg';
+let userBalance = 0.00;
+let orders = [];
+let reviews = [];
 
-  document.getElementById(tabId).classList.add('active');
+// Тарҷумаҳо
+const translations = {
+  tg: {
+    payTitle: "Пуркунии Баланс",
+    uploadLabel: "Чеки пардохтро илова кунед:",
+    paySubmit: "Оплатить",
+    alertMsg: "Пардохти шумо ба админ рафт каме мунтазир шавед то админ Пардохти шуморо тафтиш кунад"
+  },
+  ru: {
+    payTitle: "Пополнение баланса",
+    uploadLabel: "Загрузите чек оплаты:",
+    paySubmit: "Оплатить",
+    alertMsg: "Ваш платеж отправлен администратору, подождите пока администратор проверит ваш платеж"
+  },
+  en: {
+    payTitle: "Recharge Balance",
+    uploadLabel: "Upload payment receipt:",
+    paySubmit: "Pay",
+    alertMsg: "Your payment has been sent to the admin, please wait while the admin verifies your payment"
+  }
+};
 
-  if (tabId === 'tab-main') document.getElementById('btn-nav-main').classList.add('active');
-  if (tabId === 'tab-reviews') document.getElementById('btn-nav-reviews').classList.add('active');
-  if (tabId === 'tab-orders') document.getElementById('btn-nav-orders').classList.add('active');
-  if (tabId === 'tab-profile') document.getElementById('btn-nav-profile').classList.add('active');
+// Идоракунии забон
+document.getElementById('langSelectBtn').addEventListener('click', () => {
+  document.getElementById('langMenu').classList.toggle('hidden');
+});
 
-  document.getElementById('top-back-btn').style.display = 'none';
-  document.getElementById('top-menu-btn').style.display = 'block';
+function changeLang(lang) {
+  currentLang = lang;
+  document.getElementById('langMenu').classList.add('hidden');
+  
+  const flags = { tg: '🇹🇯', ru: '🇷🇺', en: '🇬🇧' };
+  const texts = { tg: 'TJK', ru: 'RUS', en: 'ENG' };
+  
+  document.getElementById('currentLangFlag').innerText = flags[lang];
+  document.getElementById('currentLangText').innerText = texts[lang];
+
+  document.getElementById('txtPayTitle').innerText = translations[lang].payTitle;
+  document.getElementById('txtUploadLabel').innerText = translations[lang].uploadLabel;
+  document.getElementById('txtPaySubmit').innerText = translations[lang].paySubmit;
+  document.getElementById('alertMessage').innerText = translations[lang].alertMsg;
 }
 
-function openPage(pageId) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.getElementById(pageId).classList.add('active');
-
-  document.getElementById('top-back-btn').style.display = 'block';
-  document.getElementById('top-menu-btn').style.display = 'none';
+function toggleLangMenu() {
+  document.getElementById('langMenu').classList.toggle('hidden');
 }
 
-function goHome() {
-  openTab('tab-main');
-}
-
-// Калкулятори UC (масалан: 60 + 60 = 120 UC)
-function addUc(uc, price) {
-  totalUcCount += uc;
-  totalPriceSum += price;
-
-  document.getElementById('total-uc').innerText = totalUcCount + " UC";
-  document.getElementById('total-price').innerText = totalPriceSum.toFixed(2) + " сомони";
-}
-
-function resetUcCalc() {
-  totalUcCount = 0;
-  totalPriceSum = 0;
-  document.getElementById('total-uc').innerText = "0 UC";
-  document.getElementById('total-price').innerText = "0.00 сомони";
-}
-
-// Копировать кардани рақами карта
+// Нусхабардории карта
 function copyCardNumber() {
-  const cardNum = "919664644";
-  navigator.clipboard.writeText(cardNum).then(() => {
-    alert("Рақами карта копировать шуд: " + cardNum);
+  const cardNum = document.getElementById('cardNumber').innerText;
+  navigator.clipboard.writeText(cardNum);
+  alert("Рақами карта копировать шуд!");
+}
+
+// Модалҳо
+function openRechargeModal() {
+  document.getElementById('paymentModal').classList.remove('hidden');
+}
+
+function submitPayment() {
+  document.getElementById('paymentModal').classList.add('hidden');
+  document.getElementById('alertModal').classList.remove('hidden');
+}
+
+function closeAlertModal() {
+  document.getElementById('alertModal').classList.add('hidden');
+  switchTab('shop');
+}
+
+// Навигатсия
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+  
+  document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+}
+
+// Харидории маҳсулот
+function buyItem(name, price) {
+  openRechargeModal();
+  orders.push({ id: Date.now(), name: name, price: price, status: 'pending' });
+  renderOrders();
+}
+
+// Бахши Аккаунт
+function toggleAccForm() {
+  document.getElementById('accSellForm').classList.toggle('hidden');
+}
+
+function submitAccount() {
+  const col = parseInt(document.getElementById('accCollection').value);
+  const lvl = parseInt(document.getElementById('accLevel').value);
+  const colErr = document.getElementById('colError');
+  const lvlErr = document.getElementById('lvlError');
+  
+  let valid = true;
+
+  if (isNaN(col) || col < 20 || col > 101) {
+    colErr.classList.remove('hidden');
+    valid = false;
+  } else {
+    colErr.classList.add('hidden');
+  }
+
+  if (isNaN(lvl) || lvl < 40 || lvl > 100) {
+    lvlErr.classList.remove('hidden');
+    valid = false;
+  } else {
+    lvlErr.classList.add('hidden');
+  }
+
+  if (valid) {
+    alert("Аккаунти шумо барои тафтиш ба админ фиристода шуд.");
+    toggleAccForm();
+  }
+}
+
+// Рандор кардани Заказҳо
+function renderOrders() {
+  const list = document.getElementById('ordersList');
+  list.innerHTML = '';
+  
+  orders.forEach((ord, index) => {
+    const item = document.createElement('div');
+    item.style.cssText = "background:#1e1e1e; padding:12px; margin-bottom:8px; border-radius:6px;";
+    
+    let statusText = ord.status === 'completed' 
+      ? `<span style="color:#28a745">Гузашт</span>` 
+      : `<span style="color:#ff9900">Дар тафтиш</span>`;
+      
+    item.innerHTML = `
+      <div><b>${ord.name}</b> - ${ord.price} TJS</div>
+      <div>Статус: ${statusText}</div>
+      ${ord.status === 'completed' ? `
+        <div style="color:red; margin-top:6px; cursor:pointer;" onclick="openReviewForm(${index})">Отзыви худро монед (1-5 ситора)</div>
+      ` : ''}
+    `;
+    list.appendChild(item);
   });
 }
 
-// Пур кардани баланс
-function openBalanceModal() {
-  document.getElementById('modal-balance').style.display = 'flex';
-}
-
-function submitBalance() {
-  const amount = document.getElementById('balance-amount-input').value;
-  const file = document.getElementById('balance-file-input').files;
-
-  if (!amount || file.length === 0) {
-    alert("Лутфан сумма ва чеки пардохтро дохил кунед!");
-    return;
+function openReviewForm(index) {
+  const stars = prompt("Аз 1 то 5 ситора гузоред:");
+  const text = prompt("Шарҳ нависед (то 50 калима):");
+  if (stars && text) {
+    alert("Отзыви шумо ба админ фиристода шуд!");
   }
-
-  alert("Дархост барои пур кардани баланс фиристода шуд!");
-  closeModal('modal-balance');
 }
 
-// Харидории UC
-function submitUcOrder() {
-  const pubgId = document.getElementById('uc-pubg-id').value;
-  const file = document.getElementById('uc-check-file').files;
-
-  if (totalUcCount === 0) {
-    alert("Лутфан, аввал миқдори UC-ро интихоб кунед!");
-    return;
-  }
-  if (!pubgId) {
-    alert("Лутфан, PUBG ID-ро ворид кунед!");
-    return;
-  }
-  if (file.length === 0) {
-    alert("Лутфан, чеки пардохтро боргирӣ кунед!");
-    return;
-  }
-
-  addOrderToHistory(totalUcCount + " UC", pubgId, totalPriceSum);
-  alert("Закази шумо қабул шуд ва ба 'Мои заказы' илова гардид!");
-
-  resetUcCalc();
-  document.getElementById('uc-pubg-id').value = '';
-  document.getElementById('uc-check-file').value = '';
-  openTab('tab-orders');
+// Профиль
+if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+  const user = tg.initDataUnsafe.user;
+  document.getElementById('userName').innerText = user.first_name + (user.last_name ? ' ' + user.last_name : '');
+  document.getElementById('userId').innerText = `ID: ${user.id}`;
 }
 
-// Фурӯши аккаунт
-function openSellAccModal() {
-  document.getElementById('modal-sell-acc').style.display = 'flex';
-}
-
-function submitAccountForSale() {
-  const media = document.getElementById('acc-media-file').files;
-  const lvl = document.getElementById('acc-lvl').value;
-  const price = document.getElementById('acc-price').value;
-
-  if (media.length === 0 || !lvl || !price) {
-    alert("Лутфан ҳамаи майдонҳо ва файлро пур кунед!");
-    return;
-  }
-
-  alert("Аккаунти шумо барои тафтиш фиристода шуд!");
-  closeModal('modal-sell-acc');
-}
-
-// Илова ба Мои заказы
-function addOrderToHistory(title, pubgId, price) {
-  const container = document.getElementById('orders-container');
-  const div = document.createElement('div');
-  div.className = 'gold-box list-item';
-  div.innerHTML = `
-    <div>
-      <b>${title}</b> <span class="badge-pending">В обработке</span>
-      <div class="sub-text">ID: ${pubgId}</div>
-      <div class="price">${price.toFixed(2)} сомони</div>
-    </div>
-  `;
-  container.prepend(div);
-}
-
-function closeModal(modalId) {
-  document.getElementById(modalId).style.display = 'none';
-}
+function openSupport() {
+  tg.openTelegramLink("https://t.me/your_admin_username");
+                       }
+  
