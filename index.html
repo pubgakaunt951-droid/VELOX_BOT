@@ -1,483 +1,5234 @@
 <!DOCTYPE html>
-<html lang="tj">
+<html lang="tg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VELOX UC SHOP</title>
-    <style>
-        :root {
-            --bg-color: #050505;
-            --card-bg: rgba(18, 18, 18, 0.85);
-            --gold-primary: #f3c653;
-            --gold-gradient: linear-gradient(135deg, #f3c653 0%, #c19231 100%);
-            --border-gold: rgba(243, 198, 83, 0.35);
-            --text-main: #ffffff;
-            --text-secondary: #aaaaaa;
-            --danger: #ff4d4d;
-            --success: #28a745;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>VELOX PUBG SHOP</title>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            background-color: #000;
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+:root {
+    --bg: #080808;
+    --card: #141414;
+    --gold: #d6ad45;
+    --white: #ffffff;
+    --gray: #999999;
+    --red: #ff3939;
+    --border: rgba(214,173,69,.25);
+}
 
-        .app-container {
-            width: 100%;
-            max-width: 430px;
-            height: 100vh;
-            max-height: 932px;
-            background-color: var(--bg-color);
-            border: 1px solid var(--border-gold);
-            overflow-y: auto;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
-        }
+body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
 
-        @media (min-width: 434px) {
-            .app-container {
-                border-radius: 28px;
-                height: 90vh;
-            }
-        }
+button, input, textarea, select {
+    font: inherit;
+}
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 15px;
-            background: linear-gradient(180deg, #161616 0%, #080808 100%);
-            border-bottom: 1px solid var(--border-gold);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+button {
+    cursor: pointer;
+}
 
-        .menu-btn {
-            background: none;
-            border: none;
-            color: var(--text-main);
-            font-size: 20px;
-            cursor: pointer;
-        }
+button:active {
+    transform: scale(.97);
+}
 
-        .lang-wrapper {
-            position: relative;
-        }
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 17px 14px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,8,8,.96);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(15px);
+}
 
-        .lang-btn {
-            background: #141414;
-            border: 1px solid var(--border-gold);
-            border-radius: 20px;
-            padding: 6px 10px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
+.logo {
+    font-size: 23px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: var(--gold);
+}
 
-        .lang-btn span {
-            font-size: 11px;
-            font-weight: bold;
-            color: var(--text-main);
-        }
+.logo span {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #aaa;
+    margin-top: 4px;
+}
 
-        .flag-icon {
-            width: 18px;
-            height: 12px;
-            border-radius: 2px;
-            object-fit: cover;
-        }
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
-        .lang-menu {
-            position: absolute;
-            top: 110%;
-            left: 0;
-            background: #141414;
-            border: 1px solid var(--border-gold);
-            border-radius: 12px;
-            display: none;
-            flex-direction: column;
-            z-index: 101;
-            width: 110px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
-        }
+.language {
+    position: relative;
+}
 
-        .lang-menu.show {
-            display: flex;
-        }
+.lang-btn, .balance-btn {
+    background: #171717;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+}
 
-        .lang-option {
-            padding: 8px 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 12px;
-            cursor: pointer;
-            text-align: left;
-            width: 100%;
-        }
+.balance-btn {
+    color: var(--gold);
+    font-weight: bold;
+}
 
-        .lang-option:hover {
-            background: rgba(243, 198, 83, 0.15);
-        }
+.lang-menu {
+    display: none;
+    position: absolute;
+    top: 46px;
+    left: 0;
+    width: 130px;
+    background: #171717;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 200;
+}
 
-        .brand-logo {
-            text-align: center;
-            padding: 8px 0;
-            background: #000;
-            border-bottom: 1px solid rgba(243, 198, 83, 0.1);
-        }
+.lang-menu button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 12px;
+    background: transparent;
+    color: white;
+    border: none;
+}
 
-        .brand-logo h1 {
-            font-size: 20px;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-            letter-spacing: 1px;
-        }
+.lang-menu button:hover {
+    background: #292929;
+    color: var(--gold);
+}
 
-        .brand-logo span {
-            font-size: 9px;
-            color: var(--gold-primary);
-            letter-spacing: 3px;
-        }
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 16px 13px 100px;
+}
 
-        .balance-header-btn {
-            background: #141414;
-            border: 1px solid var(--border-gold);
-            border-radius: 12px;
-            padding: 5px 10px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
+.hero {
+    min-height: 170px;
+    padding: 25px 20px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background:
+        radial-gradient(ellipse at top right,
+        rgba(214,173,69,.22), transparent 65%),
+        linear-gradient(135deg,#1a1a1a,#090909);
+    position: relative;
+    overflow: hidden;
+}
 
-        .balance-header-btn b {
-            font-size: 11px;
-            color: var(--gold-primary);
-        }
+.hero-label {
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+}
 
-        .balance-header-btn .plus-box {
-            background: var(--gold-gradient);
-            color: #000;
-            width: 16px;
-            height: 16px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 11px;
-        }
+.hero h1 {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
 
-        .promo-banner {
-            margin: 12px 15px;
-            border-radius: 14px;
-            border: 1px solid var(--border-gold);
-            height: 100px;
-            background: linear-gradient(45deg, #1a1a1a, #0a0a0a);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px;
-        }
+.hero p {
+    color: #aaa;
+    font-size: 12px;
+    margin-top: 9px;
+}
 
-        .categories-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 0 15px 15px 15px;
-        }
+.hero-line {
+    width: 65px;
+    height: 3px;
+    background: var(--gold);
+    margin-top: 18px;
+    border-radius: 5px;
+}
 
-        .category-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-gold);
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+.section-title {
+    font-size: 17px;
+    font-weight: bold;
+    margin: 25px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
 
-        .category-card:active {
-            transform: scale(0.97);
-        }
+.section-title::before {
+    content: "";
+    width: 4px;
+    height: 19px;
+    background: var(--gold);
+    border-radius: 4px;
+}
 
-        .category-img {
-            width: 100%;
-            height: 90px;
-            background: #1c1c1c;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold-primary);
-            font-size: 11px;
-            font-weight: bold;
-        }
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 12px;
+}
 
-        .category-title {
-            padding: 10px 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            font-weight: bold;
-            color: var(--gold-primary);
-        }
+.shop-card {
+    background: linear-gradient(145deg,#1c1c1c,#101010);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    min-height: 140px;
+    padding: 18px 13px;
+    text-align: left;
+    color: white;
+    transition: .2s;
+}
 
-        .bottom-nav {
-            display: flex;
-            justify-content: space-around;
-            background: #0a0a0a;
-            border-top: 1px solid var(--border-gold);
-            padding: 10px 0;
-            margin-top: auto;
-            position: sticky;
-            bottom: 0;
-            z-index: 100;
-        }
+.shop-card:hover {
+    border-color: var(--gold);
+    background: #202020;
+}
 
-        .nav-item {
-            background: none;
-            border: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text-secondary);
-            font-size: 10px;
-            cursor: pointer;
-            gap: 4px;
-        }
+.card-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-size: 15px;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
 
-        .nav-item.active {
-            color: var(--gold-primary);
-        }
+.shop-card h3 {
+    font-size: 14px;
+    letter-spacing: .5px;
+}
 
-        .nav-item svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
+.shop-card p {
+    color: var(--gray);
+    font-size: 11px;
+    line-height: 1.5;
+    margin-top: 7px;
+}
 
-        .screen {
-            display: none;
-            flex-direction: column;
-            padding-bottom: 20px;
-            flex: 1;
-        }
+.page {
+    display: none;
+}
 
-        .screen.active {
-            display: flex;
-        }
+.page.active {
+    display: block;
+    animation: appear .2s ease;
+}
 
-        .section-title {
-            padding: 12px 15px 8px 15px;
-            font-size: 14px;
-            color: var(--gold-primary);
-            font-weight: bold;
-        }
+@keyframes appear {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        .card-box {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-gold);
-            border-radius: 14px;
-            padding: 15px;
-            margin: 0 15px 12px 15px;
-        }
+.back-btn {
+    background: #191919;
+    border: 1px solid #333;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 17px;
+}
 
-        .btn-gold {
-            background: var(--gold-gradient);
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            padding: 11px;
-            width: 100%;
-            font-weight: bold;
-            font-size: 13px;
-            cursor: pointer;
-            text-align: center;
-        }
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 10px;
+}
 
-        .error-text {
-            color: var(--danger);
-            font-size: 11px;
-            margin-top: 4px;
-            display: none;
-        }
+.product-card {
+    background: linear-gradient(145deg,#1d1d1d,#101010);
+    border: 1px solid #292929;
+    border-radius: 14px;
+    padding: 14px 11px;
+}
 
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            background: #000;
-            border: 1px solid var(--border-gold);
-            color: #fff;
-            border-radius: 8px;
-            margin-top: 6px;
-            font-size: 12px;
-        }
+.product-card h3 {
+    font-size: 14px;
+    margin-bottom: 9px;
+}
 
-        .uc-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 12px;
-        }
+.product-card .price {
+    color: var(--gold);
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
 
-        .counter-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+.gold-btn {
+    background: linear-gradient(135deg,#f0d17b,#c39a34);
+    color: #111;
+    border: none;
+    width: 100%;
+    border-radius: 9px;
+    padding: 11px;
+    font-weight: 800;
+}
 
-        .counter-btn {
-            background: var(--gold-primary);
-            color: #000;
-            border: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
+.dark-btn {
+    background: #222;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 9px;
+    padding: 11px;
+}
+
+.form-card {
+    background: var(--card);
+    border: 1px solid #292929;
+    border-radius: 15px;
+    padding: 16px;
+    margin-bottom: 13px;
+}
+
+.form-card label {
+    display: block;
+    font-size: 12px;
+    color: #bbb;
+    margin: 13px 0 7px;
+}
+
+.form-card input,
+.form-card textarea,
+.form-card select {
+    width: 100%;
+    background: #090909;
+    border: 1px solid #353535;
+    border-radius: 9px;
+    color: white;
+    padding: 12px;
+    outline: none;
+}
+
+.form-card input:focus,
+.form-card textarea:focus {
+    border-color: var(--gold);
+}
+
+.form-card textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.payment-info {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    margin: 12px 0;
+    background: #101010;
+}
+
+.payment-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid #292929;
+    font-size: 12px;
+}
+
+.payment-row:last-child {
+    border-bottom: none;
+}
+
+.payment-row strong {
+    color: var(--gold);
+    text-align: right;
+}
+
+.copy-btn {
+    background: #292929;
+    border: 1px solid var(--border);
+    color: var(--gold);
+    padding: 7px 10px;
+    border-radius: 7px;
+    font-size: 11px;
+}
+
+.notice {
+    background: #171717;
+    border: 1px solid var(--border);
+    padding: 15px;
+    border-radius: 12px;
+    line-height: 1.7;
+    font-size: 13px;
+    margin: 14px 0;
+}
+
+.notice.success {
+    border-color: #557b4c;
+}
+
+.notice.error {
+    color: var(--red);
+    border-color: #752a2a;
+}
+
+.center {
+    text-align: center;
+}
+
+.ok-btn {
+    width: 130px;
+    margin: 10px auto 0;
+    display: block;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.quantity button {
+    background: #282828;
+    color: var(--gold);
+    border: 1px solid #444;
+    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+}
+
+.quantity strong {
+    font-size: 18px;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    background: rgba(10,10,10,.97);
+    border-top: 1px solid var(--border);
+    padding: 9px 4px calc(9px + env(safe-area-inset-bottom));
+    backdrop-filter: blur(15px);
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: #858585;
+    font-size: 10px;
+    padding: 8px 2px;
+}
+
+.nav-btn.active {
+    color: var(--gold);
+}
+
+.nav-symbol {
+    display: block;
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.profile-top {
+    text-align: center;
+    padding: 22px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.avatar {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    margin: 0 auto 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--gold);
+    font-size: 25px;
+    overflow: hidden;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-balance {
+    color: var(--gold);
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.list-card {
+    background: #151515;
+    border: 1px solid #292929;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+}
+
+.muted {
+    color: var(--gray);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 45px 15px;
+    color: #777;
+    border: 1px dashed #353535;
+    border-radius: 15px;
+}
+
+.empty-state h3 {
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+@media(min-width:480px) {
+    .container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="app-container">
+<header class="header">
 
-    <header>
-        <button class="menu-btn" onclick="switchScreen('home')">&#9776;</button>
-        
-        <div class="lang-wrapper">
-            <div class="lang-btn" onclick="toggleLangMenu()">
-                <img id="activeFlagImg" src="https://flagcdn.com/w40/tj.png" class="flag-icon" alt="Flag">
-                <span id="activeLangCode">TJK</span>
-                <span style="font-size: 9px; color: var(--gold-primary);">&#9660;</span>
-            </div>
-            <div class="lang-menu" id="langDropdownMenu">
-                <button class="lang-option" onclick="changeLanguage('tj', 'TJK', 'https://flagcdn.com/w40/tj.png')">
-                    <img src="https://flagcdn.com/w40/tj.png" class="flag-icon" alt="TJK"> TJK
-                </button>
-                <button class="lang-option" onclick="changeLanguage('ru', 'RUS', 'https://flagcdn.com/w40/ru.png')">
-                    <img src="https://flagcdn.com/w40/ru.png" class="flag-icon" alt="RUS"> RUS
-                </button>
-                <button class="lang-option" onclick="changeLanguage('en', 'ENG', 'https://flagcdn.com/w40/gb.png')">
-                    <img src="https://flagcdn.com/w40/gb.png" class="flag-icon" alt="ENG"> ENG
-                </button>
-            </div>
-        </div>
-
-        <div class="balance-header-btn" onclick="switchScreen('profile')">
-            <div>
-                <div style="font-size: 8px; color: var(--text-secondary);" data-translate="balanceTitle">Баланс</div>
-                <b>0.00 TJS</b>
-            </div>
-            <div class="plus-box">+</div>
-        </div>
-    </header>
-
-    <div class="brand-logo">
-        <h1>VELOX</h1>
-        <span>UC SHOP</span>
+    <div class="logo">
+        VELOX
+        <span>PUBG PREMIUM STORE</span>
     </div>
 
-    <!-- 1. HOME SCREEN -->
-    <div id="screen-home" class="screen active">
-        <div class="promo-banner">
-            <div>
-                <h3 style="color: var(--gold-primary); font-size: 14px;">PUBG MOBILE</h3>
-                <p style="font-size: 10px; color: #aaa; margin-top: 2px;">PLAY BIGGER BE A LEGEND</p>
+    <div class="header-right">
+
+        <div class="language">
+            <button class="lang-btn" id="langBtn"
+                onclick="toggleLangMenu()">TJK</button>
+
+            <div class="lang-menu" id="langMenu">
+                <button onclick="setLanguage('tg')">TJK</button>
+                <button onclick="setLanguage('ru')">RUS</button>
+                <button onclick="setLanguage('en')">ENG</button>
             </div>
-            <div style="width: 60px; height: 45px; background: rgba(243,198,83,0.1); border-radius: 8px; border: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--gold-primary); font-weight: bold;">PUBG</div>
         </div>
 
-        <div class="categories-grid">
-            <div class="category-card" onclick="switchScreen('pubg-shop')">
-                <div class="category-img" style="background: linear-gradient(135deg, #251800, #0a0a0a);">PUBG SHOP</div>
-                <div class="category-title"><span data-translate="catUcShop">PUBG SHOP</span><span>&gt;</span></div>
+        <button class="balance-btn" onclick="openPage('balance')">
+            <span data-i18n="balance">BALANCE</span>
+            <br>
+            <span id="headerBalance">0.00 TJS</span>
+        </button>
+
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- HOME PAGE -->
+
+    <section class="page active" id="home">
+
+        <div class="hero">
+            <div class="hero-label">OFFICIAL STORE</div>
+            <h1>VELOX STORE</h1>
+            <p data-i18n="heroText">
+                PUBG MOBILE PREMIUM SHOP
+            </p>
+            <div class="hero-line"></div>
+        </div>
+
+        <h2 class="section-title" data-i18n="categories">
+            Категорияҳо
+        </h2>
+
+        <div class="shop-grid">
+
+            <button class="shop-card"
+                onclick="openPage('pubg')">
+
+                <div class="card-icon">UC</div>
+                <h3>PUBG SHOP</h3>
+                <p data-i18n="pubgDescription">
+                    UC, ящикҳо ва Prime
+                </p>
+
+            </button>
+
+            <button class="shop-card"
+                onclick="openPage('accounts')">
+
+                <div class="card-icon">ACC</div>
+                <h3>ACCOUNT</h3>
+                <p data-i18n="accountDescription">
+                    Аккаунтҳои фурӯшӣ
+                </p>
+
+            </button>
+
+            <button class="shop-card"
+                onclick="openPage('costumes')">
+
+                <div class="card-icon">XC</div>
+                <h3>X-COSTUME</h3>
+                <p data-i18n="costumeDescription">
+                    Костюмҳои PUBG
+                </p>
+
+            </button>
+
+            <button class="shop-card"
+                onclick="openPage('supercar')">
+
+                <div class="card-icon">CAR</div>
+                <h3>SUPERCAR</h3>
+                <p data-i18n="carDescription">
+                    Car Token
+                </p>
+
+            </button>
+
+        </div>
+
+        <h2 class="section-title" data-i18n="information">
+            Маълумот
+        </h2>
+
+        <div class="form-card">
+            <p class="muted" data-i18n="storeInformation">
+                VELOX — мағозаи PUBG MOBILE.
+                Фармоишҳои шумо дар қисмати Заказы нишон дода мешаванд.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- PUBG SHOP PAGE -->
+
+    <section class="page" id="pubg">
+
+        <button class="back-btn" onclick="goBack()"
+            data-i18n="back">← Бозгашт</button>
+
+        <h2 class="section-title">PUBG SHOP</h2>
+
+        <h3 class="section-title" data-i18n="crates">
+            Ящикҳо
+        </h3>
+
+        <div class="product-grid" id="crateGrid"></div>
+
+        <h3 class="section-title">PRIME</h3>
+
+        <div class="product-grid" id="primeGrid"></div>
+
+        <h3 class="section-title">PRIME PLUS</h3>
+
+        <div class="product-grid" id="primePlusGrid"></div>
+
+        <h3 class="section-title">UC</h3>
+
+        <div class="product-grid" id="ucGrid"></div>
+
+    </section>
+
+    <!-- BALANCE PAGE -->
+
+    <section class="page" id="balance">
+
+        <button class="back-btn" onclick="goBack()"
+            data-i18n="back">← Бозгашт</button>
+
+        <h2 class="section-title" data-i18n="topUp">
+            Пур кардани баланс
+        </h2>
+
+        <div class="form-card">
+
+            <div class="profile-balance" id="balancePageAmount">
+                0.00 TJS
             </div>
-            <div class="category-card" onclick="switchScreen('akakunt')">
-                <div class="category-img" style="background: linear-gradient(135deg, #001a25, #0a0a0a);">AKAKUNT</div>
-                <div class="category-title"><span data-translate="catAccount">AKAKUNT</span><span>&gt;</span></div>
+
+            <label data-i18n="amount">Маблағ (TJS)</label>
+
+            <input type="number" id="topupAmount"
+                min="1" placeholder="Маблағро ворид кунед">
+
+            <div class="payment-info">
+
+                <div class="payment-row">
+                    <span data-i18n="banks">Бонкҳо</span>
+                    <strong>Dushanbe City / Spitamen Pay</strong>
+                </div>
+
+                <div class="payment-row">
+                    <span data-i18n="recipient">Номи қабулкунанда</span>
+                    <strong>Шарифмох.М.Д</strong>
+                </div>
+
+                <div class="payment-row">
+                    <span data-i18n="phoneNumber">Рақам</span>
+                    <strong>919664644</strong>
+                    <button class="copy-btn"
+                        onclick="copyText('919664644')"
+                        data-i18n="copy">COPY</button>
+                </div>
+
             </div>
-            <div class="category-card" onclick="switchScreen('x-suit')">
-                <div class="category-img" style="background: linear-gradient(135deg, #250000, #0a0a0a);">X-CUIT</div>
-                <div class="category-title"><span data-translate="catXCostume">X-CUIT</span><span>&gt;</span></div>
+
+            <label data-i18n="receipt">
+                Расиди пардохт
+            </label>
+
+            <input type="file" id="topupReceipt"
+                accept="image/*">
+
+            <img id="topupPreview"
+                style="display:none;width:100%;margin-top:12px;border-radius:10px">
+
+            <button class="gold-btn"
+                style="margin-top:16px"
+                onclick="submitTopup()"
+                data-i18n="pay">ОПЛАТИТЬ</button>
+
+        </div>
+
+    </section>
+
+    <!-- ORDER PAGE -->
+
+    <section class="page" id="checkout">
+
+        <button class="back-btn" onclick="goBack()"
+            data-i18n="back">← Бозгашт</button>
+
+        <h2 class="section-title" data-i18n="orderDetails">
+            Маълумоти фармоиш
+        </h2>
+
+        <div id="checkoutDetails" class="form-card"></div>
+
+        <div class="form-card">
+
+            <label>PUBG ID</label>
+
+            <input id="pubgId"
+                type="text"
+                inputmode="numeric"
+                placeholder="PUBG ID">
+
+            <label data-i18n="quantity">Миқдор</label>
+
+            <div class="quantity">
+                <button onclick="changeQuantity(-1)">−</button>
+                <strong id="quantityValue">1</strong>
+                <button onclick="changeQuantity(1)">+</button>
             </div>
-            <div class="category-card" onclick="switchScreen('supercar')">
-                <div class="category-img" style="background: linear-gradient(135deg, #151515, #050505);">SUPERCAR</div>
-                <div class="category-title"><span data-translate="catSupercar">SUPERCAR</span><span>&gt;</span></div>
+
+            <div class="payment-info">
+                <div class="payment-row">
+                    <span data-i18n="totalUC">Ҳамагӣ UC</span>
+                    <strong id="totalUC">0 UC</strong>
+                </div>
+
+                <div class="payment-row">
+                    <span data-i18n="totalPrice">Маблағи умумӣ</span>
+                    <strong id="totalPrice">0 TJS</strong>
+                </div>
             </div>
+
+            <button class="gold-btn"
+                onclick="continueToPayment()"
+                data-i18n="continue">ИДОМА</button>
+
+        </div>
+
+    </section>
+
+    <!-- PAYMENT PAGE -->
+
+    <section class="page" id="payment">
+
+        <button class="back-btn" onclick="goBack()"
+            data-i18n="back">← Бозгашт</button>
+
+        <h2 class="section-title" data-i18n="payment">
+            Пардохт
+        </h2>
+
+        <div id="paymentDetails" class="form-card"></div>
+
+        <div class="form-card">
+
+            <div class="payment-info">
+
+                <div class="payment-row">
+                    <span data-i18n="banks">Бонкҳо</span>
+                    <strong>Dushanbe City / Spitamen Pay</strong>
+                </div>
+
+                <div class="payment-row">
+                    <span data-i18n="recipient">Номи қабулкунанда</span>
+                    <strong>Шарифмох.М.Д</strong>
+                </div>
+
+                <div class="payment-row">
+                    <span data-i18n="phoneNumber">Рақам</span>
+                    <strong>919664644</strong>
+
+                    <button class="copy-btn"
+                        onclick="copyText('919664644')"
+                        data-i18n="copy">COPY</button>
+                </div>
+
+            </div>
+
+            <label data-i18n="receipt">
+                Расиди пардохт
+            </label>
+
+            <input type="file" id="paymentReceipt"
+                accept="image/*">
+
+            <img id="paymentPreview"
+                style="display:none;width:100%;margin-top:12px;border-radius:10px">
+
+            <button class="gold-btn"
+                style="margin-top:16px"
+                onclick="submitPurchase()"
+                data-i18n="pay">ОПЛАТИТЬ</button>
+
+        </div>
+
+    </section>
+
+    <!-- SUCCESS PAGE -->
+
+    <section class="page" id="success">
+
+        <div class="form-card center" style="margin-top:45px">
+
+            <h2 style="color:var(--gold);margin-bottom:18px"
+                data-i18n="sent">Фиристода шуд</h2>
+
+            <div class="notice success" id="successMessage"></div>
+
+            <button class="gold-btn ok-btn"
+                onclick="finishSuccess()">
+                OK
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- ACCOUNTS PAGE -->
+
+    <section class="page" id="accounts">
+
+        <button class="back-btn" onclick="goBack()"
+            data-i18n="back">← Бозгашт</button>
+
+        <h2 class="section-title">ACCOUNT MARKET</h2>
+
+        <button class="gold-btn"
+            onclick="openPage('sellAccount')"
+            data-i18n="sellAccount">
+            + ПРОДАТЬ АККАУНТ
+        </button>
+
+        <div id="accountListings" style="margin-top:15px"></div>
+
+    </section>
+
+    <!-- SELL ACCOUNT PAGE -->
+
+    <section class="page" id="sellAccount">
+
+        <button class="back-btn" onclick="goBack()"
+            data-i18n="back">← Бозгашт</button>
+
+        <h2 class="section-title" data-i18n="sellAccount">
+            Фурӯши аккаунт
+        </h2>
+
+        <div class="form-card">
+
+            <label data-i18n="accountPhotos">
+                Суратҳои аккаунт — то 5 сурат
+            </label>
+
+            <input type="file" id="accountPhotos"
+                accept="image/*" multiple>
+
+            <div id="accountPhotoPreview"
+                style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px">
+            </div>
+
+            <label data-i18n="collection">Коллексия</label>
+
+            <input type="number" id="collection"
+                min="20" max="100">
+
+            <div id="collectionError"
+                class="muted" style="color:var(--red)"></div>
+
+            <label>Урвин</label>
+
+            <input type="number" id="urvin"
+                min="40" max="100">
+
+            <div id="urvinError"
+                class="muted" style="color:var(--red)"></div>
+
+            <label data-i18n="binding">Привязка</label>
+
+            <input id="binding" type="text">
+
+            <label data-i18n="description">Описание</label>
+
+            <textarea id="accountDescription"
+                maxlength="140"></textarea>
+
+            <div class="muted">
+                <span id="descriptionCount">0</span>/140
+            </div>
+
+            <label data-i18n="price">Цена (TJS)</label>
+
+            <input type="number" id="accountPrice" min="1">
+
+            <button class="gold-btn"
+                style="margin-top:16px"
+                onclick="submitAccount()"
+   <!-- ========================================= -->
+<!-- VELOX UC SHOP — ҚИСМИ 2 -->
+<!-- PUBG SHOP, PRIME, PRIME PLUS ва UC -->
+<!-- ========================================= -->
+
+<style>
+.velox-section {
+    display: none;
+    padding: 16px;
+    color: #f5f5f5;
+}
+
+.velox-section.active {
+    display: block;
+}
+
+.velox-title {
+    font-size: 23px;
+    font-weight: 900;
+    margin: 8px 0 18px;
+    color: #f2c94c;
+}
+
+.velox-subtitle {
+    font-size: 16px;
+    font-weight: 800;
+    margin: 22px 0 12px;
+    color: #ffffff;
+}
+
+.velox-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.velox-product {
+    position: relative;
+    background: linear-gradient(145deg, #202020, #101010);
+    border: 1px solid #373737;
+    border-radius: 16px;
+    padding: 15px 10px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.velox-product.gold {
+    border-color: #c9a33a;
+    background: linear-gradient(145deg, #3b3016, #15130d);
+}
+
+.velox-product-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 10px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #292929;
+    border: 1px solid #444;
+    color: #f2c94c;
+    font-size: 23px;
+    font-weight: 900;
+}
+
+.velox-product-name {
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 7px;
+}
+
+.velox-product-desc {
+    font-size: 11px;
+    color: #aaa;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.velox-product-price {
+    color: #f2c94c;
+    font-size: 17px;
+    font-weight: 900;
+    margin: 9px 0;
+}
+
+.velox-btn {
+    border: 0;
+    width: 100%;
+    padding: 11px 8px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f4d36b, #b88b1e);
+    color: #111;
+    font-weight: 900;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.velox-btn:active {
+    transform: scale(.97);
+}
+
+.velox-back {
+    background: #252525;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-bottom: 14px;
+    cursor: pointer;
+}
+
+.velox-quantity-box {
+    background: #191919;
+    border: 1px solid #3b3b3b;
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.velox-quantity-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 13px 0;
+}
+
+.velox-quantity-row label {
+    color: #ddd;
+    font-size: 13px;
+}
+
+.velox-input {
+    width: 100%;
+    box-sizing: border-box;
+    background: #101010;
+    border: 1px solid #414141;
+    border-radius: 10px;
+    color: white;
+    padding: 12px;
+    outline: none;
+    font-size: 14px;
+}
+
+.velox-input:focus {
+    border-color: #e4bd45;
+}
+
+.velox-quantity-input {
+    width: 95px;
+    text-align: center;
+}
+
+.velox-total {
+    border-top: 1px solid #393939;
+    margin-top: 15px;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.velox-total strong {
+    color: #f2c94c;
+}
+
+.velox-note {
+    color: #999;
+    font-size: 11px;
+    line-height: 1.6;
+    margin-top: 12px;
+}
+
+.velox-divider {
+    height: 1px;
+    background: #333;
+    margin: 22px 0;
+}
+
+.velox-empty {
+    text-align: center;
+    background: #171717;
+    border: 1px dashed #444;
+    padding: 25px 12px;
+    border-radius: 14px;
+    color: #aaa;
+    font-size: 13px;
+}
+</style>
+
+<!-- ========================================= -->
+<!-- PUBG SHOP -->
+<!-- ========================================= -->
+
+<section id="velox-pubg-shop" class="velox-section">
+
+    <button class="velox-back" onclick="veloxShowPage('home')">
+        ← Бозгашт
+    </button>
+
+    <div class="velox-title">PUBG SHOP</div>
+
+    <!-- CRATES -->
+
+    <div class="velox-subtitle">CRATES</div>
+
+    <div class="velox-grid">
+
+        <div class="velox-product">
+            <div class="velox-product-icon">G</div>
+            <div class="velox-product-name">900 G + 170 UC</div>
+            <div class="velox-product-desc">
+                PUBG Mobile Crate
+            </div>
+            <div class="velox-product-price">15 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyFixed('900 G + 170 UC',15)">
+                ХАРИДАН
+            </button>
+        </div>
+
+        <div class="velox-product gold">
+            <div class="velox-product-icon">UC</div>
+            <div class="velox-product-name">180 UC + 9 Material</div>
+            <div class="velox-product-desc">
+                Special Crate
+            </div>
+            <div class="velox-product-price">35 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyFixed('180 UC + 9 Material',35)">
+                ХАРИДАН
+            </button>
+        </div>
+
+        <div class="velox-product gold">
+            <div class="velox-product-icon">79</div>
+            <div class="velox-product-name">300 UC + 79 чем</div>
+            <div class="velox-product-desc">
+                Premium Crate
+            </div>
+            <div class="velox-product-price">50 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyFixed('300 UC + 79 чем',50)">
+                ХАРИДАН
+            </button>
+        </div>
+
+    </div>
+
+    <div class="velox-divider"></div>
+
+    <!-- PRIME -->
+
+    <div class="velox-subtitle">PRIME</div>
+
+    <div class="velox-grid">
+
+        <div class="velox-product">
+            <div class="velox-product-icon">P</div>
+            <div class="velox-product-name">PRIME</div>
+            <div class="velox-product-desc">1 моҳ</div>
+            <div class="velox-product-price">11 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyFixed('PRIME — 1 моҳ',11)">
+                ХАРИДАН
+            </button>
+        </div>
+
+        <div class="velox-product">
+            <div class="velox-product-icon">P</div>
+            <div class="velox-product-name">PRIME</div>
+            <div class="velox-product-desc">3 моҳ</div>
+            <div class="velox-product-price">30 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyFixed('PRIME — 3 моҳ',30)">
+                ХАРИДАН
+            </button>
+        </div>
+
+        <div class="velox-product">
+            <div class="velox-product-icon">P</div>
+            <div class="velox-product-name">PRIME</div>
+            <div class="velox-product-desc">6 моҳ</div>
+            <div class="velox-product-price">65 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyFixed('PRIME — 6 моҳ',65)">
+                ХАРИДАН
+            </button>
+        </div>
+
+        <div class="velox-product">
+            <div class="velox-product-icon">P</div>
+            <div class="velox-product-name">PRIME</div>
+            <div class="velox-product-desc">12 моҳ</div>
+            <div class="velox-product-price">120 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyFixed('PRIME — 12 моҳ',120)">
+                ХАРИДАН
+            </button>
+        </div>
+
+    </div>
+
+    <div class="velox-divider"></div>
+
+    <!-- PRIME PLUS -->
+
+    <div class="velox-subtitle">PRIME PLUS</div>
+
+    <div class="velox-grid">
+
+        <div class="velox-product gold">
+            <div class="velox-product-icon">P+</div>
+            <div class="velox-product-name">PRIME PLUS</div>
+            <div class="velox-product-desc">1 моҳ</div>
+            <div class="velox-product-price">100 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyFixed('PRIME PLUS — 1 моҳ',100)">
+                ХАРИДАН
+            </button>
+        </div>
+
+        <div class="velox-product gold">
+            <div class="velox-product-icon">P+</div>
+            <div class="velox-product-name">PRIME PLUS</div>
+            <div class="velox-product-desc">3 моҳ</div>
+            <div class="velox-product-price">280 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyFixed('PRIME PLUS — 3 моҳ',280)">
+                ХАРИДАН
+            </button>
+        </div>
+
+        <div class="velox-product gold">
+            <div class="velox-product-icon">P+</div>
+            <div class="velox-product-name">PRIME PLUS</div>
+            <div class="velox-product-desc">6 моҳ</div>
+            <div class="velox-product-price">550 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyFixed('PRIME PLUS — 6 моҳ',550)">
+                ХАРИДАН
+            </button>
+        </div>
+
+        <div class="velox-product gold">
+            <div class="velox-product-icon">P+</div>
+            <div class="velox-product-name">PRIME PLUS</div>
+            <div class="velox-product-desc">12 моҳ</div>
+            <div class="velox-product-price">1055 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyFixed('PRIME PLUS — 12 моҳ',1055)">
+                ХАРИДАН
+            </button>
+        </div>
+
+    </div>
+
+    <div class="velox-divider"></div>
+
+    <!-- UC -->
+
+    <div class="velox-subtitle">PUBG UC</div>
+
+    <div class="velox-grid">
+
+        <div class="velox-product">
+            <div class="velox-product-icon">UC</div>
+            <div class="velox-product-name">30 UC</div>
+            <div class="velox-product-price">6 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyUC(30,6)">ХАРИДАН</button>
+        </div>
+
+        <div class="velox-product">
+            <div class="velox-product-icon">UC</div>
+            <div class="velox-product-name">60 UC</div>
+            <div class="velox-product-price">10 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyUC(60,10)">ХАРИДАН</button>
+        </div>
+
+        <div class="velox-product">
+            <div class="velox-product-icon">UC</div>
+            <div class="velox-product-name">325 UC</div>
+            <div class="velox-product-price">48 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyUC(325,48)">ХАРИДАН</button>
+        </div>
+
+        <div class="velox-product">
+            <div class="velox-product-icon">UC</div>
+            <div class="velox-product-name">660 UC</div>
+            <div class="velox-product-price">92 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyUC(660,92)">ХАРИДАН</button>
+        </div>
+
+        <div class="velox-product">
+            <div class="velox-product-icon">UC</div>
+            <div class="velox-product-name">1320 UC</div>
+            <div class="velox-product-price">184 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyUC(1320,184)">ХАРИДАН</button>
+        </div>
+
+        <div class="velox-product">
+            <div class="velox-product-icon">UC</div>
+            <div class="velox-product-name">1800 UC</div>
+            <div class="velox-product-price">240 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyUC(1800,240)">ХАРИДАН</button>
+        </div>
+
+        <div class="velox-product gold">
+            <div class="velox-product-icon">UC</div>
+            <div class="velox-product-name">3850 UC</div>
+            <div class="velox-product-price">450 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyUC(3850,450)">ХАРИДАН</button>
+        </div>
+
+        <div class="velox-product gold">
+            <div class="velox-product-icon">UC</div>
+            <div class="velox-product-name">8100 UC</div>
+            <div class="velox-product-price">870 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyUC(8100,870)">ХАРИДАН</button>
+        </div>
+
+        <div class="velox-product gold">
+            <div class="velox-product-icon">UC</div>
+            <div class="velox-product-name">16200 UC</div>
+            <div class="velox-product-price">1660 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyUC(16200,1660)">ХАРИДАН</button>
+        </div>
+
+        <div class="velox-product gold">
+            <div class="velox-product-icon">UC</div>
+            <div class="velox-product-name">24300 UC</div>
+            <div class="velox-product-price">2480 TJS</div>
+            <button class="velox-btn"
+                onclick="veloxBuyUC(24300,2480)">ХАРИДАН</button>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- UC QUANTITY / ORDER FORM -->
+<!-- ========================================= -->
+
+<section id="velox-uc-order" class="velox-section">
+
+    <button class="velox-back" onclick="veloxShowPage('pubg-shop')">
+        ← Бозгашт ба PUBG SHOP
+    </button>
+
+    <div class="velox-title">Хариди UC</div>
+
+    <div class="velox-quantity-box">
+
+        <div class="velox-quantity-row">
+            <label>Миқдори UC</label>
+            <input
+                id="velox-uc-quantity"
+                class="velox-input velox-quantity-input"
+                type="number"
+                min="1"
+                max="100"
+                value="1"
+                oninput="veloxUpdateUCTotal()">
+        </div>
+
+        <div class="velox-quantity-row">
+            <label>UC барои як баста</label>
+            <strong id="velox-uc-unit">60 UC</strong>
+        </div>
+
+        <div class="velox-total">
+            <span>Ҳамагӣ UC</span>
+            <strong id="velox-uc-total">60 UC</strong>
+        </div>
+
+        <div class="velox-total">
+            <span>Ҳамагӣ пардохт</span>
+            <strong id="velox-uc-price-total">10 TJS</strong>
+        </div>
+
+        <div class="velox-note">
+            Нархи умумӣ мувофиқи миқдори бастаҳо ҳисоб карда мешавад.
+        </div>
+
+        <div style="margin-top:18px">
+            <label style="display:block;margin-bottom:8px;font-size:13px">
+                PUBG Player ID
+            </label>
+
+            <input
+                id="velox-uc-player-id"
+                class="velox-input"
+                type="text"
+                inputmode="numeric"
+                placeholder="ID-и PUBG-ро ворид кунед">
+        </div>
+
+        <button
+            class="velox-btn"
+            style="margin-top:16px;padding:14px"
+            onclick="veloxSubmitUCOrder()">
+            ИДОМА ДОДАН
+        </button>
+
+    </div>
+
+</section>
+
+<script>
+/* =========================================
+   VELOX SHOP FUNCTIONS — PART 2
+   ========================================= */
+
+const veloxUCPrices = {
+    30: 6,
+    60: 10,
+    325: 48,
+    660: 92,
+    1320: 184,
+    1800: 240,
+    3850: 450,
+    8100: 870,
+    16200: 1660,
+    24300: 2480
+};
+
+let veloxSelectedUC = 60;
+let veloxSelectedUCPrice = 10;
+
+function veloxShowPage(page) {
+    document.querySelectorAll('.velox-section').forEach(section => {
+        section.classList.remove('active');
+    });
+
+    const target = document.getElementById('velox-' + page);
+
+    if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        alert('Саҳифаи "' + page + '" дар қисми дигар сохта мешавад.');
+    }
+}
+
+function veloxBuyUC(uc, price) {
+    veloxSelectedUC = Number(uc);
+    veloxSelectedUCPrice = Number(price);
+
+    document.getElementById('velox-uc-quantity').value = 1;
+    document.getElementById('velox-uc-unit').textContent = uc + ' UC';
+
+    veloxUpdateUCTotal();
+    veloxShowPage('uc-order');
+}
+
+function veloxUpdateUCTotal() {
+    const input = document.getElementById('velox-uc-quantity');
+
+    let quantity = parseInt(input.value, 10);
+
+    if (!Number.isFinite(quantity) || quantity < 1) {
+        quantity = 1;
+    }
+
+    if (quantity > 100) {
+        quantity = 100;
+    }
+
+    input.value = quantity;
+
+    const totalUC = veloxSelectedUC * quantity;
+    const totalPrice = veloxSelectedUCPrice * quantity;
+
+    document.getElementById('velox-uc-total').textContent =
+        totalUC.toLocaleString() + ' UC';
+
+    document.getElementById('velox-uc-price-total').textContent =
+        totalPrice.toLocaleString() + ' TJS';
+}
+
+function veloxBuyFixed(productName, price) {
+    const playerID = prompt(
+        'Номи маҳсулот: ' + productName +
+        '\nНарх: ' + price + ' TJS' +
+        '\n\nPUBG Player ID-ро ворид кунед:'
+    );
+
+    if (playerID === null) return;
+
+    if (!playerID.trim()) {
+        alert('Лутфан PUBG Player ID-ро ворид кунед.');
+        return;
+    }
+
+    const order = {
+        id: 'VX-' + Date.now(),
+        product: productName,
+        quantity: 1,
+        price: Number(price),
+        playerID: playerID.trim(),
+        date: new Date().toLocaleString(),
+        status: 'Интизорӣ'
+    };
+
+    veloxSaveOrder(order);
+
+    alert(
+        'Фармоиш қабул шуд.\n\n' +
+        'Маҳсулот: ' + productName +
+        '\nНарх: ' + price + ' TJS' +
+        '\nID: ' + playerID +
+        '\n\nБарои тасдиқи пардохт қисми пардохт бояд пайваст карда шавад.'
+    );
+}
+
+function veloxSubmitUCOrder() {
+    const playerID =
+        document.getElementById('velox-uc-player-id').value.trim();
+
+    const quantity = Number(
+        document.getElementById('velox-uc-quantity').value
+    );
+
+    if (!playerID) {
+        alert('Лутфан PUBG Player ID-ро ворид кунед.');
+        return;
+    }
+
+    if (!Number.isInteger(quantity) || quantity < 1 || quantity > 100) {
+        alert('Миқдор бояд аз 1 то 100 бошад.');
+        return;
+    }
+
+    const order = {
+        id: 'VX-' + Date.now(),
+        product: veloxSelectedUC + ' UC',
+        quantity: quantity,
+        totalUC: veloxSelectedUC * quantity,
+        price: veloxSelectedUCPrice * quantity,
+        playerID: playerID,
+        date: new Date().toLocaleString(),
+        status: 'Интизорӣ'
+    };
+
+    veloxSaveOrder(order);
+
+    alert(
+        'Фармоиши шумо сабт шуд.\n\n' +
+        'UC: ' + order.totalUC +
+        '\nМаблағ: ' + order.price + ' TJS' +
+        '\nID: ' + order.playerID +
+        '\n\nБарои идомаи пардохт қисми пардохтро пайваст кунед.'
+    );
+}
+
+function veloxSaveOrder(order) {
+    let orders = [];
+
+    try {
+        orders = JSON.parse(
+            localStorage.getItem('velox_orders') || '[]'
+        );
+
+        if (!Array.isArray(orders)) orders = [];
+    } catch (error) {
+        orders = [];
+    }
+
+    orders.unshift(order);
+
+    localStorage.setItem('velox_orders', JSON.stringify(orders));
+}
+            </script><!-- ========================================= -->
+<!-- VELOX UC SHOP — ҚИСМИ 3 -->
+<!-- PAYMENT: DUSHANBE CITY / SPITAMEN PAY -->
+<!-- ========================================= -->
+
+<style>
+.velox-payment-card {
+    background: linear-gradient(145deg, #1c1c1c, #101010);
+    border: 1px solid #393939;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 14px;
+}
+
+.velox-payment-heading {
+    color: #f2c94c;
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.velox-payment-subtitle {
+    color: #999;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+.velox-payment-method {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #191919;
+    border: 1px solid #383838;
+    border-radius: 13px;
+    padding: 14px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.velox-payment-method.selected {
+    border-color: #e2b83e;
+    background: #292312;
+}
+
+.velox-payment-method-name {
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.velox-payment-method-description {
+    color: #999;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.velox-payment-check {
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    border: 2px solid #666;
+    flex-shrink: 0;
+}
+
+.velox-payment-method.selected .velox-payment-check {
+    background: #e2b83e;
+    border-color: #e2b83e;
+    box-shadow: inset 0 0 0 4px #292312;
+}
+
+.velox-payment-info {
+    background: #111;
+    border: 1px solid #383838;
+    border-radius: 13px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.velox-payment-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 12px 0;
+}
+
+.velox-payment-label {
+    color: #999;
+    font-size: 12px;
+}
+
+.velox-payment-value {
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.velox-copy-button {
+    background: #292929;
+    border: 1px solid #555;
+    color: #f2c94c;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.velox-payment-divider {
+    height: 1px;
+    background: #333;
+    margin: 14px 0;
+}
+
+.velox-receipt-upload {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+    border: 1px dashed #b99737;
+    border-radius: 12px;
+    background: #181818;
+    color: #ddd;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.velox-receipt-preview {
+    display: none;
+    width: 100%;
+    max-height: 260px;
+    object-fit: contain;
+    background: #080808;
+    border-radius: 12px;
+    margin-top: 12px;
+}
+
+.velox-payment-message {
+    display: none;
+    padding: 14px;
+    border-radius: 12px;
+    margin-top: 14px;
+    background: #18251b;
+    border: 1px solid #386d42;
+    color: #b5f0bd;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.velox-payment-error {
+    display: none;
+    background: #301818;
+    border: 1px solid #733434;
+    color: #ffb2b2;
+    border-radius: 10px;
+    padding: 11px;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+.velox-payment-submit {
+    width: 100%;
+    margin-top: 18px;
+    padding: 15px;
+    background: linear-gradient(135deg, #f5d776, #b68a1e);
+    color: #111;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.velox-payment-submit:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.velox-payment-back {
+    width: 100%;
+    padding: 12px;
+    border-radius: 11px;
+    border: 1px solid #444;
+    background: #222;
+    color: white;
+    font-weight: 800;
+    margin-top: 10px;
+    cursor: pointer;
+}
+</style>
+
+<!-- ========================================= -->
+<!-- PAYMENT PAGE -->
+<!-- ========================================= -->
+
+<section id="velox-payment" class="velox-section">
+
+    <button class="velox-back" onclick="veloxPaymentGoBack()">
+        ← Бозгашт
+    </button>
+
+    <div class="velox-payment-heading">ПАРДОХТ</div>
+
+    <div class="velox-payment-subtitle">
+        Усули пардохтро интихоб кунед, маблағро гузаронед
+        ва расиди пардохтро замима намоед.
+    </div>
+
+    <!-- ORDER DETAILS -->
+
+    <div class="velox-payment-card">
+        <div style="font-size:14px;font-weight:800;margin-bottom:12px">
+            МАЪЛУМОТИ ФАРМОИШ
+        </div>
+
+        <div class="velox-payment-info-row">
+            <span class="velox-payment-label">Фармоиш</span>
+            <span class="velox-payment-value" id="velox-payment-order-id">
+                —
+            </span>
+        </div>
+
+        <div class="velox-payment-info-row">
+            <span class="velox-payment-label">Маҳсулот</span>
+            <span class="velox-payment-value" id="velox-payment-product">
+                —
+            </span>
+        </div>
+
+        <div class="velox-payment-info-row">
+            <span class="velox-payment-label">Миқдор</span>
+            <span class="velox-payment-value" id="velox-payment-quantity">
+                1
+            </span>
+        </div>
+
+        <div class="velox-payment-divider"></div>
+
+        <div class="velox-payment-info-row">
+            <span class="velox-payment-label">Маблағи пардохт</span>
+            <span class="velox-payment-value"
+                  id="velox-payment-total"
+                  style="color:#f2c94c;font-size:20px">
+                0 TJS
+            </span>
         </div>
     </div>
 
-    <!-- 2. PUBG SHOP -->
-    <div id="screen-pubg-shop" class="screen">
-        <div style="padding: 10px 15px; display: flex; align-items: center; gap: 10px;">
-            <button onclick="switchScreen('home')" style="background:none; border:none; color:var(--gold-primary); font-size:13px; cursor:pointer;">&larr; <span data-translate="backBtn">Акиб</span></button>
-            <h3 style="font-size: 13px; color: var(--gold-primary);">PUBG SHOP</h3>
+    <!-- PAYMENT METHODS -->
+
+    <div class="velox-payment-card">
+
+        <div style="font-size:14px;font-weight:800;margin-bottom:14px">
+            УСУЛИ ПАРДОХТ
         </div>
-        
-        <div class="section-title">Ящики</div>
-        <div class="card-box" style="display: flex; flex-direction: column; gap: 8px;">
-            <div style="background: #fff; color: #000; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between; cursor: pointer;" onclick="openPayment('900G + 170UC Ящик', 15)">
-                <span>900G + 170UC</span><span>15 TJS</span>
+
+        <div class="velox-payment-method selected"
+             id="velox-method-city"
+             onclick="veloxSelectPaymentMethod('city')">
+
+            <div>
+                <div class="velox-payment-method-name">
+                    Душанбе Сити
+                </div>
+                <div class="velox-payment-method-description">
+                    Dushanbe City
+                </div>
             </div>
-            <div style="background: #c5a059; color: #111; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between; cursor: pointer;" onclick="openPayment('180UC + 9 материал Ящик', 35)">
-                <span>180UC + 9 материал</span><span>35 TJS</span>
+
+            <div class="velox-payment-check"></div>
+        </div>
+
+        <div class="velox-payment-method"
+             id="velox-method-spitamen"
+             onclick="veloxSelectPaymentMethod('spitamen')">
+
+            <div>
+                <div class="velox-payment-method-name">
+                    Spitamen Pay
+                </div>
+                <div class="velox-payment-method-description">
+                    Spitamen Bank
+                </div>
             </div>
-            <div style="background: linear-gradient(90deg, #fff, #f3c653); color: #000; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between; cursor: pointer;" onclick="openPayment('300UC + 79 Чем Ящик', 50)">
-                <span>300UC + 79 Чем</span><span>50 TJS</span>
+
+            <div class="velox-payment-check"></div>
+        </div>
+
+        <div class="velox-payment-info">
+
+            <div class="velox-payment-info-row">
+                <span class="velox-payment-label">Қабулкунанда</span>
+                <span class="velox-payment-value">
+                    Шарифмох.М.Д
+                </span>
+            </div>
+
+            <div class="velox-payment-divider"></div>
+
+            <div class="velox-payment-info-row">
+                <div>
+                    <div class="velox-payment-label">
+                        Рақами телефон
+                    </div>
+                    <div class="velox-payment-value"
+                         id="velox-payment-phone"
+                         style="margin-top:6px">
+                        919664644
+                    </div>
+                </div>
+
+                <button class="velox-copy-button"
+                        onclick="veloxCopyPaymentPhone()">
+                    НУСХА ГИРИФТАН
+                </button>
+            </div>
+
+            <div class="velox-payment-divider"></div>
+
+            <div class="velox-payment-label">
+                Маблағро ба рақами боло гузаронед.
+                Пеш аз пардохт рақам ва номи қабулкунандаро санҷед.
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RECEIPT UPLOAD -->
+
+    <div class="velox-payment-card">
+
+        <div style="font-size:14px;font-weight:800;margin-bottom:8px">
+            РАСИДИ ПАРДОХТ
+        </div>
+
+        <div class="velox-payment-subtitle" style="margin-bottom:10px">
+            Скриншот ё акси расиди пардохтро интихоб кунед.
+        </div>
+
+        <input
+            id="velox-payment-receipt"
+            class="velox-receipt-upload"
+            type="file"
+            accept="image/*"
+            onchange="veloxPreviewReceipt(event)">
+
+        <img
+            id="velox-receipt-preview"
+            class="velox-receipt-preview"
+            alt="Расиди пардохт">
+
+        <label style="display:block;margin-top:16px;font-size:12px;color:#aaa">
+            Шарҳ (ихтиёрӣ)
+        </label>
+
+        <textarea
+            id="velox-payment-comment"
+            class="velox-input"
+            maxlength="200"
+            rows="3"
+            placeholder="Агар лозим бошад, шарҳ нависед..."
+            style="margin-top:8px;resize:vertical"></textarea>
+
+        <div id="velox-payment-error"
+             class="velox-payment-error"></div>
+
+        <div id="velox-payment-message"
+             class="velox-payment-message"></div>
+
+        <button
+            id="velox-payment-submit"
+            class="velox-payment-submit"
+            onclick="veloxSubmitPayment()">
+            ФИРИСТОДАНИ ПАРДОХТ
+        </button>
+
+        <button
+            class="velox-payment-back"
+            onclick="veloxPaymentGoBack()">
+            БОЗГАШТ
+        </button>
+
+    </div>
+
+</section>
+
+<script>
+/* =========================================
+   VELOX PAYMENT SYSTEM — PART 3
+   ========================================= */
+
+let veloxCurrentPaymentOrder = null;
+let veloxPaymentMethod = 'city';
+let veloxReceiptData = null;
+let veloxPaymentPreviousPage = 'pubg-shop';
+
+function veloxOpenPayment(order, previousPage) {
+    if (!order || !order.id) {
+        alert('Аввал маҳсулотро интихоб кунед.');
+        return;
+    }
+
+    veloxCurrentPaymentOrder = order;
+    veloxPaymentPreviousPage = previousPage || 'pubg-shop';
+
+    document.getElementById('velox-payment-order-id').textContent =
+        order.id;
+
+    document.getElementById('velox-payment-product').textContent =
+        order.product || 'Маҳсулот';
+
+    document.getElementById('velox-payment-quantity').textContent =
+        order.quantity || 1;
+
+    document.getElementById('velox-payment-total').textContent =
+        Number(order.price || 0).toLocaleString() + ' TJS';
+
+    document.getElementById('velox-payment-receipt').value = '';
+    document.getElementById('velox-payment-comment').value = '';
+
+    document.getElementById('velox-receipt-preview').style.display = 'none';
+    document.getElementById('velox-receipt-preview').src = '';
+
+    document.getElementById('velox-payment-message').style.display = 'none';
+    document.getElementById('velox-payment-error').style.display = 'none';
+
+    veloxReceiptData = null;
+
+    veloxSelectPaymentMethod('city');
+    veloxShowPage('payment');
+}
+
+function veloxSelectPaymentMethod(method) {
+    veloxPaymentMethod = method;
+
+    document.getElementById('velox-method-city')
+        .classList.toggle('selected', method === 'city');
+
+    document.getElementById('velox-method-spitamen')
+        .classList.toggle('selected', method === 'spitamen');
+
+    document.getElementById('velox-payment-phone').textContent =
+        '919664644';
+}
+
+async function veloxCopyPaymentPhone() {
+    const phone = '919664644';
+
+    try {
+        await navigator.clipboard.writeText(phone);
+        alert('Рақами телефон нусха гирифта шуд.');
+    } catch (error) {
+        const temporaryInput = document.createElement('textarea');
+        temporaryInput.value = phone;
+        temporaryInput.style.position = 'fixed';
+        temporaryInput.style.opacity = '0';
+
+        document.body.appendChild(temporaryInput);
+        temporaryInput.select();
+
+        try {
+            document.execCommand('copy');
+            alert('Рақами телефон нусха гирифта шуд.');
+        } catch (copyError) {
+            alert('Рақам: ' + phone);
+        }
+
+        temporaryInput.remove();
+    }
+}
+
+function veloxPreviewReceipt(event) {
+    const file = event.target.files && event.target.files[0];
+
+    veloxReceiptData = null;
+
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+        veloxShowPaymentError('Лутфан файли тасвириро интихоб кунед.');
+        event.target.value = '';
+        return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+        veloxShowPaymentError(
+            'Андозаи расид бояд аз 5 MB зиёд набошад.'
+        );
+        event.target.value = '';
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        veloxReceiptData = {
+            name: file.name,
+            type: file.type,
+            data: e.target.result
+        };
+
+        const preview = document.getElementById('velox-receipt-preview');
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+
+        document.getElementById('velox-payment-error').style.display =
+            'none';
+    };
+
+    reader.onerror = function() {
+        veloxShowPaymentError('Файлро хонда натавонистем.');
+    };
+
+    reader.readAsDataURL(file);
+}
+
+function veloxShowPaymentError(message) {
+    const errorBox = document.getElementById('velox-payment-error');
+
+    errorBox.textContent = message;
+    errorBox.style.display = 'block';
+}
+
+function veloxSubmitPayment() {
+    const order = veloxCurrentPaymentOrder;
+
+    if (!order) {
+        veloxShowPaymentError('Фармоиш ёфт нашуд. Аз нав маҳсулотро интихоб кунед.');
+        return;
+    }
+
+    if (!veloxReceiptData) {
+        veloxShowPaymentError(
+            'Пеш аз фиристодан расиди пардохтро замима кунед.'
+        );
+        return;
+    }
+
+    const button = document.getElementById('velox-payment-submit');
+
+    const payment = {
+        paymentId: 'PAY-' + Date.now(),
+        orderId: order.id,
+        product: order.product,
+        quantity: order.quantity || 1,
+        amount: Number(order.price || 0),
+        method: veloxPaymentMethod,
+        recipient: 'Шарифмох.М.Д',
+        phone: '919664644',
+        comment: document.getElementById('velox-payment-comment').value.trim(),
+        receiptName: veloxReceiptData.name,
+        receiptType: veloxReceiptData.type,
+        status: 'Интизорӣ барои санҷиши админ',
+        submittedAt: new Date().toISOString()
+    };
+
+    /*
+      ЭЗОҲ:
+      Ин версия маълумоти фармоишро дар браузер нигоҳ медорад.
+      Барои фиристодани расид ба админ, маълумоти пардохт ва
+      худи файлро ба API-и сервери Render фиристодан лозим аст.
+      URL-и серверро танҳо баъди омода шудани backend гузоред.
+    */
+
+    try {
+        const payments = JSON.parse(
+            localStorage.getItem('velox_payments') || '[]'
+        );
+
+        payments.unshift(payment);
+
+        localStorage.setItem(
+            'velox_payments',
+            JSON.stringify(payments)
+        );
+
+        const orders = JSON.parse(
+            localStorage.getItem('velox_orders') || '[]'
+        );
+
+        const orderIndex = orders.findIndex(item => item.id === order.id);
+
+        if (orderIndex !== -1) {
+            orders[orderIndex].status = 'Интизорӣ барои санҷиши пардохт';
+            orders[orderIndex].paymentMethod = veloxPaymentMethod;
+            orders[orderIndex].paymentId = payment.paymentId;
+
+            localStorage.setItem(
+                'velox_orders',
+                JSON.stringify(orders)
+            );
+        }
+
+    } catch (error) {
+        veloxShowPaymentError(
+            'Маълумотро нигоҳ дошта натавонистем. Аз нав кӯшиш кунед.'
+        );
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = 'ФИРИСТОДА ШУД';
+
+    const message = document.getElementById('velox-payment-message');
+
+    message.textContent =
+        'Пардохти шумо дар ин дастгоҳ сабт шуд. Барои тасдиқ админ бояд онро санҷад. ' +
+        'Дар ин версия маълумот ва расид ба Telegram фиристода намешаванд, ' +
+        'то сервер пайваст карда шавад.';
+
+    message.style.display = 'block';
+
+    alert(
+        'Пардохти шумо сабт шуд.\n\n' +
+        'Фармоиш: ' + order.id +
+        '\nМаблағ: ' + Number(order.price || 0) + ' TJS' +
+        '\n\nБарои фиристодан ба админ сервер бояд пайваст карда шавад.'
+    );
+
+    button.disabled = false;
+    button.textContent = 'ФИРИСТОДАНИ ПАРДОХТ';
+}
+
+function veloxPaymentGoBack() {
+    veloxShowPage(veloxPaymentPreviousPage || 'pubg-shop');
+}
+    </script><!-- ========================================= -->
+<!-- VELOX UC SHOP — ҚИСМИ 4 -->
+<!-- ACCOUNT MARKET -->
+<!-- ========================================= -->
+
+<style>
+.velox-account-wrap {
+    padding: 4px 0 20px;
+    color: #f5f5f5;
+}
+
+.velox-account-banner {
+    background: linear-gradient(135deg, #302711, #151515 70%);
+    border: 1px solid #9e7c2b;
+    border-radius: 18px;
+    padding: 20px 16px;
+    margin-bottom: 18px;
+}
+
+.velox-account-banner h2 {
+    color: #f2c94c;
+    font-size: 23px;
+    font-weight: 900;
+    margin: 0 0 8px;
+}
+
+.velox-account-banner p {
+    color: #c5c5c5;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.velox-account-add {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    background: linear-gradient(135deg, #f5d776, #b68a1e);
+    color: #111;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    margin-bottom: 18px;
+}
+
+.velox-account-form {
+    display: none;
+    background: #171717;
+    border: 1px solid #454545;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.velox-account-form.open {
+    display: block;
+}
+
+.velox-account-form-title {
+    color: #f2c94c;
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 16px;
+}
+
+.velox-account-label {
+    display: block;
+    font-size: 12px;
+    color: #ddd;
+    margin: 14px 0 7px;
+}
+
+.velox-account-input {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #414141;
+    background: #101010;
+    color: #fff;
+    padding: 12px;
+    font-size: 13px;
+    outline: none;
+}
+
+.velox-account-input:focus {
+    border-color: #d6b345;
+}
+
+.velox-account-textarea {
+    resize: vertical;
+    min-height: 85px;
+}
+
+.velox-account-help {
+    font-size: 11px;
+    color: #929292;
+    line-height: 1.6;
+    margin-top: 7px;
+}
+
+.velox-account-error {
+    display: none;
+    background: #351818;
+    color: #ffb4b4;
+    border: 1px solid #743939;
+    border-radius: 10px;
+    padding: 11px;
+    font-size: 12px;
+    margin-top: 12px;
+    line-height: 1.6;
+}
+
+.velox-account-success {
+    display: none;
+    background: #17301e;
+    color: #b7f5c0;
+    border: 1px solid #376b42;
+    border-radius: 10px;
+    padding: 11px;
+    font-size: 12px;
+    margin-top: 12px;
+    line-height: 1.6;
+}
+
+.velox-account-submit {
+    width: 100%;
+    border: none;
+    border-radius: 11px;
+    padding: 14px;
+    background: linear-gradient(135deg, #f5d776, #b68a1e);
+    color: #111;
+    font-size: 13px;
+    font-weight: 900;
+    margin-top: 16px;
+    cursor: pointer;
+}
+
+.velox-account-cancel {
+    width: 100%;
+    border: 1px solid #444;
+    border-radius: 11px;
+    padding: 12px;
+    background: #242424;
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    margin-top: 9px;
+    cursor: pointer;
+}
+
+.velox-account-upload {
+    width: 100%;
+    box-sizing: border-box;
+    background: #101010;
+    color: #ddd;
+    border: 1px dashed #8c712e;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 12px;
+}
+
+.velox-account-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.velox-account-photo {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #252525;
+    border: 1px solid #444;
+    aspect-ratio: 1 / 1;
+}
+
+.velox-account-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.velox-account-photo button {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    border: none;
+    border-radius: 6px;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 4px 7px;
+    cursor: pointer;
+}
+
+.velox-account-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.velox-account-card {
+    overflow: hidden;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #202020, #111);
+    border: 1px solid #383838;
+}
+
+.velox-account-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #242424;
+}
+
+.velox-account-card-content {
+    padding: 11px;
+}
+
+.velox-account-card-name {
+    font-size: 13px;
+    font-weight: 900;
+    margin-bottom: 8px;
+    overflow-wrap: anywhere;
+}
+
+.velox-account-stat {
+    font-size: 11px;
+    color: #aaa;
+    margin: 5px 0;
+    overflow-wrap: anywhere;
+}
+
+.velox-account-card-price {
+    color: #f2c94c;
+    font-size: 17px;
+    font-weight: 900;
+    margin: 12px 0;
+}
+
+.velox-account-buy {
+    width: 100%;
+    border: none;
+    border-radius: 9px;
+    padding: 10px 5px;
+    background: #e5bd48;
+    color: #111;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.velox-account-empty {
+    background: #171717;
+    border: 1px dashed #494949;
+    border-radius: 15px;
+    padding: 28px 16px;
+    text-align: center;
+    color: #aaa;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.velox-account-empty strong {
+    display: block;
+    color: #f2c94c;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.velox-account-status {
+    display: inline-block;
+    color: #e7c45b;
+    background: #302817;
+    border-radius: 6px;
+    padding: 5px 7px;
+    font-size: 10px;
+    margin-top: 8px;
+}
+</style>
+
+<!-- ========================================= -->
+<!-- ACCOUNT MARKET PAGE -->
+<!-- ========================================= -->
+
+<section id="velox-account-market" class="velox-section">
+
+    <button class="velox-back" onclick="veloxShowPage('home')">
+        ← Бозгашт
+    </button>
+
+    <div class="velox-account-wrap">
+
+        <div class="velox-account-banner">
+            <h2>ACCOUNT MARKET</h2>
+            <p>
+                Аккаунтҳои PUBG Mobile-ро бинед ё аккаунти худро
+                барои фурӯш пешниҳод кунед. Эълонҳо баъди санҷиши
+                админ нашр мешаванд.
+            </p>
+        </div>
+
+        <button
+            class="velox-account-add"
+            onclick="veloxToggleAccountForm()">
+            + ПРОДАВАТЬ АККАУНТ
+        </button>
+
+        <!-- SELL ACCOUNT FORM -->
+
+        <div id="velox-account-form" class="velox-account-form">
+
+            <div class="velox-account-form-title">
+                Фурӯши аккаунт
+            </div>
+
+            <label class="velox-account-label">
+                Номи аккаунт
+            </label>
+
+            <input
+                id="velox-account-name"
+                class="velox-account-input"
+                type="text"
+                maxlength="50"
+                placeholder="Номи аккаунти PUBG">
+
+            <label class="velox-account-label">
+                Суратҳои аккаунт
+            </label>
+
+            <input
+                id="velox-account-photos"
+                class="velox-account-upload"
+                type="file"
+                accept="image/*"
+                multiple
+                onchange="veloxPreviewAccountPhotos(event)">
+
+            <div class="velox-account-help">
+                То 5 сурат интихоб кунед. Суратҳо бояд маълумоти
+                аккаунтро равшан нишон диҳанд.
+            </div>
+
+            <div
+                id="velox-account-photo-grid"
+                class="velox-account-photo-grid">
+            </div>
+
+            <label class="velox-account-label">
+                Коллексия (20–100)
+            </label>
+
+            <input
+                id="velox-account-collection"
+                class="velox-account-input"
+                type="number"
+                min="20"
+                max="100"
+                placeholder="Масалан: 45">
+
+            <label class="velox-account-label">
+                Урвин (40–100)
+            </label>
+
+            <input
+                id="velox-account-urvin"
+                class="velox-account-input"
+                type="number"
+                min="40"
+                max="100"
+                placeholder="Масалан: 65">
+
+            <label class="velox-account-label">
+                Ба чӣ пайваст аст?
+            </label>
+
+            <select
+                id="velox-account-binding"
+                class="velox-account-input">
+
+                <option value="">Интихоб кунед</option>
+                <option value="Google">Google</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Apple">Apple ID</option>
+                <option value="Телефон">Телефон</option>
+                <option value="Дигар">Дигар</option>
+
+            </select>
+
+            <label class="velox-account-label">
+                Маълумоти аккаунт
+            </label>
+
+            <textarea
+                id="velox-account-description"
+                class="velox-account-input velox-account-textarea"
+                maxlength="140"
+                placeholder="Маълумоти аккаунт, скинҳо ва дигар чизҳо..."></textarea>
+
+            <div class="velox-account-help">
+                Максимум 140 аломат.
+            </div>
+
+            <label class="velox-account-label">
+                Нарх (TJS)
+            </label>
+
+            <input
+                id="velox-account-price"
+                class="velox-account-input"
+                type="number"
+                min="1"
+                step="1"
+                placeholder="Нархро бо сомонӣ нависед">
+
+            <div
+                id="velox-account-error"
+                class="velox-account-error">
+            </div>
+
+            <div
+                id="velox-account-success"
+                class="velox-account-success">
+            </div>
+
+            <button
+                class="velox-account-submit"
+                onclick="veloxSubmitAccount()">
+                ФИРИСТОДАН БА АДМИН
+            </button>
+
+            <button
+                class="velox-account-cancel"
+                onclick="veloxToggleAccountForm(false)">
+                БЕКОР КАРДАН
+            </button>
+
+        </div>
+
+        <!-- PUBLIC LISTINGS -->
+
+        <div style="font-size:17px;font-weight:900;margin:22px 0 13px">
+            АККАУНТҲО
+        </div>
+
+        <div id="velox-account-list" class="velox-account-list"></div>
+
+        <div
+            id="velox-account-empty"
+            class="velox-account-empty"
+            style="display:none">
+
+            <strong>Ҳоло аккаунт нест</strong>
+
+            Дар ин ҷо аккаунтҳои тасдиқшуда пайдо мешаванд.
+            Аккаунти худро пешниҳод кунед, то админ онро тафтиш кунад.
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+/* =========================================
+   VELOX ACCOUNT MARKET — PART 4
+   ========================================= */
+
+let veloxAccountPhotoFiles = [];
+let veloxAccountPhotoData = [];
+
+function veloxToggleAccountForm(forceState) {
+    const form = document.getElementById('velox-account-form');
+
+    const shouldOpen =
+        typeof forceState === 'boolean'
+            ? forceState
+            : !form.classList.contains('open');
+
+    form.classList.toggle('open', shouldOpen);
+
+    if (shouldOpen) {
+        form.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+function veloxAccountError(message) {
+    const error = document.getElementById('velox-account-error');
+
+    error.textContent = message;
+    error.style.display = 'block';
+
+    document.getElementById('velox-account-success').style.display =
+        'none';
+}
+
+function veloxAccountSuccess(message) {
+    const success = document.getElementById('velox-account-success');
+
+    success.textContent = message;
+    success.style.display = 'block';
+
+    document.getElementById('velox-account-error').style.display =
+        'none';
+}
+
+function veloxPreviewAccountPhotos(event) {
+    const files = Array.from(event.target.files || []);
+
+    if (files.length > 5) {
+        veloxAccountError('Шумо метавонед то 5 сурат интихоб кунед.');
+        event.target.value = '';
+        return;
+    }
+
+    for (const file of files) {
+        if (!file.type.startsWith('image/')) {
+            veloxAccountError('Танҳо суратҳоро интихоб кунед.');
+            event.target.value = '';
+            return;
+        }
+
+        if (file.size > 4 * 1024 * 1024) {
+            veloxAccountError(
+                'Ҳар як сурат бояд аз 4 MB зиёд набошад.'
+            );
+            event.target.value = '';
+            return;
+        }
+    }
+
+    veloxAccountPhotoFiles = files;
+    veloxAccountPhotoData = [];
+
+    const grid = document.getElementById(
+        'velox-account-photo-grid'
+    );
+
+    grid.innerHTML = '';
+
+    if (files.length === 0) return;
+
+    let loaded = 0;
+
+    files.forEach((file, index) => {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            veloxAccountPhotoData[index] = e.target.result;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'velox-account-photo';
+
+            const image = document.createElement('img');
+            image.src = e.target.result;
+            image.alt = 'Аккаунт ' + (index + 1);
+
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.textContent = '×';
+            remove.setAttribute('aria-label', 'Нест кардани сурат');
+
+            remove.onclick = function() {
+                veloxAccountPhotoFiles.splice(index, 1);
+                veloxAccountPhotoData.splice(index, 1);
+                veloxRefreshAccountPhotoPreview();
+            };
+
+            wrapper.appendChild(image);
+            wrapper.appendChild(remove);
+
+            grid.appendChild(wrapper);
+
+            loaded++;
+
+            if (loaded === files.length) {
+                veloxAccountPhotoData =
+                    veloxAccountPhotoData.filter(Boolean);
+            }
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('velox-account-error').style.display =
+        'none';
+}
+
+function veloxRefreshAccountPhotoPreview() {
+    const grid = document.getElementById(
+        'velox-account-photo-grid'
+    );
+
+    grid.innerHTML = '';
+
+    veloxAccountPhotoData.forEach((src, index) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'velox-account-photo';
+
+        const image = document.createElement('img');
+        image.src = src;
+        image.alt = 'Аккаунт ' + (index + 1);
+
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.textContent = '×';
+
+        remove.onclick = function() {
+            veloxAccountPhotoFiles.splice(index, 1);
+            veloxAccountPhotoData.splice(index, 1);
+            veloxRefreshAccountPhotoPreview();
+        };
+
+        wrapper.appendChild(image);
+        wrapper.appendChild(remove);
+        grid.appendChild(wrapper);
+    });
+}
+
+function veloxSubmitAccount() {
+    const name = document.getElementById(
+        'velox-account-name'
+    ).value.trim();
+
+    const collection = Number(document.getElementById(
+        'velox-account-collection'
+    ).value);
+
+    const urvin = Number(document.getElementById(
+        'velox-account-urvin'
+    ).value);
+
+    const binding = document.getElementById(
+        'velox-account-binding'
+    ).value;
+
+    const description = document.getElementById(
+        'velox-account-description'
+    ).value.trim();
+
+    const price = Number(document.getElementById(
+        'velox-account-price'
+    ).value);
+
+    if (!name) {
+        veloxAccountError('Номи аккаунтро ворид кунед.');
+        return;
+    }
+
+    if (veloxAccountPhotoData.length === 0) {
+        veloxAccountError('Ақаллан як сурат интихоб кунед.');
+        return;
+    }
+
+    if (!Number.isInteger(collection) || collection < 20 || collection > 100) {
+        veloxAccountError(
+            'Коллексияи аккаунтатон бояд аз 20 боло бошад ва аз 100 зиёд набошад.'
+        );
+        return;
+    }
+
+    if (!Number.isInteger(urvin) || urvin < 40 || urvin > 100) {
+        veloxAccountError(
+            'Урвини шумо бояд аз 40 боло бошад ва аз 100 зиёд набошад.'
+        );
+        return;
+    }
+
+    if (!binding) {
+        veloxAccountError('Усули пайвастшавии аккаунтро интихоб кунед.');
+        return;
+    }
+
+    if (description.length > 140) {
+        veloxAccountError(
+            'Маълумоти аккаунт набояд аз 140 аломат зиёд бошад.'
+        );
+        return;
+    }
+
+    if (!Number.isFinite(price) || price <= 0) {
+        veloxAccountError('Нархи дурустро ворид кунед.');
+        return;
+    }
+
+    const listing = {
+        id: 'ACC-' + Date.now(),
+        name: name,
+        photos: veloxAccountPhotoData.slice(),
+        collection: collection,
+        urvin: urvin,
+        binding: binding,
+        description: description,
+        price: price,
+        status: 'pending',
+        createdAt: new Date().toISOString()
+    };
+
+    try {
+        const pendingListings = JSON.parse(
+            localStorage.getItem('velox_pending_accounts') || '[]'
+        );
+
+        pendingListings.unshift(listing);
+
+        localStorage.setItem(
+            'velox_pending_accounts',
+            JSON.stringify(pendingListings)
+        );
+
+        veloxAccountSuccess(
+            'Эълони шумо дар ин дастгоҳ сабт шуд. ' +
+            'Барои ба админ расидан ва нашр шудан, сервер бояд пайваст бошад.'
+        );
+
+        /*
+          Эълон фавран дар рӯйхати оммавӣ намоиш дода намешавад.
+          Танҳо эълони тасдиқшуда бояд нашр шавад.
+        */
+
+        document.getElementById('velox-account-name').value = '';
+        document.getElementById('velox-account-collection').value = '';
+        document.getElementById('velox-account-urvin').value = '';
+        document.getElementById('velox-account-binding').value = '';
+        document.getElementById('velox-account-description').value = '';
+        document.getElementById('velox-account-price').value = '';
+        document.getElementById('velox-account-photos').value = '';
+
+        document.getElementById('velox-account-photo-grid').innerHTML = '';
+
+        veloxAccountPhotoFiles = [];
+        veloxAccountPhotoData = [];
+
+    } catch (error) {
+        veloxAccountError(
+            'Эълонро нигоҳ дошта натавонистем. Аз нав кӯшиш кунед.'
+        );
+    }
+}
+
+function veloxRenderApprovedAccounts() {
+    const list = document.getElementById('velox-account-list');
+    const empty = document.getElementById('velox-account-empty');
+
+    list.innerHTML = '';
+
+    let accounts = [];
+
+    try {
+        accounts = JSON.parse(
+            localStorage.getItem('velox_approved_accounts') || '[]'
+        );
+
+        if (!Array.isArray(accounts)) accounts = [];
+    } catch (error) {
+        accounts = [];
+    }
+
+    accounts = accounts.filter(account => account.status === 'approved');
+
+    if (accounts.length === 0) {
+        empty.style.display = 'block';
+        return;
+    }
+
+    empty.style.display = 'none';
+
+    accounts.forEach(account => {
+        const card = document.createElement('div');
+        card.className = 'velox-account-card';
+
+        const image = document.createElement('img');
+        image.src =
+            account.photos && account.photos.length
+                ? account.photos[0]
+                : '';
+
+        image.alt = account.name || 'PUBG Account';
+
+        const content = document.createElement('div');
+        content.className = 'velox-account-card-content';
+
+        const name = document.createElement('div');
+        name.className = 'velox-account-card-name';
+        name.textContent = account.name || 'PUBG Account';
+
+        const collection = document.createElement('div');
+        collection.className = 'velox-account-stat';
+        collection.textContent =
+            'Коллексия: ' + account.collection;
+
+        const urvin = document.createElement('div');
+        urvin.className = 'velox-account-stat';
+        urvin.textContent = 'Урвин: ' + account.urvin;
+
+        const price = document.createElement('div');
+        price.className = 'velox-account-card-price';
+        price.textContent =
+            Number(account.price).toLocaleString() + ' TJS';
+
+        const buy = document.createElement('button');
+        buy.className = 'velox-account-buy';
+ <!-- ========================================= -->
+<!-- VELOX UC SHOP — ҚИСМИ 5 -->
+<!-- X-COSTUME + SUPERCAR MARKET -->
+<!-- ========================================= -->
+
+<style>
+.velox-market-banner {
+    padding: 20px 16px;
+    border-radius: 18px;
+    border: 1px solid #9d7a2b;
+    background: linear-gradient(135deg, #302711, #151515 75%);
+    margin-bottom: 18px;
+}
+
+.velox-market-banner h2 {
+    color: #f2c94c;
+    font-size: 23px;
+    font-weight: 900;
+    margin: 0 0 8px;
+}
+
+.velox-market-banner p {
+    color: #bbb;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.velox-market-action {
+    width: 100%;
+    border: 0;
+    padding: 14px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f5d776, #b68a1e);
+    color: #111;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    margin-bottom: 16px;
+}
+
+.velox-market-form {
+    display: none;
+    padding: 16px;
+    border-radius: 16px;
+    background: #171717;
+    border: 1px solid #444;
+    margin-bottom: 20px;
+}
+
+.velox-market-form.open {
+    display: block;
+}
+
+.velox-market-form h3 {
+    color: #f2c94c;
+    font-size: 17px;
+    margin: 0 0 14px;
+}
+
+.velox-market-label {
+    display: block;
+    color: #ddd;
+    font-size: 12px;
+    margin: 14px 0 7px;
+}
+
+.velox-market-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    background: #101010;
+    color: white;
+    border: 1px solid #414141;
+    border-radius: 10px;
+    outline: none;
+    font-size: 13px;
+}
+
+.velox-market-input:focus {
+    border-color: #d6b345;
+}
+
+.velox-market-textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.velox-market-upload {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px;
+    color: #ddd;
+    background: #101010;
+    border: 1px dashed #9b7c34;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.velox-market-help {
+    color: #929292;
+    font-size: 11px;
+    line-height: 1.6;
+    margin-top: 7px;
+}
+
+.velox-market-preview {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.velox-market-preview-item {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border: 1px solid #444;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.velox-market-preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.velox-market-preview-item button {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    border: 0;
+    border-radius: 6px;
+    background: #111;
+    color: white;
+    padding: 4px 7px;
+    cursor: pointer;
+}
+
+.velox-market-submit {
+    width: 100%;
+    border: 0;
+    border-radius: 11px;
+    padding: 14px;
+    background: linear-gradient(135deg, #f5d776, #b68a1e);
+    color: #111;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+.velox-market-cancel {
+    width: 100%;
+    border: 1px solid #444;
+    border-radius: 11px;
+    padding: 12px;
+    background: #252525;
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 9px;
+}
+
+.velox-market-error {
+    display: none;
+    color: #ffb5b5;
+    background: #351818;
+    border: 1px solid #743939;
+    border-radius: 10px;
+    padding: 11px;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 12px;
+}
+
+.velox-market-success {
+    display: none;
+    color: #b7f5c0;
+    background: #17301e;
+    border: 1px solid #376b42;
+    border-radius: 10px;
+    padding: 11px;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 12px;
+}
+
+.velox-market-section-title {
+    font-size: 17px;
+    font-weight: 900;
+    color: white;
+    margin: 22px 0 12px;
+}
+
+.velox-market-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.velox-market-card {
+    background: linear-gradient(145deg, #202020, #101010);
+    border: 1px solid #393939;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.velox-market-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #242424;
+    display: block;
+}
+
+.velox-market-card-content {
+    padding: 11px;
+}
+
+.velox-market-card-name {
+    font-size: 13px;
+    font-weight: 900;
+    color: white;
+    overflow-wrap: anywhere;
+    margin-bottom: 8px;
+}
+
+.velox-market-card-details {
+    font-size: 11px;
+    color: #aaa;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.velox-market-card-price {
+    font-size: 17px;
+    font-weight: 900;
+    color: #f2c94c;
+    margin: 12px 0;
+}
+
+.velox-market-buy {
+    width: 100%;
+    border: 0;
+    border-radius: 9px;
+    padding: 10px 5px;
+    background: #e5bd48;
+    color: #111;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.velox-market-empty {
+    background: #171717;
+    border: 1px dashed #494949;
+    border-radius: 15px;
+    text-align: center;
+    padding: 25px 14px;
+    color: #999;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.velox-market-empty strong {
+    display: block;
+    color: #f2c94c;
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+</style>
+
+<!-- ========================================= -->
+<!-- X-COSTUME PAGE -->
+<!-- ========================================= -->
+
+<section id="velox-x-costume" class="velox-section">
+
+    <button class="velox-back" onclick="veloxShowPage('home')">
+        ← Бозгашт
+    </button>
+
+    <div class="velox-market-banner">
+        <h2>X-COSTUME</h2>
+        <p>
+            Костюмҳои махсуси PUBG Mobile.
+            Эълонҳои фурӯшандаҳо баъди тасдиқи админ нашр мешаванд.
+        </p>
+    </div>
+
+    <button class="velox-market-action"
+            onclick="veloxToggleMarketForm('x-costume')">
+        + ИЛОВА КАРДАНИ X-COSTUME
+    </button>
+
+    <div id="velox-x-costume-form" class="velox-market-form">
+
+        <h3>Фурӯши X-COSTUME</h3>
+
+        <label class="velox-market-label">Номи костюм</label>
+        <input id="velox-x-name"
+               class="velox-market-input"
+               maxlength="60"
+               placeholder="Номи X-COSTUME">
+
+        <label class="velox-market-label">Суратҳо</label>
+        <input id="velox-x-photos"
+               class="velox-market-upload"
+               type="file"
+               accept="image/*"
+               multiple
+               onchange="veloxPreviewMarketPhotos(event,'x')">
+
+        <div class="velox-market-help">
+            То 5 сурат, ҳар кадом то 4 MB.
+        </div>
+
+        <div id="velox-x-preview" class="velox-market-preview"></div>
+
+        <label class="velox-market-label">Маълумот</label>
+        <textarea id="velox-x-description"
+                  class="velox-market-input velox-market-textarea"
+                  maxlength="140"
+                  placeholder="Маълумоти костюм..."></textarea>
+
+        <label class="velox-market-label">Миқдор</label>
+        <input id="velox-x-quantity"
+               class="velox-market-input"
+               type="number"
+               min="1"
+               step="1"
+               value="1">
+
+        <label class="velox-market-label">Нарх барои як адад (TJS)</label>
+        <input id="velox-x-price"
+               class="velox-market-input"
+               type="number"
+               min="1"
+               step="1"
+               placeholder="Нарх бо сомонӣ">
+
+        <div id="velox-x-error" class="velox-market-error"></div>
+        <div id="velox-x-success" class="velox-market-success"></div>
+
+        <button class="velox-market-submit"
+                onclick="veloxSubmitMarketListing('x')">
+            ФИРИСТОДАН БА АДМИН
+        </button>
+
+        <button class="velox-market-cancel"
+                onclick="veloxToggleMarketForm('x-costume',false)">
+            БЕКОР КАРДАН
+        </button>
+    </div>
+
+    <div class="velox-market-section-title">X-COSTUME — ЭЪЛОНҲО</div>
+
+    <div id="velox-x-list" class="velox-market-grid"></div>
+
+    <div id="velox-x-empty" class="velox-market-empty">
+        <strong>Ҳоло X-COSTUME нест</strong>
+        Эълонҳои тасдиқшуда дар ин ҷо пайдо мешаванд.
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- SUPERCAR PAGE -->
+<!-- ========================================= -->
+
+<section id="velox-supercar" class="velox-section">
+
+    <button class="velox-back" onclick="veloxShowPage('home')">
+        ← Бозгашт
+    </button>
+
+    <div class="velox-market-banner">
+        <h2>SUPERCAR</h2>
+        <p>
+            Car Token ва пешниҳодҳои мошинҳои PUBG Mobile.
+            Фурӯшанда метавонад сурат, маълумот ва нархро илова кунад.
+        </p>
+    </div>
+
+    <button class="velox-market-action"
+            onclick="veloxToggleMarketForm('supercar')">
+        + ИЛОВА КАРДАНИ SUPERCAR
+    </button>
+
+    <div id="velox-supercar-form" class="velox-market-form">
+
+        <h3>Фурӯши SUPERCAR</h3>
+
+        <label class="velox-market-label">Номи маҳсулот</label>
+        <input id="velox-car-name"
+               class="velox-market-input"
+               maxlength="60"
+               placeholder="Масалан: Car Token">
+
+        <label class="velox-market-label">Суратҳо</label>
+        <input id="velox-car-photos"
+               class="velox-market-upload"
+               type="file"
+               accept="image/*"
+               multiple
+               onchange="veloxPreviewMarketPhotos(event,'car')">
+
+        <div class="velox-market-help">
+            То 5 сурат, ҳар кадом то 4 MB.
+        </div>
+
+        <div id="velox-car-preview" class="velox-market-preview"></div>
+
+        <label class="velox-market-label">Маълумот</label>
+        <textarea id="velox-car-description"
+                  class="velox-market-input velox-market-textarea"
+                  maxlength="140"
+                  placeholder="Маълумоти маҳсулот..."></textarea>
+
+        <label class="velox-market-label">Миқдор</label>
+        <input id="velox-car-quantity"
+               class="velox-market-input"
+               type="number"
+               min="1"
+               step="1"
+               value="1">
+
+        <label class="velox-market-label">Нарх барои як адад (TJS)</label>
+        <input id="velox-car-price"
+               class="velox-market-input"
+               type="number"
+               min="1"
+               step="1"
+               placeholder="Нарх бо сомонӣ">
+
+        <div id="velox-car-error" class="velox-market-error"></div>
+        <div id="velox-car-success" class="velox-market-success"></div>
+
+        <button class="velox-market-submit"
+                onclick="veloxSubmitMarketListing('car')">
+            ФИРИСТОДАН БА АДМИН
+        </button>
+
+        <button class="velox-market-cancel"
+                onclick="veloxToggleMarketForm('supercar',false)">
+            БЕКОР КАРДАН
+        </button>
+    </div>
+
+    <div class="velox-market-section-title">SUPERCAR — ЭЪЛОНҲО</div>
+
+    <div id="velox-car-list" class="velox-market-grid"></div>
+
+    <div id="velox-car-empty" class="velox-market-empty">
+        <strong>Ҳоло маҳсулот нест</strong>
+        Эълонҳои тасдиқшуда дар ин ҷо пайдо мешаванд.
+    </div>
+
+</section>
+
+<script>
+/* =========================================
+   VELOX X-COSTUME + SUPERCAR FUNCTIONS
+   ========================================= */
+
+const veloxMarketPhotos = {
+    x: [],
+    car: []
+};
+
+function veloxToggleMarketForm(type, forceState) {
+    let formID;
+
+    if (type === 'x-costume') {
+        formID = 'velox-x-costume-form';
+    } else if (type === 'supercar') {
+        formID = 'velox-supercar-form';
+    } else {
+        return;
+    }
+
+    const form = document.getElementById(formID);
+
+    const shouldOpen = typeof forceState === 'boolean'
+        ? forceState
+        : !form.classList.contains('open');
+
+    form.classList.toggle('open', shouldOpen);
+
+    if (shouldOpen) {
+        form.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+function veloxMarketShowError(type, message) {
+    const prefix = type === 'x' ? 'velox-x' : 'velox-car';
+
+    const error = document.getElementById(prefix + '-error');
+    const success = document.getElementById(prefix + '-success');
+
+    error.textContent = message;
+    error.style.display = 'block';
+    success.style.display = 'none';
+}
+
+function veloxMarketShowSuccess(type, message) {
+    const prefix = type === 'x' ? 'velox-x' : 'velox-car';
+
+    const success = document.getElementById(prefix + '-success');
+    const error = document.getElementById(prefix + '-error');
+
+    success.textContent = message;
+    success.style.display = 'block';
+    error.style.display = 'none';
+}
+
+function veloxPreviewMarketPhotos(event, type) {
+    const files = Array.from(event.target.files || []);
+
+    if (files.length > 5) {
+        veloxMarketShowError(type, 'То 5 сурат интихоб кунед.');
+        event.target.value = '';
+        return;
+    }
+
+    for (const file of files) {
+        if (!file.type.startsWith('image/')) {
+            veloxMarketShowError(type, 'Танҳо суратҳоро интихоб кунед.');
+            event.target.value = '';
+            return;
+        }
+
+        if (file.size > 4 * 1024 * 1024) {
+            veloxMarketShowError(
+                type,
+                'Ҳар як сурат бояд аз 4 MB зиёд набошад.'
+            );
+            event.target.value = '';
+            return;
+        }
+    }
+
+    veloxMarketPhotos[type] = [];
+
+    const previewID = type === 'x'
+        ? 'velox-x-preview'
+        : 'velox-car-preview';
+
+    const preview = document.getElementById(previewID);
+    preview.innerHTML = '';
+
+    let completed = 0;
+
+    files.forEach((file, index) => {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            veloxMarketPhotos[type][index] = e.target.result;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'velox-market-preview-item';
+
+            const image = document.createElement('img');
+            image.src = e.target.result;
+            image.alt = 'Сурати маҳсулот';
+
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.textContent = '×';
+
+            remove.onclick = function() {
+                veloxMarketPhotos[type].splice(index, 1);
+                veloxRenderMarketPhotoPreview(type);
+            };
+
+            wrapper.appendChild(image);
+            wrapper.appendChild(remove);
+            preview.appendChild(wrapper);
+
+            completed++;
+
+            if (completed === files.length) {
+                veloxMarketPhotos[type] =
+                    veloxMarketPhotos[type].filter(Boolean);
+            }
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+function veloxRenderMarketPhotoPreview(type) {
+    const previewID = type === 'x'
+        ? 'velox-x-preview'
+        : 'velox-car-preview';
+
+    const preview = document.getElementById(previewID);
+    preview.innerHTML = '';
+
+    veloxMarketPhotos[type].forEach((src, index) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'velox-market-preview-item';
+
+        const image = document.createElement('img');
+        image.src = src;
+        image.alt = 'Сурати маҳсулот';
+
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.textContent = '×';
+
+        remove.onclick = function() {
+            veloxMarketPhotos[type].splice(index, 1);
+            veloxRenderMarketPhotoPreview(type);
+        };
+
+        wrapper.appendChild(image);
+        wrapper.appendChild(remove);
+        preview.appendChild(wrapper);
+    });
+}
+
+function veloxSubmitMarketListing(type) {
+    const isX = type === 'x';
+
+    const prefix = isX ? 'velox-x' : 'velox-car';
+    const category = isX ? 'X-COSTUME' : 'SUPERCAR';
+
+    const name = document.getElementById(prefix + '-name')
+        .value.trim();
+
+    const description = document.getElementById(prefix + '-description')
+        .value.trim();
+
+    const quantity = Number(document.getElementById(prefix + '-quantity')
+        .value);
+
+    const price = Number(document.getElementById(prefix + '-price')
+        .value);
+
+    const photos = veloxMarketPhotos[type] || [];
+
+    if (!name) {
+        veloxMarketShowError(type, 'Номи маҳсулотро ворид кунед.');
+        return;
+    }
+
+    if (photos.length === 0) {
+        veloxMarketShowError(type, 'Ақаллан як сурат интихоб кунед.');
+        return;
+    }
+
+    if (!Number.isInteger(quantity) || quantity < 1) {
+        veloxMarketShowError(type, 'Миқдор бояд ҳадди ақал 1 бошад.');
+        return;
+    }
+
+    if (!Number.isFinite(price) || price <= 0) {
+        veloxMarketShowError(type, 'Нархи дурустро ворид кунед.');
+        return;
+    }
+
+    if (description.length > 140) {
+        veloxMarketShowError(
+            type,
+            'Маълумот набояд аз 140 аломат зиёд бошад.'
+        );
+        return;
+    }
+
+    const listing = {
+        id: 'VX-' + category.replace(/[^A-Z]/g, '') + '-' + Date.now(),
+        category: category,
+        name: name,
+        description: description,
+        quantity: quantity,
+        price: price,
+        photos: photos.slice(),
+        status: 'pending',
+        createdAt: new Date().toISOString()
+    };
+
+    const storageKey = isX
+        ? 'velox_pending_x_costumes'
+        : 'velox_pending_supercars';
+
+    try {
+        const listings = JSON.parse(
+            localStorage.getItem(storageKey) || '[]'
+        );
+
+        if (!Array.isArray(listings)) {
+            throw new Error('Invalid listing data');
+        }
+
+        listings.unshift(listing);
+
+        localStorage.setItem(storageKey, JSON.stringify(listings));
+
+        veloxMarketShowSuccess(
+            type,
+            'Эълон сабт шуд. Барои нашр бояд админ онро тасдиқ кунад. ' +
+            'Ҳоло эълон ба Telegram фиристода нашуд, зеро сервер пайваст нест.'
+        );
+
+        document.getElementById(prefix + '-name').value = '';
+        document.getElementById(prefix + '-description').value = '';
+        document.getElementById(prefix + '-quantity').value = '1';
+        document.getElementById(prefix + '-price').value = '';
+
+        document.getElementById(
+            isX ? 'velox-x-photos' : 'velox-car-photos'
+        ).value = '';
+
+        document.getElementById(
+            isX ? 'velox-x-preview' : 'velox-car-preview'
+        ).innerHTML = '';
+
+        veloxMarketPhotos[type] = [];
+
+    } catch (error) {
+        veloxMarketShowError(
+            type,
+            'Эълон сабт нашуд. Аз нав кӯшиш кунед.'
+        );
+    }
+}
+
+function veloxRenderMarketListings(type) {
+    const isX = type === 'x';
+
+    const storageKey = isX
+        ? 'velox_approved_x_costumes'
+        : 'velox_approved_supercars';
+
+    const listID = isX ? 'velox-x-list' : 'velox-car-list';
+    const emptyID = isX ? 'velox-x-empty' : 'velox-car-empty';
+
+    const list = document.getElementById(listID);
+    const empty = document.getElementById(emptyID);
+
+    if (!list || !empty) return;
+
+    list.innerHTML = '';
+
+    let listings = [];
+
+    try {
+        listings = JSON.parse(localStorage.getItem(storageKey) || '[]');
+
+        if (!Array.isArray(listings)) listings = [];
+    } catch (error) {
+        listings = [];
+    }
+
+    listings = listings.filter(item => item.status === 'approved');
+
+    if (listings.length === 0) {
+        empty.style.display = 'block';
+        return;
+    }
+
+    empty.style.display = 'none';
+
+    listings.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'velox-market-card';
+
+        const image = document.createElement('img');
+        image.src = item.photos && item.photos.length
+            ? item.photos[0]
+            : '';
+        image.alt = item.name || 'Маҳсулот';
+
+        const content = document.createElement('div');
+        content.className = 'velox-market-card-content';
+
+        const name = document.createElement('div');
+        name.className = 'velox-market-card-name';
+        name.textContent = item.name || 'Маҳсулот';
+
+        const details = document.createElement('div');
+        details.className = 'velox-market-card-details';
+        details.textContent =
+      <!-- ========================================= -->
+<!-- VELOX UC SHOP — ҚИСМИ 6 -->
+<!-- ORDERS + REVIEWS -->
+<!-- ========================================= -->
+
+<style>
+.velox-orders-wrap,
+.velox-reviews-wrap {
+    padding: 4px 0 20px;
+    color: #f5f5f5;
+}
+
+.velox-orders-banner,
+.velox-reviews-banner {
+    background: linear-gradient(135deg, #302711, #151515 75%);
+    border: 1px solid #9d7a2b;
+    border-radius: 18px;
+    padding: 19px 16px;
+    margin-bottom: 18px;
+}
+
+.velox-orders-banner h2,
+.velox-reviews-banner h2 {
+    color: #f2c94c;
+    font-size: 22px;
+    font-weight: 900;
+    margin: 0 0 8px;
+}
+
+.velox-orders-banner p,
+.velox-reviews-banner p {
+    color: #bbb;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.velox-order-card {
+    background: linear-gradient(145deg, #202020, #111);
+    border: 1px solid #393939;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+.velox-order-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 13px;
+}
+
+.velox-order-name {
+    color: white;
+    font-size: 14px;
+    font-weight: 900;
+    overflow-wrap: anywhere;
+}
+
+.velox-order-id {
+    color: #888;
+    font-size: 10px;
+    margin-top: 5px;
+    overflow-wrap: anywhere;
+}
+
+.velox-order-status {
+    flex-shrink: 0;
+    padding: 6px 8px;
+    border-radius: 7px;
+    background: #302817;
+    color: #f2c94c;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.velox-order-status.completed {
+    background: #17301e;
+    color: #a8eeb5;
+}
+
+.velox-order-status.cancelled {
+    background: #351818;
+    color: #ffb5b5;
+}
+
+.velox-order-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 9px 0;
+}
+
+.velox-order-label {
+    color: #999;
+    font-size: 12px;
+}
+
+.velox-order-value {
+    color: #eee;
+    font-size: 12px;
+    font-weight: 800;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.velox-order-price {
+    color: #f2c94c;
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.velox-order-divider {
+    height: 1px;
+    background: #333;
+    margin: 13px 0;
+}
+
+.velox-order-review-button {
+    width: 100%;
+    padding: 12px;
+    border: 0;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f5d776, #b68a1e);
+    color: #111;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.velox-order-pay-button {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d2ad42;
+    border-radius: 10px;
+    background: #252014;
+    color: #f2c94c;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.velox-history-empty {
+    background: #171717;
+    border: 1px dashed #494949;
+    border-radius: 15px;
+    padding: 28px 15px;
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.velox-history-empty strong {
+    display: block;
+    color: #f2c94c;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.velox-review-form {
+    background: #171717;
+    border: 1px solid #414141;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.velox-review-form h3 {
+    margin: 0 0 12px;
+    font-size: 16px;
+    color: #f2c94c;
+}
+
+.velox-review-label {
+    display: block;
+    color: #ddd;
+    font-size: 12px;
+    margin: 14px 0 7px;
+}
+
+.velox-review-input {
+    width: 100%;
+    box-sizing: border-box;
+    background: #101010;
+    border: 1px solid #414141;
+    color: white;
+    border-radius: 10px;
+    padding: 12px;
+    outline: none;
+    font-size: 13px;
+}
+
+.velox-review-input:focus {
+    border-color: #d6b345;
+}
+
+.velox-review-stars {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.velox-review-star {
+    border: 1px solid #454545;
+    background: #222;
+    color: #777;
+    border-radius: 10px;
+    width: 45px;
+    height: 43px;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+.velox-review-star.active {
+    color: #f2c94c;
+    border-color: #b99634;
+    background: #302817;
+}
+
+.velox-review-submit {
+    width: 100%;
+    padding: 13px;
+    border: 0;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f5d776, #b68a1e);
+    color: #111;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.velox-review-message {
+    display: none;
+    border-radius: 10px;
+    padding: 11px;
+    font-size: 12px;
+    line-height: 1.7;
+    margin-top: 12px;
+}
+
+.velox-review-message.error {
+    display: block;
+    color: #ffb5b5;
+    background: #351818;
+    border: 1px solid #743939;
+}
+
+.velox-review-message.success {
+    display: block;
+    color: #b7f5c0;
+    background: #17301e;
+    border: 1px solid #376b42;
+}
+
+.velox-review-card {
+    background: linear-gradient(145deg, #202020, #111);
+    border: 1px solid #393939;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+.velox-review-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.velox-review-user {
+    font-size: 13px;
+    font-weight: 900;
+    color: #fff;
+}
+
+.velox-review-date {
+    color: #888;
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+.velox-review-stars-display {
+    color: #f2c94c;
+    font-size: 16px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.velox-review-text {
+    font-size: 12px;
+    color: #ccc;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    margin-top: 12px;
+}
+
+.velox-review-count {
+    color: #f2c94c;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+</style>
+
+<!-- ========================================= -->
+<!-- ORDERS PAGE -->
+<!-- ========================================= -->
+
+<section id="velox-orders" class="velox-section">
+
+    <button class="velox-back" onclick="veloxShowPage('home')">
+        ← Бозгашт
+    </button>
+
+    <div class="velox-orders-wrap">
+
+        <div class="velox-orders-banner">
+            <h2>МОИ ЗАКАЗЫ</h2>
+            <p>
+                Таърихи харид, маблағ ва ҳолати фармоишҳои худро бинед.
+            </p>
+        </div>
+
+        <div id="velox-orders-list"></div>
+
+        <div id="velox-orders-empty" class="velox-history-empty">
+            <strong>Ҳоло фармоиш нест</strong>
+            Баъди харид фармоишҳои шумо дар ин ҷо пайдо мешаванд.
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- REVIEWS PAGE -->
+<!-- ========================================= -->
+
+<section id="velox-reviews" class="velox-section">
+
+    <button class="velox-back" onclick="veloxShowPage('home')">
+        ← Бозгашт
+    </button>
+
+    <div class="velox-reviews-wrap">
+
+        <div class="velox-reviews-banner">
+            <h2>ОТЗЫВЫ</h2>
+            <p>
+                Назари худро дар бораи хизматрасонии VELOX UC SHOP нависед.
+                Отзывҳо баъди тасдиқи админ нашр мешаванд.
+            </p>
+        </div>
+
+        <div class="velox-review-form">
+
+            <h3>Оставить отзыв</h3>
+
+            <label class="velox-review-label">
+                Фармоиши анҷомёфта
+            </label>
+
+            <select id="velox-review-order"
+                    class="velox-review-input">
+                <option value="">Фармоишро интихоб кунед</option>
+            </select>
+
+            <label class="velox-review-label">
+                Баҳо
+            </label>
+
+            <div class="velox-review-stars" id="velox-review-stars">
+                <button type="button" class="velox-review-star"
+                        data-rating="1" aria-label="1 ситора">★</button>
+                <button type="button" class="velox-review-star"
+                        data-rating="2" aria-label="2 ситора">★</button>
+                <button type="button" class="velox-review-star"
+                        data-rating="3" aria-label="3 ситора">★</button>
+                <button type="button" class="velox-review-star"
+                        data-rating="4" aria-label="4 ситора">★</button>
+                <button type="button" class="velox-review-star"
+                        data-rating="5" aria-label="5 ситора">★</button>
+            </div>
+
+            <div id="velox-review-rating-label"
+                 style="color:#999;font-size:11px">
+                Баҳо интихоб нашудааст
+            </div>
+
+            <label class="velox-review-label">
+                Матни отзыв
+            </label>
+
+            <textarea
+                id="velox-review-text"
+                class="velox-review-input"
+                rows="4"
+                maxlength="300"
+                placeholder="Назари худро нависед..."></textarea>
+
+            <div style="color:#888;font-size:11px;margin-top:6px">
+                Максимум 50 калима.
+            </div>
+
+            <div id="velox-review-message"
+                 class="velox-review-message"></div>
+
+            <button class="velox-review-submit"
+                    onclick="veloxSubmitReview()">
+                ФИРИСТОДАНИ ОТЗЫВ
+            </button>
+
+        </div>
+
+        <div style="font-size:17px;font-weight:900;margin:22px 0 12px">
+            ОТЗЫВҲОИ КЛИЕНТҲО
+        </div>
+
+        <div id="velox-review-count" class="velox-review-count">
+            0 отзыв
+        </div>
+
+        <div id="velox-reviews-list"></div>
+
+        <div id="velox-reviews-empty" class="velox-history-empty">
+            <strong>Ҳоло отзыв нест</strong>
+            Отзывҳои тасдиқшуда дар ин ҷо пайдо мешаванд.
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+/* =========================================
+   VELOX ORDERS + REVIEWS FUNCTIONS
+   ========================================= */
+
+let veloxReviewSelectedRating = 0;
+
+function veloxGetStoredArray(key) {
+    try {
+        const value = JSON.parse(localStorage.getItem(key) || '[]');
+        return Array.isArray(value) ? value : [];
+    } catch (error) {
+        return [];
+    }
+}
+
+function veloxSetStoredArray(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
+/* -----------------------------------------
+   ORDERS HISTORY
+----------------------------------------- */
+
+function veloxRenderOrders() {
+    const list = document.getElementById('velox-orders-list');
+    const empty = document.getElementById('velox-orders-empty');
+
+    if (!list || !empty) return;
+
+    list.innerHTML = '';
+
+    const orders = veloxGetStoredArray('velox_orders');
+
+    if (orders.length === 0) {
+        empty.style.display = 'block';
+        return;
+    }
+
+    empty.style.display = 'none';
+
+    orders.forEach(order => {
+        const card = document.createElement('div');
+        card.className = 'velox-order-card';
+
+        const top = document.createElement('div');
+        top.className = 'velox-order-top';
+
+        const titleWrap = document.createElement('div');
+
+        const name = document.createElement('div');
+        name.className = 'velox-order-name';
+        name.textContent = order.product || 'Маҳсулот';
+
+        const id = document.createElement('div');
+        id.className = 'velox-order-id';
+        id.textContent = 'ID: ' + (order.id || '—');
+
+        titleWrap.appendChild(name);
+        titleWrap.appendChild(id);
+
+        const status = document.createElement('span');
+        status.className = 'velox-order-status';
+
+        const orderStatus = String(order.status || 'Интизорӣ');
+        status.textContent = orderStatus;
+
+        if (/completed|анҷом|выполнен/i.test(orderStatus)) {
+            status.classList.add('completed');
+        }
+
+        if (/cancelled|бекор|отмен/i.test(orderStatus)) {
+            status.classList.add('cancelled');
+        }
+
+        top.appendChild(titleWrap);
+        top.appendChild(status);
+
+        const quantity = document.createElement('div');
+        quantity.className = 'velox-order-info';
+
+        const quantityLabel = document.createElement('span');
+        quantityLabel.className = 'velox-order-label';
+        quantityLabel.textContent = 'Миқдор';
+
+        const quantityValue = document.createElement('span');
+        quantityValue.className = 'velox-order-value';
+        quantityValue.textContent =
+            (order.quantity || 1) +
+            (order.totalUC ? ' · ' + order.totalUC + ' UC' : '');
+
+        quantity.appendChild(quantityLabel);
+        quantity.appendChild(quantityValue);
+
+        const date = document.createElement('div');
+        date.className = 'velox-order-info';
+
+        const dateLabel = document.createElement('span');
+        dateLabel.className = 'velox-order-label';
+        dateLabel.textContent = 'Сана';
+
+        const dateValue = document.createElement('span');
+        dateValue.className = 'velox-order-value';
+        dateValue.textContent = order.date || '—';
+
+        date.appendChild(dateLabel);
+        date.appendChild(dateValue);
+
+        const divider = document.createElement('div');
+        divider.className = 'velox-order-divider';
+
+        const price = document.createElement('div');
+        price.className = 'velox-order-price';
+        price.textContent =
+            Number(order.price || 0).toLocaleString() + ' TJS';
+
+        card.appendChild(top);
+        card.appendChild(quantity);
+        card.appendChild(date);
+        card.appendChild(divider);
+        card.appendChild(price);
+
+        const isCompleted =
+            /completed|анҷом|выполнен/i.test(orderStatus);
+
+        if (isCompleted) {
+            const reviewButton = document.createElement('button');
+            reviewButton.className = 'velox-order-review-button';
+            reviewButton.textContent = 'ОТЗЫВИ ХУДРО МОНЕД';
+
+            reviewButton.onclick = function() {
+                veloxOpenReviewForOrder(order.id);
+            };
+
+            card.appendChild(reviewButton);
+        } else {
+            const payButton = document.createElement('button');
+            payButton.className = 'velox-order-pay-button';
+            payButton.textContent = 'МАЪЛУМОТИ ПАРДОХТ';
+
+            payButton.onclick = function() {
+                alert(
+                    'Фармоиш: ' + order.id +
+                    '\nҲолат: ' + orderStatus +
+                    '\n\nҲолати воқеии пардохт бояд аз сервер гирифта шавад.'
+                );
+            };
+
+            card.appendChild(payButton);
+        }
+
+        list.appendChild(card);
+    });
+}
+
+/* -----------------------------------------
+   REVIEW STAR SELECTOR
+----------------------------------------- */
+
+function veloxSetReviewRating(rating) {
+    veloxReviewSelectedRating = rating;
+
+    document.querySelectorAll('.velox-review-star').forEach(button => {
+        const value = Number(button.dataset.rating);
+        button.classList.toggle('active', value <= rating);
+    });
+
+    const label = document.getElementById('velox-review-rating-label');
+
+    label.textContent = rating + ' аз 5 ситора';
+}
+
+document.querySelectorAll('.velox-review-star').forEach(button => {
+    button.addEventListener('click', function() {
+        veloxSetReviewRating(Number(this.dataset.rating));
+    });
+});
+
+/* -----------------------------------------
+   AVAILABLE COMPLETED ORDERS
+----------------------------------------- */
+
+function veloxRenderReviewOrderOptions() {
+    const select = document.getElementById('velox-review-order');
+
+    if (!select) return;
+
+    select.innerHTML = '';
+
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Фармоишро интихоб кунед';
+
+    select.appendChild(placeholder);
+
+    const orders = veloxGetStoredArray('velox_orders');
+
+    const reviews = veloxGetStoredArray('velox_pending_reviews')
+        .concat(veloxGetStoredArray('velox_approved_reviews'));
+
+    orders
+        .filter(order =>
+            /completed|анҷом|выполнен/i.test(String(order.status || ''))
+        )
+        .forEach(order => {
+            const alreadyReviewed = reviews.some(review =>
+                review.orderId === order.id
+            );
+
+            if (alreadyReviewed) return;
+
+            const option = document.createElement('option');
+            option.value = order.id;
+            option.textContent =
+                (order.product || 'Маҳсулот') +
+                ' — ' + order.id;
+
+            select.appendChild(option);
+        });
+}
+
+function veloxOpenReviewForOrder(orderID) {
+    veloxShowPage('reviews');
+
+    veloxRenderReviewOrderOptions();
+
+    const select = document.getElementById('velox-review-order');
+
+    if (select) {
+        select.value = orderID;
+    }
+
+    document.getElementById('velox-review-text').focus();
+}
+
+/* -----------------------------------------
+   SUBMIT REVIEW
+----------------------------------------- */
+
+function veloxSubmitReview() {
+    const orderID = document.getElementById(
+        'velox-review-order'
+    ).value;
+
+    const text = document.getElementById(
+        'velox-review-text'
+    ).value.trim();
+
+    const message = document.getElementById(
+        'velox-review-message'
+    );
+
+    message.className = 'velox-review-message';
+    message.textContent = '';
+
+    function showError(text) {
+        message.textContent = text;
+        message.className = 'velox-review-message error';
+    }
+
+    if (!orderID) {
+        showError(
+            'Барои гузоштани отзыв фармоиши анҷомёфтаро интихоб кунед.'
+        );
+        return;
+    }
+
+    if (veloxReviewSelectedRating < 1 ||
+        veloxReviewSelectedRating > 5) {
+        showError('Аз 1 то 5 ситора интихоб кунед.');
+        return;
+    }
+
+    if (!text) {
+        showError('Матни отзывро нависед.');
+        return;
+    }
+
+    const words = text.split(/\s+/).filter(Boolean);
+
+    if (words.length > 50) {
+        showError('Отзыв набояд аз 50 калима зиёд бошад.');
+        return;
+    }
+
+    const orders = veloxGetStoredArray('velox_orders');
+
+    const order = orders.find(item => item.id === orderID);
+
+    if (!order ||
+        !/completed|анҷом|выполнен/i.test(String(order.status || ''))) {
+        showError('Танҳо барои фармоиши анҷомёфта отзыв гузоштан мумкин аст.');
+        return;
+    }
+
+    const pendingReviews = veloxGetStoredArray('velox_pending_reviews');
+
+    const approvedReviews = veloxGetStoredArray('velox_approved_reviews');
+
+    const alreadyReviewed = pendingReviews
+        .concat(approvedReviews)
+        .some(review => review.orderId === orderID);
+
+    if (alreadyReviewed) {
+        showError('Барои ин фармоиш шумо аллакай отзыв фиристодаед.');
+        return;
+    }
+
+    const review = {
+        id: 'REV-' + Date.now(),
+        orderId: orderID,
+        product: order.product || 'Маҳсулот',
+        rating: veloxReviewSelectedRating,
+        text: text,
+        status: 'pending',
+        date: new Date().toLocaleDateString()
+    };
+
+    try {
+        pendingReviews.unshift(review);
+
+        veloxSetStoredArray(
+            'velox_pending_reviews',
+            pendingReviews
+        );
+
+        message.textContent =
+            'Отзыви шумо дар ин дастгоҳ сабт шуд ва барои тасдиқ омода аст. ' +
+            'Барои ба админ фиристодан сервер лозим аст.';
+
+        message.className = 'velox-review-message success';
+
+        document.getElementById('velox-review-text').value = '';
+
+        veloxReviewSelectedRating = 0;
+
+        document.querySelectorAll('.velox-review-star').forEach(button => {
+            button.classList.remove('active');
+        });
+
+        document.getElementById('velox-review-rating-label').textContent =
+            'Баҳо интихоб нашудааст';
+
+        veloxRenderReviewOrderOptions();
+
+    } catch (error) {
+        showError('Отзыв сабт нашуд. Аз нав кӯшиш кунед.');
+    }
+}
+
+/* -----------------------------------------
+   PUBLIC APPROVED REVIEWS
+----------------------------------------- */
+
+function veloxRenderReviews() {
+    const list = document.getElementById('velox-reviews-list');
+    const empty = document.getElementById('velox-reviews-empty');
+    const count = document.getElementById('velox-review-count');
+
+    if (!list || !empty || !count) return;
+
+    list.innerHTML = '';
+
+    let reviews = veloxGetStoredArray('velox_approved_reviews');
+
+    reviews = reviews.filter(r<!-- ====================================== -->
+<!-- VELOX UC SHOP — PART 7: USER PROFILE -->
+<!-- ====================================== -->
+
+<style>
+/* PROFILE */
+.velox-profile-page {
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 18px 14px 100px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.velox-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.velox-profile-back {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    border: 1px solid #393126;
+    background: #171512;
+    color: #e9bc50;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+.velox-profile-title {
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+
+.velox-profile-title span {
+    color: #e9bc50;
+}
+
+.velox-profile-card {
+    position: relative;
+    overflow: hidden;
+    padding: 25px 18px;
+    border-radius: 22px;
+    background: linear-gradient(145deg, #242016, #111111 65%);
+    border: 1px solid #685126;
+    box-shadow: 0 12px 35px #0007;
+}
+
+.velox-profile-card:before {
+    content: "";
+    position: absolute;
+    top: -65px;
+    right: -50px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: #d6a62c12;
+    pointer-events: none;
+}
+
+.velox-profile-main {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.velox-profile-avatar {
+    width: 76px;
+    height: 76px;
+    flex-shrink: 0;
+    border-radius: 23px;
+    object-fit: cover;
+    background: #29251c;
+    border: 2px solid #d6a62c;
+}
+
+.velox-profile-name {
+    font-size: 19px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.velox-profile-username {
+    color: #c5bda9;
+    font-size: 13px;
+    margin-top: 6px;
+    overflow-wrap: anywhere;
+}
+
+.velox-profile-badge {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 5px 9px;
+    border-radius: 7px;
+    background: #d6a62c18;
+    border: 1px solid #8b6a2c;
+    color: #e9bc50;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.velox-profile-divider {
+    height: 1px;
+    background: #ffffff12;
+    margin: 22px 0;
+}
+
+.velox-profile-id-label {
+    color: #a9a294;
+    font-size: 12px;
+}
+
+.velox-profile-id-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.velox-profile-id {
+    font-size: 15px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.velox-profile-copy {
+    padding: 8px 12px;
+    border-radius: 9px;
+    border: 1px solid #5c4926;
+    background: #211b10;
+    color: #e9bc50;
+    cursor: pointer;
+}
+
+.velox-balance-card {
+    margin-top: 16px;
+    padding: 20px;
+    border-radius: 20px;
+    background: linear-gradient(120deg, #d6a62c, #8b6419);
+    color: #14110a;
+}
+
+.velox-balance-label {
+    font-size: 12px;
+    font-weight: 700;
+    opacity: .8;
+}
+
+.velox-balance-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.velox-balance-amount {
+    font-size: 29px;
+    font-weight: 900;
+    overflow-wrap: anywhere;
+}
+
+.velox-balance-add {
+    border: none;
+    border-radius: 12px;
+    padding: 12px 16px;
+    background: #15130e;
+    color: #f2c75e;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.velox-profile-menu {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+    margin-top: 20px;
+}
+
+.velox-profile-menu-btn {
+    min-height: 94px;
+    padding: 16px 13px;
+    text-align: left;
+    color: #fff;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #1d1b17, #111111);
+    border: 1px solid #383126;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.velox-profile-menu-btn:active {
+    transform: scale(.97);
+    border-color: #d6a62c;
+}
+
+.velox-profile-menu-icon {
+    display: block;
+    color: #e9bc50;
+    font-size: 21px;
+    margin-bottom: 11px;
+    font-weight: 800;
+}
+
+.velox-profile-menu-name {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.velox-profile-menu-desc {
+    display: block;
+    margin-top: 5px;
+    color: #aaa397;
+    font-size: 11px;
+}
+
+.velox-profile-note {
+    margin-top: 18px;
+    padding: 13px;
+    border-radius: 13px;
+    background: #171612;
+    border: 1px solid #302a1e;
+    color: #aaa397;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.velox-profile-note strong {
+    color: #e9bc50;
+}
+
+.velox-profile-toast {
+    position: fixed;
+    z-index: 99999;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    padding: 12px 18px;
+    background: #211c12;
+    border: 1px solid #d6a62c;
+    color: #fff;
+    border-radius: 12px;
+    font-size: 13px;
+    display: none;
+    max-width: 90%;
+    text-align: center;
+}
+
+@media (max-width: 360px) {
+    .velox-profile-menu {
+        grid-template-columns: 1fr;
+    }
+
+    .velox-profile-name {
+        font-size: 16px;
+    }
+
+    .velox-balance-amount {
+        font-size: 24px;
+    }
+}
+</style>
+
+<section id="velox-profile-page"
+         class="velox-profile-page velox-section"
+         style="display:none;">
+
+    <div class="velox-profile-header">
+        <button class="velox-profile-back"
+                onclick="veloxProfileGoHome()"
+                aria-label="Back">‹</button>
+
+        <div class="velox-profile-title">
+            МОЙ <span>ПРОФИЛЬ</span>
+        </div>
+    </div>
+
+    <div class="velox-profile-card">
+        <div class="velox-profile-main">
+            <img id="velox-profile-avatar"
+                 class="velox-profile-avatar"
+                 alt="Telegram avatar"
+                 src="https://placehold.co/100x100/242016/e9bc50?text=V">
+
+            <div>
+                <div id="velox-profile-name"
+                     class="velox-profile-name">Пользователь</div>
+
+                <div id="velox-profile-username"
+                     class="velox-profile-username">@username</div>
+
+                <span class="velox-profile-badge">VELOX UC SHOP</span>
             </div>
         </div>
 
-        <div class="section-title">PRIME</div>
-        <div class="categories-grid">
-            <div class="card-box" style="margin:0; text-align:center; background:#111;"><span style="font-size:11px; color:#aaa;">1 месяц</span><br><b style="color:var(--gold-primary); font-size:12px;">11 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime 1 месяц', 11)">Харидан</button></div>
-            <div class="card-box" style="margin:0; text-align:center; background:#111;"><span style="font-size:11px; color:#aaa;">3 месяц</span><br><b style="color:var(--gold-primary); font-size:12px;">30 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime 3 месяц', 30)">Харидан</button></div>
-            <div class="card-box" style="margin:0; text-align:center; background:#111;"><span style="font-size:11px; color:#aaa;">6 месяц</span><br><b style="color:var(--gold-primary); font-size:12px;">65 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime 6 месяц', 65)">Харидан</button></div>
-            <div class="card-box" style="margin:0; text-align:center; background:#111;"><span style="font-size:11px; color:#aaa;">12 месяц</span><br><b style="color:var(--gold-primary); font-size:12px;">120 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime 12 месяц', 120)">Харидан</button></div>
-        </div>
+        <div class="velox-profile-divider"></div>
 
-        <div class="section-title">PRIME PLUS</div>
-        <div class="categories-grid">
-            <div class="card-box" style="margin:0; text-align:center; background:linear-gradient(135deg, #2b1d3a, #111);"><span style="font-size:11px; color:#dda7ff;">1 месяц</span><br><b style="color:#e0b0ff; font-size:12px;">100 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime Plus 1 месяц', 100)">Харидан</button></div>
-            <div class="card-box" style="margin:0; text-align:center; background:linear-gradient(135deg, #2b1d3a, #111);"><span style="font-size:11px; color:#dda7ff;">3 месяц</span><br><b style="color:#e0b0ff; font-size:12px;">280 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime Plus 3 месяц', 280)">Харидан</button></div>
-            <div class="card-box" style="margin:0; text-align:center; background:linear-gradient(135deg, #2b1d3a, #111);"><span style="font-size:11px; color:#dda7ff;">6 месяц</span><br><b style="color:#e0b0ff; font-size:12px;">550 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime Plus 6 месяц', 550)">Харидан</button></div>
-            <div class="card-box" style="margin:0; text-align:center; background:linear-gradient(135deg, #2b1d3a, #111);"><span style="font-size:11px; color:#dda7ff;">12 месяц</span><br><b style="color:#e0b0ff; font-size:12px;">1055 TJS</b><button class="btn-gold" style="padding:5px; font-size:10px; margin-top:6px;" onclick="openPayment('Prime Plus 12 месяц', 1055)">Харидан</button></div>
-        </div>
+        <div class="velox-profile-id-label">TELEGRAM USER ID</div>
 
-        <div class="section-title">Нархномаи UC</div>
-        <div class="card-box">
-            <!-- Dynamic UC Counter Items -->
-            <div class="uc-row"><span>30 UC - 6 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(30, 6, -1)">-</button><span id="qty_30">0</span><button class="counter-btn" onclick="updateUC(30, 6, 1)">+</button></div></div>
-            <div class="uc-row"><span>60 UC - 10 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(60, 10, -1)">-</button><span id="qty_60">0</span><button class="counter-btn" onclick="updateUC(60, 10, 1)">+</button></div></div>
-            <div class="uc-row"><span>325 UC - 48 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(325, 48, -1)">-</button><span id="qty_325">0</span><button class="counter-btn" onclick="updateUC(325, 48, 1)">+</button></div></div>
-            <div class="uc-row"><span>660 UC - 92 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(660, 92, -1)">-</button><span id="qty_660">0</span><button class="counter-btn" onclick="updateUC(660, 92, 1)">+</button></div></div>
-            <div class="uc-row"><span>1320 UC - 184 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(1320, 184, -1)">-</button><span id="qty_1320">0</span><button class="counter-btn" onclick="updateUC(1320, 184, 1)">+</button></div></div>
-            <div class="uc-row"><span>1800 UC - 240 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(1800, 240, -1)">-</button><span id="qty_1800">0</span><button class="counter-btn" onclick="updateUC(1800, 240, 1)">+</button></div></div>
-            <div class="uc-row"><span>3850 UC - 450 TJS</span><div class="counter-box"><button class="counter-btn" onclick="updateUC(3850, 450, -1)">-</button><span
+        <div class="velox-profile-id-row">
+            <div id="velox-profile-id" class="velox-profile-id">
+                Не определён
+            </div>
+
+            <button class="velox-profile-copy"
+                    onclick="veloxCopyProfileId()">
+                Копировать
+            </button>
+        </div>
+    </div>
+
+    <div class="velox-balance-card">
+        <div class="velox-balance-label">МОЙ БАЛАНС</div>
+
+        <div class="velox-balance-row">
+            <div id="velox-profile-balance"
+                 class="velox-balance-amount">0.00 TJS</div>
+
+            <button class="velox-balance-add"
+                    onclick="veloxProfileTopUp()">
+                + Пополнить
+            </button>
+        </div>
+    </div>
+
+    <div class="velox-profile-menu">
+
+        <button class="velox-profile-menu-btn"
+                onclick="veloxProfileOrders()">
+            <span class="velox-profile-menu-icon">▤</span>
+            <span class="velox-profile-menu-name">Мои заказы</span>
+            <span class="velox-profile-menu-desc">История покупок</span>
+        </button>
+
+        <button class="velox-profile-menu-btn"
+                onclick="veloxProfileReviews()">
+            <span class="velox-profile-menu-icon">☆</span>
+            <span class="velox-profile-menu-name">Отзывы</span>
+            <span class="velox-profile-menu-desc">Оставить отзыв</span>
+        </button>
+
+        <button class="velox-profile-menu-btn"
+                onclick="veloxProfileLanguage()">
+            <span class="velox-profile-menu-icon">文</span>
+            <span class="velox-profile-menu-name">Язык</span>
+            <span class="velox-profile-menu-desc">Настройки языка</span>
+        </button>
+
+        <button class="velox-profile-menu-btn"
+                onclick="veloxProfileSupport()">
+            <span class="velox-profile-menu-icon">↗</span>
+            <span class="velox-profile-menu-name">Поддержка</span>
+            <span class="velox-profile-menu-desc">Связаться с админом</span>
+        </button>
+
+    </div>
+
+    <div class="velox-profile-note">
+        Магазин <strong>VELOX UC SHOP</strong><br>
+        Безопасная покупка игровых товаров PUBG Mobile.
+    </div>
+
+</section>
+
+<div id="velox-profile-toast" class="velox-profile-toast"></div>
+
+<script>
+/* ======================================
+   VELOX PROFILE FUNCTIONS
+====================================== */
+
+function veloxProfileToast(message) {
+    const toast = document.getElementById("velox-profile-toast");
+    if (!toast) return;
+
+    toast.textContent = message;
+    toast.style.display = "block";
+
+    clearTimeout(window.veloxProfileToastTimer);
+
+    window.veloxProfileToastTimer = setTimeout(function () {
+        toast.style.display = "none";
+    }, 2500);
+}
+
+function veloxProfileGoHome() {
+    if (typeof veloxShowPage === "function") {
+        veloxShowPage("home");
+        return;
+    }
+
+    document.getElementById("velox-profile-page").style.display = "none";
+
+    const home = document.getElementById("home");
+    if (home) home.style.display = "block";
+}
+
+function veloxProfileLoadTelegram() {
+    const tg = window.Telegram && window.Telegram.WebApp;
+    const user = tg && tg.initDataUnsafe && tg.initDataUnsafe.user;
+
+    if (tg) {
+        try {
+            tg.ready();
+            tg.expand();
+        } catch (e) {}
+    }
+
+    if (!user) {
+        document.getElementById("velox-profile-name").textContent =
+            "Откройте через Telegram";
+
+        document.getElementById("velox-profile-username").textContent =
+            "Telegram Web App";
+
+        document.getElementById("velox-profile-id").textContent =
+            "Не определён";
+
+        return;
+    }
+
+    const fullName = [user.first_name, user.last_name]
+        .filter(Boolean)
+        .join(" ");
+
+    document.getElementById("velox-profile-name").textContent =
+        fullName || "Пользователь";
+
+    document.getElementById("velox-profile-username").textContent =
+        user.username ? "@" + user.username : "Username не указан";
+
+    document.getElementById("velox-profile-id").textContent =
+        user.id ? String(user.id) : "Не определён";
+
+    if (user.photo_url) {
+        document.getElementById("velox-profile-avatar").src =
+            user.photo_url;
+    }
+}
+
+function veloxCopyProfileId() {
+    const id = document.getElementById("velox-profile-id").textContent;
+
+    if (!id || id === "Не определён") {
+        veloxProfileToast("Telegram ID не найден");
+        return;
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(id)
+            .then(function () {
+                veloxProfileToast("Telegram ID скопирован");
+            })
+            .catch(function () {
+                veloxProfileToast("Не удалось скопировать ID");
+            });
+    } else {
+        const input = document.createElement("textarea");
+        input.value = id;
+        document.body.appendChild(input);
+        input.select();
+
+        try {
+            document.execCommand("copy");
+            veloxProfileToast("Telegram ID скопирован");
+        } catch (e) {
+            veloxProfileToast("Скопируйте ID вручную");
+        }
+
+        input.remove();
+    }
+}
+
+function veloxProfileTopUp() {
+    if (typeof veloxShowPage === "function") {
+        veloxShowPage("balance");
+    } else {
+        veloxProfileToast("Подключите страницу пополнения баланса");
+    }
+}
+
+function veloxProfileOrders() {
+    if (typeof veloxShowPage === "function") {
+        veloxShowPage("orders");
+    } else {
+        veloxProfileToast("Подключите страницу заказов");
+    }
+}
+
+function veloxProfileReviews() {
+    if (typeof veloxShowPage === "function") {
+        veloxShowPage("reviews");
+    } else {
+        veloxProfileToast("Подключите страницу отзывов");
+    }
+}
+
+function veloxProfileLanguage() {
+    const choice = prompt(
+        "Выберите язык:\n1 — Русский\n2 — Тоҷикӣ\n3 — English"
+    );
+
+    const languages = {
+        "1": "ru",
+        "2": "tg",
+        "3": "en"
+    };
+
+    if (!languages[choice]) {
+        if (choice !== null) {
+            veloxProfileToast("Неверный выбор языка");
+        }
+        return;
+    }
+
+    localStorage.setItem("velox_language", languages[choice]);
+
+    veloxProfileToast("Язык сохранён: " + languages[choice]);
+
+    /*
+      Для полноценной смены языка нужно подключить
+      переводы ко всем текстам приложения.
+    */
+}
+
+function veloxProfileSupport() {
+    const supportUsername = "VELOX_UC";
+    const url = "https://t.me/" + supportUsername;
+
+    if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.openTelegramLink(url);
+    } else {
+        window.open(url, "_blank");
+    }
+}
+
+function veloxProfileSetBalance(amount) {
+    const balance = Number(amount);
+
+    if (!Number.isFinite(balance) || balance < 0) {
+        veloxProfileToast("Неверная сумма баланса");
+        return;
+    }
+
+    document.getElementById("velox-profile-balance").textContent =
+        balance.toFixed(2) + " TJS";
+}
+
+/* Обновляем данные при открытии страницы */
+function veloxProfileOpen() {
+    veloxProfileLoadTelegram();
+
+    if (typeof veloxShowPage === "function") {
+        veloxShowPage("profile");
+    } else {
+        document.querySelectorAll(".velox-section").forEach(function (page) {
+            page.style.display = "none";
+        });
+
+        document.getElementById("velox-profile-page").style.display = "block";
+    }
+}
+
+/* Начальная загрузка */
+document.addEventListener("DOMContentLoaded", function () {
+    veloxProfileLoadTelegram();
+});
+</script>
+
+<!-- END VELOX UC SHOP PART 7 -->
+                <button onclick="veloxProfileOpen()">Профиль</button>
