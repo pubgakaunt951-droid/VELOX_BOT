@@ -1,222 +1,506 @@
 <!DOCTYPE html>
-<html lang="tg">
+<html lang="tj">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PUBG Shop Telegram WebApp</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOX UC SHOP</title>
+    <style>
+        :root {
+            --bg-color: #0b0b0b;
+            --card-bg: #141414;
+            --gold-primary: #f3c653;
+            --gold-gradient: linear-gradient(135deg, #f3c653 0%, #c19231 100%);
+            --border-gold: rgba(243, 198, 83, 0.3);
+            --text-main: #ffffff;
+            --text-secondary: #aaaaaa;
+            --danger: #ff4d4d;
+            --success: #28a745;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 420px;
+            background-color: #000000;
+            border-radius: 24px;
+            border: 1px solid var(--border-gold);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: linear-gradient(180deg, #1c1c1c 0%, #0c0c0c 100%);
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Language Switcher */
+        .lang-dropdown {
+            position: relative;
+            background: #1a1a1a;
+            border: 1px solid var(--border-gold);
+            border-radius: 20px;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .lang-dropdown img {
+            width: 20px;
+            height: 14px;
+            border-radius: 2px;
+            object-fit: cover;
+        }
+
+        /* Logo Area */
+        .brand-logo {
+            text-align: center;
+            padding: 10px 0;
+            background: #000;
+        }
+
+        .brand-logo h1 {
+            font-size: 22px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .brand-logo span {
+            font-size: 10px;
+            color: var(--gold-primary);
+            letter-spacing: 3px;
+        }
+
+        /* Balance Section */
+        .balance-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #161616;
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin: 15px;
+        }
+
+        .balance-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .balance-info div span {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .balance-info div h3 {
+            font-size: 16px;
+            color: var(--gold-primary);
+        }
+
+        .add-balance-btn {
+            background: var(--gold-gradient);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            color: #000;
+        }
+
+        /* Banner */
+        .promo-banner {
+            margin: 0 15px 15px 15px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-gold);
+            position: relative;
+            height: 120px;
+            background: linear-gradient(45deg, #222, #111);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* Grid Categories (4 cards) */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 0 15px 15px 15px;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-gold);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .category-card:active {
+            transform: scale(0.96);
+        }
+
+        .category-img {
+            width: 100%;
+            height: 90px;
+            background-color: #222;
+            object-fit: cover;
+        }
+
+        .category-title {
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--gold-primary);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            background: #0f0f0f;
+            border-top: 1px solid var(--border-gold);
+            padding: 10px 0;
+            margin-top: auto;
+        }
+
+        .nav-item {
+            background: none;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 11px;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .nav-item.active {
+            color: var(--gold-primary);
+        }
+
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Screens Management */
+        .screen {
+            display: none;
+            flex-direction: column;
+            padding-bottom: 20px;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        .section-title {
+            padding: 0 15px 10px 15px;
+            font-size: 16px;
+            color: var(--gold-primary);
+            font-weight: bold;
+        }
+
+        /* Content elements styling helper */
+        .card-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 0 15px 15px 15px;
+        }
+
+        .btn-gold {
+            background: var(--gold-gradient);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .error-text {
+            color: var(--danger);
+            font-size: 11px;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-  <header class="top-bar">
-    <div class="lang-dropdown">
-      <button class="lang-btn" id="langSelectBtn">
-        <span id="currentLangFlag">🇹🇯</span> <span id="currentLangText">TJK</span>
-      </button>
-      <div class="lang-menu hidden" id="langMenu">
-        <div onclick="changeLang('tg')">🇹🇯 TJK</div>
-        <div onclick="changeLang('ru')">🇷🇺 RUS</div>
-        <div onclick="changeLang('en')">🇬🇧 ENG</div>
-      </div>
+
+<div class="app-container">
+
+    <!-- HEADER -->
+    <header>
+        <button class="menu-btn">&#9776;</button>
+        <div class="lang-dropdown" id="langToggle">
+            <!-- Дар ин ҷо парчами фаъол нишон дода мешавад -->
+            <span id="currentLangFlag">🇹🇯</span>
+            <span id="currentLangText">TJK</span>
+            <span>▼</span>
+        </div>
+        <div class="balance-container" style="margin: 0; padding: 6px 10px; border-radius: 10px;">
+            <div style="font-size: 12px;">0.00 TJS</div>
+        </div>
+    </header>
+
+    <!-- BRAND LOGO -->
+    <div class="brand-logo">
+        <h1>VELOX</h1>
+        <span>UC SHOP</span>
     </div>
-    
-    <div class="balance-btn" onclick="openRechargeModal()">
-      <span>Баланс: <b id="userBalance">0.00</b> TJS</span>
-      <button class="add-funds">+</button>
+
+    <!-- MAIN CONTENT / SCREENS -->
+
+    <!-- 1. ГЛАВНЫЙ (HOME SCREEN) -->
+    <div id="screen-home" class="screen active">
+        <!-- Balance block -->
+        <div class="balance-container">
+            <div class="balance-info">
+                <div>
+                    <span>Баланс</span>
+                    <h3>0.00 сомони</h3>
+                </div>
+            </div>
+            <button class="add-balance-btn">+</button>
+        </div>
+
+        <!-- Banner -->
+        <div class="promo-banner">
+            <div style="z-index: 2; padding: 10px;">
+                <h3 style="color: var(--gold-primary); font-size: 16px;">PUBG MOBILE</h3>
+                <p style="font-size: 11px; color: #ccc;">PLAY BIGGER BE A LEGEND</p>
+            </div>
+        </div>
+
+        <!-- 4 Grid Categories -->
+        <div class="categories-grid">
+            <div class="category-card" onclick="switchSubScreen('pubg-shop')">
+                <div class="category-img" style="background: linear-gradient(45deg, #332200, #111);"></div>
+                <div class="category-title">
+                    <span>PUBG SHOP</span>
+                    <span>&gt;</span>
+                </div>
+            </div>
+            <div class="category-card" onclick="switchSubScreen('akakunt')">
+                <div class="category-img" style="background: linear-gradient(45deg, #002233, #111);"></div>
+                <div class="category-title">
+                    <span>AKAKUNT</span>
+                    <span>&gt;</span>
+                </div>
+            </div>
+            <div class="category-card" onclick="switchSubScreen('x-suit')">
+                <div class="category-img" style="background: linear-gradient(45deg, #330000, #111);"></div>
+                <div class="category-title">
+                    <span>X-SUIT</span>
+                    <span>&gt;</span>
+                </div>
+            </div>
+            <div class="category-card" onclick="switchSubScreen('supercar')">
+                <div class="category-img" style="background: linear-gradient(45deg, #222222, #000);"></div>
+                <div class="category-title">
+                    <span>SUPERCAR</span>
+                    <span>&gt;</span>
+                </div>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <!-- Равзанаи Пуркунии Баланс (Recharge Modal) -->
-  <div id="paymentModal" class="modal hidden">
-    <div class="modal-content">
-      <h3 id="txtPayTitle">Пуркунии Баланс</h3>
-      <div class="card-info">
-        <p><b>Банк:</b> Душанбе Сити / Spitamen pay</p>
-        <p><b>Ном:</b> Шарифмоҳ.М.Д</p>
-        <p><b>Карта:</b> <span id="cardNumber">919664644</span></p>
-        <button class="btn-copy" onclick="copyCardNumber()">Копировать</button>
-      </div>
-      <div class="upload-section">
-        <label id="txtUploadLabel">Чеки пардохтро илова кунед:</label>
-        <input type="file" id="checkFileInput">
-        <button class="btn-submit" onclick="submitPayment()" id="txtPaySubmit">Оплатить</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Равзанаи Паёми Оплaта (Alert Modal) -->
-  <div id="alertModal" class="modal hidden">
-    <div class="modal-content text-center">
-      <p id="alertMessage">Пардохти шумо ба админ рафт каме мунтазир шавед то админ Пардохти шуморо тафтиш кунад</p>
-      <button class="btn-ok" onclick="closeAlertModal()">ОК</button>
-    </div>
-  </div>
-
-  <!-- Муҳтавои асосӣ (Tabs) -->
-  <main class="content">
-    <!-- Саҳифаи PUBG SHOP -->
-    <section id="tab-shop" class="tab-content active">
-      <h2 class="section-title">PUBG SHOP</h2>
-      
-      <!-- 3 Яшик -->
-      <div class="crates-grid">
-        <div class="crate-card crate-white" onclick="buyItem('Crate White', 15)">
-          <h4>900G + 170UC</h4>
-          <p class="price">15 TJS</p>
+    <!-- 2. PUBG SHOP SUB-SCREEN (UC, Ящик, Prime, Prime Plus) -->
+    <div id="screen-pubg-shop" class="screen">
+        <div style="padding: 10px 15px; display: flex; align-items: center; gap: 10px;">
+            <button onclick="switchScreen('home')" style="background:none; border:none; color:var(--gold-primary); font-size:16px; cursor:pointer;">&larr; Акиб</button>
+            <h3 style="font-size: 14px; color: var(--gold-primary);">PUBG SHOP</h3>
         </div>
-        <div class="crate-card crate-yellow" onclick="buyItem('Crate Yellow', 35)">
-          <h4>180UC + 9 Материал</h4>
-          <p class="price">35 TJS</p>
-        </div>
-        <div class="crate-card crate-special" onclick="buyItem('Crate Special', 50)">
-          <h4>300UC + 79 Чем</h4>
-          <p class="price">50 TJS</p>
-        </div>
-      </div>
-
-      <!-- Бахши PRIME -->
-      <h3>PRIME</h3>
-      <div class="grid-2x2 prime-white">
-        <div class="sub-card" onclick="buyItem('PRIME 1 Month', 11)">
-          <div class="crown-icon">👑</div>
-          <div>1 моҳ</div>
-          <div class="price">11 TJS</div>
-        </div>
-        <div class="sub-card" onclick="buyItem('PRIME 3 Months', 30)">
-          <div class="crown-icon">👑</div>
-          <div>3 моҳ</div>
-          <div class="price">30 TJS</div>
-        </div>
-        <div class="sub-card" onclick="buyItem('PRIME 6 Months', 65)">
-          <div class="crown-icon">👑</div>
-          <div>6 моҳ</div>
-          <div class="price">65 TJS</div>
-        </div>
-        <div class="sub-card" onclick="buyItem('PRIME 12 Months', 120)">
-          <div class="crown-icon">👑</div>
-          <div>12 моҳ</div>
-          <div class="price">120 TJS</div>
-        </div>
-      </div>
-
-      <!-- Бахши PRIME PLUS -->
-      <h3>PRIME PLUS</h3>
-      <div class="grid-2x2 prime-lilac">
-        <div class="sub-card" onclick="buyItem('PRIME PLUS 1 Month', 100)">
-          <div class="crown-icon">👑</div>
-          <div>1 моҳ</div>
-          <div class="price">100 TJS</div>
-        </div>
-        <div class="sub-card" onclick="buyItem('PRIME PLUS 3 Months', 280)">
-          <div class="crown-icon">👑</div>
-          <div>3 моҳ</div>
-          <div class="price">280 TJS</div>
-        </div>
-        <div class="sub-card" onclick="buyItem('PRIME PLUS 6 Months', 550)">
-          <div class="crown-icon">👑</div>
-          <div>6 моҳ</div>
-          <div class="price">550 TJS</div>
-        </div>
-        <div class="sub-card" onclick="buyItem('PRIME PLUS 12 Months', 1055)">
-          <div class="crown-icon">👑</div>
-          <div>12 моҳ</div>
-          <div class="price">1055 TJS</div>
-        </div>
-      </div>
-
-      <!-- Нархномаи UC -->
-      <h3>Нархномаи UC</h3>
-      <div class="uc-list">
-        <div class="uc-item" onclick="buyItem('30 UC', 6)"><span>30 UC</span><span>6 сомонӣ 🇹🇯</span></div>
-        <div class="uc-item" onclick="buyItem('60 UC', 10)"><span>60 UC</span><span>10 сомонӣ 🇹🇯</span></div>
-        <div class="uc-item" onclick="buyItem('325 UC', 48)"><span>325 UC</span><span>48 сомонӣ 🇹🇯</span></div>
-        <div class="uc-item" onclick="buyItem('660 UC', 92)"><span>660 UC</span><span>92 сомонӣ 🇹🇯</span></div>
-        <div class="uc-item" onclick="buyItem('1320 UC', 184)"><span>1320 UC</span><span>184 сомонӣ 🇹🇯</span></div>
-        <div class="uc-item" onclick="buyItem('1800 UC', 240)"><span>1800 UC</span><span>240 сомонӣ 🇹🇯</span></div>
-        <div class="uc-item" onclick="buyItem('3850 UC', 450)"><span>3850 UC</span><span>450 сомонӣ 🇹🇯</span></div>
-        <div class="uc-item" onclick="buyItem('8100 UC', 870)"><span>8100 UC</span><span>870 сомонӣ 🇹🇯</span></div>
-        <div class="uc-item" onclick="buyItem('16200 UC', 1660)"><span>16200 UC</span><span>1660 сомонӣ 🇹🇯</span></div>
-        <div class="uc-item" onclick="buyItem('24300 UC', 2480)"><span>24300 UC</span><span>2480 сомонӣ 🇹🇯</span></div>
-      </div>
-    </section>
-
-    <!-- Саҳифаи AKAKUNT -->
-    <section id="tab-account" class="tab-content hidden">
-      <h2>Фуруши Аккаунт</h2>
-      <button class="btn-action" onclick="toggleAccForm()">Гузоштани аккаунт ба фурӯш</button>
-      
-      <div id="accSellForm" class="form-container hidden">
-        <label>Расмҳо (то 5 адад):</label>
-        <input type="file" multiple id="accPhotos" max="5">
         
-        <label>Коллексия (20 - 101):</label>
-        <input type="number" id="accCollection" placeholder="Масалан: 25">
-        <span id="colError" class="error-msg hidden">Коллексияи аккаунтатон бояд аз 20 боло бошад</span>
+        <div class="section-title">Ящики</div>
+        <div class="card-box">
+            <p style="font-size: 13px; font-weight: bold;">Сафед: 900G + 170UC — 15 TJS</p>
+            <p style="font-size: 13px; font-weight: bold; margin-top: 8px;">Зардчаи хокистаранг: 180UC + 9 материал — 35 TJS</p>
+            <p style="font-size: 13px; font-weight: bold; margin-top: 8px;">Дигарш: 300UC + 79 Чем — 50 TJS</p>
+        </div>
 
-        <label>Уровень (40 - 100):</label>
-        <input type="number" id="accLevel" placeholder="Масалан: 50">
-        <span id="lvlError" class="error-msg hidden">Урвини шумо бояд аз 40 боло бошад</span>
+        <div class="section-title">PRIME</div>
+        <div class="categories-grid">
+            <div class="card-box" style="margin:0; text-align:center;"><span style="font-size:12px">1 месяц<br><b>11 TJS</b></span></div>
+            <div class="card-box" style="margin:0; text-align:center;"><span style="font-size:12px">3 месяц<br><b>30 TJS</b></span></div>
+            <div class="card-box" style="margin:0; text-align:center;"><span style="font-size:12px">6 месяц<br><b>65 TJS</b></span></div>
+            <div class="card-box" style="margin:0; text-align:center;"><span style="font-size:12px">12 месяц<br><b>120 TJS</b></span></div>
+        </div>
 
-        <label>Привязка:</label>
-        <input type="text" id="accBind" placeholder="Google / Facebook">
+        <div class="section-title" style="margin-top: 15px;">PRIME PLUS</div>
+        <div class="categories-grid">
+            <div class="card-box" style="margin:0; text-align:center;"><span style="font-size:12px">1 месяц<br><b>100 TJS</b></span></div>
+            <div class="card-box" style="margin:0; text-align:center;"><span style="font-size:12px">3 месяц<br><b>280 TJS</b></span></div>
+            <div class="card-box" style="margin:0; text-align:center;"><span style="font-size:12px">6 месяц<br><b>550 TJS</b></span></div>
+            <div class="card-box" style="margin:0; text-align:center;"><span style="font-size:12px">12 месяц<br><b>1055 TJS</b></span></div>
+        </div>
 
-        <label>Описание (максимум 14 калима):</label>
-        <textarea id="accDesc" placeholder="Тавсифи кӯтоҳ..."></textarea>
-        
-        <label>Нархи аккаунт (TJS):</label>
-        <input type="number" id="accPrice">
+        <div class="section-title" style="margin-top: 15px;">Нархномаи UC</div>
+        <div class="card-box">
+            <p>30 UC — 6 сомони 🇹🇯</p>
+            <p style="margin-top:6px;">60 UC — 10 сомони 🇹🇯</p>
+            <p style="margin-top:6px;">325 UC — 48 сомони 🇹🇯</p>
+            <p style="margin-top:6px;">660 UC — 92 сомони 🇹🇯</p>
+            <p style="margin-top:6px;">1320 UC — 184 сомони 🇹🇯</p>
+            <p style="margin-top:6px;">1800 UC — 240 сомони 🇹🇯</p>
+            <p style="margin-top:6px;">3850 UC — 450 сомони 🇹🇯</p>
+            <p style="margin-top:6px;">8100 UC — 870 сомони 🇹🇯</p>
+            <p style="margin-top:6px;">16200 UC — 1660 сомони 🇹🇯</p>
+            <p style="margin-top:6px;">24300 UC — 2480 сомони 🇹🇯</p>
+            <button class="btn-gold" style="margin-top:15px;" onclick="showPaymentScreen()">Харидан</button>
+        </div>
+    </div>
 
-        <button class="btn-submit" onclick="submitAccount()">Фиристодан ба админ</button>
-      </div>
-    </section>
+    <!-- 3. PAYMENT SCREEN (Карта ва чеки пардохт) -->
+    <div id="screen-payment" class="screen">
+        <div style="padding: 10px 15px; display: flex; align-items: center; gap: 10px;">
+            <button onclick="switchSubScreen('pubg-shop')" style="background:none; border:none; color:var(--gold-primary); font-size:16px; cursor:pointer;">&larr; Акиб</button>
+            <h3 style="font-size: 14px; color: var(--gold-primary);">Пардохт</h3>
+        </div>
+        <div class="card-box">
+            <p style="font-size: 13px; color: var(--gold-primary); font-weight: bold;">Банк Душанбе сити / Spitamen pay</p>
+            <p style="font-size: 12px; margin-top: 5px;">Карта ба номи: <b>Шарифмох.М.Д</b></p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; background: #000; padding: 8px; border-radius: 6px;">
+                <span id="cardNumber" style="font-family: monospace; font-size: 14px;">919664644</span>
+                <button class="btn-gold" style="padding: 4px 10px; font-size: 11px; width: auto;" onclick="alert('Рақам копия шуд!')">Копировать</button>
+            </div>
+            <div style="margin-top: 15px;">
+                <label style="font-size: 12px; color: var(--text-secondary);">Ирсоли чеки пардохт:</label>
+                <input type="file" style="margin-top: 5px; width: 100%; font-size: 12px; color: #fff;">
+            </div>
+            <button class="btn-gold" style="margin-top: 15px;" onclick="showPaymentSuccessModal()">Оплатить</button>
+        </div>
+    </div>
 
-    <!-- Саҳифаи Заказы -->
-    <section id="tab-orders" class="tab-content hidden">
-      <h2>Заказони ман</h2>
-      <div id="ordersList">
-        <!-- Заказҳо тавассути JS илова карда мешаванд -->
-      </div>
-    </section>
+    <!-- 4. AKAKUNT SCREEN -->
+    <div id="screen-akakunt" class="screen">
+        <div style="padding: 10px 15px; display: flex; align-items: center; gap: 10px;">
+            <button onclick="switchScreen('home')" style="background:none; border:none; color:var(--gold-primary); font-size:16px; cursor:pointer;">&larr; Акиб</button>
+            <h3 style="font-size: 14px; color: var(--gold-primary);">AKAKUNT (Фурӯши аккаунт)</h3>
+        </div>
+        <div class="card-box">
+            <button class="btn-gold" style="margin-bottom: 15px;">Фурӯши аккаунти ман</button>
+            <p style="font-size: 12px; color: var(--text-secondary);">Суратҳои аккаунт (то 5 адад):</p>
+            <input type="file" multiple style="margin-top: 5px; font-size: 11px; color:#fff;">
+            
+            <div style="margin-top: 12px;">
+                <label style="font-size: 12px;">Коллексия:</label>
+                <input type="number" placeholder="Масалан: 25" style="width:100%; padding:8px; background:#000; border:1px solid var(--border-gold); color:#fff; border-radius:6px; margin-top:4px;">
+                <div class="error-text">Калексияи аккаунтатон бояд аз 20 боло бошад (ай 20 то 101)</div>
+            </div>
 
-    <!-- Саҳифаи Отзывы -->
-    <section id="tab-reviews" class="tab-content hidden">
-      <h2>Отзывҳо</h2>
-      <div id="reviewsSummary">Общий отзывҳо: <span id="totalReviewsCount">0</span></div>
-      <div id="reviewsList"></div>
-    </section>
+            <div style="margin-top: 12px;">
+                <label style="font-size: 12px;">Урвин (Ранг/Уровень):</label>
+                <input type="number" placeholder="Масалан: 45" style="width:100%; padding:8px; background:#000; border:1px solid var(--border-gold); color:#fff; border-radius:6px; margin-top:4px;">
+                <div class="error-text">Урвини шумо бояд аз 40 боло бошад то 100</div>
+            </div>
 
-    <!-- Саҳифаи Профиль -->
-    <section id="tab-profile" class="tab-content hidden">
-      <div class="profile-card">
-        <div class="avatar" id="userAvatar">👤</div>
-        <h3 id="userName">Номи корбар</h3>
-        <p id="userId">ID: 00000000</p>
-      </div>
+            <div style="margin-top: 12px;">
+                <label style="font-size: 12px;">Привязка:</label>
+                <input type="text" placeholder="Масалан: Google" style="width:100%; padding:8px; background:#000; border:1px solid var(--border-gold); color:#fff; border-radius:6px; margin-top:4px;">
+            </div>
 
-      <div class="profile-balance-bar" onclick="openRechargeModal()">
-        <span>0.00 TJS</span>
-        <button>+</button>
-      </div>
+            <div style="margin-top: 12px;">
+                <label style="font-size: 12px;">Описание (то 140 калима):</label>
+                <textarea rows="3" style="width:100%; padding:8px; background:#000; border:1px solid var(--border-gold); color:#fff; border-radius:6px; margin-top:4px;"></textarea>
+            </div>
 
-      <div class="profile-menu">
-        <div class="menu-item" onclick="switchTab('orders')">Заказы</div>
-        <div class="menu-item" onclick="switchTab('reviews')">Отзывы</div>
-        <div class="menu-item" onclick="toggleLangMenu()">Языки</div>
-        <div class="menu-item" onclick="openSupport()">Поддержка</div>
-      </div>
-    </section>
-  </main>
+            <button class="btn-gold" style="margin-top: 15px;">Пешниҳод ба админ</button>
+        </div>
+    </div>
 
-  <!-- Навигатсияи Поёнӣ -->
-  <nav class="bottom-nav">
-    <button onclick="switchTab('shop')" class="nav-btn active">PUBG SHOP</button>
-    <button onclick="switchTab('account')" class="nav-btn">AKAKUNT</button>
-    <button onclick="switchTab('orders')" class="nav-btn">Заказы</button>
-    <button onclick="switchTab('reviews')" class="nav-btn">Отзывы</button>
-    <button onclick="switchTab('profile')" class="nav-btn">Профиль</button>
-  </nav>
+    <!-- 5. ОТЗЫВЫ -->
+    <div id="screen-reviews" class="screen">
+        <div class="section-title" style="margin-top: 15px;">Отзывы</div>
+        <div class="card-box">
+            <p style="font-size: 13px; color: var(--danger); font-weight: bold;">Отзыви худро монед:</p>
+            <div style="display: flex; gap: 5px; margin: 10px 0; font-size: 20px; color: var(--gold-primary); cursor: pointer;">
+                ★ ★ ★ ★ ★
+            </div>
+            <textarea placeholder="Описание (то 50 калима)..." rows="3" style="width:100%; padding:8px; background:#000; border:1px solid var(--border-gold); color:#fff; border-radius:6px;"></textarea>
+            <button class="btn-gold" style="margin-top: 10px;">Фиристодан ба админ</button>
+        </div>
+    </div>
 
-  <script src="script.js"></script>
-</body>
-            </html>
-                                                                                                                
+    <!-- 6. ЗАКАЗЫ -->
+    <div id="screen-orders" class="screen">
+        <div class="section-title" style="margin-top: 15px;">Заказы</div>
+        <div class="card-box">
+            <p style="font-size: 13px; font-weight: bold;">Хусусияти заказҳо:</p>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">Иҷрошуда / Дар интизорӣ / Радшуда</p>
+            <div style="margin-top: 10px; color: var(--success); font-size: 12px;">Статус: Закази шумо қабул шуд ва иҷро гашт.</div>
+            <p style="color: var(--danger); font-size: 11px; margin-top: 5px; font-weight: bold;">Отзыви худро монед (1 то 5 ситора)</p>
+        </div>
+    </div>
+
+    <!-- 7. ПРОФИЛЬ -->
+    <div id="screen-profile" class="screen">
+        <div class="section-title" style="margin-top: 15px;">Профиль</div>
+        <div class="card-box" style="text-align: center;">
+            <div style="width: 70px; height: 70px; border-radius: 50%; background: #222; margin: 0 auto 10px auto; border: 2px solid var(--gold-primary);"></div>
+            <h3 style="font-size: 15px;">Номи Корбар</h3>
+            <p style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">ID: 984512</p>
+            <p style="font-size: 11px; color: var(--gold-primary); margin-top: 2px;">@telegram_username</p>
+        </div>
+        <div class="card-box">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 13px;">0.00 TJS</span>
+                <button class="btn-gold" style="width: auto; padding: 4px 10px; font-size: 12px;">+</button>
+            </div>
+        </div>
+        <div class="categories-grid" style="padding: 0 15px;">
+            <div class="card-box" style="mar
