@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: velox-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn bot:app
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_ID
+        sync: false
