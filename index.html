@@ -1,1068 +1,539 @@
 <!DOCTYPE html>
 <html lang="tg">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="theme-color" content="#050505">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>VELOX UC SHOP</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-<title>VELOX UC SHOP</title>
+    body {
+      background-color: #08080a;
+      color: #ffffff;
+      padding-bottom: 80px;
+    }
 
-<link rel="stylesheet" href="style.css">
+    /* Top Bar */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 16px;
+      background: linear-gradient(180deg, rgba(20,20,25,0.9) 0%, rgba(8,8,10,0) 100%);
+    }
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+    .menu-btn {
+      font-size: 22px;
+      color: #d4af37;
+      cursor: pointer;
+    }
+
+    .logo-container {
+      text-align: center;
+    }
+
+    .logo-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      background: linear-gradient(180deg, #fff 0%, #e6ca65 50%, #997a15 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+    }
+
+    .logo-subtitle {
+      font-size: 11px;
+      color: #d4af37;
+      letter-spacing: 2px;
+      font-weight: bold;
+      margin-top: -3px;
+    }
+
+    .balance-card {
+      background: rgba(255, 215, 0, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 12px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .balance-title {
+      font-size: 10px;
+      color: #aaa;
+    }
+
+    .balance-amount {
+      font-size: 13px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .add-btn {
+      background: #d4af37;
+      color: #000;
+      border: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Page Views */
+    .page {
+      display: none;
+      padding: 0 16px;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* Banner */
+    .banner {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #1a1a24 0%, #0d0d12 100%);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .banner img {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+    }
+
+    /* Grid Categories */
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .card {
+      background: #121218;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:active {
+      transform: scale(0.97);
+      border-color: #d4af37;
+    }
+
+    .card-img-wrapper {
+      height: 140px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-footer {
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(180deg, #14141c 0%, #0a0a0e 100%);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      font-style: italic;
+      color: #fff;
+    }
+
+    .card-arrow {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d4af37;
+      font-size: 12px;
+    }
+
+    /* UC Shop Screen */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #d4af37;
+      font-size: 14px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .uc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .uc-card {
+      background: #14141c;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .uc-card.selected {
+      border-color: #d4af37;
+      background: rgba(212, 175, 55, 0.08);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+    }
+
+    .uc-icon {
+      width: 42px;
+      height: 42px;
+      margin-bottom: 8px;
+    }
+
+    .uc-amount {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .uc-bonus {
+      font-size: 11px;
+      color: #2ed573;
+      font-weight: bold;
+      margin-top: 2px;
+    }
+
+    .uc-price {
+      margin-top: 10px;
+      background: #d4af37;
+      color: #000;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 4px 12px;
+      border-radius: 8px;
+    }
+
+    /* Checkout Bar */
+    .checkout-bar {
+      position: fixed;
+      bottom: 75px;
+      left: 16px;
+      right: 16px;
+      background: #1a1a24;
+      border: 1px solid #d4af37;
+      border-radius: 14px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+      z-index: 99;
+    }
+
+    .checkout-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .checkout-uc {
+      font-size: 15px;
+      font-weight: bold;
+      color: #d4af37;
+    }
+
+    .checkout-price {
+      font-size: 13px;
+      color: #ccc;
+    }
+
+    .buy-btn {
+      background: linear-gradient(180deg, #e6ca65 0%, #997a15 100%);
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 900;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    /* Bottom Navigation */
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 65px;
+      background: #0d0d12;
+      border-top: 1px solid rgba(212, 175, 55, 0.3);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #777;
+      font-size: 11px;
+      text-decoration: none;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .nav-item.active {
+      color: #d4af37;
+    }
+
+    .nav-item i {
+      font-size: 18px;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="app">
+  <!-- Top Bar -->
+  <div class="header">
+    <div class="menu-btn"><i class="fa-solid fa-bars"></i></div>
+    <div class="logo-container">
+      <div class="logo-title">VELOX</div>
+      <div class="logo-subtitle">UC SHOP</div>
+    </div>
+    <div class="balance-card">
+      <div>
+        <div class="balance-title">Баланс</div>
+        <div class="balance-amount">0.00 сомони</div>
+      </div>
+      <button class="add-btn">+</button>
+    </div>
+  </div>
 
-<!-- HEADER -->
-
-<header class="header">
-
-    <button class="menu-btn" id="menuBtn" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
-    <!-- LANGUAGE -->
-
-    <div class="language-box">
-
-        <button id="languageBtn" class="language-btn">
-            <span id="languageCode">TJK</span>
-            <span class="arrow">⌄</span>
-        </button>
-
-        <div id="languageMenu" class="language-menu hidden">
-
-            <button data-lang="tg">
-                <span class="flag flag-tj"></span>
-                TJK
-            </button>
-
-            <button data-lang="ru">
-                <span class="flag flag-ru"></span>
-                RUS
-            </button>
-
-            <button data-lang="en">
-                <span class="flag flag-uk"></span>
-                ENG
-            </button>
-
-        </div>
-
+  <!-- Main Page -->
+  <div id="main-page" class="page active">
+    <!-- Banner -->
+    <div class="banner">
+      <img src="https://via.placeholder.com/600x200/121218/d4af37?text=PUBG+MOBILE+PLAY+BIGGER" alt="Banner">
     </div>
 
-    <!-- LOGO -->
-
-    <button class="logo" data-open="home">
-
-        <span class="logo-symbol">V</span>
-
-        <span class="logo-text">
-            VELOX
-            <small>UC SHOP</small>
-        </span>
-
-    </button>
-
-    <!-- BALANCE -->
-
-    <button class="balance-box" id="balanceBtn">
-
-        <span class="wallet-icon">▱</span>
-
-        <span class="balance-info">
-            <small data-i18n="balance">Баланс</small>
-            <strong id="balanceValue">0.00 TJS</strong>
-        </span>
-
-        <span class="balance-plus">+</span>
-
-    </button>
-
-</header>
-
-
-<!-- MAIN CONTENT -->
-
-<main id="mainContent">
-
-
-<!-- ========================= -->
-<!-- HOME PAGE -->
-<!-- ========================= -->
-
-<section class="page active" id="page-home">
-
-    <!-- PUBG BANNER -->
-
-    <div class="hero-banner">
-
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content">
-
-            <span class="hero-label">PUBG MOBILE</span>
-
-            <h1>
-                PLAY BIGGER
-                <br>
-                <span>BE A LEGEND</span>
-            </h1>
-
-            <p>VELOX UC SHOP</p>
-
+    <!-- Category Grid -->
+    <div class="grid-container">
+      <div class="card" onclick="openCategory('uc')">
+        <div class="card-img-wrapper">
+          <img src="https://via.placeholder.com/300x300/1a1a24/d4af37?text=UC+SHOP" alt="UC">
         </div>
+        <div class="card-footer">
+          <div class="card-title">UC SHOP</div>
+          <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+      </div>
 
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img src="https://via.placeholder.com/300x300/1a1a24/d4af37?text=ACCOUNT" alt="Account">
+        </div>
+        <div class="card-footer">
+          <div class="card-title">АККАУНТ</div>
+          <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img src="https://via.placeholder.com/300x300/1a1a24/d4af37?text=X-SUIT" alt="X-Suit">
+        </div>
+        <div class="card-footer">
+          <div class="card-title">X-SUIT</div>
+          <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img src="https://via.placeholder.com/300x300/1a1a24/d4af37?text=SUPERCAR" alt="Supercar">
+        </div>
+        <div class="card-footer">
+          <div class="card-title">SUPERCAR</div>
+          <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+      </div>
     </div>
+  </div>
 
-
-    <!-- CATEGORIES -->
+  <!-- UC Shop Page -->
+  <div id="uc-page" class="page">
+    <div class="back-btn" onclick="openCategory('main')">
+      <i class="fa-solid fa-arrow-left"></i> Ба ақиб
+    </div>
 
     <div class="section-title">
-
-        <div>
-            <small>PREMIUM STORE</small>
-            <h2 data-i18n="categories">Мағоза</h2>
-        </div>
-
-        <span class="gold-line"></span>
-
+      <i class="fa-solid fa-coins" style="color: #d4af37;"></i> Хариди UC
     </div>
 
-
-    <div class="category-grid">
-
-        <!-- PUBG SHOP -->
-
-        <button class="category-card category-uc"
-                data-open="pubg">
-
-            <div class="category-image image-uc">
-                <div class="uc-art">UC</div>
-            </div>
-
-            <div class="category-footer">
-
-                <strong>PUBG SHOP</strong>
-
-                <span class="category-arrow">›</span>
-
-            </div>
-
-        </button>
-
-
-        <!-- ACCOUNT -->
-
-        <button class="category-card category-account"
-                data-open="account">
-
-            <div class="category-image image-account">
-
-                <div class="account-art">V</div>
-
-            </div>
-
-            <div class="category-footer">
-
-                <strong>ACCOUNT</strong>
-
-                <span class="category-arrow">›</span>
-
-            </div>
-
-        </button>
-
-
-        <!-- X-COSTUME -->
-
-        <button class="category-card category-x"
-                data-open="xcostume">
-
-            <div class="category-image image-x">
-
-                <div class="x-art">X</div>
-
-            </div>
-
-            <div class="category-footer">
-
-                <strong>X-COSTUME</strong>
-
-                <span class="category-arrow">›</span>
-
-            </div>
-
-        </button>
-
-
-        <!-- SUPERCAR -->
-
-        <button class="category-card category-car"
-                data-open="supercar">
-
-            <div class="category-image image-car">
-
-                <div class="car-art">V</div>
-
-            </div>
-
-            <div class="category-footer">
-
-                <strong>SUPERCAR</strong>
-
-                <span class="category-arrow">›</span>
-
-            </div>
-
-        </button>
-
+    <div class="uc-grid" id="uc-list">
+      <!-- Items generated dynamically via JS -->
     </div>
+  </div>
 
-
-    <div class="notice-card">
-
-        <div class="notice-logo">V</div>
-
-        <div>
-            <strong>VELOX UC SHOP</strong>
-
-            <p data-i18n="secureText">
-                Фармоишҳо пас аз санҷиши админ тасдиқ мешаванд.
-            </p>
-        </div>
-
+  <!-- Floating Checkout Bar -->
+  <div id="checkout-bar" class="checkout-bar" style="display: none;">
+    <div class="checkout-info">
+      <div id="selected-uc-text" class="checkout-uc">0 UC</div>
+      <div id="selected-price-text" class="checkout-price">Сомони: 0 см</div>
     </div>
+    <button class="buy-btn" onclick="buyUC()">Харидан</button>
+  </div>
 
-</section>
-
-
-
-<!-- ========================= -->
-<!-- PUBG SHOP -->
-<!-- ========================= -->
-
-<section class="page" id="page-pubg">
-
-    <button class="back-link" data-back>
-        ‹ <span data-i18n="back">Бозгашт</span>
-    </button>
-
-    <div class="page-title">
-
-        <small>PUBG MOBILE</small>
-
-        <h1>PUBG SHOP</h1>
-
-        <p data-i18n="chooseProduct">
-            Маҳсулотро интихоб кунед
-        </p>
-
+  <!-- Bottom Navigation -->
+  <div class="navbar">
+    <div class="nav-item active" onclick="openCategory('main')">
+      <i class="fa-solid fa-house"></i>
+      <span>Главный</span>
     </div>
-
-
-    <!-- CRATES -->
-
-    <h3 class="subheading" data-i18n="crates">
-        Ящикҳо
-    </h3>
-
-    <div class="crate-row">
-
-        <button class="crate-card crate-white"
-                data-product="crate1">
-
-            <div class="crate-art">900 G</div>
-
-            <strong>900 G + 170 UC</strong>
-
-            <b>15 TJS</b>
-
-            <span data-i18n="buy">Харидан</span>
-
-        </button>
-
-
-        <button class="crate-card crate-grey"
-                data-product="crate2">
-
-            <div class="crate-art">180 UC</div>
-
-            <strong>180 UC + 9</strong>
-
-            <b>35 TJS</b>
-
-            <span data-i18n="buy">Харидан</span>
-
-        </button>
-
-
-        <button class="crate-card crate-gold"
-                data-product="crate3">
-
-            <div class="crate-art">300 UC</div>
-
-            <strong>300 UC + 79</strong>
-
-            <b>50 TJS</b>
-
-            <span data-i18n="buy">Харидан</span>
-
-        </button>
-
+    <div class="nav-item">
+      <i class="fa-solid fa-star"></i>
+      <span>Отзывы</span>
     </div>
-
-
-    <!-- PRIME -->
-
-    <h3 class="subheading">PRIME</h3>
-
-    <div class="product-grid" id="primeGrid"></div>
-
-
-    <!-- PRIME PLUS -->
-
-    <h3 class="subheading">PRIME PLUS</h3>
-
-    <div class="product-grid" id="primePlusGrid"></div>
-
-
-    <!-- UC -->
-
-    <h3 class="subheading" data-i18n="ucPackages">
-        Бастаҳои UC
-    </h3>
-
-    <div class="uc-grid" id="ucGrid"></div>
-
-</section>
-
-
-
-<!-- ========================= -->
-<!-- ACCOUNT MARKET -->
-<!-- ========================= -->
-
-<section class="page" id="page-account">
-
-    <button class="back-link" data-back>
-        ‹ <span data-i18n="back">Бозгашт</span>
-    </button>
-
-    <div class="page-title">
-
-        <small>VELOX MARKET</small>
-
-        <h1>ACCOUNT</h1>
-
-        <p data-i18n="accountDesc">
-            Аккаунтҳои тасдиқшуда дар ин ҷо пайдо мешаванд.
-        </p>
-
+    <div class="nav-item">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Заказы</span>
     </div>
-
-
-    <button class="primary-btn full"
-            data-open="sell-account">
-
-        + <span data-i18n="sellAccount">
-            Фурӯхтани аккаунт
-        </span>
-
-    </button>
-
-
-    <div class="empty-state" id="accountsEmpty">
-
-        <div class="empty-emblem">V</div>
-
-        <h3 data-i18n="emptyListings">
-            Ҳоло эълон нест
-        </h3>
-
-        <p data-i18n="emptyListingsText">
-            Аккаунтҳои тасдиқшуда баъдтар дар ин ҷо нишон дода мешаванд.
-        </p>
-
+    <div class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span>Профиль</span>
     </div>
-
-
-    <div id="accountsList" class="listing-grid"></div>
-
-</section>
-
-
-
-<!-- ========================= -->
-<!-- SELL ACCOUNT -->
-<!-- ========================= -->
-
-<section class="page" id="page-sell-account">
-
-    <button class="back-link" data-back>
-        ‹ <span data-i18n="back">Бозгашт</span>
-    </button>
-
-    <div class="page-title">
-
-        <small>SELLER CENTER</small>
-
-        <h1 data-i18n="sellAccount">
-            Фурӯхтани аккаунт
-        </h1>
-
-        <p data-i18n="reviewFirst">
-            Эълон аввал аз ҷониби админ санҷида мешавад.
-        </p>
-
-    </div>
-
-
-    <form id="accountForm" class="form-card">
-
-        <label>
-            <span data-i18n="accountPhotos">
-                Суратҳои аккаунт (то 5)
-            </span>
-
-            <input
-                id="accountPhotos"
-                type="file"
-                accept="image/*"
-                multiple>
-        </label>
-
-
-        <div class="image-preview" id="accountPreview"></div>
-
-
-        <div class="form-grid">
-
-            <label>
-                <span data-i18n="collection">Коллексия</span>
-
-                <input
-                    id="collection"
-                    type="number"
-                    min="20"
-                    max="100"
-                    required
-                    placeholder="20–100">
-            </label>
-
-
-            <label>
-                <span data-i18n="urvin">Урвин</span>
-
-                <input
-                    id="urvin"
-                    type="number"
-                    min="40"
-                    max="100"
-                    required
-                    placeholder="40–100">
-            </label>
-
-        </div>
-
-
-        <p class="validation-message"
-           id="accountValidation"></p>
-
-
-        <label>
-            <span data-i18n="binding">Привязка</span>
-
-            <input
-                id="binding"
-                maxlength="80"
-                required
-                placeholder="Google / Facebook">
-        </label>
-
-
-        <label>
-            <span data-i18n="description">Тавсиф</span>
-
-            <input
-                id="accountDescription"
-                maxlength="140"
-                required
-                placeholder="Максимум 140 аломат">
-        </label>
-
-
-        <label>
-            <span data-i18n="price">Нарх (TJS)</span>
-
-            <input
-                id="accountPrice"
-                type="number"
-                min="1"
-                required
-                placeholder="0.00">
-        </label>
-
-
-        <button
-            class="primary-btn full"
-            type="submit"
-            data-i18n="sendReview">
-
-            Фиристодан барои санҷиш
-
-        </button>
-
-    </form>
-
-</section>
-
-
-
-<!-- ========================= -->
-<!-- X-COSTUME -->
-<!-- ========================= -->
-
-<section class="page" id="page-xcostume">
-
-    <button class="back-link" data-back>
-        ‹ <span data-i18n="back">Бозгашт</span>
-    </button>
-
-    <div class="page-title">
-
-        <small>VELOX MARKET</small>
-
-        <h1>X-COSTUME</h1>
-
-        <p data-i18n="xDesc">
-            Эълонҳои тасдиқшудаи костюмҳо.
-        </p>
-
-    </div>
-
-
-    <button class="primary-btn full"
-            data-open="sell-x">
-
-        + <span data-i18n="addCostume">
-            Илова кардани X-Costume
-        </span>
-
-    </button>
-
-
-    <div class="empty-state">
-
-        <div class="empty-emblem">X</div>
-
-        <h3 data-i18n="emptyListings">
-            Ҳоло эълон нест
-        </h3>
-
-        <p data-i18n="emptyListingsText">
-            Эълонҳои тасдиқшуда баъдтар дар ин ҷо нишон дода мешаванд.
-        </p>
-
-    </div>
-
-</section>
-
-
-
-<!-- SELL X-COSTUME -->
-
-<section class="page" id="page-sell-x">
-
-    <button class="back-link" data-back>
-        ‹ <span data-i18n="back">Бозгашт</span>
-    </button>
-
-    <div class="page-title">
-
-        <h1 data-i18n="addCostume">
-            Илова кардани X-Costume
-        </h1>
-
-    </div>
-
-
-    <form id="xForm" class="form-card">
-
-        <label>
-            <span data-i18n="photo">Сурат</span>
-            <input type="file" accept="image/*" required>
-        </label>
-
-        <label>
-            <span data-i18n="productName">Номи маҳсулот</span>
-            <input required maxlength="70">
-        </label>
-
-        <label>
-            <span data-i18n="description">Тавсиф</span>
-            <input required maxlength="140">
-        </label>
-
-        <label>
-            <span data-i18n="price">Нарх (TJS)</span>
-            <input type="number" min="1" required>
-        </label>
-
-        <button class="primary-btn full"
-                type="submit"
-                data-i18n="sendReview">
-
-            Фиристодан барои санҷиш
-
-        </button>
-
-    </form>
-
-</section>
-
-
-
-<!-- ========================= -->
-<!-- SUPERCAR -->
-<!-- ========================= -->
-
-<section class="page" id="page-supercar">
-
-    <button class="back-link" data-back>
-        ‹ <span data-i18n="back">Бозгашт</span>
-    </button>
-
-    <div class="page-title">
-
-        <small>VELOX MARKET</small>
-
-        <h1>SUPERCAR</h1>
-
-        <p data-i18n="carDesc">
-            Эълонҳои Car Token.
-        </p>
-
-    </div>
-
-
-    <button class="primary-btn full"
-            data-open="sell-car">
-
-        + <span data-i18n="addCar">
-            Илова кардани Car Token
-        </span>
-
-    </button>
-
-
-    <div class="empty-state">
-
-        <div class="empty-emblem">V</div>
-
-        <h3 data-i18n="emptyListings">
-            Ҳоло эълон нест
-        </h3>
-
-        <p data-i18n="emptyListingsText">
-            Эълонҳои тасдиқшуда баъдтар дар ин ҷо нишон дода мешаванд.
-        </p>
-
-    </div>
-
-</section>
-
-
-
-<!-- SELL CAR -->
-
-<section class="page" id="page-sell-car">
-
-    <button class="back-link" data-back>
-        ‹ <span data-i18n="back">Бозгашт</span>
-    </button>
-
-    <div class="page-title">
-
-        <h1 data-i18n="addCar">
-            Илова кардани Car Token
-        </h1>
-
-    </div>
-
-
-    <form id="carForm" class="form-card">
-
-        <label>
-            <span data-i18n="photo">Сурат</span>
-            <input type="file" accept="image/*" required>
-        </label>
-
-        <label>
-            <span data-i18n="productName">Номи мошин / Token</span>
-            <input required maxlength="70">
-        </label>
-
-        <label>
-            <span data-i18n="quantity">Миқдор</span>
-            <input type="number" min="1" required>
-        </label>
-
-        <label>
-            <span data-i18n="description">Тавсиф</span>
-            <input required maxlength="140">
-        </label>
-
-        <label>
-            <span data-i18n="price">Нарх (TJS)</span>
-            <input type="number" min="1" required>
-        </label>
-
-        <button class="primary-btn full"
-                type="submit"
-                data-i18n="sendReview">
-
-            Фиристодан барои санҷиш
-
-        </button>
-
-    </form>
-
-</section>
-
-
-
-<!-- ========================= -->
-<!-- ORDERS -->
-<!-- ========================= -->
-
-<section class="page" id="page-orders">
-
-    <div class="page-title">
-
-        <small>VELOX ACCOUNT</small>
-
-        <h1 data-i18n="myOrders">
-            Фармоишҳои ман
-        </h1>
-
-        <p data-i18n="ordersDesc">
-            Таърихи харид ва ҳолати фармоишҳо.
-        </p>
-
-    </div>
-
-
-    <div class="filter-row">
-
-        <button class="filter-pill active"
-                data-filter="all"
-                data-i18n="all">
-
-            Ҳама
-
-        </button>
-
-        <button class="filter-pill"
-                data-filter="pending"
-                data-i18n="pending">
-
-            Дар интизорӣ
-
-        </button>
-
-        <button class="filter-pill"
-                data-filter="done"
-                data-i18n="done">
-
-            Анҷомёфта
-
-        </button>
-
-    </div>
-
-
-    <div id="ordersList" class="stack-list"></div>
-
-
-    <div id="ordersEmpty" class="empty-state">
-
-        <div class="empty-emblem">V</div>
-
-        <h3 data-i18n="noOrders">
-            Ҳоло фармоиш нест
-        </h3>
-
-    </div>
-
-</section>
-
-
-
-<!-- ========================= -->
-<!-- REVIEWS -->
-<!-- ========================= -->
-
-<section class="page" id="page-reviews">
-
-    <div class="page-title">
-
-        <small>CUSTOMER FEEDBACK</small>
-
-        <h1 data-i18n="reviews">Отзывҳо</h1>
-
-        <p data-i18n="realReviews">
-            Шарҳҳои қабулшудаи мизоҷон
-        </p>
-
-    </div>
-
-
-    <div class="review-summary">
-
-        <strong id="reviewCount">0</strong>
-
-        <span data-i18n="approvedReviews">
-            Отзывҳои тасдиқшуда
-        </span>
-
-        <div class="stars">★★★★★</div>
-
-    </div>
-
-
-    <div id="reviewsList" class="stack-list"></div>
-
-
-    <div class="empty-state" id="reviewsEmpty">
-
-        <div class="empty-emblem">V</div>
-
-        <h3 data-i18n="noReviews">
-            Ҳоло отзыв нест
-        </h3>
-
-    </div>
-
-</section>
-
-
-
-<!-- ========================= -->
-<!-- PROFILE -->
-<!-- ========================= -->
-
-<section class="page" id="page-profile">
-
-    <div class="profile-hero">
-
-        <div class="profile-avatar" id="profileAvatar">
-            V
-        </div>
-
-        <div class="profile-details">
-
-            <small>VELOX MEMBER</small>
-
-            <h1 id="profileName">Telegram User</h1>
-
-            <p id="profileUsername"></p>
-
-            <small>
-                ID:
-                <span id="profileId">—</span>
-            </small>
-
-        </div>
-
-    </div>
-
-
-    <div class="profile-balance">
-
-        <div>
-
-            <span data-i18n="balance">Баланс</span>
-
-            <strong id="profileBalance">
-                0.00 TJS
-            </strong>
-
-        </div>
-
-        <button class="primary-btn"
-                id="profileTopup"
-                data-i18n="topup">
-
-            Пур кардани баланс
-
-        </button>
-
-    </div>
-
-
-    <div class="profile-menu">
-
-        <button data-open="orders">
-
-            <span class="menu-symbol">▤</span>
-
-            <span data-i18n="myOrders">
-                Фармоишҳои ман
-            </span>
-
-            <b>›</b>
-
-        </button>
-
-
-        <button data-open="reviews">
-
-            <span class="menu-symbol">★</span>
-
-            <span data-i18n="reviews">Отзывҳо</span>
-
-            <b>›</b>
-
-        </button>
-
-
-        <button id="profileLanguage">
-
-            <span class="menu-symbol">文</span>
-
-            <span data-i18n="language">Забон</span>
-
-            <b>TJK / RUS / ENG　›</b>
-
-        </button>
-
-
-        <button data-open="support">
-
-            <span class="menu-symbol">?</span>
-
-            <span data-i18n="support">Дастгирӣ</span>
-
-            <b>›</b>
-
-        </button>
-
-    </div>
-
-</section>
-
-
-
-<!-- ========================= -->
-<!-- SUPPORT -->
-<!-- ========================= -->
-
-<section class="page" id="page-support">
-
-    <button class="back-link" data-back>
-        ‹ <span data-i18n="back">Бозгашт</span>
-    </button>
-
-    <div class="page-title">
-
-        <small>VELOX SUPPORT</small>
-
-        <h1 data-i18n="support">Дастгирӣ</h1>
-
-        <p data-i18n="supportText">
-            Мушкилотро нависед, то ба админ фиристода шавад.
-        </p>
-
-    </div>
-
-
-    <form id="supportForm" class="form-card">
-
-        <label>
-            <span data-i18n="orderNumber">
-                Рақами фармоиш (агар бошад)
-            </span>
-
-            <input id="supportOrder"
-                   placeholder="VX-...">
-        </label>
-
-
-        <label>
-            <span data-i18n="message">Паём</span>
-
-            <textarea id="supportMessage"
-                      maxlength="700"
-                      required
-                      rows="5"></textarea>
-        </label>
-
-
-        <button class="primary-btn full"
-                type="submit"
-                data-i18n="send">
-
-            Фиристодан
-
-        </button>
-
-    </form>
-
-</section>
-
-
-
-<!-- ========================= -->
-<!-- PAYMENT -->
-<!-- ========================= -->
-
-<section class="page" id="page-payment">
-
-    <button class="back-link" data-back>
-        ‹ <span data-i18n="back">Бозгашт</span>
-    </button>
-
-    <div class="page-title">
-
-        <small>SECURE PAYMENT</small>
-
-        <h1 data-i18n="payment">Пардохт</h1>
-
-        <p data-i18n="paymentDetails">
-            Маълумоти пардохт
-        </p>
-
-    </div>
-
-
-    <div class="payment-card">
-
-        <div class="bank-title">
-            Dushanbe City / Spitamen Pay
-        </div>
-
-
-        <div class="pay-line">
-
-            <span data-i18n="recipient">
-                Номи қабулкунанда
-            </span>
-
-            <strong>Шарифмох.М.Д</strong>
-
-        </div>
-
-
-        <div class="pay-line">
-
-            <span data-i18n="cardNumber">
-                Рақам
-            </span>
-
- 
+  </div>
+
+  <script>
+    const tg = window.Telegram ? window.Telegram.WebApp : null;
+    if (tg) tg.expand();
+
+    // Прайс-лист мувофиқи сурат
+    const ucPricelist = [
+      { base: 30, bonus: 0, price: 5 },
+      { base: 60, bonus: 60, price: 10 },
+      { base: 120, bonus: 0, price: 20 },
+      { base: 180, bonus: 0, price: 30 },
+      { base: 325, bonus: 0, price: 47 },
+      { base: 355, bonus: 0, price: 58 },
+      { base: 385, bonus: 0, price: 62 },
+      { base: 660, bonus: 0, price: 90 },
+      { base: 720, bonus: 0, price: 100 },
+      { base: 1440, bonus: 0, price: 195 },
+      { base: 1800, bonus: 0, price: 230 },
+      { base: 3850, bonus: 0, price: 430 },
+      { base: 4570, bonus: 0, price: 520 },
+      { base: 8100, bonus: 0, price: 880 },
+      { base: 16200, bonus: 0, price: 1700 }
+    ];
+
+    let selectedItem = null;
+
+    function renderUCOptions() {
+      const container = document.getElementById('uc-list');
+      container.innerHTML = '';
+
+      ucPricelist.forEach((item, index) => {
+        const totalUC = item.base + item.bonus;
+        const ucDisplay = item.bonus > 0 ? `${item.base} + ${item.bonus}` : `${item.base}`;
+
+        const card = document.createElement('div');
+        card.className = `uc-card ${selectedItem === index ? 'selected' : ''}`;
+        card.onclick = () => selectUC(index);
+
+        card.innerHTML = `
+          <div class="uc-amount">${ucDisplay} UC</div>
+          <div class="uc-bonus">= ${totalUC} UC</div>
+          <div class="uc-price">${item.price} сомони</div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function selectUC(index) {
+      selectedItem = index;
+      renderUCOptions();
+
+      const item = ucPricelist[index];
+      const totalUC = item.base + item.bonus;
+
+      document.getElementById('selected-uc-text').innerText = `${totalUC} UC (${item.base}${item.bonus ? ' + ' + item.bonus : ''})`;
+      document.getElementById('selected-price-text').innerText = `Нарх: ${item.price} сомони`;
+      document.getElementById('checkout-bar').style.display = 'flex';
+    }
+
+    function openCategory(cat) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      if (cat === 'uc') {
+        document.getElementById('uc-page').classList.add('active');
+        renderUCOptions();
+      } else {
+        document.getElementById('main-page').classList.add('active');
+        document.getElementById('checkout-bar').style.display = 'none';
+      }
+    }
+
+    function buyUC() {
+      if (selectedItem === null) return;
+      const item = ucPricelist[selectedItem];
+      const total = item.base + item.bonus;
+      
+      if (tg) {
+        tg.sendData(JSON.stringify({
+          action: "buy_uc",
+          uc_amount: total,
+          price: item.price
+        }));
+      } else {
+        alert(`Интихоб шуд: ${total} UC бо нархи ${item.price} сомони`);
+      }
+    }
+  </script>
+</body>
+</html>
