@@ -3,10 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>VELOX UC SHOP</title>
+  <title>VELOX WEB APP — PREMIUM PUBG STORE</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
+    :root {
+      --bg-color: #08080a;
+      --card-bg: #121218;
+      --card-inner: #14141c;
+      --gold-main: #d4af37;
+      --gold-gradient: linear-gradient(180deg, #e6ca65 0%, #997a15 100%);
+      --text-white: #ffffff;
+      --text-gray: #8a8a93;
+      --border-gold: rgba(212, 175, 55, 0.3);
+      --red-alert: #ff4d4d;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -16,52 +28,84 @@
     }
 
     body {
-      background-color: #08080a;
-      color: #ffffff;
-      padding-bottom: 80px;
+      background-color: var(--bg-color);
+      color: var(--text-white);
+      padding-bottom: 85px;
+      overflow-x: hidden;
     }
 
-    /* Top Bar */
+    /* Top Bar Header */
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 16px;
-      background: linear-gradient(180deg, rgba(20,20,25,0.9) 0%, rgba(8,8,10,0) 100%);
+      padding: 12px 16px;
+      background: linear-gradient(180deg, rgba(20,20,25,0.95) 0%, rgba(8,8,10,0) 100%);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    .menu-btn {
-      font-size: 22px;
-      color: #d4af37;
+    .lang-dropdown {
+      position: relative;
+    }
+
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       cursor: pointer;
-    }
-
-    .logo-container {
-      text-align: center;
-    }
-
-    .logo-title {
-      font-size: 20px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      background: linear-gradient(180deg, #fff 0%, #e6ca65 50%, #997a15 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-transform: uppercase;
-    }
-
-    .logo-subtitle {
-      font-size: 11px;
-      color: #d4af37;
-      letter-spacing: 2px;
+      font-size: 12px;
       font-weight: bold;
-      margin-top: -3px;
+      color: var(--text-white);
     }
 
-    .balance-card {
-      background: rgba(255, 215, 0, 0.08);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      border-radius: 12px;
+    .flag-icon {
+      width: 18px;
+      height: 12px;
+      border-radius: 2px;
+      object-fit: cover;
+    }
+
+    .lang-menu {
+      display: none;
+      position: absolute;
+      top: 110%;
+      left: 0;
+      background: #14141c;
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      width: 110px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.8);
+      z-index: 101;
+    }
+
+    .lang-menu.show {
+      display: block;
+    }
+
+    .lang-option {
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .lang-option:last-child {
+      border-bottom: none;
+    }
+
+    .balance-btn {
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid var(--border-gold);
+      border-radius: 10px;
       padding: 6px 12px;
       display: flex;
       align-items: center;
@@ -69,139 +113,205 @@
       cursor: pointer;
     }
 
-    .balance-title {
-      font-size: 10px;
-      color: #aaa;
+    .balance-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
     }
 
-    .balance-amount {
-      font-size: 13px;
-      font-weight: bold;
-      color: #fff;
+    .balance-label {
+      font-size: 9px;
+      color: var(--text-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .add-btn {
-      background: #d4af37;
+    .balance-val {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-white);
+    }
+
+    .balance-plus {
+      background: var(--gold-main);
       color: #000;
-      border: none;
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
+      border-radius: 4px;
+      width: 18px;
+      height: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
     }
 
-    /* Pages */
+    /* Pages Navigation */
     .page {
       display: none;
-      padding: 0 16px;
+      padding: 10px 16px;
     }
 
     .page.active {
       display: block;
     }
 
-    /* Banner */
-    .banner {
-      width: 100%;
-      border-radius: 16px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, #1a1a24 0%, #0d0d12 100%);
-      overflow: hidden;
+    .page-title-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
     }
 
-    .banner img {
-      width: 100%;
-      display: block;
-      border-radius: 16px;
+    .back-btn {
+      color: var(--gold-main);
+      font-size: 16px;
+      cursor: pointer;
     }
 
-    /* Grid Categories */
-    .grid-container {
+    .page-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    /* Main Grid 4 Cards */
+    .main-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
+      margin-top: 10px;
     }
 
-    .card {
-      background: #121218;
-      border: 1px solid rgba(212, 175, 55, 0.3);
+    .main-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-gold);
       border-radius: 16px;
       overflow: hidden;
       cursor: pointer;
-      transition: transform 0.2s, border-color 0.2s;
+      position: relative;
     }
 
-    .card:active {
-      transform: scale(0.97);
-      border-color: #d4af37;
-    }
-
-    .card-img-wrapper {
-      height: 140px;
+    .main-card-img {
       width: 100%;
-      overflow: hidden;
-    }
-
-    .card-img-wrapper img {
-      width: 100%;
-      height: 100%;
+      height: 130px;
       object-fit: cover;
     }
 
-    .card-footer {
-      padding: 12px;
+    .main-card-footer {
+      padding: 10px 12px;
+      background: var(--card-inner);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: linear-gradient(180deg, #14141c 0%, #0a0a0e 100%);
     }
 
-    .card-title {
-      font-size: 15px;
+    .main-card-title {
+      font-size: 13px;
       font-weight: 800;
       font-style: italic;
-      color: #fff;
     }
 
-    .card-arrow {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      border: 1px solid rgba(212, 175, 55, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #d4af37;
+    .main-card-icon {
+      color: var(--gold-main);
       font-size: 12px;
     }
 
-    /* UC Page */
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #d4af37;
-      font-size: 14px;
-      margin-bottom: 16px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .section-title {
-      font-size: 18px;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 14px;
+    /* Horizontal Crates Scroll */
+    .crates-scroll {
       display: flex;
-      align-items: center;
-      gap: 8px;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
     }
 
+    .crate-card {
+      min-width: 140px;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 110px;
+      cursor: pointer;
+      border: 1px solid var(--border-gold);
+    }
+
+    .crate-1 {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .crate-2 {
+      background: #2d2a1e;
+      color: #e6ca65;
+    }
+
+    .crate-3 {
+      background: linear-gradient(135deg, #1f1f1f 0%, #3a3219 100%);
+      color: #ffffff;
+    }
+
+    .crate-title {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .crate-price {
+      font-size: 14px;
+      font-weight: 900;
+      margin-top: 8px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    /* Grid 2x2 for Prime */
+    .grid-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .prime-card {
+      background: #1a1a22;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .prime-plus-card {
+      background: linear-gradient(135deg, #2b1d0c 0%, #1f0d2b 100%);
+      border: 1px solid var(--gold-main);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .card-crown-icon {
+      color: var(--gold-main);
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .prime-time {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .prime-cost {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--gold-main);
+    }
+
+    /* UC List */
     .uc-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -209,10 +319,435 @@
     }
 
     .uc-card {
-      background: #14141c;
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      border-radius: 14px;
-      padding: 14px;
+      background: var(--card-inner);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
-      
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .uc-card.selected {
+      border-color: var(--gold-main);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .uc-amount {
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .uc-price-btn {
+      margin-top: 8px;
+      background: var(--gold-gradient);
+      color: #000;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 6px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Counter Control */
+    .qty-control {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px 0;
+      background: var(--card-inner);
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border-gold);
+    }
+
+    .qty-btn {
+      background: var(--gold-main);
+      color: #000;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* Modals & Screens */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(5px);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--card-inner);
+      border: 1px solid var(--gold-main);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 8px;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--gold-main);
+    }
+
+    .close-btn {
+      color: var(--text-gray);
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .field-group {
+      margin-bottom: 12px;
+    }
+
+    .field-label {
+      font-size: 11px;
+      color: var(--text-gray);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .field-input {
+      width: 100%;
+      background: #0d0d12;
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      padding: 10px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .copy-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0d0d12;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border-gold);
+    }
+
+    .action-btn {
+      width: 100%;
+      background: var(--gold-gradient);
+      color: #000;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      text-transform: uppercase;
+      margin-top: 10px;
+    }
+
+    /* Popup Message Card */
+    .popup-box {
+      background: var(--card-inner);
+      border: 1px solid var(--gold-main);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      max-width: 320px;
+      width: 100%;
+    }
+
+    .popup-msg {
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .popup-ok-btn {
+      background: var(--gold-gradient);
+      color: #000;
+      border: none;
+      padding: 8px 30px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Alert Text */
+    .alert-red {
+      color: var(--red-alert);
+      font-size: 11px;
+      margin-top: 4px;
+      display: none;
+    }
+
+    /* Orders List Item */
+    .order-item {
+      background: var(--card-inner);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .order-status {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(212, 175, 55, 0.2);
+      color: var(--gold-main);
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .review-red-text {
+      color: var(--red-alert);
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 8px;
+      display: inline-block;
+    }
+
+    /* Bottom Navbar */
+    .navbar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 65px;
+      background: #0d0d12;
+      border-top: 1px solid var(--border-gold);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--text-gray);
+      font-size: 10px;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .nav-item.active {
+      color: var(--gold-main);
+    }
+
+    .nav-item i {
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <div class="header">
+    <div class="lang-dropdown">
+      <div class="lang-btn" onclick="toggleLangMenu()">
+        <img id="curr-flag" src="https://flagcdn.com/w20/tj.png" class="flag-icon" alt="Flag">
+        <span id="curr-lang-code">TJK</span>
+        <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
+      </div>
+      <div class="lang-menu" id="lang-menu">
+        <div class="lang-option" onclick="selectLanguage('tg')">
+          <img src="https://flagcdn.com/w20/tj.png" class="flag-icon" alt="TJK"> TJK
+        </div>
+        <div class="lang-option" onclick="selectLanguage('ru')">
+          <img src="https://flagcdn.com/w20/ru.png" class="flag-icon" alt="RUS"> RUS
+        </div>
+        <div class="lang-option" onclick="selectLanguage('en')">
+          <img src="https://flagcdn.com/w20/gb.png" class="flag-icon" alt="ENG"> ENG
+        </div>
+      </div>
+    </div>
+
+    <div class="balance-btn" onclick="openTopUpModal()">
+      <div class="balance-info">
+        <span class="balance-label" id="txt-balance-label">BALANCE</span>
+        <span class="balance-val" id="top-balance-val">0.00 TJS</span>
+      </div>
+      <div class="balance-plus">+</div>
+    </div>
+  </div>
+
+  <!-- PAGE 1: MAIN PAGE -->
+  <div id="page-main" class="page active">
+    <div style="text-align: center; margin: 10px 0 15px 0;">
+      <h1 style="font-size: 22px; letter-spacing: 2px; color: var(--gold-main);">VELOX</h1>
+      <p style="font-size: 10px; color: var(--text-gray); letter-spacing: 1px;">PREMIUM PUBG STORE</p>
+    </div>
+
+    <div class="main-grid">
+      <div class="main-card" onclick="navTo('page-pubg')">
+        <img src="https://via.placeholder.com/300x200/121218/d4af37?text=PUBG+SHOP" class="main-card-img" alt="PUBG SHOP">
+        <div class="main-card-footer">
+          <span class="main-card-title">PUBG SHOP</span>
+          <i class="fa-solid fa-chevron-right main-card-icon"></i>
+        </div>
+      </div>
+
+      <div class="main-card" onclick="navTo('page-account')">
+        <img src="https://via.placeholder.com/300x200/121218/d4af37?text=ACCOUNT" class="main-card-img" alt="ACCOUNT">
+        <div class="main-card-footer">
+          <span class="main-card-title">ACCOUNT</span>
+          <i class="fa-solid fa-chevron-right main-card-icon"></i>
+        </div>
+      </div>
+
+      <div class="main-card" onclick="navTo('page-xcostume')">
+        <img src="https://via.placeholder.com/300x300/121218/d4af37?text=X-COSTUME" class="main-card-img" alt="X-COSTUME">
+        <div class="main-card-footer">
+          <span class="main-card-title">X-COSTUME</span>
+          <i class="fa-solid fa-chevron-right main-card-icon"></i>
+        </div>
+      </div>
+
+      <div class="main-card" onclick="navTo('page-supercar')">
+        <img src="https://via.placeholder.com/300x300/121218/d4af37?text=SUPERCAR" class="main-card-img" alt="SUPERCAR">
+        <div class="main-card-footer">
+          <span class="main-card-title">SUPERCAR</span>
+          <i class="fa-solid fa-chevron-right main-card-icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: PUBG SHOP -->
+  <div id="page-pubg" class="page">
+    <div class="page-title-bar">
+      <i class="fa-solid fa-arrow-left back-btn" onclick="navTo('page-main')"></i>
+      <span class="page-title">PUBG SHOP</span>
+    </div>
+
+    <!-- Crates -->
+    <div class="crates-scroll">
+      <div class="crate-card crate-1" onclick="openOrderModal('Яшик: 900G + 170UC', 15)">
+        <div class="crate-title">900 G + 170 UC</div>
+        <div class="crate-price">15 TJS</div>
+      </div>
+      <div class="crate-card crate-2" onclick="openOrderModal('Яшик: 180UC + 9 Материал', 35)">
+        <div class="crate-title">180 UC + 9 Матер.</div>
+        <div class="crate-price">35 TJS</div>
+      </div>
+      <div class="crate-card crate-3" onclick="openOrderModal('Яшик: 300UC + 79Чем', 50)">
+        <div class="crate-title">300 UC + 79 Чем</div>
+        <div class="crate-price">50 TJS</div>
+      </div>
+    </div>
+
+    <!-- Prime -->
+    <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; color: var(--gold-main);">PRIME</div>
+    <div class="grid-2x2">
+      <div class="prime-card" onclick="openOrderModal('PRIME 1 Месец', 11)">
+        <i class="fa-solid fa-crown card-crown-icon"></i>
+        <div class="prime-time">1 Месец</div>
+        <div class="prime-cost">11 TJS</div>
+      </div>
+      <div class="prime-card" onclick="openOrderModal('PRIME 3 Месец', 30)">
+        <i class="fa-solid fa-crown card-crown-icon"></i>
+        <div class="prime-time">3 Месец</div>
+        <div class="prime-cost">30 TJS</div>
+      </div>
+      <div class="prime-card" onclick="openOrderModal('PRIME 6 Месец', 65)">
+        <i class="fa-solid fa-crown card-crown-icon"></i>
+        <div class="prime-time">6 Месец</div>
+        <div class="prime-cost">65 TJS</div>
+      </div>
+      <div class="prime-card" onclick="openOrderModal('PRIME 12 Месец', 120)">
+        <i class="fa-solid fa-crown card-crown-icon"></i>
+        <div class="prime-time">12 Месец</div>
+        <div class="prime-cost">120 TJS</div>
+      </div>
+    </div>
+
+    <!-- Prime Plus -->
+    <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; color: var(--gold-main);">PRIME PLUS</div>
+    <div class="grid-2x2">
+      <div class="prime-plus-card" onclick="openOrderModal('PRIME PLUS 1 Месец', 100)">
+        <i class="fa-solid fa-crown card-crown-icon"></i>
+        <div class="prime-time">1 Месец</div>
+        <div class="prime-cost">100 TJS</div>
+      </div>
+      <div class="prime-plus-card" onclick="openOrderModal('PRIME PLUS 3 Месец', 280)">
+        <i class="fa-solid fa-crown card-crown-icon"></i>
+        <div class="prime-time">3 Месец</div>
+        <div class="prime-cost">280 TJS</div>
+      </div>
+      <div class="prime-plus-card" onclick="openOrderModal('PRIME PLUS 6 Месец', 550)">
+        <i class="fa-solid fa-crown card-crown-icon"></i>
+        <div class="prime-time">6 Месец</div>
+        <div class="prime-cost">550 TJS</div>
+      </div>
+      <div class="prime-plus-card" onclick="openOrderModal('PRIME PLUS 12 Месец', 1055)">
+        <i class="fa-solid fa-crown card-crown-icon"></i>
+        <div class="prime-time">12 Месец</div>
+        <div class="prime-cost">1055 TJS</div>
+      </div>
+    </div>
+
+    <!-- UC Shop List -->
+    <div style="font-size: 14px; font-weight: bold; margin: 15px 0 8px 0; color: var(--gold-main);">UC SHOP</div>
+    <div class="uc-grid" id="uc-container"></div>
+  </div>
+
+  <!-- PAGE 3: ACCOUNT -->
+  <div id="page-account" class="page">
+    <div class="page-title-bar" style="justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <i class="fa-solid fa-arrow-left back-btn" onclick="navTo('page-main')"></i>
+        <span class="page-title">ACCOUNT</span>
+      </div>
+      <button class="action-btn" style="width: auto; padding: 6px 12px; font-size: 11px; margin:0;" onclick="openModal('modal-add-acc')">+ ПРОДАТЬ АККАУНТ</button>
+    </div>
+    <div id="acc-list-container" style="text-align: center; color: var(--text-gray); margin-top: 40px; font-size: 13px;">
+      Дар ин бахш ҳоло эълоне нест.
+    </div>
+  </div>
+
+  <!-- PAGE 4: X-COSTUME -->
+  <div id="page-xcostume" class="page">
+    <div class="page-title-bar" style="justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <i class="fa-solid fa-arrow-left back-btn" onclick="navTo('page-main')"></i>
+        <span class="page-title">X-COSTUME</span>
+      </div>
+      <button class="action-btn" style="width: auto; padding: 6px 12px; font-size: 11px; margin:0;" onclick="openModal('modal-add-xcostume')">+ ДОБАВИТЬ X-COSTUME</button>
+    </div>
+    <div style="text-align: center; color: var(--text-gray); margin-top: 40px; font-size: 13px;">
+      Дар ин бахш ҳоло эълоне нест.
+    </div>
+  </div>
+
+  <!-- PAGE 5: SUPERCAR -->
+  <div id="page-supercar" class="page">
+    <div class="page-title-bar" style="justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <i class="fa-solid
