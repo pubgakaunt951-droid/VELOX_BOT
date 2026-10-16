@@ -66,6 +66,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      cursor: pointer;
     }
 
     .balance-title {
@@ -93,7 +94,7 @@
       justify-content: center;
     }
 
-    /* Page Views */
+    /* Pages */
     .page {
       display: none;
       padding: 0 16px;
@@ -111,7 +112,6 @@
       margin-bottom: 20px;
       background: linear-gradient(135deg, #1a1a24 0%, #0d0d12 100%);
       overflow: hidden;
-      position: relative;
     }
 
     .banner img {
@@ -132,7 +132,6 @@
       border: 1px solid rgba(212, 175, 55, 0.3);
       border-radius: 16px;
       overflow: hidden;
-      position: relative;
       cursor: pointer;
       transition: transform 0.2s, border-color 0.2s;
     }
@@ -146,7 +145,6 @@
       height: 140px;
       width: 100%;
       overflow: hidden;
-      position: relative;
     }
 
     .card-img-wrapper img {
@@ -182,7 +180,7 @@
       font-size: 12px;
     }
 
-    /* UC Shop Screen */
+    /* UC Page */
     .back-btn {
       display: inline-flex;
       align-items: center;
@@ -218,43 +216,31 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      position: relative;
       cursor: pointer;
     }
 
     .uc-card.selected {
       border-color: #d4af37;
-      background: rgba(212, 175, 55, 0.08);
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
-    }
-
-    .uc-icon {
-      width: 42px;
-      height: 42px;
-      margin-bottom: 8px;
+      background: rgba(212, 175, 55, 0.1);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
     }
 
     .uc-amount {
-      font-size: 16px;
-      font-weight: 800;
+      font-size: 17px;
+      font-weight: 900;
       color: #fff;
-    }
-
-    .uc-bonus {
-      font-size: 11px;
-      color: #2ed573;
-      font-weight: bold;
-      margin-top: 2px;
     }
 
     .uc-price {
       margin-top: 10px;
-      background: #d4af37;
+      background: linear-gradient(180deg, #e6ca65 0%, #997a15 100%);
       color: #000;
       font-size: 13px;
       font-weight: bold;
-      padding: 4px 12px;
+      padding: 6px 14px;
       border-radius: 8px;
+      width: 100%;
+      text-align: center;
     }
 
     /* Checkout Bar */
@@ -272,11 +258,6 @@
       align-items: center;
       box-shadow: 0 8px 20px rgba(0,0,0,0.6);
       z-index: 99;
-    }
-
-    .checkout-info {
-      display: flex;
-      flex-direction: column;
     }
 
     .checkout-uc {
@@ -301,6 +282,110 @@
       text-transform: uppercase;
     }
 
+    /* Payment Modal Screen */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(5px);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .payment-card {
+      background: #14141c;
+      border: 1px solid #d4af37;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+    }
+
+    .payment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(252, 215, 0, 0.2);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+
+    .payment-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #d4af37;
+    }
+
+    .close-modal {
+      font-size: 20px;
+      color: #aaa;
+      cursor: pointer;
+    }
+
+    .bank-info {
+      background: #0d0d12;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px dashed rgba(212, 175, 55, 0.4);
+    }
+
+    .bank-label {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 4px;
+    }
+
+    .bank-val {
+      font-size: 15px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .card-number-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1a1a24;
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-top: 6px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .card-number {
+      font-size: 18px;
+      font-weight: bold;
+      color: #d4af37;
+      letter-spacing: 1px;
+    }
+
+    .copy-btn {
+      background: #d4af37;
+      color: #000;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .instructions {
+      font-size: 12px;
+      color: #bbb;
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
     /* Bottom Navigation */
     .navbar {
       position: fixed;
@@ -322,7 +407,6 @@
       align-items: center;
       color: #777;
       font-size: 11px;
-      text-decoration: none;
       cursor: pointer;
       gap: 4px;
     }
@@ -338,14 +422,14 @@
 </head>
 <body>
 
-  <!-- Top Bar -->
+  <!-- Top Header Bar -->
   <div class="header">
     <div class="menu-btn"><i class="fa-solid fa-bars"></i></div>
     <div class="logo-container">
       <div class="logo-title">VELOX</div>
       <div class="logo-subtitle">UC SHOP</div>
     </div>
-    <div class="balance-card">
+    <div class="balance-card" onclick="openPaymentModal()">
       <div>
         <div class="balance-title">Баланс</div>
         <div class="balance-amount">0.00 сомони</div>
@@ -354,14 +438,12 @@
     </div>
   </div>
 
-  <!-- Main Page -->
+  <!-- Main Page Screen -->
   <div id="main-page" class="page active">
-    <!-- Banner -->
     <div class="banner">
-      <img src="https://via.placeholder.com/600x200/121218/d4af37?text=PUBG+MOBILE+PLAY+BIGGER" alt="Banner">
+      <img src="https://via.placeholder.com/600x200/121218/d4af37?text=PUBG+MOBILE+VELOX+SHOP" alt="Banner">
     </div>
 
-    <!-- Category Grid -->
     <div class="grid-container">
       <div class="card" onclick="openCategory('uc')">
         <div class="card-img-wrapper">
@@ -378,7 +460,7 @@
           <img src="https://via.placeholder.com/300x300/1a1a24/d4af37?text=ACCOUNT" alt="Account">
         </div>
         <div class="card-footer">
-          <div class="card-title">АККАУНТ</div>
+          <div class="card-title">AKAKUNT</div>
           <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
         </div>
       </div>
@@ -388,7 +470,7 @@
           <img src="https://via.placeholder.com/300x300/1a1a24/d4af37?text=X-SUIT" alt="X-Suit">
         </div>
         <div class="card-footer">
-          <div class="card-title">X-SUIT</div>
+          <div class="card-title">X-CUIT</div>
           <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
         </div>
       </div>
@@ -405,28 +487,63 @@
     </div>
   </div>
 
-  <!-- UC Shop Page -->
+  <!-- UC Shop Page Screen -->
   <div id="uc-page" class="page">
     <div class="back-btn" onclick="openCategory('main')">
       <i class="fa-solid fa-arrow-left"></i> Ба ақиб
     </div>
 
     <div class="section-title">
-      <i class="fa-solid fa-coins" style="color: #d4af37;"></i> Хариди UC
+      <i class="fa-solid fa-coins" style="color: #d4af37;"></i> Интихоби UC
     </div>
 
     <div class="uc-grid" id="uc-list">
-      <!-- Items generated dynamically via JS -->
+      <!-- UC list rendered via JS -->
     </div>
   </div>
 
-  <!-- Floating Checkout Bar -->
+  <!-- Bottom Checkout Bar -->
   <div id="checkout-bar" class="checkout-bar" style="display: none;">
     <div class="checkout-info">
       <div id="selected-uc-text" class="checkout-uc">0 UC</div>
-      <div id="selected-price-text" class="checkout-price">Сомони: 0 см</div>
+      <div id="selected-price-text" class="checkout-price">0 сомони</div>
     </div>
-    <button class="buy-btn" onclick="buyUC()">Харидан</button>
+    <button class="buy-btn" onclick="openPaymentModal()">Харидан</button>
+  </div>
+
+  <!-- Payment Details Modal -->
+  <div id="payment-modal" class="modal-overlay">
+    <div class="payment-card">
+      <div class="payment-header">
+        <div class="payment-title"><i class="fa-solid fa-wallet"></i> Пополнение баланса</div>
+        <div class="close-modal" onclick="closePaymentModal()">&times;</div>
+      </div>
+
+      <div class="bank-info">
+        <div class="bank-label">Карта / Бонк:</div>
+        <div class="bank-val">Душанбе Сити / Spitamen Pay</div>
+      </div>
+
+      <div class="bank-info">
+        <div class="bank-label">Корт ба номи:</div>
+        <div class="bank-val">Шарифмох М.Д.</div>
+      </div>
+
+      <div class="bank-info">
+        <div class="bank-label">Рақами корт:</div>
+        <div class="card-number-box">
+          <span class="card-number" id="card-num">919664644</span>
+          <button class="copy-btn" onclick="copyCard()">Копировать</button>
+        </div>
+      </div>
+
+      <div class="instructions">
+        📌 <b>Дастурамал:</b><br>
+        1. Маблағро ба рақами корти болоӣ гузаронед.<br>
+        2. Чек ё скриншотро ба админ фиристед.<br>
+        3. Баланс ё UC-и шумо дарҳол фаъол карда мешавад!
+      </div>
+    </div>
   </div>
 
   <!-- Bottom Navigation -->
@@ -453,23 +570,16 @@
     const tg = window.Telegram ? window.Telegram.WebApp : null;
     if (tg) tg.expand();
 
-    // Прайс-лист мувофиқи сурат
+    // Нархнома мувофиқи талаботи шумо
     const ucPricelist = [
-      { base: 30, bonus: 0, price: 5 },
-      { base: 60, bonus: 60, price: 10 },
-      { base: 120, bonus: 0, price: 20 },
-      { base: 180, bonus: 0, price: 30 },
-      { base: 325, bonus: 0, price: 47 },
-      { base: 355, bonus: 0, price: 58 },
-      { base: 385, bonus: 0, price: 62 },
-      { base: 660, bonus: 0, price: 90 },
-      { base: 720, bonus: 0, price: 100 },
-      { base: 1440, bonus: 0, price: 195 },
-      { base: 1800, bonus: 0, price: 230 },
-      { base: 3850, bonus: 0, price: 430 },
-      { base: 4570, bonus: 0, price: 520 },
-      { base: 8100, bonus: 0, price: 880 },
-      { base: 16200, bonus: 0, price: 1700 }
+      { amount: 30, price: 5 },
+      { amount: 60, price: 10 },
+      { amount: 325, price: 47 },
+      { amount: 660, price: 90 },
+      { amount: 1800, price: 230 },
+      { amount: 3850, price: 430 },
+      { amount: 8100, price: 880 },
+      { amount: 16200, price: 1700 }
     ];
 
     let selectedItem = null;
@@ -479,16 +589,12 @@
       container.innerHTML = '';
 
       ucPricelist.forEach((item, index) => {
-        const totalUC = item.base + item.bonus;
-        const ucDisplay = item.bonus > 0 ? `${item.base} + ${item.bonus}` : `${item.base}`;
-
         const card = document.createElement('div');
         card.className = `uc-card ${selectedItem === index ? 'selected' : ''}`;
         card.onclick = () => selectUC(index);
 
         card.innerHTML = `
-          <div class="uc-amount">${ucDisplay} UC</div>
-          <div class="uc-bonus">= ${totalUC} UC</div>
+          <div class="uc-amount">${item.amount} UC</div>
           <div class="uc-price">${item.price} сомони</div>
         `;
 
@@ -501,9 +607,7 @@
       renderUCOptions();
 
       const item = ucPricelist[index];
-      const totalUC = item.base + item.bonus;
-
-      document.getElementById('selected-uc-text').innerText = `${totalUC} UC (${item.base}${item.bonus ? ' + ' + item.bonus : ''})`;
+      document.getElementById('selected-uc-text').innerText = `${item.amount} UC`;
       document.getElementById('selected-price-text').innerText = `Нарх: ${item.price} сомони`;
       document.getElementById('checkout-bar').style.display = 'flex';
     }
@@ -519,20 +623,18 @@
       }
     }
 
-    function buyUC() {
-      if (selectedItem === null) return;
-      const item = ucPricelist[selectedItem];
-      const total = item.base + item.bonus;
-      
-      if (tg) {
-        tg.sendData(JSON.stringify({
-          action: "buy_uc",
-          uc_amount: total,
-          price: item.price
-        }));
-      } else {
-        alert(`Интихоб шуд: ${total} UC бо нархи ${item.price} сомони`);
-      }
+    function openPaymentModal() {
+      document.getElementById('payment-modal').classList.add('active');
+    }
+
+    function closePaymentModal() {
+      document.getElementById('payment-modal').classList.remove('active');
+    }
+
+    function copyCard() {
+      const cardNum = document.getElementById('card-num').innerText;
+      navigator.clipboard.writeText(cardNum);
+      alert("Рақами корт нусхабардорӣ шуд: " + cardNum);
     }
   </script>
 </body>
