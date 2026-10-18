@@ -1,753 +1,291 @@
 <!DOCTYPE html>
-<html lang="tg">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>VELOX WEB APP — PREMIUM PUBG STORE</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <style>
-    :root {
-      --bg-color: #08080a;
-      --card-bg: #121218;
-      --card-inner: #14141c;
-      --gold-main: #d4af37;
-      --gold-gradient: linear-gradient(180deg, #e6ca65 0%, #997a15 100%);
-      --text-white: #ffffff;
-      --text-gray: #8a8a93;
-      --border-gold: rgba(212, 175, 55, 0.3);
-      --red-alert: #ff4d4d;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-white);
-      padding-bottom: 85px;
-      overflow-x: hidden;
-    }
-
-    /* Top Bar Header */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      background: linear-gradient(180deg, rgba(20,20,25,0.95) 0%, rgba(8,8,10,0) 100%);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .lang-dropdown {
-      position: relative;
-    }
-
-    .lang-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-gold);
-      border-radius: 8px;
-      padding: 6px 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: bold;
-      color: var(--text-white);
-    }
-
-    .flag-icon {
-      width: 18px;
-      height: 12px;
-      border-radius: 2px;
-      object-fit: cover;
-    }
-
-    .lang-menu {
-      display: none;
-      position: absolute;
-      top: 110%;
-      left: 0;
-      background: #14141c;
-      border: 1px solid var(--border-gold);
-      border-radius: 8px;
-      width: 110px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.8);
-      z-index: 101;
-    }
-
-    .lang-menu.show {
-      display: block;
-    }
-
-    .lang-option {
-      padding: 8px 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      cursor: pointer;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .lang-option:last-child {
-      border-bottom: none;
-    }
-
-    .balance-btn {
-      background: rgba(212, 175, 55, 0.08);
-      border: 1px solid var(--border-gold);
-      border-radius: 10px;
-      padding: 6px 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-    }
-
-    .balance-info {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
-
-    .balance-label {
-      font-size: 9px;
-      color: var(--text-gray);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .balance-val {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--text-white);
-    }
-
-    .balance-plus {
-      background: var(--gold-main);
-      color: #000;
-      border-radius: 4px;
-      width: 18px;
-      height: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: bold;
-    }
-
-    /* Pages Navigation */
-    .page {
-      display: none;
-      padding: 10px 16px;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    .page-title-bar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .back-btn {
-      color: var(--gold-main);
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .page-title {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
-
-    /* Main Grid 4 Cards */
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 10px;
-    }
-
-    .main-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-gold);
-      border-radius: 16px;
-      overflow: hidden;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .main-card-img {
-      width: 100%;
-      height: 130px;
-      object-fit: cover;
-    }
-
-    .main-card-footer {
-      padding: 10px 12px;
-      background: var(--card-inner);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .main-card-title {
-      font-size: 13px;
-      font-weight: 800;
-      font-style: italic;
-    }
-
-    .main-card-icon {
-      color: var(--gold-main);
-      font-size: 12px;
-    }
-
-    /* Horizontal Crates Scroll */
-    .crates-scroll {
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
-
-    .crate-card {
-      min-width: 140px;
-      border-radius: 12px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 110px;
-      cursor: pointer;
-      border: 1px solid var(--border-gold);
-    }
-
-    .crate-1 {
-      background: #ffffff;
-      color: #000000;
-    }
-
-    .crate-2 {
-      background: #2d2a1e;
-      color: #e6ca65;
-    }
-
-    .crate-3 {
-      background: linear-gradient(135deg, #1f1f1f 0%, #3a3219 100%);
-      color: #ffffff;
-    }
-
-    .crate-title {
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .crate-price {
-      font-size: 14px;
-      font-weight: 900;
-      margin-top: 8px;
-      padding: 4px 8px;
-      border-radius: 6px;
-      background: rgba(0,0,0,0.15);
-      text-align: center;
-    }
-
-    /* Grid 2x2 for Prime */
-    .grid-2x2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .prime-card {
-      background: #1a1a22;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: 12px;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .prime-plus-card {
-      background: linear-gradient(135deg, #2b1d0c 0%, #1f0d2b 100%);
-      border: 1px solid var(--gold-main);
-      border-radius: 12px;
-      padding: 12px;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .card-crown-icon {
-      color: var(--gold-main);
-      font-size: 20px;
-      margin-bottom: 6px;
-    }
-
-    .prime-time {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .prime-cost {
-      font-size: 14px;
-      font-weight: 900;
-      color: var(--gold-main);
-    }
-
-    /* UC List */
-    .uc-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .uc-card {
-      background: var(--card-inner);
-      border: 1px solid var(--border-gold);
-      border-radius: 12px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .uc-card.selected {
-      border-color: var(--gold-main);
-      background: rgba(212, 175, 55, 0.1);
-    }
-
-    .uc-amount {
-      font-size: 15px;
-      font-weight: 900;
-    }
-
-    .uc-price-btn {
-      margin-top: 8px;
-      background: var(--gold-gradient);
-      color: #000;
-      font-size: 12px;
-      font-weight: 800;
-      padding: 6px 12px;
-      border-radius: 6px;
-      width: 100%;
-      text-align: center;
-    }
-
-    /* Counter Control */
-    .qty-control {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      margin: 15px 0;
-      background: var(--card-inner);
-      padding: 10px;
-      border-radius: 10px;
-      border: 1px solid var(--border-gold);
-    }
-
-    .qty-btn {
-      background: var(--gold-main);
-      color: #000;
-      border: none;
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    /* Modals & Screens */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(5px);
-      z-index: 200;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-box {
-      background: var(--card-inner);
-      border: 1px solid var(--gold-main);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 400px;
-      padding: 20px;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding-bottom: 8px;
-    }
-
-    .modal-title {
-      font-size: 16px;
-      font-weight: bold;
-      color: var(--gold-main);
-    }
-
-    .close-btn {
-      color: var(--text-gray);
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    .field-group {
-      margin-bottom: 12px;
-    }
-
-    .field-label {
-      font-size: 11px;
-      color: var(--text-gray);
-      margin-bottom: 4px;
-      display: block;
-    }
-
-    .field-input {
-      width: 100%;
-      background: #0d0d12;
-      border: 1px solid var(--border-gold);
-      border-radius: 8px;
-      padding: 10px;
-      color: #fff;
-      font-size: 13px;
-      outline: none;
-    }
-
-    .copy-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #0d0d12;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border-gold);
-    }
-
-    .action-btn {
-      width: 100%;
-      background: var(--gold-gradient);
-      color: #000;
-      border: none;
-      padding: 12px;
-      border-radius: 10px;
-      font-weight: 800;
-      font-size: 14px;
-      cursor: pointer;
-      text-transform: uppercase;
-      margin-top: 10px;
-    }
-
-    /* Popup Message Card */
-    .popup-box {
-      background: var(--card-inner);
-      border: 1px solid var(--gold-main);
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-      max-width: 320px;
-      width: 100%;
-    }
-
-    .popup-msg {
-      font-size: 13px;
-      line-height: 1.5;
-      margin-bottom: 16px;
-    }
-
-    .popup-ok-btn {
-      background: var(--gold-gradient);
-      color: #000;
-      border: none;
-      padding: 8px 30px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    /* Alert Text */
-    .alert-red {
-      color: var(--red-alert);
-      font-size: 11px;
-      margin-top: 4px;
-      display: none;
-    }
-
-    /* Orders List Item */
-    .order-item {
-      background: var(--card-inner);
-      border: 1px solid var(--border-gold);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 10px;
-    }
-
-    .order-status {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: rgba(212, 175, 55, 0.2);
-      color: var(--gold-main);
-      display: inline-block;
-      margin-bottom: 6px;
-    }
-
-    .review-red-text {
-      color: var(--red-alert);
-      font-weight: bold;
-      font-size: 12px;
-      cursor: pointer;
-      margin-top: 8px;
-      display: inline-block;
-    }
-
-    /* Bottom Navbar */
-    .navbar {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      height: 65px;
-      background: #0d0d12;
-      border-top: 1px solid var(--border-gold);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 100;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: var(--text-gray);
-      font-size: 10px;
-      cursor: pointer;
-      gap: 4px;
-    }
-
-    .nav-item.active {
-      color: var(--gold-main);
-    }
-
-    .nav-item i {
-      font-size: 18px;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VELOX UC SHOP</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- FontAwesome барои иконкаҳо -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- Header Bar -->
-  <div class="header">
-    <div class="lang-dropdown">
-      <div class="lang-btn" onclick="toggleLangMenu()">
-        <img id="curr-flag" src="https://flagcdn.com/w20/tj.png" class="flag-icon" alt="Flag">
-        <span id="curr-lang-code">TJK</span>
-        <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
-      </div>
-      <div class="lang-menu" id="lang-menu">
-        <div class="lang-option" onclick="selectLanguage('tg')">
-          <img src="https://flagcdn.com/w20/tj.png" class="flag-icon" alt="TJK"> TJK
-        </div>
-        <div class="lang-option" onclick="selectLanguage('ru')">
-          <img src="https://flagcdn.com/w20/ru.png" class="flag-icon" alt="RUS"> RUS
-        </div>
-        <div class="lang-option" onclick="selectLanguage('en')">
-          <img src="https://flagcdn.com/w20/gb.png" class="flag-icon" alt="ENG"> ENG
-        </div>
-      </div>
+  <!-- Сарлавҳаи болоӣ (Header) -->
+  <header class="header">
+    <div class="menu-btn"><i class="fa-solid fa-bars"></i></div>
+    <div class="lang-select">
+      <span class="flag">🇹🇯</span>
+      <span class="flag">🇷🇺</span>
+      <span class="flag">🇬🇧</span>
+      <i class="fa-solid fa-chevron-down"></i>
     </div>
-
-    <div class="balance-btn" onclick="openTopUpModal()">
+    <div class="brand-logo">
+      <div class="logo-crown">👑</div>
+      <div class="logo-title">VELOX</div>
+      <div class="logo-subtitle">UC SHOP</div>
+    </div>
+    <div class="balance-card">
+      <div class="wallet-icon"><i class="fa-solid fa-wallet"></i></div>
       <div class="balance-info">
-        <span class="balance-label" id="txt-balance-label">BALANCE</span>
-        <span class="balance-val" id="top-balance-val">0.00 TJS</span>
+        <span class="b-title">Баланс</span>
+        <span class="b-amount">0.00 сомони</span>
       </div>
-      <div class="balance-plus">+</div>
+      <button class="add-btn">+</button>
+    </div>
+  </header>
+
+  <!-- Баннери асосӣ -->
+  <div class="hero-banner">
+    <div class="banner-overlay"></div>
+    <div class="banner-content">
+      <span class="pubg-badge">PUBG MOBILE</span>
+      <h2>PLAY BIGGER<br>BE A LEGEND</h2>
     </div>
   </div>
 
-  <!-- PAGE 1: MAIN PAGE -->
-  <div id="page-main" class="page active">
-    <div style="text-align: center; margin: 10px 0 15px 0;">
-      <h1 style="font-size: 22px; letter-spacing: 2px; color: var(--gold-main);">VELOX</h1>
-      <p style="font-size: 10px; color: var(--text-gray); letter-spacing: 1px;">PREMIUM PUBG STORE</p>
-    </div>
+  <!-- Муҳтавои асосӣ (Саҳифаҳо) -->
+  <main id="main-content">
 
-    <div class="main-grid">
-      <div class="main-card" onclick="navTo('page-pubg')">
-        <img src="https://via.placeholder.com/300x200/121218/d4af37?text=PUBG+SHOP" class="main-card-img" alt="PUBG SHOP">
-        <div class="main-card-footer">
-          <span class="main-card-title">PUBG SHOP</span>
-          <i class="fa-solid fa-chevron-right main-card-icon"></i>
+    <!-- 1. Саҳифаи Главный -->
+    <section id="page-main" class="page active-page">
+      <div class="grid-container">
+        <!-- Карточкаи UC SHOP -->
+        <div class="card card-uc">
+          <div class="card-badge">PUBG MOBILE</div>
+          <div class="card-bg-img"></div>
+          <div class="card-footer">
+            <h3>UC SHOP</h3>
+            <button class="nav-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+        <!-- Карточкаи AKAKUNT -->
+        <div class="card card-account">
+          <div class="card-badge">PUBG MOBILE</div>
+          <div class="card-bg-img"></div>
+          <div class="card-footer">
+            <h3><i class="fa-solid fa-user-check"></i> AKAKUNT</h3>
+            <button class="nav-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+        <!-- Карточкаи X-CUIT -->
+        <div class="card card-xsuit">
+          <div class="card-badge">PUBG MOBILE</div>
+          <div class="card-bg-img"></div>
+          <div class="card-footer">
+            <h3><i class="fa-solid fa-mask"></i> X-CUIT</h3>
+            <button class="nav-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+        <!-- Карточкаи SUPERCAR -->
+        <div class="card card-supercar">
+          <div class="card-badge">PUBG MOBILE</div>
+          <div class="card-bg-img"></div>
+          <div class="card-footer">
+            <h3><i class="fa-solid fa-car"></i> SUPERCAR</h3>
+            <button class="nav-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Саҳифаи Отзывы -->
+    <section id="page-reviews" class="page">
+      <div class="section-header">
+        <div>
+          <h2>⭐ Отзывы</h2>
+          <p>Реальные отзывы наших клиентов</p>
+        </div>
+        <button class="btn-outline">Все отзывы <i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+
+      <div class="reviews-list">
+        <!-- Намунаи шарҳ -->
+        <div class="review-card">
+          <div class="user-avatar"></div>
+          <div class="review-details">
+            <div class="user-info">
+              <strong>Akmal_777 <i class="fa-solid fa-circle-check verified"></i></strong>
+              <span class="review-date">07.10.2025</span>
+            </div>
+            <div class="rating">★★★★★</div>
+            <p>660 UC гирифтам, зуд омад. Хизматрасонӣ хеле хуб! Раҳмат! 🔥</p>
+          </div>
+          <div class="product-tag">
+            <i class="fa-solid fa-coins"></i>
+            <div>
+              <strong>UC SHOP</strong>
+              <small>660 UC</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="user-avatar"></div>
+          <div class="review-details">
+            <div class="user-info">
+              <strong>Rustam_01 <i class="fa-solid fa-circle-check verified"></i></strong>
+              <span class="review-date">06.10.2025</span>
+            </div>
+            <div class="rating">★★★★★</div>
+            <p>Аккаунт гирифтам, ҳама чиз дуруст. Тавсия медиҳам, боварӣ кунед! 👍</p>
+          </div>
+          <div class="product-tag">
+            <i class="fa-solid fa-user"></i>
+            <div>
+              <strong>АККАУНТ</strong>
+              <small>PUBG ACCOUNT</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Саҳифаи Заказы -->
+    <section id="page-orders" class="page">
+      <div class="section-header">
+        <div>
+          <h2>📦 Мои заказы</h2>
+          <p>История ваших покупок</p>
+        </div>
+        <select class="select-filter">
+          <option>Все заказы</option>
+          <option>Выполнено</option>
+        </select>
+      </div>
+
+      <div class="orders-list">
+        <!-- Намунаи фармоиш -->
+        <div class="order-card">
+          <div class="order-img"></div>
+          <div class="order-info">
+            <h3>1800 UC <i class="fa-solid fa-coins"></i></h3>
+            <p>PUBG Mobile</p>
+            <p>ID игрока: 5234567890</p>
+            <p>Количество: 1 шт.</p>
+            <span class="order-date">🗓 06.10.2025 18:42</span>
+          </div>
+          <div class="order-action">
+            <span class="status-badge success"><i class="fa-solid fa-check"></i> Выполнено</span>
+            <div class="price">180.00 сомони</div>
+            <button class="btn-details"><i class="fa-regular fa-eye"></i> Подробнее</button>
+          </div>
+        </div>
+
+        <div class="order-card">
+          <div class="order-img"></div>
+          <div class="order-info">
+            <h3>X-Suit 👕</h3>
+            <p>PUBG Mobile</p>
+            <p>ID игрока: 5234567890</p>
+            <p>Количество: 1 шт.</p>
+            <span class="order-date">🗓 05.10.2025 16:20</span>
+          </div>
+          <div class="order-action">
+            <span class="status-badge success"><i class="fa-solid fa-check"></i> Выполнено</span>
+            <div class="price">250.00 сомони</div>
+            <button class="btn-details"><i class="fa-regular fa-eye"></i> Подробнее</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Саҳифаи Профиль -->
+    <section id="page-profile" class="page">
+      <div class="profile-header">
+        <div class="avatar-box">
+          <div class="avatar-crown">👑</div>
+          <div class="avatar-img"></div>
+          <button class="camera-btn"><i class="fa-solid fa-camera"></i></button>
+        </div>
+        <div class="user-meta">
+          <h2>Akram 👑</h2>
+          <p>@akram._.pubg <i class="fa-regular fa-copy"></i></p>
+          <p>ID: 123456789 <i class="fa-regular fa-copy"></i></p>
+          <span class="online-status">🟢 Онлаййн</span>
         </div>
       </div>
 
-      <div class="main-card" onclick="navTo('page-account')">
-        <img src="https://via.placeholder.com/300x200/121218/d4af37?text=ACCOUNT" class="main-card-img" alt="ACCOUNT">
-        <div class="main-card-footer">
-          <span class="main-card-title">ACCOUNT</span>
-          <i class="fa-solid fa-chevron-right main-card-icon"></i>
+      <div class="balance-banner">
+        <div>
+          <span>Баланс</span>
+          <h3>0.00 сомони</h3>
+        </div>
+        <button class="btn-gold"><i class="fa-solid fa-wallet"></i> Пополнить баланс <i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+
+      <div class="menu-list">
+        <div class="menu-item">
+          <i class="fa-solid fa-crown gold-icon"></i>
+          <div>
+            <strong>Мой профиль</strong>
+            <small>Ваши данные и настройки</small>
+          </div>
+          <i class="fa-solid fa-chevron-right arrow-right"></i>
+        </div>
+        <div class="menu-item">
+          <i class="fa-solid fa-box-archive gold-icon"></i>
+          <div>
+            <strong>Мои заказы</strong>
+            <small>История всех покупок</small>
+          </div>
+          <i class="fa-solid fa-chevron-right arrow-right"></i>
+        </div>
+        <div class="menu-item">
+          <i class="fa-solid fa-star gold-icon"></i>
+          <div>
+            <strong>Мои бонусы</strong>
+            <small>Промокоды и реферальная система</small>
+          </div>
+          <i class="fa-solid fa-chevron-right arrow-right"></i>
+        </div>
+        <div class="menu-item">
+          <i class="fa-solid fa-bell gold-icon"></i>
+          <div>
+            <strong>Уведомления</strong>
+            <small>Настройки уведомлений</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="menu-item">
+          <i class="fa-solid fa-headset gold-icon"></i>
+          <div>
+            <strong>Поддержка</strong>
+            <small>Связь с @VELOX_UC</small>
+          </div>
+          <i class="fa-solid fa-chevron-right arrow-right"></i>
         </div>
       </div>
+    </section>
 
-      <div class="main-card" onclick="navTo('page-xcostume')">
-        <img src="https://via.placeholder.com/300x300/121218/d4af37?text=X-COSTUME" class="main-card-img" alt="X-COSTUME">
-        <div class="main-card-footer">
-          <span class="main-card-title">X-COSTUME</span>
-          <i class="fa-solid fa-chevron-right main-card-icon"></i>
-        </div>
-      </div>
+  </main>
 
-      <div class="main-card" onclick="navTo('page-supercar')">
-        <img src="https://via.placeholder.com/300x300/121218/d4af37?text=SUPERCAR" class="main-card-img" alt="SUPERCAR">
-        <div class="main-card-footer">
-          <span class="main-card-title">SUPERCAR</span>
-          <i class="fa-solid fa-chevron-right main-card-icon"></i>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Менюи пайвасткунандаи поёнӣ (Bottom Nav bar) -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-page="page-main">
+      <i class="fa-solid fa-house"></i>
+      <span>Главный</span>
+    </button>
+    <button class="nav-item" data-page="page-reviews">
+      <i class="fa-solid fa-star"></i>
+      <span>Отзывы</span>
+    </button>
+    <button class="nav-item" data-page="page-orders">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Заказы</span>
+    </button>
+    <button class="nav-item" data-page="page-profile">
+      <i class="fa-solid fa-user"></i>
+      <span>Профиль</span>
+    </button>
+  </nav>
 
-  <!-- PAGE 2: PUBG SHOP -->
-  <div id="page-pubg" class="page">
-    <div class="page-title-bar">
-      <i class="fa-solid fa-arrow-left back-btn" onclick="navTo('page-main')"></i>
-      <span class="page-title">PUBG SHOP</span>
-    </div>
-
-    <!-- Crates -->
-    <div class="crates-scroll">
-      <div class="crate-card crate-1" onclick="openOrderModal('Яшик: 900G + 170UC', 15)">
-        <div class="crate-title">900 G + 170 UC</div>
-        <div class="crate-price">15 TJS</div>
-      </div>
-      <div class="crate-card crate-2" onclick="openOrderModal('Яшик: 180UC + 9 Материал', 35)">
-        <div class="crate-title">180 UC + 9 Матер.</div>
-        <div class="crate-price">35 TJS</div>
-      </div>
-      <div class="crate-card crate-3" onclick="openOrderModal('Яшик: 300UC + 79Чем', 50)">
-        <div class="crate-title">300 UC + 79 Чем</div>
-        <div class="crate-price">50 TJS</div>
-      </div>
-    </div>
-
-    <!-- Prime -->
-    <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; color: var(--gold-main);">PRIME</div>
-    <div class="grid-2x2">
-      <div class="prime-card" onclick="openOrderModal('PRIME 1 Месец', 11)">
-        <i class="fa-solid fa-crown card-crown-icon"></i>
-        <div class="prime-time">1 Месец</div>
-        <div class="prime-cost">11 TJS</div>
-      </div>
-      <div class="prime-card" onclick="openOrderModal('PRIME 3 Месец', 30)">
-        <i class="fa-solid fa-crown card-crown-icon"></i>
-        <div class="prime-time">3 Месец</div>
-        <div class="prime-cost">30 TJS</div>
-      </div>
-      <div class="prime-card" onclick="openOrderModal('PRIME 6 Месец', 65)">
-        <i class="fa-solid fa-crown card-crown-icon"></i>
-        <div class="prime-time">6 Месец</div>
-        <div class="prime-cost">65 TJS</div>
-      </div>
-      <div class="prime-card" onclick="openOrderModal('PRIME 12 Месец', 120)">
-        <i class="fa-solid fa-crown card-crown-icon"></i>
-        <div class="prime-time">12 Месец</div>
-        <div class="prime-cost">120 TJS</div>
-      </div>
-    </div>
-
-    <!-- Prime Plus -->
-    <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; color: var(--gold-main);">PRIME PLUS</div>
-    <div class="grid-2x2">
-      <div class="prime-plus-card" onclick="openOrderModal('PRIME PLUS 1 Месец', 100)">
-        <i class="fa-solid fa-crown card-crown-icon"></i>
-        <div class="prime-time">1 Месец</div>
-        <div class="prime-cost">100 TJS</div>
-      </div>
-      <div class="prime-plus-card" onclick="openOrderModal('PRIME PLUS 3 Месец', 280)">
-        <i class="fa-solid fa-crown card-crown-icon"></i>
-        <div class="prime-time">3 Месец</div>
-        <div class="prime-cost">280 TJS</div>
-      </div>
-      <div class="prime-plus-card" onclick="openOrderModal('PRIME PLUS 6 Месец', 550)">
-        <i class="fa-solid fa-crown card-crown-icon"></i>
-        <div class="prime-time">6 Месец</div>
-        <div class="prime-cost">550 TJS</div>
-      </div>
-      <div class="prime-plus-card" onclick="openOrderModal('PRIME PLUS 12 Месец', 1055)">
-        <i class="fa-solid fa-crown card-crown-icon"></i>
-        <div class="prime-time">12 Месец</div>
-        <div class="prime-cost">1055 TJS</div>
-      </div>
-    </div>
-
-    <!-- UC Shop List -->
-    <div style="font-size: 14px; font-weight: bold; margin: 15px 0 8px 0; color: var(--gold-main);">UC SHOP</div>
-    <div class="uc-grid" id="uc-container"></div>
-  </div>
-
-  <!-- PAGE 3: ACCOUNT -->
-  <div id="page-account" class="page">
-    <div class="page-title-bar" style="justify-content: space-between;">
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <i class="fa-solid fa-arrow-left back-btn" onclick="navTo('page-main')"></i>
-        <span class="page-title">ACCOUNT</span>
-      </div>
-      <button class="action-btn" style="width: auto; padding: 6px 12px; font-size: 11px; margin:0;" onclick="openModal('modal-add-acc')">+ ПРОДАТЬ АККАУНТ</button>
-    </div>
-    <div id="acc-list-container" style="text-align: center; color: var(--text-gray); margin-top: 40px; font-size: 13px;">
-      Дар ин бахш ҳоло эълоне нест.
-    </div>
-  </div>
-
-  <!-- PAGE 4: X-COSTUME -->
-  <div id="page-xcostume" class="page">
-    <div class="page-title-bar" style="justify-content: space-between;">
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <i class="fa-solid fa-arrow-left back-btn" onclick="navTo('page-main')"></i>
-        <span class="page-title">X-COSTUME</span>
-      </div>
-      <button class="action-btn" style="width: auto; padding: 6px 12px; font-size: 11px; margin:0;" onclick="openModal('modal-add-xcostume')">+ ДОБАВИТЬ X-COSTUME</button>
-    </div>
-    <div style="text-align: center; color: var(--text-gray); margin-top: 40px; font-size: 13px;">
-      Дар ин бахш ҳоло эълоне нест.
-    </div>
-  </div>
-
-  <!-- PAGE 5: SUPERCAR -->
-  <div id="page-supercar" class="page">
-    <div class="page-title-bar" style="justify-content: space-between;">
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <i class="fa-solid
+  <script src="script.js"></script>
+</body>
+                                                                                 </html>
+            
