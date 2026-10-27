@@ -1,291 +1,143 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VELOX UC SHOP</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- FontAwesome барои иконкаҳо -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELOX UC SHOP</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#07111f;color:#fff;font-family:Arial,sans-serif}
+header{padding:20px 16px;background:linear-gradient(135deg,#073b85,#087bfa);border-radius:0 0 24px 24px}
+.logo{font-size:23px;font-weight:900;letter-spacing:1px}
+.logo span{color:#70d6ff}
+.small{font-size:12px;color:#c9e4ff;margin-top:5px}
+.balance{margin-top:20px;background:#ffffff18;border:1px solid #ffffff30;padding:15px;border-radius:16px}
+.balance strong{display:block;font-size:25px;margin-top:7px}
+main{padding:16px;padding-bottom:95px}
+h2{font-size:19px;margin:12px 0}
+.banner{padding:19px;border-radius:18px;background:linear-gradient(120deg,#102d5c,#0756c9);margin-bottom:20px}
+.banner h2{font-size:22px;margin:0 0 8px}
+.banner p{font-size:13px;color:#c8ddff;margin:0}
+.categories{display:flex;gap:8px;overflow-x:auto;margin:14px 0}
+.cat{white-space:nowrap;border:1px solid #263d5d;background:#101f34;color:#fff;padding:10px 14px;border-radius:12px}
+.cat.active{background:#087bfa;border-color:#087bfa}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.product{background:#101e31;border:1px solid #203754;border-radius:16px;padding:14px;min-width:0}
+.product .emoji{font-size:28px}
+.product h3{font-size:15px;margin:10px 0 6px}
+.product p{font-size:12px;color:#9db2cf;margin:0 0 12px}
+.price{font-size:17px;font-weight:bold;color:#65c9ff}
+.product button,.primary{width:100%;border:0;background:#087bfa;color:#fff;padding:11px;border-radius:10px;font-weight:bold;margin-top:12px}
+.panel{background:#101e31;border:1px solid #203754;border-radius:16px;padding:15px;margin:14px 0}
+input,select{width:100%;padding:13px;margin:8px 0;background:#071526;border:1px solid #29415f;border-radius:10px;color:#fff}
+.muted{font-size:12px;color:#9db2cf;line-height:1.5}
+.hidden{display:none!important}
+nav{position:fixed;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(4,1fr);background:#0b1728;border-top:1px solid #243750;padding:10px 4px calc(10px + env(safe-area-inset-bottom));z-index:10}
+nav button{border:0;background:transparent;color:#9db2cf;font-size:11px;padding:7px 1px}
+nav button span{display:block;font-size:20px;margin-bottom:4px}
+nav button.active{color:#55b9ff}
+.toast{position:fixed;top:15px;left:10%;width:80%;background:#16385d;padding:13px;border-radius:12px;text-align:center;display:none;z-index:20}
+.order{padding:12px 0;border-bottom:1px solid #263950;font-size:13px}
+</style>
 </head>
 <body>
+<header>
+  <div class="logo">VELOX <span>UC SHOP</span></div>
+  <div class="small">PUBG MOBILE • Быстро • Надёжно</div>
+  <div class="balance">
+    <div>💎 Мой баланс</div>
+    <strong><span id="balance">0</span> сомони</strong>
+    <button class="primary" onclick="showPage('profile')">Пополнить баланс</button>
+  </div>
+</header>
 
-  <!-- Сарлавҳаи болоӣ (Header) -->
-  <header class="header">
-    <div class="menu-btn"><i class="fa-solid fa-bars"></i></div>
-    <div class="lang-select">
-      <span class="flag">🇹🇯</span>
-      <span class="flag">🇷🇺</span>
-      <span class="flag">🇬🇧</span>
-      <i class="fa-solid fa-chevron-down"></i>
-    </div>
-    <div class="brand-logo">
-      <div class="logo-crown">👑</div>
-      <div class="logo-title">VELOX</div>
-      <div class="logo-subtitle">UC SHOP</div>
-    </div>
-    <div class="balance-card">
-      <div class="wallet-icon"><i class="fa-solid fa-wallet"></i></div>
-      <div class="balance-info">
-        <span class="b-title">Баланс</span>
-        <span class="b-amount">0.00 сомони</span>
-      </div>
-      <button class="add-btn">+</button>
-    </div>
-  </header>
+<main>
+<section id="home">
+  <div class="banner">
+    <h2>Покупай UC легко!</h2>
+    <p>Выбирай пакет UC, укажи PUBG ID и оформи заказ.</p>
+  </div>
+  <h2>🎮 Магазин</h2>
+  <div class="categories">
+    <button class="cat active" onclick="setCategory('uc',this)">💎 UC</button>
+    <button class="cat" onclick="setCategory('prime',this)">👑 PRIME</button>
+    <button class="cat" onclick="setCategory('crate',this)">🎁 Ящики</button>
+  </div>
+  <div id="products" class="products"></div>
+</section>
 
-  <!-- Баннери асосӣ -->
-  <div class="hero-banner">
-    <div class="banner-overlay"></div>
-    <div class="banner-content">
-      <span class="pubg-badge">PUBG MOBILE</span>
-      <h2>PLAY BIGGER<br>BE A LEGEND</h2>
+<section id="reviews" class="hidden">
+  <h2>⭐ Отзывы покупателей</h2>
+  <div class="panel">
+    <p>Отзывы покупателей VELOX UC SHOP</p>
+    <p class="muted">Здесь можно разместить ссылку на официальный канал с отзывами.</p>
+    <button class="primary" onclick="openLink('https://t.me/otzif_VELOX')">Посмотреть отзывы</button>
+  </div>
+</section>
+
+<section id="profile" class="hidden">
+  <h2>👤 Мой профиль</h2>
+  <div class="panel">
+    <p>Имя: <b id="username">Пользователь Telegram</b></p>
+    <p>Telegram ID: <b id="tgid">Не определён</b></p>
+    <p>Баланс: <b><span id="balance2">0</span> сомони</b></p>
+  </div>
+  <h2>💳 Пополнить баланс</h2>
+  <div class="panel">
+    <input id="topupAmount" type="number" min="5" max="50000" placeholder="Сумма в сомони (5–50000)">
+    <button class="primary" onclick="topUp()">Продолжить пополнение</button>
+    <p class="muted">Оплата и зачисление требуют подключения платёжной системы и серверной проверки.</p>
+  </div>
+  <div class="panel">
+    <h3>🎧 Поддержка</h3>
+    <button class="primary" onclick="openLink('https://t.me/VELOX_UC')">Написать в поддержку</button>
+  </div>
+</section>
+
+<section id="orders" class="hidden">
+  <h2>📦 Мои заказы</h2>
+  <div id="orderList" class="panel">Пока заказов нет.</div>
+</section>
+
+<section id="checkout" class="hidden">
+  <h2>🛒 Оформление заказа</h2>
+  <div class="panel">
+    <p id="selectedProduct"></p>
+    <label for="pubgId">PUBG ID</label>
+    <input id="pubgId" inputmode="numeric" placeholder="Введи свой PUBG ID">
+    <label for="payMethod">Способ оплаты</label>
+    <select id="payMethod">
+      <option value="balance">Оплата с баланса</option>
+      <option value="card">Оплата картой</option>
+    </select>
+    <button class="primary" onclick="placeOrder()">Подтвердить заказ</button>
+    <button class="primary" style="background:#263950" onclick="showPage('home')">Назад в магазин</button>
+    <p class="muted">Не оплачивай заказ повторно, пока администратор не подтвердит предыдущий.</p>
+  </div>
+</section>
+
+<section id="admin" class="hidden">
+  <h2>🛡️ Админ-панель</h2>
+  <div class="panel">
+    <p class="muted">Демо-раздел. Для безопасного управления нужен сервер с проверкой прав администратора.</p>
+    <input id="adminCode" type="password" placeholder="Код доступа">
+    <button class="primary" onclick="adminLogin()">Войти</button>
+    <div id="adminContent" class="hidden">
+      <p>Админ-панель открыта только в этой демо-странице.</p>
+      <p class="muted">Здесь пока нет реального управления заказами или платежами.</p>
     </div>
   </div>
+</section>
+</main>
 
-  <!-- Муҳтавои асосӣ (Саҳифаҳо) -->
-  <main id="main-content">
-
-    <!-- 1. Саҳифаи Главный -->
-    <section id="page-main" class="page active-page">
-      <div class="grid-container">
-        <!-- Карточкаи UC SHOP -->
-        <div class="card card-uc">
-          <div class="card-badge">PUBG MOBILE</div>
-          <div class="card-bg-img"></div>
-          <div class="card-footer">
-            <h3>UC SHOP</h3>
-            <button class="nav-arrow"><i class="fa-solid fa-chevron-right"></i></button>
-          </div>
-        </div>
-
-        <!-- Карточкаи AKAKUNT -->
-        <div class="card card-account">
-          <div class="card-badge">PUBG MOBILE</div>
-          <div class="card-bg-img"></div>
-          <div class="card-footer">
-            <h3><i class="fa-solid fa-user-check"></i> AKAKUNT</h3>
-            <button class="nav-arrow"><i class="fa-solid fa-chevron-right"></i></button>
-          </div>
-        </div>
-
-        <!-- Карточкаи X-CUIT -->
-        <div class="card card-xsuit">
-          <div class="card-badge">PUBG MOBILE</div>
-          <div class="card-bg-img"></div>
-          <div class="card-footer">
-            <h3><i class="fa-solid fa-mask"></i> X-CUIT</h3>
-            <button class="nav-arrow"><i class="fa-solid fa-chevron-right"></i></button>
-          </div>
-        </div>
-
-        <!-- Карточкаи SUPERCAR -->
-        <div class="card card-supercar">
-          <div class="card-badge">PUBG MOBILE</div>
-          <div class="card-bg-img"></div>
-          <div class="card-footer">
-            <h3><i class="fa-solid fa-car"></i> SUPERCAR</h3>
-            <button class="nav-arrow"><i class="fa-solid fa-chevron-right"></i></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. Саҳифаи Отзывы -->
-    <section id="page-reviews" class="page">
-      <div class="section-header">
-        <div>
-          <h2>⭐ Отзывы</h2>
-          <p>Реальные отзывы наших клиентов</p>
-        </div>
-        <button class="btn-outline">Все отзывы <i class="fa-solid fa-chevron-right"></i></button>
-      </div>
-
-      <div class="reviews-list">
-        <!-- Намунаи шарҳ -->
-        <div class="review-card">
-          <div class="user-avatar"></div>
-          <div class="review-details">
-            <div class="user-info">
-              <strong>Akmal_777 <i class="fa-solid fa-circle-check verified"></i></strong>
-              <span class="review-date">07.10.2025</span>
-            </div>
-            <div class="rating">★★★★★</div>
-            <p>660 UC гирифтам, зуд омад. Хизматрасонӣ хеле хуб! Раҳмат! 🔥</p>
-          </div>
-          <div class="product-tag">
-            <i class="fa-solid fa-coins"></i>
-            <div>
-              <strong>UC SHOP</strong>
-              <small>660 UC</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card">
-          <div class="user-avatar"></div>
-          <div class="review-details">
-            <div class="user-info">
-              <strong>Rustam_01 <i class="fa-solid fa-circle-check verified"></i></strong>
-              <span class="review-date">06.10.2025</span>
-            </div>
-            <div class="rating">★★★★★</div>
-            <p>Аккаунт гирифтам, ҳама чиз дуруст. Тавсия медиҳам, боварӣ кунед! 👍</p>
-          </div>
-          <div class="product-tag">
-            <i class="fa-solid fa-user"></i>
-            <div>
-              <strong>АККАУНТ</strong>
-              <small>PUBG ACCOUNT</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. Саҳифаи Заказы -->
-    <section id="page-orders" class="page">
-      <div class="section-header">
-        <div>
-          <h2>📦 Мои заказы</h2>
-          <p>История ваших покупок</p>
-        </div>
-        <select class="select-filter">
-          <option>Все заказы</option>
-          <option>Выполнено</option>
-        </select>
-      </div>
-
-      <div class="orders-list">
-        <!-- Намунаи фармоиш -->
-        <div class="order-card">
-          <div class="order-img"></div>
-          <div class="order-info">
-            <h3>1800 UC <i class="fa-solid fa-coins"></i></h3>
-            <p>PUBG Mobile</p>
-            <p>ID игрока: 5234567890</p>
-            <p>Количество: 1 шт.</p>
-            <span class="order-date">🗓 06.10.2025 18:42</span>
-          </div>
-          <div class="order-action">
-            <span class="status-badge success"><i class="fa-solid fa-check"></i> Выполнено</span>
-            <div class="price">180.00 сомони</div>
-            <button class="btn-details"><i class="fa-regular fa-eye"></i> Подробнее</button>
-          </div>
-        </div>
-
-        <div class="order-card">
-          <div class="order-img"></div>
-          <div class="order-info">
-            <h3>X-Suit 👕</h3>
-            <p>PUBG Mobile</p>
-            <p>ID игрока: 5234567890</p>
-            <p>Количество: 1 шт.</p>
-            <span class="order-date">🗓 05.10.2025 16:20</span>
-          </div>
-          <div class="order-action">
-            <span class="status-badge success"><i class="fa-solid fa-check"></i> Выполнено</span>
-            <div class="price">250.00 сомони</div>
-            <button class="btn-details"><i class="fa-regular fa-eye"></i> Подробнее</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. Саҳифаи Профиль -->
-    <section id="page-profile" class="page">
-      <div class="profile-header">
-        <div class="avatar-box">
-          <div class="avatar-crown">👑</div>
-          <div class="avatar-img"></div>
-          <button class="camera-btn"><i class="fa-solid fa-camera"></i></button>
-        </div>
-        <div class="user-meta">
-          <h2>Akram 👑</h2>
-          <p>@akram._.pubg <i class="fa-regular fa-copy"></i></p>
-          <p>ID: 123456789 <i class="fa-regular fa-copy"></i></p>
-          <span class="online-status">🟢 Онлаййн</span>
-        </div>
-      </div>
-
-      <div class="balance-banner">
-        <div>
-          <span>Баланс</span>
-          <h3>0.00 сомони</h3>
-        </div>
-        <button class="btn-gold"><i class="fa-solid fa-wallet"></i> Пополнить баланс <i class="fa-solid fa-chevron-right"></i></button>
-      </div>
-
-      <div class="menu-list">
-        <div class="menu-item">
-          <i class="fa-solid fa-crown gold-icon"></i>
-          <div>
-            <strong>Мой профиль</strong>
-            <small>Ваши данные и настройки</small>
-          </div>
-          <i class="fa-solid fa-chevron-right arrow-right"></i>
-        </div>
-        <div class="menu-item">
-          <i class="fa-solid fa-box-archive gold-icon"></i>
-          <div>
-            <strong>Мои заказы</strong>
-            <small>История всех покупок</small>
-          </div>
-          <i class="fa-solid fa-chevron-right arrow-right"></i>
-        </div>
-        <div class="menu-item">
-          <i class="fa-solid fa-star gold-icon"></i>
-          <div>
-            <strong>Мои бонусы</strong>
-            <small>Промокоды и реферальная система</small>
-          </div>
-          <i class="fa-solid fa-chevron-right arrow-right"></i>
-        </div>
-        <div class="menu-item">
-          <i class="fa-solid fa-bell gold-icon"></i>
-          <div>
-            <strong>Уведомления</strong>
-            <small>Настройки уведомлений</small>
-          </div>
-          <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div class="menu-item">
-          <i class="fa-solid fa-headset gold-icon"></i>
-          <div>
-            <strong>Поддержка</strong>
-            <small>Связь с @VELOX_UC</small>
-          </div>
-          <i class="fa-solid fa-chevron-right arrow-right"></i>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Менюи пайвасткунандаи поёнӣ (Bottom Nav bar) -->
-  <nav class="bottom-nav">
-    <button class="nav-item active" data-page="page-main">
-      <i class="fa-solid fa-house"></i>
-      <span>Главный</span>
-    </button>
-    <button class="nav-item" data-page="page-reviews">
-      <i class="fa-solid fa-star"></i>
-      <span>Отзывы</span>
-    </button>
-    <button class="nav-item" data-page="page-orders">
-      <i class="fa-solid fa-cart-shopping"></i>
-      <span>Заказы</span>
-    </button>
-    <button class="nav-item" data-page="page-profile">
-      <i class="fa-solid fa-user"></i>
-      <span>Профиль</span>
-    </button>
-  </nav>
-
-  <script src="script.js"></script>
+<nav>
+  <button class="active" data-page="home" onclick="showPage('home')"><span>🏠</span>Главная</button>
+  <button data-page="reviews" onclick="showPage('reviews')"><span>⭐</span>Отзывы</button>
+  <button data-page="profile" onclick="showPage('profile')"><span>👤</span>Профиль</button>
+  <button data-page="orders" onclick="showPage('orders')"><span>📦</span>Мои заказы</button>
+</nav>
+<div id="toast" class="toast"></div>
 </body>
-                                                                                 </html>
-            
+</html>
