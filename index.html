@@ -1,143 +1,497 @@
 
-<!DOCTYPE html>
-<html lang="ru">
+<!doctype html>
+<html lang="tg">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080808">
 <title>VELOX UC SHOP</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#07111f;color:#fff;font-family:Arial,sans-serif}
-header{padding:20px 16px;background:linear-gradient(135deg,#073b85,#087bfa);border-radius:0 0 24px 24px}
-.logo{font-size:23px;font-weight:900;letter-spacing:1px}
-.logo span{color:#70d6ff}
-.small{font-size:12px;color:#c9e4ff;margin-top:5px}
-.balance{margin-top:20px;background:#ffffff18;border:1px solid #ffffff30;padding:15px;border-radius:16px}
-.balance strong{display:block;font-size:25px;margin-top:7px}
-main{padding:16px;padding-bottom:95px}
-h2{font-size:19px;margin:12px 0}
-.banner{padding:19px;border-radius:18px;background:linear-gradient(120deg,#102d5c,#0756c9);margin-bottom:20px}
-.banner h2{font-size:22px;margin:0 0 8px}
-.banner p{font-size:13px;color:#c8ddff;margin:0}
-.categories{display:flex;gap:8px;overflow-x:auto;margin:14px 0}
-.cat{white-space:nowrap;border:1px solid #263d5d;background:#101f34;color:#fff;padding:10px 14px;border-radius:12px}
-.cat.active{background:#087bfa;border-color:#087bfa}
-.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.product{background:#101e31;border:1px solid #203754;border-radius:16px;padding:14px;min-width:0}
-.product .emoji{font-size:28px}
-.product h3{font-size:15px;margin:10px 0 6px}
-.product p{font-size:12px;color:#9db2cf;margin:0 0 12px}
-.price{font-size:17px;font-weight:bold;color:#65c9ff}
-.product button,.primary{width:100%;border:0;background:#087bfa;color:#fff;padding:11px;border-radius:10px;font-weight:bold;margin-top:12px}
-.panel{background:#101e31;border:1px solid #203754;border-radius:16px;padding:15px;margin:14px 0}
-input,select{width:100%;padding:13px;margin:8px 0;background:#071526;border:1px solid #29415f;border-radius:10px;color:#fff}
-.muted{font-size:12px;color:#9db2cf;line-height:1.5}
-.hidden{display:none!important}
-nav{position:fixed;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(4,1fr);background:#0b1728;border-top:1px solid #243750;padding:10px 4px calc(10px + env(safe-area-inset-bottom));z-index:10}
-nav button{border:0;background:transparent;color:#9db2cf;font-size:11px;padding:7px 1px}
-nav button span{display:block;font-size:20px;margin-bottom:4px}
-nav button.active{color:#55b9ff}
-.toast{position:fixed;top:15px;left:10%;width:80%;background:#16385d;padding:13px;border-radius:12px;text-align:center;display:none;z-index:20}
-.order{padding:12px 0;border-bottom:1px solid #263950;font-size:13px}
+:root {
+  --bg:#080808;
+  --card:#151515;
+  --gold:#f2c65c;
+  --text:#fff;
+  --muted:#aaa;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:radial-gradient(ellipse at top,#29200d,#080808 65%);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+button,input,select { font:inherit; }
+button { cursor:pointer; }
+.app {
+  max-width:500px;
+  margin:auto;
+  padding:16px 14px 95px;
+}
+header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+.logo {
+  color:var(--gold);
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+.level {
+  border:1px solid #856729;
+  border-radius:12px;
+  padding:10px;
+  color:var(--gold);
+}
+.card {
+  background:linear-gradient(145deg,#201b11,#101010);
+  border:1px solid #49391d;
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:13px;
+}
+.muted { color:var(--muted); font-size:13px; }
+.balance {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.amount {
+  color:var(--gold);
+  font-size:24px;
+  font-weight:bold;
+  margin-top:7px;
+}
+.btn {
+  border:0;
+  border-radius:10px;
+  padding:12px;
+  background:linear-gradient(#ffe18a,#d9a62e);
+  color:#171006;
+  font-weight:bold;
+}
+.hero {
+  padding:22px 16px;
+  border:1px solid #8c6929;
+  border-radius:17px;
+  background:linear-gradient(130deg,#30220a,#101010);
+  margin-bottom:15px;
+}
+.hero h1 { font-size:29px; }
+.gold { color:var(--gold); }
+.tabs {
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  margin:15px 0;
+}
+.tab {
+  white-space:nowrap;
+  padding:10px 13px;
+  color:white;
+  background:#151515;
+  border:1px solid #49391d;
+  border-radius:10px;
+}
+.tab.active {
+  background:var(--gold);
+  color:#171006;
+}
+.products {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.product {
+  padding:12px 9px;
+  text-align:center;
+  background:linear-gradient(150deg,#211b10,#101010);
+  border:1px solid #49391d;
+  border-radius:14px;
+}
+.product .pic {
+  font-size:38px;
+  padding:12px 0;
+}
+.product h3 { font-size:14px; }
+.price {
+  color:var(--gold);
+  font-weight:bold;
+  margin:12px 0;
+}
+.product button { width:100%; }
+.page { display:none; }
+.page.active { display:block; }
+.field {
+  display:block;
+  margin:12px 0 6px;
+  font-size:13px;
+}
+input,select {
+  width:100%;
+  padding:13px;
+  color:white;
+  background:#090909;
+  border:1px solid #49391d;
+  border-radius:10px;
+}
+.nav {
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(500px,100%);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  padding:12px 4px;
+  background:#090909f5;
+  border-top:1px solid #49391d;
+}
+.nav button {
+  background:none;
+  border:0;
+  color:#aaa;
+  font-size:12px;
+}
+.nav button.active { color:var(--gold); }
+.item {
+  padding:13px 0;
+  border-bottom:1px solid #393024;
+}
+#message {
+  color:var(--gold);
+  font-size:13px;
+  margin:10px 0;
+}
+@media(min-width:420px) {
+  .products { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
 </style>
 </head>
 <body>
+<div class="app">
 <header>
-  <div class="logo">VELOX <span>UC SHOP</span></div>
-  <div class="small">PUBG MOBILE • Быстро • Надёжно</div>
-  <div class="balance">
-    <div>💎 Мой баланс</div>
-    <strong><span id="balance">0</span> сомони</strong>
-    <button class="primary" onclick="showPage('profile')">Пополнить баланс</button>
+  <div class="logo">V VELOX<br>
+    <small style="font-size:12px">UC SHOP</small>
   </div>
+  <div class="level">LEVEL <b id="level">1</b></div>
 </header>
 
-<main>
-<section id="home">
-  <div class="banner">
-    <h2>Покупай UC легко!</h2>
-    <p>Выбирай пакет UC, укажи PUBG ID и оформи заказ.</p>
+<section id="home" class="page active">
+  <div class="card">
+    <div class="muted">Хуш омадед ба VELOX UC SHOP</div>
+    <h2 id="username">PUBG PLAYER</h2>
+    <div class="balance">
+      <div>
+        <div class="muted">БАЛАНСИ ДОХИЛӢ</div>
+        <div class="amount"><span id="wallet">0.00</span> сомонӣ</div>
+      </div>
+      <button class="btn" onclick="showPage('balance')">
+        + Баланс
+      </button>
+    </div>
   </div>
-  <h2>🎮 Магазин</h2>
-  <div class="categories">
-    <button class="cat active" onclick="setCategory('uc',this)">💎 UC</button>
-    <button class="cat" onclick="setCategory('prime',this)">👑 PRIME</button>
-    <button class="cat" onclick="setCategory('crate',this)">🎁 Ящики</button>
+
+  <div class="hero">
+    <div class="gold">PREMIUM PUBG STORE</div>
+    <h1>VELOX <span class="gold">UC SHOP</span></h1>
+    <p>UC, яшикҳо, PRIME ва PRIME PLUS.</p>
+    <button class="btn" onclick="showPage('shop')">
+      КУШОДАНИ МАҒОЗА →
+    </button>
   </div>
+
+  <div class="card">
+    <h3>Сатҳи шумо</h3>
+    <div class="amount">LEVEL <span id="levelHome">1</span></div>
+    <p class="muted">Бо анҷом ёфтани харидҳо сатҳи шумо боло меравад.</p>
+  </div>
+  <h3>Каталог</h3>
+  <div id="featured" class="products"></div>
+</section>
+
+<section id="shop" class="page">
+  <h2>МАҒОЗА</h2>
+  <div id="tabs" class="tabs"></div>
   <div id="products" class="products"></div>
 </section>
 
-<section id="reviews" class="hidden">
-  <h2>⭐ Отзывы покупателей</h2>
-  <div class="panel">
-    <p>Отзывы покупателей VELOX UC SHOP</p>
-    <p class="muted">Здесь можно разместить ссылку на официальный канал с отзывами.</p>
-    <button class="primary" onclick="openLink('https://t.me/otzif_VELOX')">Посмотреть отзывы</button>
+<section id="balance" class="page">
+  <h2>БАЛАНСИ МАН</h2>
+  <div class="card">
+    <div class="muted">Баланс</div>
+    <div class="amount"><span id="wallet2">0.00</span> сомонӣ</div>
+    <p class="muted">Барои пур кардани баланс ба админ муроҷиат кунед.</p>
+  </div>
+  <div class="card">
+    <h3>Пардохт</h3>
+    <p>Душанбе Сити</p>
+    <p class="muted">Рақами корт / телефон</p>
+    <div class="amount">919664644</div>
+    <button class="btn" onclick="copyNumber()">Нусха гирифтан</button>
+    <hr style="border-color:#49391d;margin:18px 0">
+    <p>Spitamen Pay</p>
+    <p class="muted">Рақами корт / телефон</p>
+    <div class="amount">919664644</div>
+    <button class="btn" onclick="copyNumber()">Нусха гирифтан</button>
+    <p class="muted" style="margin-top:16px">
+      Соҳиби корт: Шарифмох.М.Д
+    </p>
+    <p class="muted">
+      Пас аз пардохт чекро ба админ фиристед.
+      Баланс танҳо баъди тасдиқи пардохт пур карда мешавад.
+    </p>
+    <button class="btn" onclick="contactAdmin()">
+      ТАМOС БО АДМИН
+    </button>
   </div>
 </section>
 
-<section id="profile" class="hidden">
-  <h2>👤 Мой профиль</h2>
-  <div class="panel">
-    <p>Имя: <b id="username">Пользователь Telegram</b></p>
-    <p>Telegram ID: <b id="tgid">Не определён</b></p>
-    <p>Баланс: <b><span id="balance2">0</span> сомони</b></p>
-  </div>
-  <h2>💳 Пополнить баланс</h2>
-  <div class="panel">
-    <input id="topupAmount" type="number" min="5" max="50000" placeholder="Сумма в сомони (5–50000)">
-    <button class="primary" onclick="topUp()">Продолжить пополнение</button>
-    <p class="muted">Оплата и зачисление требуют подключения платёжной системы и серверной проверки.</p>
-  </div>
-  <div class="panel">
-    <h3>🎧 Поддержка</h3>
-    <button class="primary" onclick="openLink('https://t.me/VELOX_UC')">Написать в поддержку</button>
+<section id="history" class="page">
+  <h2>ФАРМОИШҲОИ МАН</h2>
+  <div class="card" id="orders">
+    <p class="muted">Барои дидани фармоишҳо ба Telegram ворид шавед.</p>
   </div>
 </section>
 
-<section id="orders" class="hidden">
-  <h2>📦 Мои заказы</h2>
-  <div id="orderList" class="panel">Пока заказов нет.</div>
-</section>
-
-<section id="checkout" class="hidden">
-  <h2>🛒 Оформление заказа</h2>
-  <div class="panel">
-    <p id="selectedProduct"></p>
-    <label for="pubgId">PUBG ID</label>
-    <input id="pubgId" inputmode="numeric" placeholder="Введи свой PUBG ID">
-    <label for="payMethod">Способ оплаты</label>
-    <select id="payMethod">
-      <option value="balance">Оплата с баланса</option>
-      <option value="card">Оплата картой</option>
-    </select>
-    <button class="primary" onclick="placeOrder()">Подтвердить заказ</button>
-    <button class="primary" style="background:#263950" onclick="showPage('home')">Назад в магазин</button>
-    <p class="muted">Не оплачивай заказ повторно, пока администратор не подтвердит предыдущий.</p>
+<section id="profile" class="page">
+  <h2>ПРОФИЛИ МАН</h2>
+  <div class="card">
+    <p class="muted">Номи корбар</p>
+    <h3 id="profileName">—</h3>
+    <p class="muted">ID-и Telegram</p>
+    <p id="telegramId">—</p>
+    <p class="muted">Админ: @VELOX_UC</p>
   </div>
 </section>
 
-<section id="admin" class="hidden">
-  <h2>🛡️ Админ-панель</h2>
-  <div class="panel">
-    <p class="muted">Демо-раздел. Для безопасного управления нужен сервер с проверкой прав администратора.</p>
-    <input id="adminCode" type="password" placeholder="Код доступа">
-    <button class="primary" onclick="adminLogin()">Войти</button>
-    <div id="adminContent" class="hidden">
-      <p>Админ-панель открыта только в этой демо-странице.</p>
-      <p class="muted">Здесь пока нет реального управления заказами или платежами.</p>
-    </div>
-  </div>
-</section>
-</main>
+<div id="message"></div>
+</div>
 
-<nav>
-  <button class="active" data-page="home" onclick="showPage('home')"><span>🏠</span>Главная</button>
-  <button data-page="reviews" onclick="showPage('reviews')"><span>⭐</span>Отзывы</button>
-  <button data-page="profile" onclick="showPage('profile')"><span>👤</span>Профиль</button>
-  <button data-page="orders" onclick="showPage('orders')"><span>📦</span>Мои заказы</button>
+<nav class="nav">
+  <button class="active" data-page="home" onclick="showPage('home')">⌂<br>Асосӣ</button>
+  <button data-page="shop" onclick="showPage('shop')">▤<br>Мағоза</button>
+  <button data-page="history" onclick="showPage('history')">◷<br>Фармоиш</button>
+  <button data-page="profile" onclick="showPage('profile')">♙<br>Профил</button>
 </nav>
-<div id="toast" class="toast"></div>
+
+<div id="modal" style="display:none;position:fixed;inset:0;background:#000e;z-index:10;overflow:auto;padding:18px">
+  <div class="card" style="max-width:430px;margin:30px auto">
+    <h3>Тасдиқи фармоиш</h3>
+    <p id="chosenProduct"></p>
+    <label class="field" for="playerId">PUBG ID</label>
+    <input id="playerId" inputmode="numeric" placeholder="ID-и бозӣ">
+    <label class="field" for="server">Сервер</label>
+    <select id="server">
+      <option value="">Интихоб кунед</option>
+      <option>Europe</option>
+      <option>Middle East</option>
+      <option>Asia</option>
+      <option>KRJP</option>
+      <option>North America</option>
+      <option>Other</option>
+    </select>
+    <p class="muted">Маблағ аз баланси дохилӣ гирифта мешавад.</p>
+    <button class="btn" onclick="submitOrder()">ТАСДИҚ КАРДАН</button>
+    <button class="tab" onclick="closeModal()">БЕКОР</button>
+  </div>
+</div>
+
+<script>
+const tg = window.Telegram?.WebApp;
+tg?.ready();
+tg?.expand();
+
+const initData = tg?.initData || "";
+const headers = {"Content-Type":"application/json"};
+if (initData) headers["x-telegram-init-data"] = initData;
+
+let products = [];
+let me = null;
+let chosen = null;
+let category = "uc";
+
+const categories = [
+  ["uc","UC"],
+  ["crates","3 ЯШИК"],
+  ["prime","PRIME"],
+  ["primeplus","PRIME PLUS"]
+];
+
+const symbols = {
+  uc:"💎", crates:"🎁", prime:"👑", primeplus:"🏆"
+};
+
+function money(n) {
+  return Number(n || 0).toFixed(2);
+}
+
+function message(text) {
+  document.getElementById("message").textContent = text;
+}
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(p =>
+    p.classList.toggle("active",p.id === id)
+  );
+  document.querySelectorAll(".nav button").forEach(b =>
+    b.classList.toggle("active",b.dataset.page === id)
+  );
+  if (id === "history") loadOrders();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function api(url, options = {}) {
+  const response = await fetch(url,{
+    ...options,
+    headers:{...headers,...(options.headers || {})}
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || "Хатои сервер");
+  return data;
+}
+
+function productCard(p) {
+  return `
+    <div class="product">
+      <div class="pic">${symbols[p.category] || "💎"}</div>
+      <h3>${p.name}</h3>
+      <div class="price">${money(p.price)} сомонӣ</div>
+      <button class="btn" onclick="openOrder('${p.id}')">
+        ХАРИДАН
+      </button>
+    </div>`;
+}
+
+function renderProducts() {
+  document.getElementById("tabs").innerHTML = categories.map(c => `
+    <button class="tab ${category === c[0] ? "active" : ""}"
+      onclick="setCategory('${c[0]}')">${c[1]}</button>
+  `).join("");
+
+  document.getElementById("products").innerHTML =
+    products.filter(p => p.category === category)
+      .map(productCard).join("") || "<p>Маҳсулот нест.</p>";
+
+  document.getElementById("featured").innerHTML =
+    products.slice(0,3).map(productCard).join("");
+}
+
+function setCategory(c) {
+  category = c;
+  renderProducts();
+}
+
+function openOrder(id) {
+  chosen = products.find(p => p.id === id);
+  if (!chosen) return;
+  document.getElementById("chosenProduct").textContent =
+    chosen.name + " — " + money(chosen.price) + " сомонӣ";
+  document.getElementById("modal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+async function submitOrder() {
+  if (!chosen) return;
+
+  const playerId = document.getElementById("playerId").value.trim();
+  const server = document.getElementById("server").value;
+
+  if (!/^\d{5,20}$/.test(playerId)) {
+    message("PUBG ID-ро дуруст ворид кунед.");
+    return;
+  }
+
+  if (!server) {
+    message("Серверро интихоб кунед.");
+    return;
+  }
+
+  try {
+    const result = await api("/api/orders",{
+      method:"POST",
+      body:JSON.stringify({
+        productId:chosen.id,
+        playerId,
+        server
+      })
+    });
+
+    me.wallet = result.wallet;
+    updateProfile();
+    closeModal();
+    message("Фармоиш ба система фиристода шуд.");
+    await loadOrders();
+  } catch (e) {
+    message(e.message);
+  }
+}
+
+function updateProfile() {
+  if (!me) return;
+  document.getElementById("username").textContent =
+    me.username || "PUBG PLAYER";
+  document.getElementById("profileName").textContent =
+    me.username || "—";
+  document.getElementById("telegramId").textContent =
+    me.id || "—";
+  document.getElementById("wallet").textContent = money(me.wallet);
+  document.getElementById("wallet2").textContent = money(me.wallet);
+  document.getElementById("level").textContent = me.level || 1;
+  document.getElementById("levelHome").textContent = me.level || 1;
+}
+
+async function loadOrders() {
+  try {
+    const orders = await api("/api/orders");
+    document.getElementById("orders").innerHTML = orders.length
+      ? orders.map(o => `
+        <div class="item">
+          <b>${o.product_name}</b>
+          <p class="muted">PUBG ID: ${o.player_id}</p>
+          <p class="muted">${money(o.price)} сомонӣ</p>
+          <p class="gold">${o.status}</p>
+        </div>
+      `).join("")
+      : "<p>Фармоиш нест.</p>";
+  } catch (e) {
+    document.getElementById("orders").textContent = e.message;
+  }
+}
+
+async function copyNumber() {
+  try {
+    await navigator.clipboard.writeText("919664644");
+    message("Рақам нусха гирифта шуд.");
+  } catch {
+    message("Рақам: 919664644");
+  }
+}
+
+function contactAdmin() {
+  window.open("https://t.me/VELOX_UC","_blank");
+}
+
+async function init() {
+  try {
+    products = await api("/api/products");
+    me = await api("/api/me");
+    updateProfile();
+    renderProducts();
+  } catch (e) {
+    message("Сервер ҳоло пайваст нест. Барои хариди воқеӣ backend лозим аст.");
+  }
+}
+
+init();
+</script>
 </body>
 </html>
