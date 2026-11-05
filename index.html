@@ -1,20 +1,334 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>VELOX UC SHOP</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELOX UC SHOP</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #080c14;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 15px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #121a29;
+    padding: 15px;
+    border: 1px solid #a98229;
+    border-radius: 15px;
+}
+
+.logo {
+    color: #f5c542;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.logo span {
+    display: block;
+    font-size: 11px;
+    color: white;
+}
+
+.balance {
+    background: #202a3b;
+    padding: 12px;
+    border-radius: 10px;
+    color: #f5c542;
+    font-weight: bold;
+}
+
+.banner {
+    margin-top: 18px;
+    padding: 25px 18px;
+    border-radius: 15px;
+    background: linear-gradient(135deg,#172b48,#10131c);
+    border: 1px solid #70551e;
+}
+
+.banner h1 {
+    color: #f5c542;
+    margin-bottom: 10px;
+}
+
+.banner p {
+    color: #b9c2d0;
+    margin-bottom: 18px;
+}
+
+.title {
+    color: #f5c542;
+    margin: 25px 0 15px;
+    font-size: 21px;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.card {
+    background: #141d2b;
+    border: 1px solid #29364b;
+    border-radius: 13px;
+    padding: 17px;
+}
+
+.card h3 {
+    color: #f5c542;
+    margin-bottom: 8px;
+}
+
+.card p {
+    color: #aab5c5;
+    font-size: 13px;
+}
+
+button {
+    border: none;
+    border-radius: 9px;
+    padding: 12px;
+    background: #e8b933;
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.banner button {
+    width: 100%;
+}
+
+.product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.product button {
+    min-width: 85px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 9px;
+    border: 1px solid #344158;
+    background: #141d2b;
+    color: white;
+    outline: none;
+}
+
+.order {
+    background: #141d2b;
+    border: 1px solid #29364b;
+    border-radius: 13px;
+    padding: 16px;
+}
+
+.order button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    background: #141d2b;
+    padding: 15px 5px;
+    border-radius: 13px;
+    margin-top: 25px;
+    font-size: 12px;
+    color: #f5c542;
+}
+
+.footer {
+    text-align: center;
+    color: #78869b;
+    font-size: 12px;
+    margin: 25px 0;
+}
+</style>
 </head>
 
 <body>
 
-    <h1>Салом, VELOX!</h1>
+<header class="header">
+    <div class="logo">
+        ♛ VELOX
+        <span>UC SHOP</span>
+    </div>
 
-    <p>Хуш омадед ба мағозаи мо.</p>
+    <div class="balance">
+        0.00 сомонӣ
+    </div>
+</header>
 
-    <button>Харидан</button>
+<section class="banner">
+    <h1>PUBG MOBILE</h1>
+    <p>Добро пожаловать в VELOX UC SHOP</p>
+    <button>ПОПОЛНИТЬ БАЛАНС</button>
+</section>
+
+<h2 class="title">МАГАЗИН</h2>
+
+<section class="menu">
+    <div class="card">
+        <h3>💎 UC</h3>
+        <p>Пополнение UC</p>
+    </div>
+
+    <div class="card">
+        <h3>🎁 Ящики</h3>
+        <p>Подарки и ящики</p>
+    </div>
+
+    <div class="card">
+        <h3>👑 PRIME</h3>
+        <p>Prime подписка</p>
+    </div>
+
+    <div class="card">
+        <h3>👑 PRIME PLUS</h3>
+        <p>Prime Plus подписка</p>
+    </div>
+</section>
+
+<h2 class="title">💎 ПОПУЛЯРНЫЕ UC</h2>
+
+<section class="card">
+
+    <div class="product">
+        <div>
+            <h3>60 UC</h3>
+            <p>10 сомонӣ</p>
+        </div>
+        <button>Купить</button>
+    </div>
+
+    <div class="product">
+        <div>
+            <h3>325 UC</h3>
+            <p>48 сомонӣ</p>
+        </div>
+        <button>Купить</button>
+    </div>
+
+    <div class="product">
+        <div>
+            <h3>660 UC</h3>
+            <p>92 сомонӣ</p>
+        </div>
+        <button>Купить</button>
+    </div>
+
+    <div class="product">
+        <div>
+            <h3>1800 UC</h3>
+            <p>240 сомонӣ</p>
+        </div>
+        <button>Купить</button>
+    </div>
+
+    <div class="product">
+        <div>
+            <h3>3850 UC</h3>
+            <p>450 сомонӣ</p>
+        </div>
+        <button>Купить</button>
+    </div>
+
+    <div class="product">
+        <div>
+            <h3>8100 UC</h3>
+            <p>870 сомонӣ</p>
+        </div>
+        <button>Купить</button>
+    </div>
+
+</section>
+
+<h2 class="title">🛒 ОФОРМЛЕНИЕ ЗАКАЗА</h2>
+
+<section class="order">
+
+    <h3>Введите PUBG ID</h3>
+
+    <input
+        type="number"
+        placeholder="Ваш PUBG ID"
+        id="pubgID"
+    >
+
+    <h3>Количество UC</h3>
+
+    <input
+        type="number"
+        placeholder="Например: 660"
+        id="ucAmount"
+    >
+
+    <button onclick="makeOrder()">
+        ОФОРМИТЬ ЗАКАЗ
+    </button>
+
+    <p id="result"></p>
+
+</section>
+
+<h2 class="title">👤 МОЙ ПРОФИЛЬ</h2>
+
+<section class="card">
+    <h3>VELOX UC SHOP</h3>
+    <p>Баланс: 0.00 сомонӣ</p>
+    <p>Мои заказы</p>
+    <p>Мои бонусы</p>
+    <p>Поддержка</p>
+</section>
+
+<nav class="nav">
+    <span>🏠 Главная</span>
+    <span>💎 Магазин</span>
+    <span>📋 Заказы</span>
+    <span>👤 Профиль</span>
+</nav>
+
+<footer class="footer">
+    VELOX UC SHOP © 2026
+</footer>
+
+<script>
+function makeOrder() {
+
+    let id = document.getElementById("pubgID").value;
+
+    let uc = document.getElementById("ucAmount").value;
+
+    if (id === "" || uc === "") {
+        alert("Заполните все поля!");
+        return;
+    }
+
+    document.getElementById("result").innerText =
+        "Заказ подготовлен! PUBG ID: " + id +
+        " | UC: " + uc;
+}
+</script>
 
 </body>
 </html>
-<button>Харидан</button>
-<button>UC</button>
-<p>Мо UC мефурӯшем.</p>
