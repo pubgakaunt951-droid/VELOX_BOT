@@ -1,497 +1,486 @@
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="tg">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#06132e">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#050609">
 <title>VELOX UC SHOP</title>
-
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+ --bg:#050609;--card:#11141d;--blue:#168cff;
+ --light:#55b5ff;--text:#fff;--muted:#8b91a3;
+}
 body{
- background:#061229;
- color:#f4f7ff;
- font-family:Arial,sans-serif;
- padding-bottom:85px;
+ background:var(--bg);color:var(--text);
+ font-family:Arial,sans-serif;padding-bottom:100px;
 }
-header{
- height:65px;background:#07152e;
- display:flex;align-items:center;justify-content:space-between;
- padding:0 16px;border-bottom:1px solid #152b50;
- position:sticky;top:0;z-index:10;
+button,input{font:inherit}
+button{cursor:pointer;border:0;color:white}
+.header{padding:20px 17px 12px}
+.top{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{
+ width:55px;height:55px;border-radius:17px;
+ background:linear-gradient(145deg,#153b91,#061020);
+ border:1px solid #258cff;
+ display:grid;place-items:center;
+ font-size:27px;font-weight:900;
+ box-shadow:0 0 18px #087bff55;
 }
-.logo{font-size:20px;font-weight:900;color:white}
-.logo span{color:#087fff}
-.v{color:#087fff;font-size:28px;margin-right:5px}
-.header-right{display:flex;gap:15px;align-items:center}
-button{cursor:pointer}
-.page{display:none;padding:16px}
-.page.active{display:block}
-.hero{
- background:linear-gradient(110deg,#071a3a,#102d5b,#06132b);
- padding:25px 16px;border-radius:12px;
- margin-bottom:15px;min-height:155px;
- border:1px solid #183e70;
+.brand h2{font-size:20px}
+.online{font-size:12px;color:#30df83;margin-top:5px}
+.balance{
+ background:#171b26;border:1px solid #30384a;
+ border-radius:30px;padding:9px 12px;
+ display:flex;align-items:center;gap:9px;font-weight:bold
 }
-.hero h1{font-size:29px;margin-bottom:12px}
-.hero h3{color:#168cff;margin-bottom:12px}
-.hero p{color:#9cacc8;font-size:13px}
-.tabs{
- display:flex;justify-content:space-around;
- padding:15px 0;border-bottom:1px solid #243957;
- color:#aab7d0;font-weight:bold;
+.plus{
+ background:linear-gradient(#58b7ff,#0873ef);
+ width:34px;height:34px;border-radius:50%;
+ font-size:23px;
 }
-.tabs button{background:none;border:0;color:inherit;font-size:13px}
-.tabs button.selected{color:#168cff}
-.filters{display:flex;gap:8px;margin:15px 0}
-.filters select{
- background:#101e3b;color:white;border:1px solid #263b61;
- padding:12px;border-radius:9px;flex:1;min-width:0;
+.search{margin-top:23px;position:relative}
+.search input{
+ width:100%;padding:17px 18px 17px 48px;
+ background:#1b1b20;border:1px solid #242832;
+ color:white;border-radius:30px;outline:none;
 }
+.search span{position:absolute;left:17px;top:13px;font-size:22px}
+.categories{
+ display:flex;gap:20px;overflow-x:auto;
+ padding:23px 17px 15px;
+ scrollbar-width:none;
+}
+.categories::-webkit-scrollbar{display:none}
+.cat{min-width:86px;text-align:center;cursor:pointer}
+.cat-icon{
+ width:82px;height:82px;border-radius:50%;
+ border:4px solid #168cff;
+ background:radial-gradient(circle at 40% 30%,#416bff,#101b45 75%);
+ display:grid;place-items:center;
+ font-size:35px;margin:auto auto 9px;
+ box-shadow:0 0 12px #087bff35;
+}
+.cat p{font-size:13px;font-weight:bold}
+.section{padding:15px 17px}
+.section-title{
+ display:flex;justify-content:space-between;
+ align-items:center;margin-bottom:16px
+}
+.section-title h2{font-size:22px}
+.muted{color:var(--muted);font-size:13px}
+.banner{
+ margin:5px 17px 25px;padding:23px 20px;
+ border-radius:30px;overflow:hidden;position:relative;
+ background:linear-gradient(110deg,#11182e,#101b39,#101018);
+ border:1px solid #293f6a;
+}
+.banner:after{
+ content:"💎";position:absolute;right:15px;top:15px;
+ font-size:90px;opacity:.13;
+}
+.banner h2{font-size:25px;margin:10px 0}
+.banner p{color:#b9c9e9;font-size:14px}
+.banner button{
+ background:linear-gradient(#55b4ff,#0874f4);
+ border-radius:30px;padding:13px 25px;
+ font-weight:bold;margin-top:18px;
+ box-shadow:0 5px 20px #087bff55;
+}
+.games{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px;
+}
+.game{
+ background:#101219;border:1px solid #292d39;
+ border-radius:23px;padding:14px;cursor:pointer;
+ transition:.2s;
+}
+.game:active{transform:scale(.97)}
+.game-icon{
+ height:105px;border-radius:18px;
+ display:grid;place-items:center;
+ background:linear-gradient(140deg,#192b5a,#10121c);
+ font-size:48px;margin-bottom:12px;
+}
+.game h3{font-size:16px;margin-bottom:7px}
+.game small{color:#55adff}
 .products{
- display:grid;grid-template-columns:1fr 1fr;gap:10px;
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:11px;
 }
 .product{
- background:linear-gradient(140deg,#142547,#0c1933);
- border:1px solid #243c64;border-radius:11px;
- padding:12px 9px;display:flex;align-items:center;
- gap:8px;min-width:0;
+ background:#11141d;border:1px solid #252c3b;
+ border-radius:20px;padding:15px 12px;
+ text-align:center;
 }
-.coin{font-size:27px}
-.product-info{flex:1;min-width:0}
-.product-info b{font-size:16px;display:block}
-.price{color:#279aff;font-size:14px;margin-top:5px}
-.cart{
- background:#0866e9;border:0;border-radius:8px;
- color:white;padding:10px;font-size:19px;
+.uc-icon{
+ width:60px;height:60px;border-radius:50%;
+ margin:auto auto 10px;
+ background:radial-gradient(circle,#4f9dff,#172d68);
+ display:grid;place-items:center;font-size:30px;
 }
-.section{
- margin-top:15px;padding:15px;
- background:#0c1b37;border:1px solid #233d65;
- border-radius:12px;
+.product h3{font-size:18px}
+.price{color:#52adff;font-weight:bold;margin:8px 0 12px}
+.buy{
+ width:100%;padding:11px 5px;
+ border-radius:13px;
+ background:linear-gradient(110deg,#0878ed,#46adff);
+ font-weight:bold;
 }
-.section h3{margin-bottom:15px}
-.calc{
- display:flex;justify-content:space-between;align-items:center;
- gap:8px;background:#132342;padding:12px;border-radius:10px;
-}
-.counter{display:flex;align-items:center;gap:7px}
-.counter button{
- background:#1b3156;color:white;border:1px solid #34517c;
- padding:9px 13px;border-radius:8px;font-size:17px;
-}
-.counter b{font-size:20px}
-.blue{color:#168cff}
-input{
- width:100%;background:#0a1832;color:white;
- border:1px solid #354a70;border-radius:9px;
- padding:14px;margin:7px 0;font-size:15px;
- outline:none;
-}
-.primary{
- width:100%;padding:15px;background:linear-gradient(90deg,#087aff,#0752d5);
- color:white;border:0;border-radius:10px;
- font-size:16px;font-weight:bold;margin-top:12px;
-}
-.muted{color:#93a3bd;font-size:13px}
 .bottom{
- position:fixed;bottom:0;left:0;right:0;
- height:75px;background:#09152e;
- display:flex;justify-content:space-around;
- border-top:1px solid #253b60;z-index:20;
+ position:fixed;bottom:8px;left:12px;right:12px;
+ background:#17191fef;backdrop-filter:blur(15px);
+ border:1px solid #424550;border-radius:35px;
+ padding:9px 5px;display:flex;justify-content:space-around;
+ z-index:10;box-shadow:0 0 25px #000;
 }
-.bottom button{
- background:none;border:0;color:#aab5ce;
- font-size:12px;flex:1;
+.nav{
+ flex:1;background:none;color:#b7bdc9;
+ display:flex;flex-direction:column;align-items:center;
+ gap:5px;font-size:11px;font-weight:bold;padding:7px 0;
 }
-.bottom button.active{color:#168cff}
-.bottom span{display:block;font-size:23px;margin-bottom:4px}
-.card{
- background:#11203e;border:1px solid #263e63;
- border-radius:11px;padding:15px;margin:12px 0;
+.nav span{font-size:23px}
+.nav.active{color:#168cff}
+.page{display:none}
+.page.active{display:block}
+.modal-bg{
+ position:fixed;inset:0;background:#000b;
+ display:none;align-items:center;justify-content:center;
+ z-index:30;padding:20px;
 }
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.status{color:#25ce80;font-size:13px}
-.yellow{color:#ffbb36}
-.red{color:#ff5757}
-.payment-option{
- background:#11213f;border:1px solid #29436c;
- border-radius:10px;padding:15px;margin:10px 0;
- display:flex;justify-content:space-between;
+.modal{
+ background:#151923;border:1px solid #303d55;
+ width:100%;max-width:400px;border-radius:25px;
+ padding:23px;
 }
-.payment-option.active{border-color:#168cff}
-.amounts{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.amounts button{
- padding:13px 5px;border:1px solid #263e64;
- background:#10203d;color:white;border-radius:8px;
+.modal h2{margin-bottom:15px}
+.modal input{
+ width:100%;background:#090c13;color:white;
+ border:1px solid #343b4d;border-radius:13px;
+ padding:15px;margin:9px 0;outline:none;
 }
-.amounts button.active{border-color:#168cff;color:#168cff}
-.stars{color:#168cff;margin:8px 0}
-.profile-top{
- background:linear-gradient(120deg,#0c2450,#07152e);
- padding:20px;border-radius:12px;
+.modal .buy{margin-top:10px;padding:15px}
+.close{
+ float:right;background:#292e3a;border-radius:50%;
+ width:30px;height:30px;
 }
-.balance{font-size:30px;color:#168cff;font-weight:bold;margin:12px 0}
-.menu-item{
- padding:17px 5px;border-bottom:1px solid #243754;
- display:flex;justify-content:space-between;
+.empty{text-align:center;padding:55px 15px;color:#8993a7}
+.empty div{font-size:55px;margin-bottom:15px}
+.profile{
+ background:#111722;border:1px solid #27364d;
+ border-radius:23px;padding:22px;margin-bottom:15px;
 }
+.profile-row{padding:17px 5px;border-bottom:1px solid #292d39}
 </style>
 </head>
-
 <body>
 
-<header>
- <div class="logo"><span>V</span> VELOX <span>UC SHOP</span></div>
- <div class="header-right">
-  🇹🇯 <span>RU⌄</span> <span>♧</span> <span>☰</span>
+<header class="header">
+ <div class="top">
+  <div class="brand">
+   <div class="logo">V</div>
+   <div>
+    <h2>VELOX UC SHOP</h2>
+    <div class="online">● Online</div>
+   </div>
+  </div>
+  <div class="balance">
+   <span id="balance">0 с</span>
+   <button class="plus" onclick="openBalance()">+</button>
+  </div>
+ </div>
+ <div class="search">
+  <span>⌕</span>
+  <input id="search" placeholder="Бози ё маҳсулотро ёбед..."
+   oninput="searchProducts()">
  </div>
 </header>
 
-<!-- ГЛАВНАЯ -->
-<main id="home" class="page active">
+<!-- HOME -->
+<div class="page active" id="home">
 
-<div class="hero">
- <h1>PUBG MOBILE</h1>
- <h3>UC-по зуд ва осон фармоиш деҳ!</h3>
- <p>Бастаҳои расмӣ ва бехатар барои PUBG Mobile.</p>
-</div>
-
-<div class="tabs">
- <button class="selected">🎁 UC</button>
- <button>👑 WOW</button>
- <button>💎 VIP</button>
- <button>🎟 Код</button>
-</div>
-
-<div class="filters">
- <select><option>ПЛАТЕЖНЫЕ КАНАЛЫ</option></select>
- <select><option>UC</option><option>Prime</option></select>
-</div>
-
-<div class="products" id="products"></div>
-
-<div class="section">
- <h3>▦ Калькулятор UC</h3>
- <div class="calc">
-  <div>
-   <b id="calcName">60 UC</b>
-   <p class="price" id="calcPrice">10 сомони / дона</p>
+ <div class="categories">
+  <div class="cat" onclick="showPage('home')">
+   <div class="cat-icon">💎</div><p>Ҳамааш</p>
   </div>
-  <div class="counter">
-   <button onclick="changeQty(-1)">−</button>
-   <b id="qty">2</b>
-   <button onclick="changeQty(1)">+</button>
+  <div class="cat" onclick="showProducts()">
+   <div class="cat-icon">🎮</div><p>PUBG UC</p>
   </div>
-  <div>
-   <p class="muted">Ҷамъ UC</p>
-   <b class="blue" id="totalUC">120 UC</b>
+  <div class="cat" onclick="showProducts()">
+   <div class="cat-icon">👑</div><p>Prime</p>
+  </div>
+  <div class="cat" onclick="showPage('profile')">
+   <div class="cat-icon">⭐</div><p>Бонусҳо</p>
   </div>
  </div>
- <div class="row" style="margin-top:15px">
-  <span class="muted">Нарх ба дона</span>
-  <b id="onePrice">10 сомони</b>
+
+ <div class="banner">
+  <div style="font-size:42px">🎮</div>
+  <h2>PUBG MOBILE UC</h2>
+  <p>Пополнение по ID · Быстро и удобно</p>
+  <button onclick="showProducts()">Харидан →</button>
  </div>
- <div class="row" style="margin-top:10px">
-  <span class="muted">Ҳамагӣ</span>
-  <b class="blue" id="totalPrice">20 сомони</b>
- </div>
+
+ <section class="section">
+  <div class="section-title">
+   <h2>Бозиҳои дигар</h2><span class="muted">GAME</span>
+  </div>
+  <div class="games">
+   <div class="game" onclick="showProducts()">
+    <div class="game-icon">🎮</div>
+    <h3>PUBG MOBILE</h3>
+    <small>UC · Пополнение</small>
+   </div>
+   <div class="game" onclick="showProducts()">
+    <div class="game-icon">👑</div>
+    <h3>PRIME PLUS</h3>
+    <small>Подписка</small>
+   </div>
+  </div>
+ </section>
+
+ <section class="section">
+  <div class="section-title">
+   <h2>Маҳсулотҳои PUBG</h2>
+   <span class="muted">UC SHOP</span>
+  </div>
+  <div class="products" id="products"></div>
+ </section>
 </div>
 
-<div class="section">
- <h3>▤ Фармоиш</h3>
- <input id="uid" placeholder="PUBG UID">
- <input id="player" placeholder="Номи бозигар">
- <button class="primary" onclick="sendOrder()">➤ ФАРМОИШРО ФИРИСТОДАН</button>
- <p class="muted" style="margin-top:12px">Маълумоти шумо барои амнияти ҳисоб истифода мешавад.</p>
+<!-- BALANCE -->
+<div class="page" id="wallet">
+ <section class="section">
+  <h2 style="margin-bottom:20px">💳 Баланси ман</h2>
+  <div class="profile">
+   <p class="muted">Баланси шумо</p>
+   <h1 style="font-size:38px;margin:15px 0;color:#53b1ff" id="walletBalance">0 с</h1>
+   <button class="buy" onclick="openBalance()">+ Пур кардани баланс</button>
+  </div>
+  <h3>Таърихи пардохтҳо</h3>
+  <div class="empty"><div>📋</div>Ҳоло пардохт нест</div>
+ </section>
 </div>
 
-</main>
-
-<!-- ОТЗЫВЫ -->
-<main id="reviews" class="page">
-<h2>Отзывы</h2>
-<p class="muted" style="margin-top:8px">Отзывы наших клиентов о покупке UC</p>
-
-<div class="tabs">
- <button class="selected">Все отзывы</button>
- <button>Положительные</button>
- <button>Отрицательные</button>
+<!-- ORDERS -->
+<div class="page" id="orders">
+ <section class="section">
+  <h2>📋 Фармоишҳои ман</h2>
+  <div id="orderList" class="empty">
+   <div>🛍️</div>Ҳоло фармоише нест
+  </div>
+ </section>
 </div>
 
-<div id="reviewList"></div>
-
-<div class="section">
- <h3>Оставить отзыв</h3>
- <input id="reviewName" placeholder="Ваше имя">
- <select id="reviewStars" style="width:100%;padding:12px;background:#10203d;color:white">
-  <option value="5">⭐⭐⭐⭐⭐</option>
-  <option value="4">⭐⭐⭐⭐</option>
-  <option value="3">⭐⭐⭐</option>
-  <option value="2">⭐⭐</option>
-  <option value="1">⭐</option>
- </select>
- <input id="reviewText" placeholder="Ваш отзыв">
- <button class="primary" onclick="addReview()">Отправить отзыв</button>
-</div>
-</main>
-
-<!-- ЗАКАЗЫ -->
-<main id="orders" class="page">
-<h2>Мои заказы</h2>
-<div class="tabs">
- <button class="selected">Все</button>
- <button>Выполненные</button>
- <button>В процессе</button>
- <button>Отменённые</button>
-</div>
-<div id="orderList">
- <p class="muted" style="margin-top:20px">Ваши заказы появятся здесь.</p>
-</div>
-</main>
-
-<!-- ПРОФИЛЬ -->
-<main id="profile" class="page">
-<h2>Профиль</h2>
-<p class="muted">Управляй своим аккаунтом</p>
-
-<div class="profile-top" style="margin-top:15px">
- <h2 id="profileName">VELOX</h2>
- <p class="muted" id="telegramID">Telegram ID: --</p>
- <p class="status">● Онлайн</p>
- <hr style="border-color:#29416b;margin:15px 0">
- <p>Баланс</p>
- <div class="balance" id="balance">0.00 сомони</div>
- <button class="primary" onclick="showPage('payment')">💳 Пополнить баланс</button>
+<!-- PROFILE -->
+<div class="page" id="profile">
+ <section class="section">
+  <h2 style="margin-bottom:18px">👤 Профили ман</h2>
+  <div class="profile">
+   <div style="font-size:45px">👤</div>
+   <h2 id="userName" style="margin:10px 0">VELOX USER</h2>
+   <p class="muted">Telegram ID: <span id="userId">—</span></p>
+   <hr style="border-color:#303746;margin:15px 0">
+   <p>💎 Баланс: <b id="profileBalance">0 с</b></p>
+  </div>
+  <div class="profile">
+   <div class="profile-row">🎁 Мои бонусы</div>
+   <div class="profile-row">🔔 Уведомления</div>
+   <div class="profile-row" onclick="support()">🎧 Поддержка</div>
+   <div class="profile-row">🌐 Язык: Тоҷикӣ</div>
+   <div class="profile-row">ℹ️ О приложении VELOX</div>
+  </div>
+ </section>
 </div>
 
-<div class="section">
- <div class="row"><span>Всего заказов</span><b id="orderCount">0</b></div>
- <hr style="border-color:#29416b;margin:12px 0">
- <div class="row"><span>Выполнено</span><b class="status">0</b></div>
- <hr style="border-color:#29416b;margin:12px 0">
- <div class="row"><span>В процессе</span><b class="yellow">0</b></div>
-</div>
-
-<div class="section">
- <div class="menu-item">👑 Мой профиль <span>›</span></div>
- <div class="menu-item" onclick="showPage('orders')">🎁 Мои заказы <span>›</span></div>
- <div class="menu-item">⭐ Мои бонусы <span>›</span></div>
- <div class="menu-item">🔔 Уведомления <span>›</span></div>
- <div class="menu-item">🎧 Поддержка <span>@VELOX_UC</span></div>
- <div class="menu-item">🌐 Язык <span>Русский</span></div>
- <div class="menu-item">ℹ️ О приложении <span>1.0.0</span></div>
-</div>
-</main>
-
-<!-- ПОПОЛНЕНИЕ -->
-<main id="payment" class="page">
-<div class="row">
- <h2>Пополнить баланс</h2>
- <span class="blue" id="paymentBalance">0 сомони</span>
-</div>
-<p class="muted" style="margin:12px 0">Выберите удобный способ пополнения</p>
-
-<h3 style="margin-top:25px">СПОСОБ ОПЛАТЫ</h3>
-
-<div class="payment-option active" onclick="selectPayment(this,'DC City Dushanbe')">
- <div><b>DC CITY DUSHANBE</b><p class="muted">Банковский перевод</p></div>
- <b>✓</b>
-</div>
-<div class="payment-option" onclick="selectPayment(this,'Spitamen Pay')">
- <div><b>SPITAMEN PAY</b><p class="muted">Spitamen Pay</p></div>
- ○
-</div>
-<div class="payment-option" onclick="selectPayment(this,'Payme')">
- <div><b>PAYME</b><p class="muted">Payme</p></div>
- ○
-</div>
-
-<h3 style="margin:25px 0 15px">ВЫБЕРИТЕ СУММУ</h3>
-<div class="amounts">
- <button onclick="setAmount(10,this)">10 сомони</button>
- <button onclick="setAmount(20,this)">20 сомони</button>
- <button onclick="setAmount(50,this)">50 сомони</button>
- <button onclick="setAmount(100,this)">100 сомони</button>
- <button onclick="setAmount(500,this)">500 сомони</button>
-</div>
-
-<div class="section">
- <p class="muted">Другая сумма (5 - 50 000 сомони)</p>
- <input type="number" id="customAmount" placeholder="Введите сумму" oninput="amount=Number(this.value)">
-</div>
-
-<div class="section">
- <h3>Информация</h3>
- <p class="muted">Минимальная сумма: 5 сомони</p>
- <p class="muted">Максимальная сумма: 50 000 сомони</p>
- <p class="muted">Проверка платежа выполняется администрацией.</p>
-</div>
-
-<button class="primary" onclick="pay()">➤ Оплатить и отправить</button>
-</main>
-
+<!-- BOTTOM NAV -->
 <nav class="bottom">
- <button class="active" onclick="showPage('home',this)"><span>⌂</span>Главный</button>
- <button onclick="showPage('reviews',this)"><span>☆</span>Отзывы</button>
- <button onclick="showPage('orders',this)"><span>▤</span>Заказы</button>
- <button onclick="showPage('profile',this)"><span>♙</span>Профиль</button>
+ <button class="nav active" onclick="showPage('home',this)">
+  <span>⌂</span>Дӯкон
+ </button>
+ <button class="nav" onclick="showPage('wallet',this)">
+  <span>▣</span>Баланс
+ </button>
+ <button class="nav" onclick="showPage('orders',this)">
+  <span>☑</span>Фармоишҳо
+ </button>
+ <button class="nav" onclick="showPage('profile',this)">
+  <span>◎</span>Профил
+ </button>
+ <button class="nav" onclick="showPage('orders',this)">
+  <span>🛒</span>Сабад
+ </button>
 </nav>
 
-<script>
-const tg=window.Telegram?.WebApp;
-tg?.ready();
-tg?.expand();
+<!-- PRODUCT MODAL -->
+<div class="modal-bg" id="productModal">
+ <div class="modal">
+  <button class="close" onclick="closeModal()">×</button>
+  <h2>💎 Хариди UC</h2>
+  <p id="selectedProduct" class="muted"></p>
+  <input id="pubgId" placeholder="PUBG ID-и худро нависед">
+  <p id="selectedPrice" style="color:#55b5ff;font-weight:bold"></p>
+  <button class="buy" onclick="createOrder()">Тасдиқи фармоиш</button>
+ </div>
+</div>
 
-let products=[
- {uc:30,price:6},{uc:60,price:10},
- {uc:325,price:48},{uc:660,price:92},
- {uc:1320,price:184},{uc:1800,price:240},
- {uc:3850,price:450},{uc:8100,price:870},
- {uc:16200,price:1660},{uc:24300,price:2480}
+<!-- BALANCE MODAL -->
+<div class="modal-bg" id="balanceModal">
+ <div class="modal">
+  <button class="close" onclick="closeBalance()">×</button>
+  <h2>💳 Пур кардани баланс</h2>
+  <p class="muted">Маблағро бо сомонӣ ворид кунед</p>
+  <input id="amount" type="number" placeholder="Масалан: 50">
+  <button class="buy" onclick="requestPayment()">Идома</button>
+ </div>
+</div>
+
+<script>
+const tg = window.Telegram?.WebApp;
+if(tg){tg.ready();tg.expand();}
+
+const products=[
+ {name:"30 UC",price:6},
+ {name:"60 UC",price:10},
+ {name:"325 UC",price:48},
+ {name:"660 UC",price:92},
+ {name:"1320 UC",price:184},
+ {name:"1800 UC",price:240},
+ {name:"3850 UC",price:450},
+ {name:"8100 UC",price:870},
+ {name:"16200 UC",price:1660},
+ {name:"24300 UC",price:2480}
 ];
 
-let selected=products[1];
-let quantity=2;
-let amount=10;
-let method="DC City Dushanbe";
-let orders=[];
+let selected=null;
 let balance=0;
+let orders=[];
 
-const $=id=>document.getElementById(id);
-
-function renderProducts(){
- $("products").innerHTML=products.map((p,i)=>`
+function renderProducts(list=products){
+ document.getElementById("products").innerHTML=list.map((p,i)=>`
  <div class="product">
-  <div class="coin">💰</div>
-  <div class="product-info">
-   <b>${p.uc} UC</b>
-   <div class="price">${p.price} сомони</div>
-  </div>
-  <button class="cart" onclick="chooseProduct(${i})">🛒</button>
- </div>
- `).join("");
+  <div class="uc-icon">💎</div>
+  <h3>${p.name}</h3>
+  <div class="price">${p.price} сомонӣ</div>
+  <button class="buy" onclick="buyProduct('${p.name}',${p.price})">
+   Харидан
+  </button>
+ </div>`).join("");
 }
-function chooseProduct(i){
- selected=products[i];
- quantity=1;
- updateCalc();
+
+function buyProduct(name,price){
+ selected={name,price};
+ document.getElementById("selectedProduct").innerText=name;
+ document.getElementById("selectedPrice").innerText=
+ "Нарх: "+price+" сомонӣ";
+ document.getElementById("pubgId").value="";
+ document.getElementById("productModal").style.display="flex";
 }
-function changeQty(n){
- quantity=Math.max(1,Math.min(100,quantity+n));
- updateCalc();
-}
-function updateCalc(){
- $("calcName").textContent=selected.uc+" UC";
- $("calcPrice").textContent=selected.price+" сомони / дона";
- $("qty").textContent=quantity;
- $("totalUC").textContent=(selected.uc*quantity)+" UC";
- $("onePrice").textContent=selected.price+" сомони";
- $("totalPrice").textContent=(selected.price*quantity)+" сомони";
-}
-function showPage(id,btn){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- $(id).classList.add("active");
- document.querySelectorAll(".bottom button").forEach(b=>b.classList.remove("active"));
- if(btn)btn.classList.add("active");
- if(id==="payment"){
-  $("paymentBalance").textContent=balance+" сомони";
- }
- window.scrollTo(0,0);
-}
-function sendOrder(){
- let uid=$("uid").value.trim();
- let player=$("player").value.trim();
- if(!uid||!player){
-  alert("PUBG UID ва номи бозигарро ворид кунед!");
-  return;
- }
- let order={
-  id:Date.now(),
-  uid,player,
-  uc:selected.uc*quantity,
-  price:selected.price*quantity,
-  status:"В процессе"
+
+function createOrder(){
+ const id=document.getElementById("pubgId").value.trim();
+ if(!id){alert("Лутфан PUBG ID-ро ворид кунед");return;}
+ if(!selected)return;
+ const order={
+  name:selected.name,
+  price:selected.price,
+  id:id,
+  status:"Интизорӣ"
  };
  orders.unshift(order);
  renderOrders();
- alert("Фармоиш сабт шуд! Барои тасдиқ ба администратор пайваст шавед.");
- $("uid").value="";
- $("player").value="";
- $("orderCount").textContent=orders.length;
-}
-function renderOrders(){
- $("orderList").innerHTML=orders.length?orders.map(o=>`
- <div class="card">
-  <div class="row"><b>#${o.id.toString().slice(-8)}</b><span class="yellow">${o.status}</span></div>
-  <p style="margin-top:15px"><b>${o.uc} UC</b></p>
-  <p class="price">${o.price} сомони</p>
-  <p class="muted">UID: ${o.uid}</p>
-  <p class="muted">Бозигар: ${o.player}</p>
- </div>`).join(""):"<p class='muted'>Ҳоло фармоиш нест.</p>";
-}
-function setAmount(n,btn){
- amount=n;
- $("customAmount").value="";
- document.querySelectorAll(".amounts button").forEach(b=>b.classList.remove("active"));
- btn.classList.add("active");
-}
-function selectPayment(el,name){
- method=name;
- document.querySelectorAll(".payment-option").forEach(p=>p.classList.remove("active"));
- el.classList.add("active");
-}
-function pay(){
- let n=Number($("customAmount").value)||amount;
- if(n<5||n>50000){
-  alert("Маблағ бояд аз 5 то 50 000 сомони бошад!");
-  return;
+ closeModal();
+
+ if(tg){
+  tg.sendData(JSON.stringify({
+   type:"new_order",...order
+  }));
+  tg.showAlert("Фармоиш ба бот фиристода шуд.");
+ }else{
+  alert("Фармоиш дар намоиши тестӣ сабт шуд.");
  }
- alert("Дархости пардохт: "+n+" сомони\nУсул: "+method+"\nБарои пардохти воқеӣ сервер лозим аст.");
 }
-let reviews=[
- {name:"Сухроб",uc:325,price:48,text:"Быстро получил UC, всё отлично!",stars:5},
- {name:"Далер",uc:660,price:92,text:"Отличный сервис, пришло моментально.",stars:5},
- {name:"Махмуд",uc:1800,price:240,text:"Всё быстро и надёжно!",stars:4},
- {name:"Абдулло",uc:8100,price:870,text:"Лучший магазин UC!",stars:5}
-];
-function renderReviews(){
- $("reviewList").innerHTML=reviews.map(r=>`
- <div class="card">
-  <div class="row"><b>${r.name}</b><b>${r.uc} UC</b></div>
-  <div class="stars">${"★".repeat(r.stars)}${"☆".repeat(5-r.stars)}</div>
-  <p>${r.text}</p>
-  <p class="status" style="margin-top:12px">● Заказ выполнен</p>
+
+function renderOrders(){
+ const el=document.getElementById("orderList");
+ if(!orders.length)return;
+ el.className="";
+ el.innerHTML=orders.map(o=>`
+ <div class="profile" style="text-align:left">
+  <b>💎 ${o.name}</b>
+  <p class="muted" style="margin:9px 0">ID: ${o.id}</p>
+  <p style="color:#54b3ff">${o.price} сомонӣ</p>
+  <p class="muted" style="margin-top:8px">Статус: ${o.status}</p>
  </div>`).join("");
 }
-function addReview(){
- let name=$("reviewName").value.trim();
- let text=$("reviewText").value.trim();
- if(!name||!text){alert("Ҳама майдонҳоро пур кунед!");return}
- reviews.unshift({
-  name, text,
-  stars:Number($("reviewStars").value),
-  uc:0,price:0
- });
- renderReviews();
- $("reviewName").value="";
- $("reviewText").value="";
- alert("Отзыв добавлен в демонстрационный список.");
-}
-if(tg?.initDataUnsafe?.user){
- const user=tg.initDataUnsafe.user;
- $("profileName").textContent=user.first_name||"VELOX";
- $("telegramID").textContent="Telegram ID: "+user.id;
-}
-renderProducts();
-renderReviews();
-updateCalc();
-renderOrders();
-</script>
 
+function showPage(id,btn){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".nav").forEach(n=>n.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+ window.scrollTo(0,0);
+}
+
+function showProducts(){
+ showPage("home");
+ document.getElementById("products").scrollIntoView({behavior:"smooth"});
+}
+
+function searchProducts(){
+ const q=document.getElementById("search").value.toLowerCase();
+ const found=products.filter(p=>p.name.toLowerCase().includes(q));
+ renderProducts(found);
+}
+
+function openBalance(){
+ document.getElementById("balanceModal").style.display="flex";
+}
+function closeBalance(){
+ document.getElementById("balanceModal").style.display="none";
+}
+function closeModal(){
+ document.getElementById("productModal").style.display="none";
+}
+
+function requestPayment(){
+ const amount=Number(document.getElementById("amount").value);
+ if(!amount||amount<5||amount>50000){
+  alert("Маблағ бояд аз 5 то 50000 сомонӣ бошад");
+  return;
+ }
+ if(tg){
+  tg.sendData(JSON.stringify({
+   type:"balance_request",amount:amount
+  }));
+  tg.showAlert("Дархости пур кардани баланс фиристода шуд.");
+ }else{
+  alert("Ин қисми пардохт ҳоло ба сервер пайваст нест.");
+ }
+ closeBalance();
+}
+
+function support(){
+ if(tg){
+  tg.openTelegramLink("https://t.me/VELOX_UC");
+ }else{
+  window.open("https://t.me/VELOX_UC","_blank");
+ }
+}
+
+if(tg?.initDataUnsafe?.user){
+ const u=tg.initDataUnsafe.user;
+ document.getElementById("userName").innerText=
+ u.first_name||"VELOX USER";
+ document.getElementById("userId").innerText=u.id||"—";
+}
+
+renderProducts();
+</script>
 </body>
-    </html>
-    
+ </html>
+ 
